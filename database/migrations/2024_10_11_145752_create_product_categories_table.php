@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('banners', function (Blueprint $table) {
+        Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 150);
-            $table->string('link', 2040)->nullable();
-            $table->string('image', 2040);
-            $table->string('image_rx', 2040);
-            $table->string('image_mv', 2040) -> nullable();
+            $table->string('title', 384);
+            $table->string('slug', 512)->unique();
+            $table->string('image', 2040)->nullable();
+            $table->string('image_rx', 2040)->nullable();
+            $table->boolean('is_featured')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banners');
+        Schema::dropIfExists('product_categories');
     }
 };
