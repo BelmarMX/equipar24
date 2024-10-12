@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('form_contacts', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
+            $table->uuid()->unique();
             $table->string('name', 254);
             $table->string('email', 254)->unique();
             $table->string('phone', 16)->nullable();

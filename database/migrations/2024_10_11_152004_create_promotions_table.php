@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
-
             $table->string('title', 384);
             $table->string('slug', 512);
             $table->string('image', 2040);

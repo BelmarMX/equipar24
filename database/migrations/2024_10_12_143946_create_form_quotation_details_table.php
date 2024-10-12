@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('form_submit_id')->constrained('form_submits')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignId('promotion_id')->nullable()->constrained('promotions')->onDelete('set null');
+            $table->uuid()->unique();
             $table->integer('quantity')->default(1);
             $table->string('product_name');
             $table->decimal('original_price', 10, 2);
