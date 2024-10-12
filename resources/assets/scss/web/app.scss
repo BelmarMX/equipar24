@@ -1,0 +1,11 @@
+$bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
+$public_path: "../../../../public/";
+
+@import '_variables';
+
+@import 'bootstrap';
+@import 'bootstrap-icons';
+
+@import '_mixins';
+@import '_keyframes';
+@import '_front-styles';
