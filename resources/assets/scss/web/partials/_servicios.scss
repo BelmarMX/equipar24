@@ -1,0 +1,127 @@
+#partial__servicios{
+	background: $gray_equipar;
+	padding-top: 80px;
+	padding-bottom: 80px;
+	position: relative;
+	&:after{
+		content: "";
+		background: url("#{$public_path}images/layout/ServicesPartialBackground.png") center center;
+		opacity: 0.35;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		position: absolute;
+		z-index: 1000;
+	}
+	.partial__servicios{
+		position: relative;
+		z-index: 1002;
+		.partial__servicios--cta{
+			color: $white;
+			font-size: 1rem;
+			font-weight: $font-bold;
+			text-transform: uppercase;
+			text-align: right;
+			strong{
+				font-size: 2rem;
+				font-weight: $font-thin;
+				line-height: 100%;
+				display: block;
+			}
+		}
+		.partial__servicios--img{
+			a,
+			div{
+				display: block;
+				max-width: 190px;
+				border-radius: 6px;
+				@include boxshadow();
+				@include ease(.25s);
+				img{
+					border-radius: 5px 5px 0 0;
+				}
+				span{
+					text-transform: uppercase;
+					background: $gray_equipar;
+					padding: 10px;
+					border-radius: 0 0 6px 6px;
+					display: block;
+					color: $white;
+					font-weight: $font-bold;
+					text-align: center;
+				}
+
+				&:hover{
+					transform: scale(1.015);
+					margin-top: -35px;
+				}
+			}
+		}
+	}
+}
+
+#services__link_container{
+	background: $gray_equipar;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	a{
+		position: relative;
+		text-transform: uppercase;
+		color: $white;
+		width: 50%;
+		padding: 8px 0;
+		text-align: center;
+
+		&:not(.active):hover{
+			color: $gold_equipar;
+		}
+
+		&.active{
+			background: $primary-color;
+			&:before{
+				position: absolute;
+				background: $primary_color;
+				content: '';
+				top: 0;
+				right: -24px;
+				border-top: 37px solid $primary_color;
+				border-right: 24px solid $gray_equipar;
+				width: 0;
+				margin-left: -40px;
+			}
+		}
+		&:last-child{
+			&.active{
+				background: $primary-color;
+				&:before{
+					position: absolute;
+					background: $primary_color;
+					content: '';
+					top: 0;
+					left: 16px;
+					border-top: 37px solid $gray_equipar;
+					border-right: 24px solid $primary_color;
+					width: 0;
+					margin-left: -40px;
+				}
+			}
+		}
+	}
+}
+
+.service__container{
+	.service__container--img{
+		border-bottom: 6px solid $gold_equipar;
+		margin-bottom: 2rem;
+	}
+	h2{
+		text-align: left;
+		margin-bottom: .5rem;
+
+		&:after{
+			border: none;
+		}
+	}
+}

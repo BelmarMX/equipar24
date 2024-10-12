@@ -1,0 +1,331 @@
+.product__card{
+	.product__card__wrap{
+		min-height: 320px;
+		min-width: 248px;
+		.product__card__behind{
+			position: absolute;
+			background: $gray_equipar;
+			width: 200px;
+			height: 270px;
+			top: 0;
+			right: 0;
+			border-radius: 6px;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			.product__card__behind--tag{
+				display: flex;
+				width: 46px;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				color: $white;
+				font-weight: $font-light;
+				text-transform: uppercase;
+				writing-mode: tb-rl;
+				height: calc(100% - 40px);
+				&.categoria{
+					letter-spacing: 2px;
+				}
+			}
+			a.product__card__behind--tag {
+				&:hover{
+					color: $gold_equipar;
+				}
+			}
+			.product__card__front{
+				position: absolute;
+				background: $white;
+				width: 200px;
+				height: 270px;
+				top: 40px;
+				right: 44px;
+				border-radius: 6px;
+				@include boxshadow();
+				@include ease(.25s);
+
+				&.gray_light{
+					background: $gray_light;
+				}
+
+				.product__card__front--number
+				{
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					font-size: 1.25rem;
+				}
+
+				.product__card__front--number,
+				button{
+					position: absolute;
+					background: $gold_equipar;
+					border: none;
+					top: 0;
+					left: 0;
+					border-radius: 6px 0 20px 0;
+					width: 36px;
+					height: 36px;
+					color: $white;
+					z-index: 1000;
+					@include ease();
+					i{
+						color: $white;
+						font-size: 22px;
+					}
+					&:hover{
+						background: $gray_equipar;
+						color: $gold_equipar;
+						i{
+							color: $gold_equipar
+						}
+					}
+				}
+				a{
+					display: flex;
+					width: 100%;
+					height: 100%;
+					align-items: center;
+					justify-content: center;
+					.product__card__front--flete{
+						position: absolute;
+						top: 30px;
+						right: -10px;
+						z-index: 1;
+						background: red;
+						border-radius: 18px 0;
+						color: #fff;
+						display: inline-block;
+						font-size: .95rem;
+						font-weight: 400;
+						letter-spacing: .015rem;
+						max-width: 294px;
+						padding: 1px 10px;
+					}
+					.product__card__front--price{
+						position: absolute;
+						display: block;
+						text-align: right;
+						top: 0;
+						background: #ead7b3;
+						color: $secondary_color;
+						padding: 5px;
+						font-size: 1.05rem;
+						width: 100%;
+						font-weight: $font-bold;
+						border-radius: 6px 6px 0 0;
+						.discount{
+							font-weight: $font-regular;
+							display: block;
+							margin-right: -10px;
+							margin-top: -5px;
+							margin-bottom: .25rem;
+							.old_price{
+								text-decoration: line-through;
+							}
+							.percent{
+								padding: .35rem;
+								background: $danger;
+								color: $white;
+								border-radius: 0 5px 0 0;
+								font-size: .9rem;
+							}
+						}
+					}
+					.product__card__front--model{
+						position: absolute;
+						display: block;
+						width: 100%;
+						padding: 10px;
+						background: $gold_equipar;
+						border-radius: 0 0 6px 6px;
+						color: $white;
+						text-transform: uppercase;
+						bottom: 0;
+						line-height: 100%;
+					}
+					.product__card__front--brand{
+						display: block;
+						font-size: .8rem;
+						font-weight: $font-light;
+					}
+				}
+
+				&:hover{
+					transform: scale(1.015);
+					top: 35px;
+				}
+			}
+		}
+	}
+	.product__card--title{
+		color: $gray_equipar;
+		text-transform: uppercase;
+		font-weight: $font-regular;
+		text-align: center;
+		display: block;
+		width: 100%;
+		font-size: 16px
+	}
+}
+
+#productos__main_product{
+	background: $gray_equipar;
+	color: $white;
+
+	.productos__main_product__slider{
+		background: $white;
+		position: relative;
+
+		#productos__main_product_slider{
+			z-index: 1002;
+		}
+
+		.carousel-control-prev,
+		.carousel-control-next{
+			width: 7%;
+			i{
+				font-size: 32px;
+				color: $gold_equipar;
+			}
+		}
+
+		&:after{
+			content: "";
+			position: absolute;
+			background: $white;
+			top: -10px;
+			width: calc(100% + 20px);
+			height: calc(100% + 20px);
+			left: -10px;
+			border-radius: 6px;
+			z-index: 1001;
+			@include boxshadow();
+			@include media-breakpoint-down(md)
+			{
+				display: none;
+			}
+		}
+	}
+	.productos__main_product--belongs-to{
+		background: $gold_equipar;
+		border-radius: 10px;
+		text-align: right;
+		padding-right: 10px;
+		margin-bottom: 20px;
+		a{
+			color: $white;
+			text-transform: uppercase;
+			font-weight: $font-light;
+		}
+	}
+	.productos__main_product--title{
+		font-weight: $font-thin;
+		text-transform: uppercase;
+		font-size: 2.15rem;
+		line-height: 2.5rem;
+		margin-bottom: .8rem;
+		&:after{
+			border: none;
+		}
+	}
+	.productos__main_product--summary{
+		text-transform: uppercase;
+		text-align: center;
+		font-weight: $font-light;
+		font-size: 1.15rem;
+	}
+	.productos__main_product--data{
+		position: relative;
+		padding: 0 10px;
+		z-index: 1002;
+		text-align: center;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+
+		.row{
+			z-index: 1003;
+		}
+
+		&:after{
+			content: "";
+			background: rgba($white, .2);
+			position: absolute;
+			top: -0.5rem;
+			left: -5rem;
+			width: calc(100% + 10rem);
+			height: calc(100% + 1rem);
+			z-index: 1001;
+			@include media-breakpoint-down(md)
+			{
+				display: none;
+			}
+		}
+
+		span{
+			text-transform: uppercase;
+			color: $gold_equipar;
+		}
+		h2{
+			margin-bottom: 0;
+			font-weight: $font-thin;
+			font-size: 1.85rem;
+			&:after{
+				border: none;
+			}
+		}
+	}
+
+	.productos__main_product__price{
+		text-align: center;
+
+		.productos__main_product__price--price{
+			background: rgba($gold_equipar, 0);
+			border: 1px solid $gold_equipar;
+			color: $gold_equipar;
+			padding: .375rem .75rem;
+			border-radius: 1.5rem;
+			font-weight: $font-light;
+			font-size: 1.15rem;
+			letter-spacing: 1px;
+			@include ease();
+
+			&:hover{
+				background: rgba($gold_equipar, .1);
+			}
+		}
+		.productos__main_product__price--currency{
+			font-size: .9rem;
+			letter-spacing: 0;
+		}
+		.productos__main_product__price--flete{
+			border-radius: 50%;
+			background: $primary;
+			padding: 5px;
+			margin-left: 5px;
+			i{
+				color: $white;
+				font-size: 20px;
+				margin-left: 1px;
+			}
+		}
+	}
+}
+
+#productos__technical-information{
+	h3{
+		&:after{
+			border: none;
+		}
+	}
+	p{
+		line-height: 140%;
+		font-weight: $font-light;
+
+		strong{
+			font-weight: $font-bold;
+			font-size: 1.2rem;
+			color: $blue_equipar;
+		}
+	}
+}

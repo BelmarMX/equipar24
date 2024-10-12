@@ -1,0 +1,52 @@
+.scroll_categories{
+	background: $gray_equipar;
+	position: relative;
+	padding: 3px 20px;
+	border-radius: 6px;
+	margin-bottom: 5rem;
+
+	@include scrollbar();
+
+	.scroll_categories--tag{
+		background: $gray_light;
+		color: $blue_equipar;
+		text-transform: lowercase;
+		padding: 0 10px;
+		text-align: center;
+		border-radius: 8px;
+		position: absolute;
+		top: -18px;
+		@include boxshadow();
+		i{
+			font-size: 20px;
+			display: inline-block;
+			transform: rotate(15deg);
+		}
+	}
+	.scroll_categories--list{
+		margin: 0;
+		padding: 0;
+		overflow-x: auto;
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
+		li{
+			list-style: none;
+			margin: 0;
+			padding: 16px 20px;
+			text-align: center;
+			a{
+				color: $white;
+				font-weight: $font-light;
+				text-transform: uppercase;
+				letter-spacing: .05rem;
+				&.active{
+					font-weight: $font-bold;
+				}
+				&:hover{
+					color: $gold_equipar;
+				}
+			}
+		}
+	}
+}

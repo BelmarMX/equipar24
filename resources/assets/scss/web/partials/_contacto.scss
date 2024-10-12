@@ -1,0 +1,67 @@
+.custom_form{
+	@include boxshadow(2px, 6px);
+	border-radius: 6px;
+
+	[class*="col-"]{
+		position: relative;
+	}
+
+	.form-label{
+		color: $gold_equipar;
+		text-transform: uppercase;
+		font-weight: $font-light;
+		font-size: 11px;
+		position: absolute;
+		top: -9px;
+		left: 20px;
+	}
+	.form-control,
+	.form-select{
+		background-color: $gray_light;
+		color: $secondary_color;
+		border: none;
+		padding: 8px;
+
+		&::placeholder{
+			color: $blue_equipar;
+			font-weight: $font-light;
+			text-transform: uppercase;
+		}
+		&:focus,
+		&.focus{
+			@include boxshadow(0, 4px, 0, 2px, $gold_equipar, .25);
+		}
+	}
+	.form-select{
+		color: $blue_equipar;
+	}
+}
+
+.contact-location
+{
+	.bi-geo-alt-fill {
+		color: $gold_equipar;
+		font-size: 28px;
+		vertical-align: baseline;
+	}
+	h3{
+		margin: 0;
+		text-transform: none;
+		text-align: left;
+		display: inline-block;
+		&:after{
+			border: none;
+		}
+	}
+	p{
+		margin-bottom: 0;
+		padding-left: 28px;
+
+		a{
+			color: $blue_equipar;
+			&:hover{
+				color: $gold_equipar;
+			}
+		}
+	}
+}

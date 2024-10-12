@@ -1,0 +1,36 @@
+@mixin ease($delay: .5s) {
+	-webkit-transition: all $delay ease-in-out;
+	-moz-transition: all $delay ease-in-out;
+	-ms-transition: all $delay ease-in-out;
+	-o-transition: all $delay ease-in-out;
+	transition: all $delay ease-in-out;
+}
+
+@mixin boxshadow($right: 2px, $down: 2px, $spread: 6px, $blur: 2px, $color: #000, $opacity: .3)
+{
+	-webkit-box-shadow: $right $down $spread $blur rgba($color, $opacity);
+	box-shadow: $right $down $spread $blur rgba($color, $opacity);
+}
+
+@mixin scrollbar()
+{
+	/* width */
+	::-webkit-scrollbar {
+		height: 6px;
+		width: 8px;
+	}
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: $gray_equipar;
+		border-radius: 4px;
+	}
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: $gold_equipar;
+		border-radius: 4px;
+	}
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		background: lighten($gold_equipar, 10%);
+	}
+}

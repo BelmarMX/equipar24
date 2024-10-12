@@ -1,0 +1,26 @@
+#portfolio_slider{
+	.carousel-inner{
+		.carousel-item{
+			position: relative;
+			.row{
+				position: absolute;
+				bottom: 0;
+				background: $gray_equipar;
+				color: $white;
+				min-height: 110px;
+				align-items: center;
+				h3{
+					margin: 0;
+				}
+				p{
+					font-weight: $font-light;
+					line-height: 150%;
+				}
+
+				@include media-breakpoint-down(md){
+					position: relative;
+				}
+			}
+		}
+	}
+}
