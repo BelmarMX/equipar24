@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Schema;
 
 class Product extends Model
 {
@@ -67,4 +68,28 @@ class Product extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function featured_products()
+    {
+        return self::where('is_featured', 1)
+            ->orderBy('id', 'DESC')
+            ->get();
+    }
+
+    public static function take_products($take = 4)
+    {
+        return self::orderBy('is_featured', 'DESC')
+            ->orderBy('id', 'DESC')
+            ->take($take)
+            ->get();
+    }
+
+    public static function get_related($product_brand_id, $product_category_id, $product_subcategory_id, $take = 4)
+    {
+        return self::where('product_brand_id', $product_brand_id)
+            ->orWhere('product_category_id', $product_category_id)
+            ->orWhere('product_subcategory_id', $product_subcategory_id)
+            ->take($take)
+            ->inRandomOrder()
+            ->get();
+    }
 }

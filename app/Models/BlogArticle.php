@@ -33,4 +33,10 @@ class BlogArticle extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function get_articles()
+    {
+        return self::where('published_at', '<=', now())
+            ->orderBy('published_at', 'DESC')
+            ->get();
+    }
 }

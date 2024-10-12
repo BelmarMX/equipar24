@@ -17,6 +17,7 @@ class ProductCategory extends Model
         ,   'image'
         ,   'image_rx'
         ,   'is_featured'
+        ,   'order'
     ];
 
     /* ----------------------------------------------------------------------------------------------------------------
@@ -30,4 +31,17 @@ class ProductCategory extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function get_categories()
+    {
+        return ProductCategory::orderBy('order', 'ASC')
+            ->get();
+    }
+
+    public static function get_categories_featured()
+    {
+        return ProductCategory::where('is_featured', 1)
+            ->orderBy('order', 'ASC')
+            ->orderBy('id', 'DESC')
+            ->get();
+    }
 }

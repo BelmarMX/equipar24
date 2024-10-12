@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image_rx', 2040)->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -47,4 +47,11 @@ class Promotion extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function get_promotions()
+    {
+        return self::where('starts_at', '<=', now())
+            ->where('ends_at', '>=', now())
+            ->orderBy('starts_at', 'ASC')
+            ->get();
+    }
 }
