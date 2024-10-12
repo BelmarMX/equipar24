@@ -1,10 +1,10 @@
-@section('title', $meta['titulo'])
-@section('description', $meta['descripcion'])
-@section('image', $meta['imagen'])
-@extends('frontend_v2.master.app')
+@section('title',       'Equipamiento de cocinas industriales')
+@section('description', 'Servicios expertos y eficientes con capacidad para cubrir necesidades derivadas de la creación de una nueva cocina industrial; en tiempo competitivo, diseño eficaz y adaptación de presupuesto')
+@section('image',       url('storage/'.\App\Classes\ImagesSettings::BANNER_FOLDER. !empty($banners) ?? $banners->first()->image))
+@extends('web._layout.master.app')
 
 @section('content')
-    @include('frontend_v2.partials.banner-array', ['banners' => $banners])
+    @include('web._layout.banner.banner-array', ['banners' => $banners])
 
     <main class="container">
         <section id="index__productos_destacados" class="mb-5">
@@ -12,7 +12,7 @@
             <div class="row">
                 @foreach($featured AS $category)
                     <div class="col-md-3 d-flex justify-content-center mb-4">
-                        @include('frontend_v2.partials.product-category-view', [
+                        @include('web.products.partials.product-category-view', [
                                 'position'  => str_pad($loop -> index + 1, 2, '0', STR_PAD_LEFT)
                             ,   'title'     => $category -> title
                             ,   'route'     => route('productos-category-list', $category -> slug)
@@ -22,7 +22,7 @@
                 @endforeach
             </div>
             <div class="text-end">
-                @include('frontend_v2.partials.button-discounts', ['promos' => $promos])
+                @include('web._layout.partials.button-discounts', ['promos' => $promos])
                 <a href="{{ route('productos') }}" class="btn btn-primary">
                     Más categorías
                 </a>
@@ -101,7 +101,7 @@
     </main>
 
     <section id="partial__servicios" class="container-fluid mb-5">
-        @include('frontend_v2.partials.servicios')
+        @include('web.services.partials.servicios')
     </section>
 
     <div class="container">
@@ -113,7 +113,7 @@
                     <img width="800"
                          height="534"
                          class="img-fluid"
-                         src="{{ asset('v2/images/index/areas_de_una_cocina.png') }}"
+                         src="{{ asset('images/index/areas_de_una_cocina.png') }}"
                          alt="Áreas de una Cocina Industrial"
                     >
                     <span class="index__hotspot--spot grow-fast"
@@ -122,7 +122,7 @@
                           data-bs-html="true"
                           title="<strong>RECEPCIÓN DE MERCANCÍA</strong><br>
                                 <p class='text-start hint-fs'>Es el área donde se recibe y se desinfectan las materias primas a procesar.</p>
-                                <img src='{{ asset('v2/images/partes_cocina/recepcion.png') }}' width='500' height='500' alt='render' class='img-fluid'>
+                                <img src='{{ asset('images/partes_cocina/recepcion.png') }}' width='500' height='500' alt='render' class='img-fluid'>
                             "
                     ></span>
                     <span class="index__hotspot--spot grow-fast"
@@ -131,7 +131,7 @@
                           data-bs-html="true"
                           title="<strong>LAVADO DE COCHAMBRE</strong><br>
                                 <p class='text-start hint-fs'>Lavado y desinfección de los elementos utilizados para la transformación y cocción de alimentos, sartenes, ollas, budineras, utensilios etc. Este proceso no debe de realizarse en la misma zona de limpieza de loza. Todos los residuos sépticos y basura generada debe de concentrarse en un lugar fuera de la cocina.</p>
-                                <img src='{{ asset('v2/images/partes_cocina/lavado_ollas.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
+                                <img src='{{ asset('images/partes_cocina/lavado_ollas.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
                             "
                     ></span>
                     <span class="index__hotspot--spot grow-fast"
@@ -140,7 +140,7 @@
                           data-bs-html="true"
                           title="<strong>LAVADO DE LOZA</strong><br>
                                 <p class='text-start hint-fs'>Lugar donde recibimos todos los residuos o sobrantes de los platillos, y procedemos a la limpieza y sanitizacion de los elementos usados, platos, vasos, cubiertos, charolas, este proceso para que se eficiente requiere de una temperatura promedio entre 60 y 70 grados centígrados en el lavado.</p>
-                                <img src='{{ asset('v2/images/partes_cocina/lavado_loza.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
+                                <img src='{{ asset('images/partes_cocina/lavado_loza.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
                             "
                     ></span>
                     <span class="index__hotspot--spot grow-fast"
@@ -149,7 +149,7 @@
                           data-bs-html="true"
                           title="<strong>ALMACEN DE SECOS Y CONGELADOS</strong><br>
                                 <p class='text-start hint-fs'>Aquí es donde se almacenan toda la materia prima seca no perecedera, latas, cereales, condimentos etc.</p>
-                                <img src='{{ asset('v2/images/partes_cocina/almacen_secos_congelados.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
+                                <img src='{{ asset('images/partes_cocina/almacen_secos_congelados.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
                             "
                     ></span>
                     <span class="index__hotspot--spot grow-fast"
@@ -158,7 +158,7 @@
                           data-bs-html="true"
                           title="<strong>ALMACÉN REFRIGERADO</strong><br>
                                 <p class='text-start hint-fs'>Lugar donde se almacena la materia prima que requiere de temperaturas bajas para su mayor conservación, ejemplo , lácteos, frutas y verduras, cárnicos, pescado y mariscos etc.</p>
-                                <img src='{{ asset('v2/images/partes_cocina/almacen_refrigerado.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
+                                <img src='{{ asset('images/partes_cocina/almacen_refrigerado.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
                             "
                     ></span>
                     <span class="index__hotspot--spot grow-fast"
@@ -167,7 +167,7 @@
                           data-bs-html="true"
                           title="<strong>ÁREA DE PREPARACIÓN</strong><br>
                                 <p class='text-start hint-fs'>En esta área se inicia el proceso de transformación de materia prima mediante la limpieza, corte, sazonado, molido, licuado,  por mencionar algunos. Debe estar cerca de los almacenes.</p>
-                                <img src='{{ asset('v2/images/partes_cocina/preparacion.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
+                                <img src='{{ asset('images/partes_cocina/preparacion.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
                             "
                     ></span>
                     <span class="index__hotspot--spot grow-fast"
@@ -176,7 +176,7 @@
                           data-bs-html="true"
                           title="<strong>ÁREA DE COCCIÓN</strong><br>
                                 <p class='text-start hint-fs'>Proceso de cocimiento en la preparación de alimentos, esta puede ser en seco, húmedo o combinado, freír, hervir, guisar, saltear, hornear, etc.</p>
-                                <img src='{{ asset('v2/images/partes_cocina/coccion.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
+                                <img src='{{ asset('images/partes_cocina/coccion.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
                             "
                     ></span>
                     <span class="index__hotspot--spot grow-fast"
@@ -185,7 +185,7 @@
                           data-bs-html="true"
                           title="<strong>SERVICIO DE ENTREGA DE ALIMENTOS</strong><br>
                                 <p class='text-start hint-fs'>Espacio destinado para el armado y entrega de platillos, el cual puede ser frio o caliente.</p>
-                                <img src='{{ asset('v2/images/partes_cocina/entrega.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
+                                <img src='{{ asset('images/partes_cocina/entrega.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
                             "
                     ></span>
                     <span class="index__hotspot--spot grow-fast"
@@ -194,7 +194,7 @@
                           data-bs-html="true"
                           title="<strong>BARRA DE COMPLEMENTOS</strong><br>
                                 <p class='text-start hint-fs'>Zona cercana a la zona de entrega donde se suministran complementos como pueden ser, cubiertos, bebidas, especies, hielo, tostadas, salsas, etc.</p>
-                                <img src='{{ asset('v2/images/partes_cocina/barra_complementos.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
+                                <img src='{{ asset('images/partes_cocina/barra_complementos.png') }}' width='500' height='500' alt='render' class='img-fluid mb-2'>
                             "
                     ></span>
                 </div>
@@ -207,7 +207,7 @@
                 <img width="{{ env('BANNER_WIDTH') }}"
                      height="{{ env('BANNER_HEIGHT') }}"
                      class="img-fluid w-100 border-radius-txb"
-                     src="{{ asset('v2/images/index/algunos-proyectos.jpg') }}"
+                     src="{{ asset('images/index/algunos-proyectos.jpg') }}"
                      alt="Algunos de nuestros proyectos"
                 >
             </a>
@@ -219,7 +219,7 @@
                 <img width="{{ env('BANNER_WIDTH') }}"
                      height="{{ env('BANNER_HEIGHT') }}"
                      class="img-fluid w-100"
-                     src="{{ asset('v2/images/index/algunos-planos.jpg') }}"
+                     src="{{ asset('images/index/algunos-planos.jpg') }}"
                      alt="Algunos de nuestros planos"
                 >
             </a>
@@ -231,7 +231,7 @@
                 <img width="{{ env('BANNER_WIDTH') }}"
                      height="{{ env('BANNER_HEIGHT') }}"
                      class="img-fluid w-100 border-radius-bxt"
-                     src="{{ asset('v2/images/index/algunos-renders.jpg') }}"
+                     src="{{ asset('images/index/algunos-renders.jpg') }}"
                      alt="Algunos de nuestros renders"
                 >
             </a>
@@ -243,98 +243,98 @@
                 <div class="carousel-inner row">
                     <div class="carousel-item active">
                         <div class="row gx-1 justify-content-center align-items-center">
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'HEB'
-                                ,   'image' => asset('v2/images/clients/heb.png')
+                                ,   'image' => asset('images/clients/heb.png')
                                 ,   'link'  => 'https://www.heb.com.mx/'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Continental'
-                                ,   'image' => asset('v2/images/clients/continental.png')
+                                ,   'image' => asset('images/clients/continental.png')
                                 ,   'link'  => 'https://www.continental.com/en/'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Atlas Colomos'
-                                ,   'image' => asset('v2/images/clients/atlas-colomos.png')
+                                ,   'image' => asset('images/clients/atlas-colomos.png')
                                 ,   'link'  => 'https://colomos.atlas.com.mx/'
                                 ,   'dark'  => TRUE
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Grupo Vidanta'
-                                ,   'image' => asset('v2/images/clients/grupo-vidanta.png')
+                                ,   'image' => asset('images/clients/grupo-vidanta.png')
                                 ,   'link'  => 'https://www.grupovidanta.com/'
                             ])
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row gx-1 justify-content-center align-items-center">
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                    'name'  => 'Restaurante Save'
-                               ,   'image' => asset('v2/images/clients/save.png')
+                               ,   'image' => asset('images/clients/save.png')
                                ,   'link'  => 'https://restaurante-save.mx/'
                            ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Panamá Pastelerías'
-                                ,   'image' => asset('v2/images/clients/panama.png')
+                                ,   'image' => asset('images/clients/panama.png')
                                 ,   'link'  => 'https://panama.com.mx/'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Buffalo Wild Wings'
-                                ,   'image' => asset('v2/images/clients/buffalo-wild-wings.png')
+                                ,   'image' => asset('images/clients/buffalo-wild-wings.png')
                                 ,   'link'  => 'https://www.buffalowildwings.com.mx/'
                                 ,   'dark'  => TRUE
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Casa Valadez'
-                                ,   'image' => asset('v2/images/clients/casa-valadez.webp')
+                                ,   'image' => asset('images/clients/casa-valadez.webp')
                                 ,   'link'  => 'https://www.casavaladez.com/'
                             ])
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row gx-1 justify-content-center align-items-center">
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Sushi Express'
-                                ,   'image' => asset('v2/images/clients/sushi-express.svg')
+                                ,   'image' => asset('images/clients/sushi-express.svg')
                                 ,   'link'  => 'https://sushiexpress.com.mx/#/'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Hyatt Ziva'
-                                ,   'image' => asset('v2/images/clients/hyatt-ziva.webp')
+                                ,   'image' => asset('images/clients/hyatt-ziva.webp')
                                 ,   'link'  => 'https://www.hyatt.com/en-US/hotel/mexico/hyatt-ziva-puerto-vallarta/pvrif'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Bruna'
-                                ,   'image' => asset('v2/images/clients/bruna.png')
+                                ,   'image' => asset('images/clients/bruna.png')
                                 ,   'link'  => 'https://www.bruna.com.mx/bruna.php'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Pachinos'
-                                ,   'image' => asset('v2/images/clients/pachinos.png')
+                                ,   'image' => asset('images/clients/pachinos.png')
                                 ,   'link'  => 'https://pachinos.mx/'
                             ])
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row gx-1 justify-content-center align-items-center">
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Ultra Laboratorios'
-                                ,   'image' => asset('v2/images/clients/ultra-labs.png')
+                                ,   'image' => asset('images/clients/ultra-labs.png')
                                 ,   'link'  => 'https://ultralaboratorios.com.mx/en/home/'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'El Ancladero'
-                                ,   'image' => asset('v2/images/clients/elancladero.jpeg')
+                                ,   'image' => asset('images/clients/elancladero.jpeg')
                                 ,   'link'  => 'https://www.facebook.com/ElAncladero/'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Mariscos El Burritas'
-                                ,   'image' => asset('v2/images/clients/mariscos-el-burritas.jpeg')
+                                ,   'image' => asset('images/clients/mariscos-el-burritas.jpeg')
                                 ,   'link'  => 'https://www.facebook.com/mariscoselburritas/'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'ITT'
-                                ,   'image' => asset('v2/images/clients/itt.png')
+                                ,   'image' => asset('images/clients/itt.png')
                                 ,   'link'  => 'https://www.itt.com/home'
                             ])
 
@@ -342,20 +342,20 @@
                     </div>
                     <div class="carousel-item">
                         <div class="row gx-1 justify-content-center align-items-center">
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Cooper Standard'
-                                ,   'image' => asset('v2/images/clients/cooper-standard.svg')
+                                ,   'image' => asset('images/clients/cooper-standard.svg')
                                 ,   'link'  => 'http://www.cooperstandard.com/'
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Sinergia Alimenta'
-                                ,   'image' => asset('v2/images/clients/sinergia.svg')
+                                ,   'image' => asset('images/clients/sinergia.svg')
                                 ,   'link'  => 'http://www.sinergiaalimenta.com/'
                                 ,   'dark'  => TRUE
                             ])
-                            @include('frontend_v2.partials.clientes-anchor', [
+                            @include('web._layout.partials.clientes-anchor', [
                                     'name'  => 'Hirotec'
-                                ,   'image' => asset('v2/images/clients/hirotec.png')
+                                ,   'image' => asset('images/clients/hirotec.png')
                                 ,   'link'  => 'https://www.hirotec.co.jp/eng/group/mexico.html'
                             ])
                         </div>
@@ -366,7 +366,7 @@
 
         <section id="index__marcas">
             <h2>Nuestras marcas</h2>
-            @include('frontend_v2.partials.marcas')
+            @include('web.products.partials.marcas')
         </section>
 
         <section id="index__blog" class="mb-5">
@@ -374,7 +374,7 @@
             <div class="row">
                 @foreach($articles AS $blog)
                     <div class="col-md-4">
-                        @include('frontend_v2.partials.blog-view', [
+                        @include('web._layout.blog.partials.blog-view', [
                                 'title'             => $blog -> titleA
                             ,   'link'              => route('blog-open', [
                                     $blog -> slugC, $blog -> slugA
