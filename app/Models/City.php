@@ -6,47 +6,40 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FormContact extends Model
+class City extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-            'uuid'
-        ,   'state_id'
-        ,   'city_id'
+            'state_id'
+        ,   'code'
         ,   'name'
-        ,   'email'
-        ,   'phone'
-        ,   'company'
+        ,   'variant'
     ];
 
     /* ----------------------------------------------------------------------------------------------------------------
      * RELATIONSHIP
     ----------------------------------------------------------------------------------------------------------------- */
-    public function form_submits(): HasMany
-    {
-        return $this->hasMany(FormSubmit::class);
-    }
-
-    public function form_quotation_details(): HasManyThrough
-    {
-        return $this->hasManyThrough(FormQuotationDetail::class, FormSubmit::class);
-    }
-
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);
     }
 
-    public function city(): BelongsTo
+    public function form_contacts(): HasMany
     {
-        return $this->belongsTo(City::class);
+        return $this->hasMany(FormContact::class);
     }
 
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function get_cities($state_id)
+    {
+        return self::select(['id', 'name'])
+            ->where('state_id', $state_id)
+            ->orderBy('name', 'ASC')
+            ->get();
+    }
 }

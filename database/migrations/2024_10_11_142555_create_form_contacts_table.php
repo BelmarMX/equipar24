@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('form_contacts', function (Blueprint $table) {
             $table->id();
             $table->uuid()->unique();
+            $table->foreignId('state_id')->nullable()->constrained('states')->onDelete('set null');
+            $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('set null');
             $table->string('name', 254);
             $table->string('email', 254)->unique();
             $table->string('phone', 16)->nullable();
             $table->string('company', 254)->nullable();
-            $table->string('city', 128)->nullable();
-            $table->string('state', 64)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
