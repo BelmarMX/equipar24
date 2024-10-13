@@ -7,16 +7,21 @@
 	}
 
 	.form-label{
-		color: $gold_equipar;
+		background-color: $gold_equipar;
+        color: $white;
 		text-transform: uppercase;
 		font-weight: $font-light;
 		font-size: 11px;
 		position: absolute;
-		top: -9px;
+		top: -12px;
 		left: 20px;
+        padding: 0 4px;
+        border-radius: 4px;
+        z-index: 2;
 	}
 	.form-control,
-	.form-select{
+	.form-select,
+    .select2.select2-container > .selection > .select2-selection{
 		background-color: $gray_light;
 		color: $secondary_color;
 		border: none;
@@ -29,12 +34,21 @@
 		}
 		&:focus,
 		&.focus{
+            outline: none;
 			@include boxshadow(0, 4px, 0, 2px, $gold_equipar, .25);
 		}
 	}
-	.form-select{
+    .select2.select2-container > .selection > .select2-selection{
+        height: 38px;
+
+    }
+	.form-select,
+    .select2.select2-container > .selection > .select2-selection > .select2-selection__rendered{
 		color: $blue_equipar;
 	}
+    .select2.select2-container > .selection > .select2-selection > .select2-selection__rendered{
+        line-height: 160%;
+    }
 }
 
 .contact-location

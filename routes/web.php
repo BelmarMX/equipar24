@@ -53,9 +53,9 @@ Route::group(['prefix' => 'productos', 'controller' => ProductController::class]
     Route::get('/{slug_category}/{slug_subcategory}/{slug_product}', 'index')->name('producto-open');
     // * POST METHODS
     Route::post('search', 'search')->name('search');
-    Route::post('autocomplete', 'index')->name('autocomplete');
+    Route::post('autocomplete', 'autocomplete')->name('autocomplete');
 });
-Route::get('resultados/{term}', [ProductController::class, 'index'])->name('results');
+Route::get('resultados/{termino}', [ProductController::class, 'index'])->name('results');
 
 Route::group(['prefix' => 'marcas', 'controller' => ProductBrandController::class], function () {
     Route::get('/{slug_brand}', 'index')->name('brands');
@@ -91,6 +91,7 @@ Route::group(['prefix' => 'contacto', 'controller' => FormSubmitController::clas
     )->name('contacto');
     // * POST METHODS
     Route::post('find', 'find')->name('clientfind');
+    Route::post('cities', 'get_cities')->name('contacto.get_cities');
     Route::post('send', 'send')->name('contacto-send');
 });
 

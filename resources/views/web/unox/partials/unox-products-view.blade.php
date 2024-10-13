@@ -7,7 +7,7 @@
                 </div>
             @endif
             <div class="col-md-3 d-flex justify-content-center mb-4">
-                @include('frontend_v2.partials.product-view', [
+                @include('web.products.partials.product-view', [
                         'id'        => $product -> idP
                     ,   'title'     => $product -> titleP
                     ,   'model'     => $product -> modelo

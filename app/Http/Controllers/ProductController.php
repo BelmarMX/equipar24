@@ -63,4 +63,14 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function search()
+    {
+        return [];
+    }
+
+    public function autocomplete()
+    {
+        return [];
+    }
 }

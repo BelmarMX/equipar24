@@ -155,7 +155,7 @@
     </nav>
     <div id="search-box" class="bg-light pb-1 px-1">
         <small class="text-center align-self-center" id="eslogan">¡Aseguramos la eficiencia de tu cocina!</small>
-        <form id="search-form" action="{{ route('search') }}" method="post" @isset( $promos ) style="right: 0;" @endif>
+        <form id="search-form" action="{{ route('search') }}" method="post" @isset( $promos ) @endif>
             @csrf
             <input id="autocomplete"
                    type="search"

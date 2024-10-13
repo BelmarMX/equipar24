@@ -33,8 +33,6 @@
         @stack('customCss')
     </head>
     <body>
-        @inject('Navigation', 'App\Classes\Navigation')
-
         @include('web._layout.master.header')
 
         @yield('content')
@@ -49,6 +47,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         @vite(['resources/assets/js/web/app.js', 'resources/assets/js/web/search.js', 'resources/assets/js/web/quotator.js'])
         @stack('customJs')
-        <link rel="stylesheet" href="{{ asset('css/swal2.css') }}">
+        @vite(['resources/assets/scss/web/swal2.scss'])
     </body>
 </html>

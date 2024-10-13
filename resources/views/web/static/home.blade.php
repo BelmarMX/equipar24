@@ -1,6 +1,6 @@
 @section('title',       'Equipamiento de cocinas industriales')
 @section('description', 'Servicios expertos y eficientes con capacidad para cubrir necesidades derivadas de la creación de una nueva cocina industrial; en tiempo competitivo, diseño eficaz y adaptación de presupuesto')
-@section('image',       url('storage/'.\App\Classes\ImagesSettings::BANNER_FOLDER. !empty($banners) ?? $banners->first()->image))
+@section('image',       !empty($banners->first()) ? url('storage/'.$ImagesSettings::BANNER_FOLDER.$banners->first()->image) : NULL)
 @extends('web._layout.master.app')
 
 @section('content')

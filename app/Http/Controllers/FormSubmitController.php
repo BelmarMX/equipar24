@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFormSubmitRequest;
 use App\Http\Requests\UpdateFormSubmitRequest;
+use App\Models\City;
 use App\Models\FormSubmit;
+use Illuminate\Http\Request;
 
 class FormSubmitController extends Controller
 {
@@ -62,5 +64,10 @@ class FormSubmitController extends Controller
     public function destroy(FormSubmit $formSubmit)
     {
         //
+    }
+
+    public function get_cities(Request $request)
+    {
+        return City::get_cities($request -> state_id);
     }
 }

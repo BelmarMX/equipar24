@@ -1,17 +1,17 @@
 <div class="banner__single">
-    @if( isMobile() === true && !empty($slide_mobile) )
-        <img width="{{ env('BANNER_WIDTH_MV') }}"
-             height="{{ env('BANNER_HEIGHT_MV') }}"
+    @if($Navigation::is_mobile() === true && !empty($slide_mobile) )
+        <img width="{{ $ImagesSettings::BANNER_WIDTH_MV }}"
+             height="{{ $ImagesSettings::BANNER_HEIGHT_MV }}"
              class="img-fluid w-100 @isset($img_class) {{ $img_class }} @endisset"
              src="{{$slide_mobile}}"
-             alt="{{ isset($slide_alt) ? $slide_alt : 'Banner image'}}"
+             alt="{{$slide_alt ?? 'Banner image'}}"
         >
     @else
-        <img width="{{ env('BANNER_WIDTH') }}"
-             height="{{ env('BANNER_HEIGHT') }}"
+        <img width="{{ $ImagesSettings::BANNER_WIDTH }}"
+             height="{{ $ImagesSettings::BANNER_HEIGHT }}"
              class="img-fluid w-100 @isset($img_class) {{ $img_class }} @endisset"
              src="{{$slide}}"
-             alt="{{ isset($slide_alt) ? $slide_alt : 'Banner image'}}"
+             alt="{{$slide_alt ?? 'Banner image'}}"
         >
     @endif
     @if( $summary )

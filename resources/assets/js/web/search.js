@@ -14,15 +14,18 @@ $(function() {
         highlight: true,
         useTabKey: true,
         maxSelection: 1,
-        maxSelectionRenderer: function(){
+        maxSelectionRenderer: function()
+        {
             return 'Presiona buscar'
         },
         minChars: 3,
-        minCharsRenderer: function(v){
+        minCharsRenderer: function(v)
+        {
             return 'Continua escribiendo';
         },
         noSuggestionText: 'Sin coincidencias',
-        selectionRenderer: function(data){
+        selectionRenderer: function(data)
+        {
             let el_return = ''
             if( data.brand )
             {
@@ -43,8 +46,8 @@ $(function() {
             }
             return data.title
         },
-        renderer: function(data){
-            console.log(data)
+        renderer: function(data)
+        {
             let discount    = data.discount != 0
                 ? `<small class="bg-danger text-white p-1 ms-1">${data.discount}%</small>`
                 : ''
