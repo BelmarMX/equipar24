@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('state_id')->constrained('states')->onDelete('cascade');
+            $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
             $table->string('title', 384);
             $table->string('street');
             $table->string('number');
             $table->string('neighborhood');
             $table->string('building')->nullable();
-            $table->string('city');
-            $table->string('state');
             $table->string('country')->default('México');
             $table->string('link')->nullable();
             $table->string('embed_code')->nullable();

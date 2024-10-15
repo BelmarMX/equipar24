@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Branch extends Model
@@ -14,12 +15,12 @@ class Branch extends Model
 
     protected $fillable = [
             'title'
+        ,   'state_id'
+        ,   'city_id'
         ,   'street'
         ,   'number'
         ,   'neighborhood'
         ,   'building'
-        ,   'city'
-        ,   'state'
         ,   'country'
         ,   'link'
         ,   'embed_code'
@@ -35,6 +36,15 @@ class Branch extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * RELATIONSHIP
     ----------------------------------------------------------------------------------------------------------------- */
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
 
     /* ----------------------------------------------------------------------------------------------------------------
      * MUTATORS AND ACCESSORS

@@ -34,6 +34,11 @@ class State extends Model
         return $this->hasMany(City::class);
     }
 
+    public function branches(): HasMany
+    {
+        return $this->hasMany(Branch::class);
+    }
+
     public function form_contacts(): HasMany
     {
         return $this->hasMany(FormContact::class);
