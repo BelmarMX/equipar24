@@ -12,9 +12,9 @@ class ProjectController extends Controller
     public function view()
     {
         return view('web.static.portafolio', array_merge(
-                Navigation::get_static_data(['banners', 'reels', 'related', 'promos', 'articles'])
+                Navigation::get_static_data(['banners', 'reels', 'related', 'articles'])
             ,   [
-                'projects' => Project::all()
+                'records' => Project::paginate(12)
             ]
         ));
     }
