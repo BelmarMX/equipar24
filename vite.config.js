@@ -16,7 +16,12 @@ export default defineConfig({
                 'resources/assets/js/web/search.js',
                 'resources/assets/js/web/unox-swiper.js',
                 // ? DASHBOARD
-                //'resources/assets/scss/dashboard/app.scss',
+                'resources/css/app.css',
+                'resources/js/app.js',
+                'resources/assets/scss/dashboard/app.scss',
+                'resources/assets/js/dashboard/datatables/common.js',
+                'resources/assets/js/dashboard/datatables/states.js',
+                'resources/assets/js/dashboard/datatables/cities.js'
             ],
             refresh: true,
         }),

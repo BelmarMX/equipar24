@@ -1,0 +1,231 @@
+.dt-layout-row{
+    .dt-layout-cell{
+        // ? Número de registros por página
+        .dt-length{
+            label{
+                font-size: .75rem;
+                text-transform: uppercase;
+                font-weight: 500;
+                color: #64748b;
+                select.dt-input{
+                    min-width: 80px;
+                    font-size: .9rem;
+                    text-transform: uppercase;
+                    color: #6b21a8;
+                    text-align: center;
+                    cursor: pointer;
+                    border: 1px solid #ddd6fe;
+                    background-position: right 0 center;
+                    background-size: 15px 15px;
+                }
+            }
+        }
+
+        // ? Buscador
+        .dt-search{
+            label{
+                font-size: .75rem;
+                text-transform: uppercase;
+                font-weight: 500;
+                color: #64748b;
+            }
+            input.dt-input{
+                min-width: 320px;
+                font-size: .9rem;
+                color: #0f172a;
+                border: 1px solid #ddd6fe;
+                &:focus{
+                    outline: none;
+                    box-shadow: none;
+                    border: 1px solid #a78bfa;
+                }
+            }
+        }
+
+        // ? Información de registros
+        .dt-info{
+            font-size: .75rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        // ? Paginación
+        .dt-paging{
+            nav{
+                background: #f8fafc;
+                button.dt-paging-button{
+                    font-size: .8rem;
+                    color: #701a75 !important;
+                    border: none;
+                    background: transparent;
+                    border-radius: 6px;
+
+                    &:not(.previous):not(.next){
+                        margin: 0;
+                        &.current{
+                            border: 1px solid #a78bfa;
+                        }
+                        &:hover{
+                            background: #f5f3ff;
+                        }
+                    }
+                    &.previous{
+                        &.disabled{
+                            opacity: .35;
+                        }
+                        &:hover:not(.disabled){
+                            border-bottom: 1px solid #a78bfa;
+                        }
+                    }
+                    &.next{
+                        &.disabled{
+                            opacity: .35;
+                        }
+                        &:hover:not(.disabled){
+                            border-bottom: 1px solid #a78bfa;
+                        }
+                    }
+
+                    &:hover{
+                        border: none;
+                        background: transparent;
+                    }
+                }
+            }
+        }
+    }
+
+    // ? DataTable
+    &.dt-layout-table{
+        margin-bottom: 30px;
+        table.dataTable{
+            thead{
+                tr{
+                    th{
+                        background-color: #1f2937;
+                        border-bottom: 2px solid #374151;
+                        border-left: 1px solid #374151;
+                        &:first-child{
+                            border-left: none;
+                            border-top-left-radius: 6px;
+                        }
+                        &:last-child{
+                            border-top-right-radius: 6px;
+                        }
+                        .dt-column-title{
+                            color: white !important;
+                        }
+                        &.dt-ordering-asc,
+                        &.dt-ordering-desc{
+                            background-color: #374151;
+                        }
+                    }
+                }
+            }
+            thead,
+            tfoot{
+                tr{
+                    th{;
+                        &.dt-orderable-asc,
+                        &.dt-orderable-desc{
+                            .dt-column-order{
+                                &:before,
+                                &:after{
+                                    font-family: "Font Awesome 6 Free";
+                                    font-size: .5rem;
+                                    color: white;
+                                    opacity: .35;
+                                }
+                                &:before{
+                                    content: "\f106" !important;
+                                }
+                                &:after{
+                                    content: "\f107" !important;
+                                }
+                            }
+                            &.dt-ordering-asc{
+                                .dt-column-order{
+                                    &:before{
+                                        opacity: .75
+                                    }
+                                }
+                            }
+                            &.dt-ordering-desc{
+                                .dt-column-order{
+                                    &:after{
+                                        opacity: .75
+                                    }
+                                }
+                            }
+                        }
+                        .dt-column-title{
+                            text-transform: uppercase;
+                            font-size: 12px;
+                            display: inline-block;
+                            width: 100%;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+            tbody{
+                tr{
+                    border: none;
+                    &:nth-child(odd){
+                        background-color: #f8fafc;
+                    }
+                    &:hover{
+                        background-color: #f5f3ff;
+                    }
+                    td{
+                        border: none;
+                        font-size: .85rem;
+                        border-left: 1px solid #f8fafc;
+                        &:first-child{
+                            border-left: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dt-custom-action{
+    margin: 0 2px;
+    i{
+        font-size: 16px;
+        color: #64748b;
+    }
+    &.disabled{
+        cursor: default;
+        i{
+            color: #d1d5db;
+        }
+        :hover{
+            i{
+                color: #d1d5db;
+            }
+        }
+    }
+    &:hover:not(.disabled){
+        i{
+            color: #8b5cf6;
+        }
+    }
+    &.edit:not(.disabled){
+        &:hover{
+            i{
+                color: #0284c7;
+            }
+        }
+    }
+    &.delete:not(.disabled){
+        &:hover{
+            i{
+                color: #dc2626;
+            }
+        }
+    }
+}
