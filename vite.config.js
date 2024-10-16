@@ -19,6 +19,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/assets/scss/dashboard/app.scss',
+                'resources/assets/scss/dashboard/swal.scss',
                 'resources/assets/js/dashboard/behavior.js',
                 // ? DASHBOARD DATATABLES
                 'resources/assets/js/dashboard/datatables/common.js',

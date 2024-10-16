@@ -60,35 +60,34 @@ $(document).ready(function() {
     $(document).on('click', '[data-confirm-redirect]', function(e) {
         e.preventDefault()
         let attribute   = $(this).attr('data-confirm-redirect')
-        console.log('dcr', attribute)
         let ask         = attribute !== '' ? attribute : '¿Estás seguro de realizar esta acción?'
         Alert.confirm('Perderás los cambios que no hayas guardado', () => location.href = $(this).attr('href'), ask )
     })
 
     if( URL_PARAMS.get('created') )
     {
-        clear_path_name()
         Alert.toast('Registro creado con éxito')
+        clear_path_name()
     }
     if( URL_PARAMS.get('updated') )
     {
-        clear_path_name()
         Alert.toast('Registro actualizado con éxito')
+        clear_path_name()
     }
     if( URL_PARAMS.get('restored') )
     {
-        clear_path_name()
         Alert.toast('Registro restaurado con éxito')
+        clear_path_name()
     }
     if( URL_PARAMS.get('deleted') )
     {
-        clear_path_name()
         Alert.toast('Registro eliminado con éxito')
+        clear_path_name()
     }
     if( URL_PARAMS.get('error') )
     {
-        clear_path_name()
         Alert.toast('Lo sentimos: algo salió mal', 'error')
+        clear_path_name()
     }
 
     working(false)

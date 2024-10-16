@@ -52,15 +52,15 @@ const DT_OPTIONS_SSR    = {
             ,   render:     id => {
                 if(URL_PARAMS.get('created') && parseInt(URL_PARAMS.get('created')) === id)
                 {
-                    `<i class="fa-regular fa-circle-dot fa-beat me-1 text-green-500"></i> ${id}`
+                    return `<i class="fa-regular fa-circle-dot fa-beat me-1 text-green-500" data-tooltip="Creado recientemente"></i> ${id}`
                 }
                 else if(URL_PARAMS.get('updated') && parseInt(URL_PARAMS.get('updated')) === id || URL_PARAMS.get('restored') && parseInt(URL_PARAMS.get('restored')) === id)
                 {
-                    return `<i class="fa-regular fa-circle-dot fa-beat me-1 text-blue-500"></i> ${id}`
+                    return `<i class="fa-regular fa-circle-dot fa-beat me-1 text-blue-500" data-tooltip="Actualizado recientemente"></i> ${id}`
                 }
                 else if(URL_PARAMS.get('deleted') && parseInt(URL_PARAMS.get('deleted')) === id)
                 {
-                    return `<i class="fa-regular fa-circle-dot fa-beat me-1 text-red-500"></i> ${id}`
+                    return `<i class="fa-regular fa-circle-dot fa-beat me-1 text-red-500" data-tooltip="Eliminado recientemente"></i> ${id}`
                 }
 
                 return id

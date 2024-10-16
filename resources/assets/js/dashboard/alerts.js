@@ -130,13 +130,13 @@ class Alert
         working(false)
     }
 
-    toast(title, type = 'success')
+    toast(title, type = 'success', timer = 4000)
     {
         const Toast = swal.mixin({
             toast:              true,
             position:           'top',
             showConfirmButton:  false,
-            timer:              4000,
+            timer:              timer,
             timerProgressBar:   true,
             didOpen: (toast) => {
                 toast.addEventListener('mouseenter', swal.stopTimer)

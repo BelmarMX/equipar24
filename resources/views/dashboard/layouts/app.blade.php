@@ -62,7 +62,7 @@
             ,   theme:          'dspx'
         })
     </script>
-    @vite(['resources/assets/js/dashboard/behavior.js'])
+    @vite(['resources/assets/js/dashboard/behavior.js', 'resources/assets/scss/dashboard/swal.scss'])
     @stack('ESmodules')
 </body>
 </html>
