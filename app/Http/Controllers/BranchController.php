@@ -50,22 +50,23 @@ class BranchController extends Controller
             })
             ->addColumn('action', function ($record) use ($restore) {
                 $actions    = [
-                    'custom' => [
+                        'field_name'    => 'title'
+                    ,   'custom'        => [
                             'related'   => NULL
                         ,   'images'    => NULL
                         ,   'video'     => NULL
                         ,   'download'  => NULL
                     ]
                     ,   'divider'       => FALSE
-                    ,   'edit'      => [
+                    ,   'edit'          => [
                             'enabled'   => !$restore
                         ,   'route'     => 'branches.edit'
                     ]
-                    ,   'delete'    => [
+                    ,   'delete'        => [
                             'enabled'   => !$restore
                         ,   'route'     => 'branches.delete'
                     ]
-                    ,   'restore'    => [
+                    ,   'restore'       => [
                             'enabled'   => $restore
                         ,   'route'     => 'branches.restore'
                     ]

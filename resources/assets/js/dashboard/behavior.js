@@ -61,7 +61,7 @@ $(document).ready(function() {
         e.preventDefault()
         let attribute   = $(this).attr('data-confirm-redirect')
         let ask         = attribute !== '' ? attribute : '¿Estás seguro de realizar esta acción?'
-        Alert.confirm('Perderás los cambios que no hayas guardado', () => location.href = $(this).attr('href'), ask )
+        Alert.confirm('Revisa que la información sea correcta', () => location.href = $(this).attr('href'), ask )
     })
 
     if( URL_PARAMS.get('created') )
