@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-mode="{{ Auth::user() -> dark_mode ? 'dark' : 'light'  }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,6 +20,7 @@
     @stack('style')
 </head>
 <body class="font-sans antialiased">
+    @include('dashboard.layouts.loader')
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('dashboard.layouts.navigation')
 
@@ -38,11 +39,13 @@
         </main>
 
         <footer class="mt-5 pe-3 text-right">
-            <x-secondary-button
-                onclick="history.back()"
-            >
-                <i class="fa-solid fa-circle-chevron-left me-1"></i> Regresar
-            </x-secondary-button>
+            @if( !\Illuminate\Support\Str::contains( request() -> path(), ['create', 'edit'] ) )
+                <x-secondary-button
+                    onclick="history.back()"
+                >
+                    <i class="fa-solid fa-circle-chevron-left me-1"></i> Regresar
+                </x-secondary-button>
+            @endif
         </footer>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -59,6 +62,7 @@
             ,   theme:          'dspx'
         })
     </script>
+    @vite(['resources/assets/js/dashboard/behavior.js'])
     @stack('ESmodules')
 </body>
 </html>

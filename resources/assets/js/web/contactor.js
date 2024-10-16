@@ -24,5 +24,5 @@ $(document).ready(function() {
             .catch(error => {
                 console.error('Cities Error', error)
             })
-    });
-});
+    })
+})

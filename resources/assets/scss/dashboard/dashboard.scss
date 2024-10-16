@@ -25,3 +25,58 @@ small.human-date{
     background-color: #94a3b8;
     border-radius: 3px;
 }
+
+.-z-1 {
+    z-index: -1;
+}
+
+.origin-0 {
+    transform-origin: 0%;
+}
+
+[data-floating-labels] input:focus ~ label,
+[data-floating-labels] input:not(:placeholder-shown) ~ label,
+[data-floating-labels] textarea:focus ~ label,
+[data-floating-labels] textarea:not(:placeholder-shown) ~ label,
+[data-floating-labels] select:focus ~ label,
+[data-floating-labels] select:not([value='']):valid ~ label {
+    --tw-translate-x: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate))
+    skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    --tw-scale-x: 0.75;
+    --tw-scale-y: 0.75;
+    --tw-translate-y: -1.5rem;
+}
+
+[data-floating-labels] input:focus ~ label,
+[data-floating-labels] select:focus ~ label {
+    --tw-text-opacity: 1;
+    color: rgba(#6d28d9, var(--tw-text-opacity));
+    left: 0;
+}
+
+.select2-container--default {
+    .select2-selection{
+        background-color: white !important;
+        border: none !important;
+        border-bottom: 2px solid #ede9fe !important;
+        border-radius: 0.25rem !important;
+        height: 46px !important;
+        margin-top: -10px;
+        .select2-selection__arrow{
+            top: 11px !important;
+        }
+        .select2-selection__rendered{
+            margin-top: 10px;
+            line-height: 50px !important;
+            padding-left: 5px !important;
+        }
+        &:focus-visible{
+            outline: none;
+            border-bottom: 2px solid #6d28d9 !important;
+        }
+    }
+}

@@ -8,7 +8,7 @@ $(document).ready(function() {
             ,   url:                route
         }
         ,   columns:                [
-                { data: 'id' }
+                ...DT_OPTIONS_SSR.columns
             ,   { data: 'state_name' }
             ,   { data: 'name' }
             ,   {

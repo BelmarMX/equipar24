@@ -8,7 +8,7 @@ $(document).ready(function() {
             ,   url:                '/dashboard/states'
         }
         ,   columns:                [
-                { data: 'id' }
+                ...DT_OPTIONS_SSR.columns
             ,   { data: 'code' }
             ,   { data: 'alias' }
             ,   { data: 'name' }
