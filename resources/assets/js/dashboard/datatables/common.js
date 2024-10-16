@@ -1,4 +1,7 @@
 const DT_LANG_ES        = "https://cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json"
+
+const URL_PARAMS        = new URLSearchParams(window.location.search)
+
 const DT_OPTIONS        = {
         language:           {
                 url:            DT_LANG_ES
@@ -31,18 +34,44 @@ const DT_OPTIONS        = {
     ,   searching:          true
     ,   retrieve:           true
 }
+
 const DT_OPTIONS_SSR    = {
         ...DT_OPTIONS
     ,   processing:         true
     ,   serverSide:         true
     ,   ajax:               {
-            method:             'post'
+            method:             'POST'
         ,   headers:            {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         ,   url:                ''
     }
-    ,   columns:            []
+    ,   columns:            [
+        {
+                data:       'id'
+            ,   render:     id => {
+                if(URL_PARAMS.get('created') && parseInt(URL_PARAMS.get('created')) === id)
+                {
+                    `<i class="fa-regular fa-circle-dot fa-beat me-1 text-green-500"></i> ${id}`
+                }
+                else if(URL_PARAMS.get('updated') && parseInt(URL_PARAMS.get('updated')) === id || URL_PARAMS.get('restored') && parseInt(URL_PARAMS.get('restored')) === id)
+                {
+                    return `<i class="fa-regular fa-circle-dot fa-beat me-1 text-blue-500"></i> ${id}`
+                }
+                else if(URL_PARAMS.get('deleted') && parseInt(URL_PARAMS.get('deleted')) === id)
+                {
+                    return `<i class="fa-regular fa-circle-dot fa-beat me-1 text-red-500"></i> ${id}`
+                }
+
+                return id
+            }
+            ,   type:       "num"
+        }
+    ]
+    ,   order:                  {
+            idx: 0
+        ,   dir: 'desc'
+    }
 }
 
-export { DT_OPTIONS, DT_OPTIONS_SSR }
+export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS }
