@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreReelRequest;
-use App\Http\Requests\UpdateReelRequest;
+use App\Http\Requests\ReelRequest;
 use App\Models\Reel;
 
 class ReelController extends Controller
@@ -27,7 +26,7 @@ class ReelController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReelRequest $request)
+    public function store(ReelRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class ReelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReelRequest $request, Reel $reel)
+    public function update(ReelRequest $request, Reel $reel)
     {
         //
     }

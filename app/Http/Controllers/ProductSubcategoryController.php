@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductSubcategoryRequest;
-use App\Http\Requests\UpdateProductSubcategoryRequest;
+use App\Http\Requests\ProductSubcategoryRequest;
 use App\Models\ProductSubcategory;
 
 class ProductSubcategoryController extends Controller
@@ -27,7 +26,7 @@ class ProductSubcategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductSubcategoryRequest $request)
+    public function store(ProductSubcategoryRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class ProductSubcategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductSubcategoryRequest $request, ProductSubcategory $productSubcategory)
+    public function update(ProductSubcategoryRequest $request, ProductSubcategory $productSubcategory)
     {
         //
     }

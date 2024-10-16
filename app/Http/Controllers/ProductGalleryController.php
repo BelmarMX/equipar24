@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductGalleryRequest;
-use App\Http\Requests\UpdateProductGalleryRequest;
+use App\Http\Requests\ProductGalleryRequest;
 use App\Models\ProductGallery;
 
 class ProductGalleryController extends Controller
@@ -27,7 +26,7 @@ class ProductGalleryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductGalleryRequest $request)
+    public function store(ProductGalleryRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class ProductGalleryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductGalleryRequest $request, ProductGallery $productGallery)
+    public function update(ProductGalleryRequest $request, ProductGallery $productGallery)
     {
         //
     }

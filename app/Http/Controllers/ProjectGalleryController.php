@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProjectGalleryRequest;
-use App\Http\Requests\UpdateProjectGalleryRequest;
+use App\Http\Requests\ProjectGalleryRequest;
 use App\Models\ProjectGallery;
 
 class ProjectGalleryController extends Controller
@@ -27,7 +26,7 @@ class ProjectGalleryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjectGalleryRequest $request)
+    public function store(ProjectGalleryRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class ProjectGalleryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProjectGalleryRequest $request, ProjectGallery $projectGallery)
+    public function update(ProjectGalleryRequest $request, ProjectGallery $projectGallery)
     {
         //
     }

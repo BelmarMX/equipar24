@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductBrandRequest;
-use App\Http\Requests\UpdateProductBrandRequest;
+use App\Http\Requests\ProductBrandRequest;
 use App\Models\ProductBrand;
 
 class ProductBrandController extends Controller
@@ -27,7 +26,7 @@ class ProductBrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductBrandRequest $request)
+    public function store(ProductBrandRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class ProductBrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductBrandRequest $request, ProductBrand $productBrand)
+    public function update(ProductBrandRequest $request, ProductBrand $productBrand)
     {
         //
     }

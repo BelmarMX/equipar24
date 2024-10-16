@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBlogArticleRequest;
-use App\Http\Requests\UpdateBlogArticleRequest;
+use App\Http\Requests\BlogArticleRequest;
 use App\Models\BlogArticle;
 
 class BlogArticleController extends Controller
@@ -27,7 +26,7 @@ class BlogArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBlogArticleRequest $request)
+    public function store(BlogArticleRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class BlogArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBlogArticleRequest $request, BlogArticle $blogArticle)
+    public function update(BlogArticleRequest $request, BlogArticle $blogArticle)
     {
         //
     }

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFormSubmitRequest;
-use App\Http\Requests\UpdateFormSubmitRequest;
+use App\Http\Requests\FormSubmitRequest;
 use App\Models\City;
 use App\Models\FormSubmit;
 use Illuminate\Http\Request;
@@ -29,7 +28,7 @@ class FormSubmitController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFormSubmitRequest $request)
+    public function store(FormSubmitRequest $request)
     {
         //
     }
@@ -53,7 +52,7 @@ class FormSubmitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFormSubmitRequest $request, FormSubmit $formSubmit)
+    public function update(FormSubmitRequest $request, FormSubmit $formSubmit)
     {
         //
     }

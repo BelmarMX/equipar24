@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFormQuotationDetailRequest;
-use App\Http\Requests\UpdateFormQuotationDetailRequest;
+use App\Http\Requests\FormQuotationDetailRequest;
 use App\Models\FormQuotationDetail;
 
 class FormQuotatioDetailController extends Controller
@@ -27,7 +26,7 @@ class FormQuotatioDetailController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFormQuotationDetailRequest $request)
+    public function store(FormQuotationDetailRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class FormQuotatioDetailController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFormQuotationDetailRequest $request, FormQuotationDetail $formQuotationDetail)
+    public function update(FormQuotationDetailRequest $request, FormQuotationDetail $formQuotationDetail)
     {
         //
     }

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFormContactRequest;
-use App\Http\Requests\UpdateFormContactRequest;
+use App\Http\Requests\FormContactRequest;
 use App\Models\FormContact;
 
 class FormContactController extends Controller
@@ -27,7 +26,7 @@ class FormContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFormContactRequest $request)
+    public function store(FormContactRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class FormContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFormContactRequest $request, FormContact $formContact)
+    public function update(FormContactRequest $request, FormContact $formContact)
     {
         //
     }

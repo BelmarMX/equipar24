@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBlogCategoryRequest;
-use App\Http\Requests\UpdateBlogCategoryRequest;
+use App\Http\Requests\BlogCategoryRequest;
 use App\Models\BlogCategory;
 
 class BlogCategoryController extends Controller
@@ -27,7 +26,7 @@ class BlogCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBlogCategoryRequest $request)
+    public function store(BlogCategoryRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class BlogCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBlogCategoryRequest $request, BlogCategory $blogCategory)
+    public function update(BlogCategoryRequest $request, BlogCategory $blogCategory)
     {
         //
     }

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePromotionRequest;
-use App\Http\Requests\UpdatePromotionRequest;
+use App\Http\Requests\PromotionRequest;
 use App\Models\Promotion;
 
 class PromotionController extends Controller
@@ -27,7 +26,7 @@ class PromotionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePromotionRequest $request)
+    public function store(PromotionRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class PromotionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePromotionRequest $request, Promotion $promotion)
+    public function update(PromotionRequest $request, Promotion $promotion)
     {
         //
     }
