@@ -22,6 +22,7 @@ class Branch extends Model
         ,   'neighborhood'
         ,   'building'
         ,   'country'
+        ,   'phone'
         ,   'link'
         ,   'embed_code'
         ,   'image'

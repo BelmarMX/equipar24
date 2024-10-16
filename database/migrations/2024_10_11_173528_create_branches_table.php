@@ -21,10 +21,11 @@ return new class extends Migration
             $table->string('neighborhood');
             $table->string('building')->nullable();
             $table->string('country')->default('México');
+            $table->string('phone', 16)->nullable();
             $table->string('link')->nullable();
-            $table->string('embed_code')->nullable();
-            $table->string('image', 2040);
-            $table->string('image_rx', 2040);
+            $table->text('embed_code')->nullable();
+            $table->string('image', 2040)->nullable();
+            $table->string('image_rx', 2040)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
