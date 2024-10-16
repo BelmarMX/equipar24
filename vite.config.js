@@ -19,9 +19,12 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/assets/scss/dashboard/app.scss',
+                'resources/assets/js/dashboard/behavior.js',
+                // ? DASHBOARD DATATABLES
                 'resources/assets/js/dashboard/datatables/common.js',
                 'resources/assets/js/dashboard/datatables/states.js',
-                'resources/assets/js/dashboard/datatables/cities.js'
+                'resources/assets/js/dashboard/datatables/cities.js',
+                'resources/assets/js/dashboard/datatables/branches.js'
             ],
             refresh: true,
         }),
