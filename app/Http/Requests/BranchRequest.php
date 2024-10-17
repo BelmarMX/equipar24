@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class BranchRequest extends FormRequest
 {
@@ -17,16 +19,18 @@ class BranchRequest extends FormRequest
     public function attributes(): array
     {
         return [
-                "title"         => "Título"
-            ,   "building"      => "Edificio"
-            ,   "street"        => "Calle"
-            ,   "number"        => "Número"
-            ,   "neighborhood"  => "Colonia"
-            ,   "state_id"      => "Estado"
-            ,   "city_id"       => "Ciudad"
-            ,   "phone"         => "Teléfono"
-            ,   "link"          => "Enlace corto"
-            ,   "embed_code"    => "Código de incrustación"
+                "title"                     => "Título"
+            ,   "building"                  => "Edificio"
+            ,   "street"                    => "Calle"
+            ,   "number"                    => "Número"
+            ,   "neighborhood"              => "Colonia"
+            ,   "state_id"                  => "ID Estado"
+            ,   "city_id"                   => "ID Ciudad"
+            ,   "phone"                     => "Teléfono"
+            ,   "link"                      => "Enlace corto"
+            ,   "embed_code"                => "Código de incrustación"
+            ,   "image"                     => "Imagen"
+            ,   "image_rx"                  => "Recorte de imagen"
         ];
     }
 
@@ -37,19 +41,17 @@ class BranchRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-                "title"         => "required|string"
-            ,   "building"      => "nullable|string"
-            ,   "street"        => "required|string"
-            ,   "number"        => "required|string"
-            ,   "neighborhood"  => "required|string"
-            ,   "state_id"      => "required|numeric|exists:states,id"
-            ,   "city_id"       => "required|numeric|exists:cities,id"
-            ,   "phone"         => "required|digits:10"
-            ,   "link"          => "required|url"
-            ,   "embed_code"    => "required|url"
+        return [
+                "title"                     => "required|string"
+            ,   "building"                  => "nullable|string"
+            ,   "street"                    => "required|string"
+            ,   "number"                    => "required|string"
+            ,   "neighborhood"              => "required|string"
+            ,   "state_id"                  => "required|numeric|exists:states,id"
+            ,   "city_id"                   => "required|numeric|exists:cities,id"
+            ,   "phone"                     => "required|digits:10"
+            ,   "link"                      => "required|url"
+            ,   "embed_code"                => "required|url"
         ];
-
-        return $rules;
     }
 }

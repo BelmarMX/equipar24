@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Classes\ImagesSettings;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class BlogCategoryRequest extends FormRequest
 {
@@ -11,7 +13,23 @@ class BlogCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function attributes(): array
+    {
+        return [
+                "title"                     => "Título"
+            ,   "image"                     => "Portada"
+            ,   "image_rx"                  => "Recorte de portada"
+        ];
+    }
+
+    public function prepareforValidation()
+    {
+        $this -> merge([
+            'slug' => Str::slug($this -> title)
+        ]);
     }
 
     /**
@@ -21,8 +39,20 @@ class BlogCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules = [
+                "title"                     => "required|string"
+            ,   "slug"                      => "required|string|unique:blog_categories,slug"
+            ,   "image"                     => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_WIDTH.",height=".ImagesSettings::ARTICLE_HEIGHT
+            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_RX_WIDTH.",height=".ImagesSettings::ARTICLE_RX_HEIGHT
         ];
+
+        if( request() -> routeIs('blogCategories.edit') )
+        {
+            $rules["slug"]                  = "required|string|unique:blog_categories,slug,".$this->id;
+            $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_WIDTH.",height=".ImagesSettings::ARTICLE_HEIGHT;
+            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_RX_WIDTH.",height=".ImagesSettings::ARTICLE_RX_HEIGHT;
+        }
+
+        return $rules;
     }
 }

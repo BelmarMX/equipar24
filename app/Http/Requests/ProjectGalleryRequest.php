@@ -11,7 +11,18 @@ class ProjectGalleryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function attributes(): array
+    {
+        return [
+                "project_id"                => "ID Proyecto"
+            ,   "image"                     => "Portada"
+            ,   "image_rx"                  => "Recorte de portada"
+            ,   "video"                     => "Video"
+            ,   "youtube_code"              => "Código de YouTube"
+        ];
     }
 
     /**
@@ -22,7 +33,11 @@ class ProjectGalleryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+                "project_id"                => "required|numeric|exists:projects,id"
+            ,   "image"                     => "nullable|image|mimes:jpeg,png,webp"
+            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp"
+            ,   "video"                     => "nullable|string"
+            ,   "youtube_code"              => "nullable|numeric|min:0"
         ];
     }
 }

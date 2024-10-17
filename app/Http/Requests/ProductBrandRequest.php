@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Classes\ImagesSettings;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class ProductBrandRequest extends FormRequest
 {
@@ -11,7 +13,25 @@ class ProductBrandRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function attributes(): array
+    {
+        return [
+                "title"                     => "Título"
+            ,   "image"                     => "Identificador"
+            ,   "image_rx"                  => "Recorte de identificador"
+            ,   "is_featured"               => "Destacado"
+            ,   "order"                     => "Orden"
+        ];
+    }
+
+    public function prepareforValidation()
+    {
+        $this -> merge([
+            'slug' => Str::slug($this -> title)
+        ]);
     }
 
     /**
@@ -21,8 +41,22 @@ class ProductBrandRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules = [
+                "title"                     => "required|string"
+            ,   "slug"                      => "required|string|unique:product_brands,slug"
+            ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_BRAND_WIDTH.",height=".ImagesSettings::PRODUCT_BRAND_HEIGHT
+            ,   "image_rx"                  => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_BRAND_RX_WIDTH.",height=".ImagesSettings::PRODUCT_BRAND_RX_HEIGHT
+            ,   "is_featured"               => "required|boolean"
+            ,   "order"                     => "required|numeric|min:0"
         ];
+
+        if( request() -> routeIs('productBrands.edit') )
+        {
+            $rules["slug"]                  = "required|string|unique:product_brands,slug,".$this->id;
+            $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_BRAND_WIDTH.",height=".ImagesSettings::PRODUCT_BRAND_HEIGHT;
+            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_BRAND_RX_WIDTH.",height=".ImagesSettings::PRODUCT_BRAND_RX_HEIGHT;
+        }
+
+        return $rules;
     }
 }

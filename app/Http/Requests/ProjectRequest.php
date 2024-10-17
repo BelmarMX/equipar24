@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Classes\ImagesSettings;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class ProjectRequest extends FormRequest
 {
@@ -11,7 +13,24 @@ class ProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function attributes(): array
+    {
+        return [
+                "title"                     => "Título"
+            ,   "image"                     => "Portada"
+            ,   "image_rx"                  => "Recorte de portada"
+            ,   "description"               => "Descripción"
+        ];
+    }
+
+    public function prepareforValidation()
+    {
+        $this -> merge([
+            'slug' => Str::slug($this -> title)
+        ]);
     }
 
     /**
@@ -21,8 +40,21 @@ class ProjectRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules = [
+                "title"                     => "required|string"
+            ,   "slug"                      => "required|string|unique:projects,slug"
+            ,   "image"                     => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_WIDTH.",height=".ImagesSettings::PORTFOLIO_HEIGHT
+            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_RX_WIDTH.",height=".ImagesSettings::PORTFOLIO_RX_HEIGHT
+            ,   "description"               => "required|string"
         ];
+
+        if( request() -> routeIs('projects.edit') )
+        {
+            $rules["slug"]                  = "required|string|unique:projects,slug,".$this->id;
+            $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_WIDTH.",height=".ImagesSettings::PORTFOLIO_HEIGHT;
+            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_RX_WIDTH.",height=".ImagesSettings::PORTFOLIO_RX_HEIGHT;
+        }
+
+        return $rules;
     }
 }
