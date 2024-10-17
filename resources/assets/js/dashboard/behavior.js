@@ -57,6 +57,9 @@ $(document).ready(function() {
         $(iframe_id).attr('src', value)
     })
 
+    $('[data-clear-errors]').on('change', function(e) {
+        $(this).parent('div').find('.is-invalid').addClass('hidden')
+    })
     $(document).on('click', '[data-confirm-redirect]', function(e) {
         e.preventDefault()
         let attribute   = $(this).attr('data-confirm-redirect')

@@ -9,9 +9,10 @@
            @isset($required) required @endisset
            @isset($readonly) readonly @endisset
            @isset($disabled) disabled @endisset
+           data-clear-errors
     />
     <label for="{{$id ?? $name}}" class="absolute duration-300 top-3 pl-2 z-1 origin-0 text-gray-500">{{ $placeholder }}</label>
-    @if(empty($value) && isset($required) && $required)
-        <span id="{{$id ?? $name}}_error" class="text-sm text-red-600 hidden">{{ $placeholder  }} es requerido</span>
-    @endif
+    @error($name)
+        <x-form.error-field :id="$id ?? $name" :error="$message" />
+    @enderror
 </div>

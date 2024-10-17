@@ -16,6 +16,8 @@ class ImagesSettings
     const PROMOS_FOLDER                                 = "promos/";
     const PROMOS_WIDTH                                  = 1920;
     const PROMOS_HEIGHT                                 = 520;
+    const PROMOS_WIDTH_MV                               = 340;
+    const PROMOS_HEIGHT_MV                              = 220;
 
     const GALLERY_FOLDER                                = "galeria/";
     const GALLERY_WIDTH                                 = 800;
@@ -34,6 +36,18 @@ class ImagesSettings
     const PRODUCT_CAT_HEIGHT                            = 540;
     const PRODUCT_CAT_RX_WIDTH                          = 200;
     const PRODUCT_CAT_RX_HEIGHT                         = 270;
+
+    const PRODUCT_SUBCAT_FOLDER                         = "productos-subcategorias/";
+    const PRODUCT_SUBCAT_WIDTH                          = 400;
+    const PRODUCT_SUBCAT_HEIGHT                         = 540;
+    const PRODUCT_SUBCAT_RX_WIDTH                       = 200;
+    const PRODUCT_SUBCAT_RX_HEIGHT                      = 270;
+
+    const PRODUCT_BRAND_FOLDER                         = "productos-marcas/";
+    const PRODUCT_BRAND_WIDTH                          = 400;
+    const PRODUCT_BRAND_HEIGHT                         = 540;
+    const PRODUCT_BRAND_RX_WIDTH                       = 200;
+    const PRODUCT_BRAND_RX_HEIGHT                      = 270;
 
     const PRODUCT_FOLDER                                = "productos/";
     const PRODUCT_WIDTH                                 = 800;

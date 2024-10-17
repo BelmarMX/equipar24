@@ -93,6 +93,7 @@ class BranchController extends Controller
      */
     public function store(BranchRequest $request)
     {
+        dd($request -> validated());
         $created = Branch::create($request -> validated());
         return redirect() -> route('branches.index', compact('created'));
     }

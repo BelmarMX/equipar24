@@ -31,7 +31,7 @@ switch($type)
         $text_color     = "text-blue-500 dark:text-blue-400";
 }
 @endphp
-<div class="flex w-full {{ $max_width }} overflow-hidden rounded-lg shadow-md bg-white dark:bg-gray-800 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 my-2 mx-auto">
+<div class="flex w-full {{ $max_width }} overflow-hidden rounded-lg shadow-md bg-white dark:bg-gray-800 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 mt-2 mb-5">
     <div class="inline-flex items-center justify-center {{ $bg_color }}" style="min-width: 48px; max-width: 48px">
         <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
             <path d="{{ $svg }}" />

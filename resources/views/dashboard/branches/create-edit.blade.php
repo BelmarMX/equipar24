@@ -24,15 +24,12 @@
             <h1 class="text-2xl subpixel-antialiased font-bold uppercase text-slate-800 mb-4">
                 {!! $record->id ? '<i class="fa-solid fa-file-pen"></i>' : '<i class="fa-solid fa-file-circle-plus"></i>' !!} {{ $record->id ? 'Editar' : 'Nuevo' }} Registro
             </h1>
+            @if($errors -> any() )
+                <x-form.alert type="danger" title="Hay errores en el formulario que impidieron su registro." />
+            @endif
             <hr class="mb-2 border-2 border-slate-50"/>
 
             <div class="bg-neutral-50 px-3 py-10">
-                @if($errors -> any() )
-                    @foreach($errors -> all() AS $field => $message)
-                        <x-form.alert type="warning" :title="$message"/>
-                    @endforeach
-                @endif
-
                 <div class="flex flex-wrap">
                     <x-form.input-text id="title" name="title" placeholder="Nombre de la sucursal" value="{{ old('title', $record->title) }}" required class="mb-6 md:w-6/12"/>
                     <x-form.input-text id="country" name="country" placeholder="Páis" value="México" readonly class="mb-6 md:w-3/12 md:ms-[25%]"/>
