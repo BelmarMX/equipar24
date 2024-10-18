@@ -46,7 +46,7 @@ class BlogCategoryRequest extends FormRequest
             ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_RX_WIDTH.",height=".ImagesSettings::ARTICLE_RX_HEIGHT
         ];
 
-        if( request() -> routeIs('blogCategories.edit') )
+        if( request() -> routeIs('blogCategories.update') )
         {
             $rules["slug"]                  = "required|string|unique:blog_categories,slug,".$this->id;
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_WIDTH.",height=".ImagesSettings::ARTICLE_HEIGHT;

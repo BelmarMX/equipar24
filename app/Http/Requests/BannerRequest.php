@@ -39,14 +39,13 @@ class BannerRequest extends FormRequest
             ,   "title"                     => "required|string"
             ,   "link"                      => "nullable|url"
             ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::BANNER_WIDTH.",height=".ImagesSettings::BANNER_HEIGHT
-            ,   "image_rx"                  => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::BANNER_WIDTH_MV.",height=".ImagesSettings::BANNER_HEIGHT_MV
+            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::BANNER_WIDTH_MV.",height=".ImagesSettings::BANNER_HEIGHT_MV
             ,   "image_mv"                  => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::BANNER_WIDTH_MV.",height=".ImagesSettings::BANNER_HEIGHT_MV
         ];
 
-        if( request() -> routeIs('banners.edit') )
+        if( request() -> routeIs('banners.update') )
         {
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::BANNER_WIDTH.",height=".ImagesSettings::BANNER_HEIGHT;
-            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::BANNER_WIDTH_MV.",height=".ImagesSettings::BANNER_HEIGHT_MV;
             $rules["image_mv"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::BANNER_WIDTH_MV.",height=".ImagesSettings::BANNER_HEIGHT_MV;
         }
 

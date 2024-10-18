@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug', 512);
             $table->string('summary', 256);
             $table->text('content')->nullable();
-            $table->string('image', 2040)->nullable();
+            $table->string('image', 2040);
             $table->string('image_rx', 2040)->nullable();
             $table->dateTime('published_at')->useCurrent();
             $table->timestamps();

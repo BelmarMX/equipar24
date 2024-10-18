@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 384);
             $table->string('slug', 512)->unique();
-            $table->string('image', 2040)->nullable();
+            $table->string('image', 2040);
             $table->string('image_rx', 2040)->nullable();
             $table->boolean('is_featured')->default(false);
             $table->integer('order')->default(0);

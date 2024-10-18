@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BlogArticleRequest;
 use App\Models\BlogArticle;
+use Illuminate\Http\Request;
 
 class BlogArticleController extends Controller
 {
@@ -14,6 +15,12 @@ class BlogArticleController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -62,4 +69,7 @@ class BlogArticleController extends Controller
     {
         //
     }
+
+    public function restore($blog_article_id)
+    {}
 }

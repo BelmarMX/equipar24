@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCategoryRequest;
 use App\Models\ProductCategory;
+use Illuminate\Http\Request;
 
 class ProductCategoryController extends Controller
 {
@@ -14,6 +15,12 @@ class ProductCategoryController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -62,4 +69,7 @@ class ProductCategoryController extends Controller
     {
         //
     }
+
+    public function restore($product_category_id)
+    {}
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductBrandRequest;
 use App\Models\ProductBrand;
+use Illuminate\Http\Request;
 
 class ProductBrandController extends Controller
 {
@@ -14,6 +15,12 @@ class ProductBrandController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -62,4 +69,7 @@ class ProductBrandController extends Controller
     {
         //
     }
+
+    public function restore($product_brand_id)
+    {}
 }

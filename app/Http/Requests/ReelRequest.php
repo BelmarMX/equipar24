@@ -57,7 +57,7 @@ class ReelRequest extends FormRequest
             ,   "ends_at"                   => "required|date"
         ];
 
-        if( request() -> routeIs('promotions.edit') )
+        if( request() -> routeIs('promotions.update') )
         {
             $rules["slug"]                  = "required|string|unique:reels,slug,".$this->id;
             $rules["video"]                 = "nullable|file|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4,video/ogg,video/webm";

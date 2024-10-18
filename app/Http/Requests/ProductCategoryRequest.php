@@ -50,7 +50,7 @@ class ProductCategoryRequest extends FormRequest
             ,   "order"                     => "required|numeric|min:0"
         ];
 
-        if( request() -> routeIs('productCategories.edit') )
+        if( request() -> routeIs('productCategories.update') )
         {
             $rules["slug"]                  = "required|string|unique:product_categories,slug,".$this->id;
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_CAT_WIDTH.",height=".ImagesSettings::PRODUCT_CAT_HEIGHT;

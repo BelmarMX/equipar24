@@ -49,26 +49,8 @@ class DashboardController extends Controller
     {
         return DataTables::of(State::query())
             ->addColumn('action', function ($record) {
-                $actions    = [
-                        'custom' => [
-                                'related'   => [
-                                        'route'     => 'dashboard.state-cities'
-                                    ,   'tooltip'   => 'Ver ciudades relacionadas'
-                                ]
-                            ,   'images'    => NULL
-                            ,   'video'     => NULL
-                            ,   'download'  => NULL
-                    ]
-                    ,   'divider'       => TRUE
-                    ,   'edit' => [
-                            'enabled'   => FALSE
-                        ,   'route'     => NULL
-                    ]
-                    ,   'delete' => [
-                            'enabled'   => FALSE
-                        ,   'route'     => NULL
-                    ]
-                ];
+                $related_opts   = ['route' => 'dashboard.state-cities', 'tooltip' => 'Ver ciudades relacionadas'];
+                $actions        = parent::set_actions('branches', 'title', TRUE, FALSE, FALSE, FALSE, $related_opts);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->addColumn('ciudades_count', function($state){
@@ -94,23 +76,7 @@ class DashboardController extends Controller
             })
             ->addColumn('state_name', $state -> name)
             ->addColumn('action', function ($record) {
-                $actions    = [
-                    'custom' => [
-                            'related'   => NULL
-                        ,   'images'    => NULL
-                        ,   'video'     => NULL
-                        ,   'download'  => NULL
-                    ]
-                    ,   'divider'       => FALSE
-                    ,   'edit'      => [
-                            'enabled'   => FALSE
-                        ,   'route'     => NULL
-                    ]
-                    ,   'delete'    => [
-                            'enabled'   => FALSE
-                        ,   'route'     => NULL
-                    ]
-                ];
+                $actions    = parent::set_actions('branches', 'title', FALSE, FALSE, FALSE, FALSE);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->toJson();
@@ -128,23 +94,7 @@ class DashboardController extends Controller
                 return $record -> state -> name;
             })
             ->addColumn('action', function ($record) {
-                $actions    = [
-                    'custom' => [
-                        'related'   => NULL
-                        ,   'images'    => NULL
-                        ,   'video'     => NULL
-                        ,   'download'  => NULL
-                    ]
-                    ,   'divider'       => FALSE
-                    ,   'edit'      => [
-                        'enabled'   => FALSE
-                        ,   'route'     => NULL
-                    ]
-                    ,   'delete'    => [
-                        'enabled'   => FALSE
-                        ,   'route'     => NULL
-                    ]
-                ];
+                $actions    = parent::set_actions('branches', 'title', FALSE, FALSE, FALSE, FALSE);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->toJson();

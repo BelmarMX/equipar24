@@ -58,7 +58,7 @@ class PromotionRequest extends FormRequest
             ,   "Monto"                     => "required|numeric|min:1"
         ];
 
-        if( request() -> routeIs('promotions.edit') )
+        if( request() -> routeIs('promotions.update') )
         {
             $rules["slug"]                  = "required|string|unique:promotions,slug,".$this->id;
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH.",height=".ImagesSettings::PROMOS_HEIGHT;

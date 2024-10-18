@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReelRequest;
 use App\Models\Reel;
+use Illuminate\Http\Request;
 
 class ReelController extends Controller
 {
@@ -14,6 +15,12 @@ class ReelController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -62,4 +69,7 @@ class ReelController extends Controller
     {
         //
     }
+
+    public function restore($reel_id)
+    {}
 }

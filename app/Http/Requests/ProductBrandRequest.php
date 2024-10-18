@@ -50,7 +50,7 @@ class ProductBrandRequest extends FormRequest
             ,   "order"                     => "required|numeric|min:0"
         ];
 
-        if( request() -> routeIs('productBrands.edit') )
+        if( request() -> routeIs('productBrands.update') )
         {
             $rules["slug"]                  = "required|string|unique:product_brands,slug,".$this->id;
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_BRAND_WIDTH.",height=".ImagesSettings::PRODUCT_BRAND_HEIGHT;

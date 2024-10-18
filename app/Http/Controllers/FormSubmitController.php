@@ -17,6 +17,12 @@ class FormSubmitController extends Controller
         //
     }
 
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
+
     /**
      * Show the form for creating a new resource.
      */
@@ -64,6 +70,9 @@ class FormSubmitController extends Controller
     {
         //
     }
+
+    public function restore($form_submit_id)
+    {}
 
     public function get_cities(Request $request)
     {

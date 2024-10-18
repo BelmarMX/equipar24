@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PromotionRequest;
 use App\Models\Promotion;
+use Illuminate\Http\Request;
 
 class PromotionController extends Controller
 {
@@ -14,6 +15,12 @@ class PromotionController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -62,4 +69,7 @@ class PromotionController extends Controller
     {
         //
     }
+
+    public function restore($promotion_id)
+    {}
 }

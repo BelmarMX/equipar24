@@ -52,7 +52,7 @@ class ProductSubcategoryRequest extends FormRequest
             ,   "order"                     => "required|numeric|min:0"
         ];
 
-        if( request() -> routeIs('productSubcategories.edit') )
+        if( request() -> routeIs('productSubcategories.update') )
         {
             $rules["slug"]                  = "required|string|unique:product_subcategories,slug,".$this->id;
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FormQuotationDetailRequest;
 use App\Models\FormQuotationDetail;
+use Illuminate\Http\Request;
 
 class FormQuotatioDetailController extends Controller
 {
@@ -14,6 +15,12 @@ class FormQuotatioDetailController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -62,4 +69,7 @@ class FormQuotatioDetailController extends Controller
     {
         //
     }
+
+    public function restore($form_quotation_detail_id)
+    {}
 }

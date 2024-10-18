@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FormContactRequest;
 use App\Models\FormContact;
+use Illuminate\Http\Request;
 
 class FormContactController extends Controller
 {
@@ -14,6 +15,12 @@ class FormContactController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -62,4 +69,7 @@ class FormContactController extends Controller
     {
         //
     }
+
+    public function restore($form_contact_id)
+    {}
 }

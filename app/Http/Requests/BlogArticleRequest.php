@@ -54,7 +54,7 @@ class BlogArticleRequest extends FormRequest
             ,   "published_at"              => "required|date"
         ];
 
-        if( request() -> routeIs('blogArticles.edit') )
+        if( request() -> routeIs('blogArticles.update') )
         {
             $rules["slug"]                  = "required|string|unique:blog_articles,slug,".$this->id;
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_WIDTH.",height=".ImagesSettings::ARTICLE_HEIGHT;

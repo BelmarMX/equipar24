@@ -48,7 +48,7 @@ class ProjectRequest extends FormRequest
             ,   "description"               => "required|string"
         ];
 
-        if( request() -> routeIs('projects.edit') )
+        if( request() -> routeIs('projects.update') )
         {
             $rules["slug"]                  = "required|string|unique:projects,slug,".$this->id;
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_WIDTH.",height=".ImagesSettings::PORTFOLIO_HEIGHT;

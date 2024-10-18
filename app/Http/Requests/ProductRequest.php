@@ -68,7 +68,7 @@ class ProductRequest extends FormRequest
             ,   "data_sheet"                => "required|file|mimes:pdf"
         ];
 
-        if( request() -> routeIs('products.edit') )
+        if( request() -> routeIs('products.update') )
         {
             $rules["slug"]                  = "required|string|unique:products,slug,".$this->id;
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_WIDTH.",height=".ImagesSettings::PRODUCT_HEIGHT;

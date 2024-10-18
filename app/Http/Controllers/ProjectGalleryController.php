@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectGalleryRequest;
 use App\Models\ProjectGallery;
+use Illuminate\Http\Request;
 
 class ProjectGalleryController extends Controller
 {
@@ -14,6 +15,12 @@ class ProjectGalleryController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -62,4 +69,7 @@ class ProjectGalleryController extends Controller
     {
         //
     }
+
+    public function restore($project_gallery_id)
+    {}
 }

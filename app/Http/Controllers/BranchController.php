@@ -49,28 +49,7 @@ class BranchController extends Controller
                 return $record -> state -> name;
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions    = [
-                        'field_name'    => 'title'
-                    ,   'custom'        => [
-                            'related'   => NULL
-                        ,   'images'    => NULL
-                        ,   'video'     => NULL
-                        ,   'download'  => NULL
-                    ]
-                    ,   'divider'       => FALSE
-                    ,   'edit'          => [
-                            'enabled'   => !$restore
-                        ,   'route'     => 'branches.edit'
-                    ]
-                    ,   'delete'        => [
-                            'enabled'   => !$restore
-                        ,   'route'     => 'branches.delete'
-                    ]
-                    ,   'restore'       => [
-                            'enabled'   => $restore
-                        ,   'route'     => 'branches.restore'
-                    ]
-                ];
+                $actions    = parent::set_actions('branches', 'title', FALSE, $restore);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->toJson();
@@ -93,7 +72,6 @@ class BranchController extends Controller
      */
     public function store(BranchRequest $request)
     {
-        dd($request -> validated());
         $created = Branch::create($request -> validated());
         return redirect() -> route('branches.index', compact('created'));
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductGalleryRequest;
 use App\Models\ProductGallery;
+use Illuminate\Http\Request;
 
 class ProductGalleryController extends Controller
 {
@@ -14,6 +15,12 @@ class ProductGalleryController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -62,4 +69,7 @@ class ProductGalleryController extends Controller
     {
         //
     }
+
+    public function restore($product_gallery_id)
+    {}
 }

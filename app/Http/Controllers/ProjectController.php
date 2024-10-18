@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\Navigation;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -24,6 +25,12 @@ class ProjectController extends Controller
     {
         //
     }
+
+    public function archived()
+    {}
+
+    public function datatable(Request $request)
+    {}
 
     /**
      * Show the form for creating a new resource.
@@ -72,4 +79,7 @@ class ProjectController extends Controller
     {
         //
     }
+
+    public function restore($project_id)
+    {}
 }
