@@ -25,6 +25,7 @@ export default defineConfig({
                 'resources/assets/js/dashboard/datatables/common.js',
                 'resources/assets/js/dashboard/datatables/states.js',
                 'resources/assets/js/dashboard/datatables/cities.js',
+                'resources/assets/js/dashboard/datatables/banners.js',
                 'resources/assets/js/dashboard/datatables/branches.js'
             ],
             refresh: true,
