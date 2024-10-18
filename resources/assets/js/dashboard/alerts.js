@@ -94,7 +94,7 @@ class Alert
         swal.fire({
                 icon: 'info'
             ,   title: title
-            ,   html: `<img src="${img_url}" class="w-full" alt="${title}">`
+            ,   html: `<img src="${img_url}" style="margin: 0 auto;" alt="${title}">`
             ,	showCloseButton: true
             ,	showConfirmButton: false
             ,   width: '80vw'

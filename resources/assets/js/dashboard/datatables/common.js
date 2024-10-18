@@ -1,8 +1,8 @@
-const DT_LANG_ES        = "https://cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json"
+const DT_LANG_ES            = "https://cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json"
 
-const URL_PARAMS        = new URLSearchParams(window.location.search)
+const URL_PARAMS            = new URLSearchParams(window.location.search)
 
-const DT_OPTIONS        = {
+const DT_OPTIONS            = {
         language:           {
                 url:            DT_LANG_ES
             ,   lengthMenu:     "Viendo _MENU_ registros por página"
@@ -35,7 +35,7 @@ const DT_OPTIONS        = {
     ,   retrieve:           true
 }
 
-const DT_OPTIONS_SSR    = {
+const DT_OPTIONS_SSR        = {
         ...DT_OPTIONS
     ,   processing:         true
     ,   serverSide:         true
@@ -68,10 +68,17 @@ const DT_OPTIONS_SSR    = {
             ,   type:       "num"
         }
     ]
-    ,   order:                  {
+    ,   order:              {
             idx: 0
         ,   dir: 'desc'
     }
 }
 
-export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS }
+const set_human_datetime    = ({human_created_at, created_dmy, deleted_at}) => {
+    let is_deleted = deleted_at !== null
+        ? `<br><small class="bg-red-500 text-white p-1 rounded">ELIMINADO</small>`
+        : ''
+    return `${created_dmy}<br><small class="human-date">${human_created_at}</small>${is_deleted}`
+}
+
+export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime }

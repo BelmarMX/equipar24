@@ -39,67 +39,106 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
 
     Route::resource('banners', BannerController::class);
     Route::group(['prefix' => 'banners', 'controller' => BannerController::class], function () {
+        Route::post('datatable', 'datatable')->name('dashboard.banners.datatable');
+        Route::get('archived/view', 'archived')->name('banners.archived');
         Route::get('delete/{banner}', 'destroy')->name('banners.delete');
+        Route::get('restore/{banner_id}', 'restore')->name('banners.restore');
     });
 
     Route::resource('reels', ReelController::class);
     Route::group(['prefix' => 'reels', 'controller' => ReelController::class], function () {
+        Route::post('datatable', 'datatable')->name('dashboard.reels.datatable');
+        Route::get('archived/view', 'archived')->name('reels.archived');
         Route::get('delete/{reel}', 'destroy')->name('reels.delete');
+        Route::get('restore/{reel_id}', 'restore')->name('reels.restore');
     });
 
     Route::resource('products', ProductController::class);
     Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
-        Route::get('delete/{product}', 'destroy')->name('products.delete');
+        Route::post('datatable', 'datatable')->name('dashboard.projects.datatable');
+        Route::get('archived/view', 'archived')->name('projects.archived');
+        Route::get('delete/{project}', 'destroy')->name('projects.delete');
+        Route::get('restore/{project_id}', 'restore')->name('projects.restore');
     });
 
     Route::resource('productBrands', ProductBrandController::class);
     Route::group(['prefix' => 'productBrands', 'controller' => ProductBrandController::class], function () {
-        Route::get('delete/{project}', 'destroy')->name('projects.delete');
+        Route::post('datatable', 'datatable')->name('dashboard.productBrands.datatable');
+        Route::get('archived/view', 'archived')->name('productBrands.archived');
+        Route::get('delete/{product_brand}', 'destroy')->name('productBrands.delete');
+        Route::get('restore/{product_brand_id}', 'restore')->name('productBrands.restore');
     });
 
     Route::resource('productCategories', ProductCategoryController::class);
     Route::group(['prefix' => 'productCategories', 'controller' => ProductCategoryController::class], function () {
-        Route::get('delete/{productCategory}', 'destroy')->name('productCategories.delete');
+        Route::post('datatable', 'datatable')->name('dashboard.productCategories.datatable');
+        Route::get('archived/view', 'archived')->name('productCategories.archived');
+        Route::get('delete/{product_category}', 'destroy')->name('productCategories.delete');
+        Route::get('restore/{product_category_id}', 'restore')->name('productCategories.restore');
     });
 
     Route::resource('productSubcategories', ProductSubcategoryController::class);
     Route::group(['prefix' => 'productSubcategories', 'controller' => ProductSubcategoryController::class], function () {
-        Route::get('delete/{productSubcategory}', 'destroy')->name('productSubcategories.delete');
+        Route::post('datatable', 'datatable')->name('dashboard.productSubcategories.datatable');
+        Route::get('archived/view', 'archived')->name('productSubcategories.archived');
+        Route::get('delete/{product_subcategory}', 'destroy')->name('productSubcategories.delete');
+        Route::get('restore/{product_subcategory_id}', 'restore')->name('productSubcategories.restore');
     });
 
     Route::resource('productGalleries', ProductGalleryController::class);
     Route::group(['prefix' => 'productGalleries', 'controller' => ProductGalleryController::class], function () {
-        Route::get('delete/{productGallery}', 'destroy')->name('productGalleries.delete');
+        Route::post('datatable', 'datatable')->name('dashboard.productGalleries.datatable');
+        Route::get('archived/view', 'archived')->name('productGalleries.archived');
+        Route::get('delete/{product_gallery}', 'destroy')->name('productGalleries.delete');
+        Route::get('restore/{product_gallery_id}', 'restore')->name('productGalleries.restore');
     });
 
     Route::resource('promotions', PromotionController::class);
     Route::group(['prefix' => 'promotions', 'controller' => PromotionController::class], function () {
-        Route::get('delete/{promotion}', 'destroy')->name('promotion.delete');
+        Route::post('datatable', 'datatable')->name('dashboard.promotions.datatable');
+        Route::get('archived/view', 'archived')->name('promotions.archived');
+        Route::get('delete/{promotion}', 'destroy')->name('promotions.delete');
+        Route::get('restore/{promotion_id}', 'restore')->name('promotions.restore');
     });
 
     Route::resource('projects', ProjectController::class);
     Route::group(['prefix' => 'projects', 'controller' => ProjectController::class], function () {
+        Route::post('datatable', 'datatable')->name('dashboard.projects.datatable');
+        Route::get('archived/view', 'archived')->name('projects.archived');
         Route::get('delete/{project}', 'destroy')->name('projects.delete');
+        Route::get('restore/{project_id}', 'restore')->name('projects.restore');
     });
 
     Route::resource('projectGalleries', ProjectGalleryController::class);
     Route::group(['prefix' => 'projectGalleries;', 'controller' => ProjectGalleryController::class], function () {
+        Route::post('datatable', 'datatable')->name('dashboard.projectGalleries.datatable');
+        Route::get('archived/view', 'archived')->name('projectGalleries.archived');
         Route::get('delete/{projectGallery}', 'destroy')->name('projectGalleries.delete');
+        Route::get('restore/{project_gallery_id}', 'restore')->name('projectGalleries.restore');
     });
 
-    Route::resource('blog', BlogArticleController::class);
-    Route::group(['prefix' => 'blog', 'controller' => BlogArticleController::class], function () {
-        Route::get('delete/{blog}', 'destroy')->name('blog.delete');
+    Route::resource('blogArticles', BlogArticleController::class);
+    Route::group(['prefix' => 'blogArticles', 'controller' => BlogArticleController::class], function () {
+        Route::post('datatable', 'datatable')->name('dashboard.blogArticles.datatable');
+        Route::get('archived/view', 'archived')->name('blogArticles.archived');
+        Route::get('delete/{blogArticle}', 'destroy')->name('blogArticles.delete');
+        Route::get('restore/{blog_article_id}', 'restore')->name('blogArticles.restore');
     });
 
     Route::resource('blogCategories', BlogCategoryController::class);
     Route::group(['prefix' => 'blogCategories', 'controller' => BlogCategoryController::class], function () {
+        Route::post('datatable', 'datatable')->name('dashboard.blogCategories.datatable');
+        Route::get('archived/view', 'archived')->name('blogCategories.archived');
         Route::get('delete/{blogCategory}', 'destroy')->name('blogCategories.delete');
+        Route::get('restore/{blog_category_id}', 'restore')->name('blogCategories.restore');
     });
 
     Route::resource('contacts', FormSubmitController::class);
     Route::group(['prefix' => 'contacts', 'controller' => FormSubmitController::class], function () {
+        Route::post('datatable', 'datatable')->name('dashboard.contacts.datatable');
+        Route::get('archived/view', 'archived')->name('contacts.archived');
         Route::get('delete/{contact}', 'destroy')->name('contacts.delete');
+        Route::get('restore/{contact_id}', 'restore')->name('contacts.restore');
     });
 
     Route::resource('branches', BranchController::class);

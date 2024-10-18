@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class error-field extends Component
+class error_field extends Component
 {
     /**
      * Create a new component instance.

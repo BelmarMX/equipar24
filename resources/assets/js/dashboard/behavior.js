@@ -60,11 +60,35 @@ $(document).ready(function() {
     $('[data-clear-errors]').on('change', function(e) {
         $(this).parent('div').find('.is-invalid').addClass('hidden')
     })
+
+    $(document).on('click', '[data-lightbox]', function(e) {
+        e.preventDefault()
+
+        let title = $(this).attr('data-title') ? $(this).attr('data-title') : 'Vista previa'
+        Alert.ligthbox($(this).attr('data-lightbox'), title)
+    })
+
     $(document).on('click', '[data-confirm-redirect]', function(e) {
         e.preventDefault()
         let attribute   = $(this).attr('data-confirm-redirect')
         let ask         = attribute !== '' ? attribute : '¿Estás seguro de realizar esta acción?'
-        Alert.confirm('Revisa que la información sea correcta', () => location.href = $(this).attr('href'), ask )
+        Alert.confirm('Perderás los cambios que no hayas guardado', () => location.href = $(this).attr('href'), ask )
+    })
+
+    $(document).on('change', '[data-preview-image]', function(e) {
+        let target  = $(this).attr('data-preview-image')
+        let files   = e.target.files
+        if( files[0] )
+        {
+            let reader      = new FileReader();
+            reader.onload   = function(e) {
+                $(target).removeClass('hidden')
+                $(target).parent().find('.svg_load_icon').addClass('hidden')
+                $(target).parent().find('.metadata').removeClass('hidden').text(files[0].name)
+                $(target).find('.image_preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(files[0]);
+        }
     })
 
     if( URL_PARAMS.get('created') )

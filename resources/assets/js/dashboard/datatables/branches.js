@@ -1,4 +1,4 @@
-import { DT_OPTIONS_SSR } from './common.js'
+import {DT_OPTIONS_SSR, set_human_datetime} from './common.js'
 
 $(document).ready(function() {
     $('#branches-table').DataTable({
@@ -29,12 +29,7 @@ $(document).ready(function() {
             ,   {
                         data:       null
                     ,   className:  'text-right'
-                    ,   render:     ({human_created_at, created_dmy, deleted_at}) => {
-                            let is_deleted = deleted_at !== null
-                                ? `<br><small class="bg-red-500 text-white p-1 rounded">ELIMINADO</small>`
-                                : ''
-                            return `${created_dmy}<br><small class="human-date">${human_created_at}</small>${is_deleted}`
-                        }
+                    ,   render:     data => set_human_datetime(data)
                 }
             ,   { data: 'action', className: 'text-center' }
         ]
