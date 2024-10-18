@@ -55,52 +55,20 @@
     </div>
     <div class="row px-4">
         <!-- Sucursales -->
-        <div class="col-sm-12 col-md location">
-            <a href="https://maps.app.goo.gl/SkDp2znznD5FjBPv6" target="_blank"><i class="bi bi-geo-alt-fill"></i> <span>Gdl Matriz</span></a>
-            <p class="pt-2">
-                Av. Cvln. Jorge Álvarez del Castillo<br>
-                Núm. 1442<br>
-                Col. Lomas del Country<br>
-                Guadalajara, Jalisco. México.
-            </p>
-        </div>
-        <div class="col-sm-12 col-md location">
-            <a href="https://maps.app.goo.gl/Wm8peAwcUb3paqtz9" target="_blank"><i class="bi bi-geo-alt-fill"></i> <span>Gdl Showroom</span></a>
-            <p class="pt-2">
-                Av. 16 de septiembre<br>
-                Núm. 665<br>
-                Col. Mexicaltzingo<br>
-                Guadalajara, Jalisco. México.
-            </p>
-        </div>
-        <div class="col-sm-12 col-md location">
-            <a href="https://maps.app.goo.gl/ePQWhR2uwJWKjVhbA" target="_blank"><i class="bi bi-geo-alt-fill"></i> <span>Guadalajara</span></a>
-            <p class="pt-2">
-                Av. Plan de San Luis<br>
-                Núm. 1850<br>
-                Col. Lomas del Country<br>
-                Guadalajara, Jalisco. México.
-            </p>
-        </div>
-        <div class="col-sm-12 col-md location">
-            <a href="https://maps.app.goo.gl/B5UKEZ69yei9teLN8" target="_blank"><i class="bi bi-geo-alt-fill"></i> <span>Zapopan</span></a>
-            <p class="pt-2">
-                Av. Mariano Otero<br>
-                Núm. 3519<br>
-                Col. La Calma<br>
-                Zapopan, Jalisco. México.
-            </p>
-        </div>
-        <div class="col-sm-12 col-md location">
-            <a href="https://maps.app.goo.gl/MfFQ4r7kaUumuUGy8" target="_blank"><i class="bi bi-geo-alt-fill"></i> <span>Puerto Vallarta</span></a>
-            <p class="pt-2">
-                Plaza El Roble<br>
-                Blvd. Riviera Nayarit<br>
-                Núm. 2, Local 7 y 8<br>
-                Col. Nuevo Vallarta<br>
-                Riviera Nayarit, Nayarit. México.<br>
-            </p>
-        </div>
+        @foreach($branches AS $branch)
+            <div class="col-sm-12 col-md location">
+                <a href="{{ $branch -> link }}" target="_blank"><i class="bi bi-geo-alt-fill"></i> <span>{{ $branch -> title }}</span></a>
+                <p class="pt-2">
+                    @if( !empty($branch->building) )
+                        {{$branch->building}}<br>
+                    @endif
+                    {{ $branch -> street }}<br>
+                    Núm. {{ $branch -> number }}<br>
+                    Col. {{ $branch -> neighborhood }}<br>
+                    {{ $branch -> city -> name }}, {{ $branch -> state -> name }}. México.
+                </p>
+            </div>
+        @endforeach
     </div>
     <div class="row bg-black text-white mt-3">
         <div class="col-md-12 text-md-center p-1">

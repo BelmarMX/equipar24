@@ -6,23 +6,9 @@
          data-bs-interval="5500"
     >
         <div class="carousel-inner">
-            {{--
-            <div class="carousel-item active">
-                @include('frontend_v2.partials.banner-single', [
-                        'slide'         => asset('v2/images/samples/banner.jpg')
-                    ,   'slide_mobile'  => asset('v2/images/samples/banner-mv.jpg')
-                    ,   'slide_alt'     => 'Proyectos para personas'
-                    ,   'summary'       => TRUE
-                    ,   'title'         => 'Proyectos para <strong>Personas</strong>'
-                    ,   'description'   => 'Aseguramos el correcto diseño y selección de equipo necesarios para la <strong>operación eficiente de su cocina</strong>'
-                    ,   'cta'           => 'Ver Proyectos'
-                    ,   'cta_href'      => route('proyectos')
-                ])
-            </div>
-            --}}
             @foreach($banners AS $banner)
                 <div class="carousel-item @if($loop -> first) active @endif">
-                    @include('frontend_v2.partials.banner-single', [
+                    @include('web._layout.banner.banner-single', [
                             'slide'         => url('storage/banners/'.$banner -> image)
                         ,   'slide_mobile'  => url('storage/banners/'.$banner -> image_mv)
                         ,   'slide_alt'     => $banner -> title

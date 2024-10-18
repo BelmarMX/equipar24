@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('embed_code')->nullable();
             $table->string('image', 2040)->nullable();
             $table->string('image_rx', 2040)->nullable();
+            $table->integer('order')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

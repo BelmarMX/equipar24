@@ -27,6 +27,7 @@ class Branch extends Model
         ,   'embed_code'
         ,   'image'
         ,   'image_rx'
+        ,   'order'
     ];
 
     protected $appends  = [

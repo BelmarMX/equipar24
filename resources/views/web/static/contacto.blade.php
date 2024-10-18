@@ -114,124 +114,36 @@
                 </div>
 
                 <div class="row mb-5">
-                    <div class="col-md-6 order-md-2 contact-location">
-                        <i class="bi bi-geo-alt-fill"></i> <h3>Guadalajara Matriz</h3>
-                        <p class="pt-3">
-                            Av. Cvln. Jorge Álvarez del Castillo núm. 1442<br>
-                            Col. Lomas del Country<br>
-                            Guadalajara, Jalisco. México.<br>
-                            <a href="tel:+5213328862661" target="-_blank">
-                                +52 1 33 2886 2661
-                            </a>
-                        </p>
+                @foreach($branches AS $branch)
+                    <div class="col-md-6 contact-location mb-3">
+                        <div class="row g-1">
+                            <div class="col-md-7">
+                                <iframe src="{{ $branch -> embed_code }}"
+                                        width="100%"
+                                        height="300"
+                                        style="border:0; border-radius: 15px"
+                                        allowfullscreen=""
+                                        loading="lazy"
+                                >
+                                </iframe>
+                            </div>
+                            <div class="col-md-5">
+                                <i class="bi bi-geo-alt-fill"></i> <h3>{{ $branch -> title }}</h3>
+                                <p class="pt-3">
+                                    @if( !empty($branch->building) )
+                                        {{$branch->building}}<br>
+                                    @endif
+                                    {{ $branch -> street }} núm. {{ $branch -> number }}<br>
+                                    Col. {{ $branch -> neighborhood }}<br>
+                                    {{ $branch -> city -> name }}, {{ $branch -> state -> name }}. México.<br>
+                                    <a href="tel:{!! $Navigation::mex_phone_number($branch -> phone) -> dial !!}" target="-_blank">
+                                        {!! $Navigation::mex_phone_number($branch -> phone) -> display !!}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6 order-md-1">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7464.423907058208!2d-103.36637900000001!3d20.701616!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8573938c634944dd!2sEqui-par%20Cocinas%20Industriales!5e0!3m2!1ses!2smx!4v1645771932888!5m2!1ses!2smx"
-                                width="100%"
-                                height="400"
-                                style="border:0;"
-                                allowfullscreen=""
-                                loading="lazy"
-                        >
-                        </iframe>
-                    </div>
-                </div>
-
-                <div class="row mb-5">
-                    <div class="col-md-6 order-md-2 contact-location">
-                        <i class="bi bi-geo-alt-fill"></i> <h3>Sucursal Zapopan</h3>
-                        <p class="pt-3">
-                            Av. Mariano Otero núm. 3519<br>
-                            Col. La Calma<br>
-                            Zapopan, Jalisco. México.<br>
-                            <a href="tel:+5213335751334" target="-_blank">
-                                +52 1 33 3575 1334
-                            </a>
-                        </p>
-                    </div>
-                    <div class="col-md-6 order-md-1">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d16562.04313701228!2d-103.42620814629664!3d20.637281778034207!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3c7c1293fe6c83fd!2sEqui-par!5e0!3m2!1ses!2smx!4v1645772008948!5m2!1ses!2smx"
-                                width="100%"
-                                height="400"
-                                style="border:0;"
-                                allowfullscreen=""
-                                loading="lazy"
-                        >
-                        </iframe>
-                    </div>
-                </div>
-
-                <div class="row mb-5">
-                    <div class="col-md-6 order-md-2 contact-location">
-                        <i class="bi bi-geo-alt-fill"></i> <h3>Sucursal Guadalajara</h3>
-                        <p class="pt-3">
-                            Av. 16 de septiembre núm. 665<br>
-                            Col. Mexicaltzingo<br>
-                            Guadalajara, Jalisco. México.<br>
-                            <a href="tel:+5213328862661" target="-_blank">
-                                +52 1 33 2886 2661
-                            </a>
-                        </p>
-                    </div>
-                    <div class="col-md-6 order-md-1">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4676.33574189778!2d-103.35068286458595!3d20.665050103700274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428b300a6ca8bdb%3A0xc9c8ebd1f7c027ca!2sEquipar%20cocinas%20Industriales!5e0!3m2!1ses-419!2smx!4v1651552749341!5m2!1ses-419!2smx"
-                                width="100%"
-                                height="400"
-                                style="border:0;"
-                                allowfullscreen=""
-                                loading="lazy"
-                        >
-                        </iframe>
-                    </div>
-                </div>
-
-                <div class="row mb-5">
-                    <div class="col-md-6 order-md-2 contact-location">
-                        <i class="bi bi-geo-alt-fill"></i> <h3>Sucursal Guadalajara</h3>
-                        <p class="pt-3">
-                            Av. Plan de San Luis núm. 1850<br>
-                            Col. Lomas del Country<br>
-                            Guadalajara, Jalisco. México.<br>
-                            <a href="tel:+5213322876603" target="-_blank">
-                                +52 1 33 2287 6603
-                            </a>
-                        </p>
-                    </div>
-                    <div class="col-md-6 order-md-1">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4084.2490156145327!2d-103.36827142154223!3d20.69742080525417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428af5cee6f4d17%3A0xde3443a6033c0b2a!2sEquipar%20cocinas%20industriales!5e0!3m2!1ses!2smx!4v1728539873512!5m2!1ses!2smx"
-                                width="100%"
-                                height="400"
-                                style="border:0;"
-                                allowfullscreen=""
-                                loading="lazy"
-                        >
-                        </iframe>
-                    </div>
-                </div>
-
-                <div class="row mb-5">
-                    <div class="col-md-6 order-md-2 contact-location">
-                        <i class="bi bi-geo-alt-fill"></i> <h3>Sucursal Puerto Vallarta</h3>
-                        <p class="pt-3">
-                            Plaza El Roble<br>
-                            Blvd. Riviera Nayarit Núm. 2. Local 7 y 8<br>
-                            Col. Nuevo Vallarta<br>
-                            Riviera Nayarit, Nayarit. México.<br>
-                            <a href="tel:+5213321128039" target="-_blank">
-                                +52 1 329 111 6725
-                            </a>
-                        </p>
-                    </div>
-                    <div class="col-md-6 order-md-1">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1660.5055586225783!2d-105.27505461345973!3d20.709479137104474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842147c84338c56f%3A0x34b397c7230e556d!2sEquipar%20Cocinas%20industriales%20vallarta!5e0!3m2!1ses-419!2smx!4v1677733866626!5m2!1ses-419!2smx"
-                                width="100%"
-                                height="400"
-                                style="border:0;"
-                                allowfullscreen=""
-                                loading="lazy"
-                        >
-                        </iframe>
-                    </div>
+                @endforeach
                 </div>
             </div>
         </div>

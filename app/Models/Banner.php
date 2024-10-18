@@ -21,6 +21,7 @@ class Banner extends Model
         ,   'image'
         ,   'image_rx'
         ,   'image_mv'
+        ,   'order'
     ];
 
     protected $appends  = [

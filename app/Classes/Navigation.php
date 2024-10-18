@@ -4,6 +4,7 @@ namespace App\Classes;
 
 use App\Models\Banner;
 use App\Models\BlogArticle;
+use App\Models\Branch;
 use App\Models\City;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -41,6 +42,14 @@ class Navigation
         return "52".str_replace(['(', ')', ' '], '', self::TEL_WHATS_SHOW);
     }
 
+    public static function mex_phone_number($phone)
+    {
+        $number = new \stdClass();
+        $number -> dial     = '+52'.$phone;
+        $number -> display  = '+52 1'.substr($phone, 0, 2) . ' ' . substr($phone, 2, 4) . ' ' . substr($phone, 6, 4);
+        return $number;
+    }
+
     public static function get_static_data($unset = [], $states = FALSE)
     {
         $data = [
@@ -52,6 +61,7 @@ class Navigation
             ,   'articles'  => !in_array('articles', $unset)    ? BlogArticle::get_articles()                   : NULL
             ,   'states'    => $states                                  ? State::get_states_alias()                     : NULL
             ,   'menu_cat'  => ProductCategory::get_categories()
+            ,   'branches'  => Branch::all()
         ];
 
         return $data;
