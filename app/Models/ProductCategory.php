@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\ImagesSettings;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +26,8 @@ class ProductCategory extends Model
     protected $appends  = [
             'human_created_at'
         ,   'created_dmy'
+        ,   'asset_folder'
+        ,   'asset_url'
     ];
 
     /* ----------------------------------------------------------------------------------------------------------------
@@ -38,6 +41,18 @@ class ProductCategory extends Model
     public function subcategories(): HasMany
     {
         return $this->hasMany(ProductSubcategory::class);
+    }
+    protected function assetFolder(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => 'storage/'.ImagesSettings::PRODUCT_CAT_FOLDER.'/'
+        );
+    }
+    protected function assetUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => asset('storage/'.ImagesSettings::PRODUCT_CAT_FOLDER).'/'
+        );
     }
 
     /* ----------------------------------------------------------------------------------------------------------------
