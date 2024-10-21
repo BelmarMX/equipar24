@@ -59,7 +59,7 @@ class BlogArticle extends Model
     protected function assetFolder(): Attribute
     {
         return Attribute::make(
-            get: fn() => 'storage/'.ImagesSettings::ARTICLE_FOLDER.'/'
+            get: fn() => 'storage/'.ImagesSettings::ARTICLE_FOLDER
         );
     }
     protected function assetUrl(): Attribute

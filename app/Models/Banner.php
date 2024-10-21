@@ -58,7 +58,7 @@ class Banner extends Model
     protected function assetFolder(): Attribute
     {
         return Attribute::make(
-            get: fn() => 'storage/'.ImagesSettings::BANNER_FOLDER.'/'
+            get: fn() => 'storage/'.ImagesSettings::BANNER_FOLDER
         );
     }
     protected function assetUrl(): Attribute

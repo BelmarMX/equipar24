@@ -94,7 +94,7 @@ class Product extends Model
     protected function assetFolder(): Attribute
     {
         return Attribute::make(
-            get: fn() => 'storage/'.ImagesSettings::PRODUCT_FOLDER.'/'
+            get: fn() => 'storage/'.ImagesSettings::PRODUCT_FOLDER
         );
     }
     protected function assetUrl(): Attribute

@@ -67,7 +67,7 @@ class ProductBrand extends Model
     protected function assetFolder(): Attribute
     {
         return Attribute::make(
-            get: fn() => 'storage/'.ImagesSettings::PRODUCT_BRAND_FOLDER.'/'
+            get: fn() => 'storage/'.ImagesSettings::PRODUCT_BRAND_FOLDER
         );
     }
     protected function assetUrl(): Attribute

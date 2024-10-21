@@ -66,7 +66,7 @@ class Reel extends Model
     protected function assetFolder(): Attribute
     {
         return Attribute::make(
-            get: fn() => 'storage/'.ImagesSettings::REEL_FOLDER.'/'
+            get: fn() => 'storage/'.ImagesSettings::REEL_FOLDER
         );
     }
     protected function assetUrl(): Attribute
