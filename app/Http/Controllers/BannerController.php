@@ -44,16 +44,32 @@ class BannerController extends Controller
 
         return DataTables::of($dt_of)
             ->addColumn('promocion', function($record) {
-                return $record -> promocion -> title ?? 'Sin promoción';
+                if( $record -> promotion_id == NULL )
+                {
+                    return 'Sin promoción';
+                }
+                $promotion  = $record -> promotion;
+                $vigency    = $promotion -> get_vigency();
+                $discount   = $promotion -> discount_type == 'percentage'
+                    ? "{$promotion -> amount}% de descuento"
+                    : "Descuento de $ {$promotion -> amount} MXN";
+                $className  = $vigency->type == 'success'
+                    ? 'text-emerald-400'
+                    : ($vigency->type == 'danger'
+                        ? 'text-red-400'
+                        : 'text-indigo-400'
+                    );
+                return "<span data-tooltip='$discount'>{$promotion->title}<span>
+                    <span class='block text-right {$className}'>{$promotion->get_vigency()->html}</span>";
             })
             ->addColumn('preview', function($record) {
-                return view('dashboard.banners.preview', compact('record')) -> render();
+                return view('dashboard.partials.preview', compact('record')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
                 $actions            = parent::set_actions('banners', 'title', FALSE, $restore);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
-            ->rawColumns(['preview', 'action'])
+            ->rawColumns(['promocion', 'preview', 'action'])
             ->toJson();
     }
 
@@ -127,6 +143,9 @@ class BannerController extends Controller
             ,   FALSE
             ,   ImagesSettings::BANNER_WIDTH_MV
             ,   ImagesSettings::BANNER_HEIGHT_MV
+            ,   $banner -> image
+            ,   $banner -> image_mv
+            ,   $banner -> image_rx
         );
 
         $validated['image']     = $stored -> full -> original   ?? $banner -> image;

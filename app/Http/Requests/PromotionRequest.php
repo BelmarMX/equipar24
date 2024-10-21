@@ -49,21 +49,21 @@ class PromotionRequest extends FormRequest
                 "title"                     => "required|string"
             ,   "slug"                      => "required|string|unique:promotions,slug"
             ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH.",height=".ImagesSettings::PROMOS_HEIGHT
-            ,   "image_rx"                  => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH_MV.",height=".ImagesSettings::PROMOS_WIDTH_MV
+            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH_MV.",height=".ImagesSettings::PROMOS_HEIGHT_MV
             ,   "image_mv"                  => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH_MV.",height=".ImagesSettings::PROMOS_HEIGHT_MV
-            ,   "description"               => "required|string"
+            ,   "description"               => "nullable|string"
             ,   "starts_at"                 => "required|date"
             ,   "ends_at"                   => "required|date"
             ,   "discount_type"             => "required|string|in:percentage,fixed"
-            ,   "Monto"                     => "required|numeric|min:1"
+            ,   "amount"                    => "required|numeric|min:1"
         ];
 
         if( request() -> routeIs('promotions.update') )
         {
             $rules["slug"]                  = "required|string|unique:promotions,slug,".$this->id;
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH.",height=".ImagesSettings::PROMOS_HEIGHT;
-            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH_MV.",height=".ImagesSettings::PROMOS_WIDTH_MV;
-            $rules["image_mv"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH_MV.",height=".ImagesSettings::PROMOS_WIDTH_MV;
+            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH_MV.",height=".ImagesSettings::PROMOS_HEIGHT_MV;
+            $rules["image_mv"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH_MV.",height=".ImagesSettings::PROMOS_HEIGHT_MV;
         }
 
         return $rules;

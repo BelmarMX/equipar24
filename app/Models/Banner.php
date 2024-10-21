@@ -27,6 +27,7 @@ class Banner extends Model
     protected $appends  = [
             'human_created_at'
         ,   'created_dmy'
+        ,   'asset_folder'
         ,   'asset_url'
     ];
 
@@ -54,7 +55,12 @@ class Banner extends Model
             get: fn() => Carbon::parse($this->created_at)->format('d/m/Y H:i')
         );
     }
-
+    protected function assetFolder(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => 'storage/'.ImagesSettings::BANNER_FOLDER.'/'
+        );
+    }
     protected function assetUrl(): Attribute
     {
         return Attribute::make(

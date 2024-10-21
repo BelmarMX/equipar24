@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\ImagesSettings;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,6 +32,8 @@ class Promotion extends Model
     protected $appends  = [
             'human_created_at'
         ,   'created_dmy'
+        ,   'asset_folder'
+        ,   'asset_url'
     ];
 
     /* ----------------------------------------------------------------------------------------------------------------
@@ -68,14 +71,59 @@ class Promotion extends Model
         );
     }
 
+    protected function assetFolder(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => 'storage/'.ImagesSettings::PROMOS_FOLDER.'/'
+        );
+    }
+
+    protected function assetUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => asset('storage/'.ImagesSettings::PROMOS_FOLDER).'/'
+        );
+    }
+
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
     public static function get_promotions()
     {
-        return self::where('starts_at', '<=', now())
-            ->where('ends_at', '>=', now())
+        return self::where(function($query){
+                $query->where('starts_at', '<=', now())
+                    ->where('ends_at', '>=', now());
+            })
+            ->orWhere(function($query){
+                $query->where('starts_at', '>=', now())
+                    ->where('ends_at', '>=', now());
+            })
             ->orderBy('starts_at', 'ASC')
             ->get();
+    }
+
+    public function get_vigency()
+    {
+        $vigency = new \stdClass();
+        if( now() >= $this->starts_at && now() <= $this->ends_at )
+        {
+            $vigency->type  = 'success';
+            $vigency->text  = 'Vigente';
+            $vigency->html  = '<i class="fa-regular fa-calendar-check me-1"></i> Vigente';
+        }
+        elseif( now() > $this->ends_at )
+        {
+            $vigency->type  = 'danger';
+            $vigency->text  = 'Vencida';
+            $vigency->html  = '<i class="fa-regular fa-calendar-xmark me-1"></i> Vencida';
+        }
+        elseif( now() < $this->starts_at )
+        {
+            $vigency->type  = 'info';
+            $vigency->text  = 'Próxima';
+            $vigency->html  = '<i class="fa-regular fa-calendar me-1"></i> Próxima';
+        }
+
+        return $vigency;
     }
 }
