@@ -43,7 +43,7 @@ class ProjectRequest extends FormRequest
         $rules = [
                 "title"                     => "required|string"
             ,   "slug"                      => "required|string|unique:projects,slug"
-            ,   "image"                     => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_WIDTH.",height=".ImagesSettings::PORTFOLIO_HEIGHT
+            ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::PORTFOLIO_WIDTH.",min_height=".ImagesSettings::PORTFOLIO_HEIGHT
             ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_RX_WIDTH.",height=".ImagesSettings::PORTFOLIO_RX_HEIGHT
             ,   "description"               => "required|string"
         ];
@@ -51,7 +51,7 @@ class ProjectRequest extends FormRequest
         if( request() -> routeIs('projects.update') )
         {
             $rules["slug"]                  = "required|string|unique:projects,slug,".$this->id;
-            $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_WIDTH.",height=".ImagesSettings::PORTFOLIO_HEIGHT;
+            $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::PORTFOLIO_WIDTH.",min_height=".ImagesSettings::PORTFOLIO_HEIGHT;
             $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_RX_WIDTH.",height=".ImagesSettings::PORTFOLIO_RX_HEIGHT;
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Classes\ImagesSettings;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProjectGalleryRequest extends FormRequest
@@ -18,6 +19,7 @@ class ProjectGalleryRequest extends FormRequest
     {
         return [
                 "project_id"                => "ID Proyecto"
+            ,   "title"                     => "Título"
             ,   "image"                     => "Portada"
             ,   "image_rx"                  => "Recorte de portada"
             ,   "video"                     => "Video"
@@ -34,8 +36,9 @@ class ProjectGalleryRequest extends FormRequest
     {
         return [
                 "project_id"                => "required|numeric|exists:projects,id"
-            ,   "image"                     => "nullable|image|mimes:jpeg,png,webp"
-            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp"
+            ,   "title"                     => "required|string"
+            ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::PORTFOLIO_IMG_WIDTH.",min_height=".ImagesSettings::PORTFOLIO_IMG_HEIGHT
+            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_IMG_RX_WIDTH.",height=".ImagesSettings::PORTFOLIO_IMG_RX_HEIGHT
             ,   "video"                     => "nullable|string"
             ,   "youtube_code"              => "nullable|numeric|min:0"
         ];

@@ -183,4 +183,12 @@ abstract class Controller
         }
         return NULL;
     }
+
+    public static function delete_image(array $images, $storage_folder)
+    {
+        foreach($images as $image)
+        {
+            Storage::disk('public')->delete($storage_folder.$image);
+        }
+    }
 }

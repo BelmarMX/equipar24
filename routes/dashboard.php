@@ -110,8 +110,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     });
 
     Route::resource('projectGalleries', ProjectGalleryController::class);
-    Route::group(['prefix' => 'projectGalleries;', 'controller' => ProjectGalleryController::class], function () {
-        Route::post('datatable', 'datatable')->name('dashboard.projectGalleries.datatable');
+    Route::group(['prefix' => 'projectGalleries', 'controller' => ProjectGalleryController::class], function () {
+        Route::post('datatable/{project}', 'datatable')->name('dashboard.projectGalleries.datatable');
+        Route::get('project/{project}', 'gallery')->name('projectGalleries.gallery');
         Route::get('archived/view', 'archived')->name('projectGalleries.archived');
         Route::get('delete/{projectGallery}', 'destroy')->name('projectGalleries.delete');
         Route::get('restore/{project_gallery_id}', 'restore')->name('projectGalleries.restore');

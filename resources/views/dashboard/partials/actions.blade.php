@@ -1,4 +1,4 @@
-@empty(!$actions['custom']['related'])
+@if(!empty($actions['custom']['related']) && empty($actions['restore']['enabled']))
     <a class="dt-custom-action tooltip" data-tooltip="{{ $actions['custom']['related']['tooltip'] ?? '' }}"
        href="{{ route($actions['custom']['related']['route'], $record -> id) }}"
     >
@@ -9,36 +9,29 @@
             <i class="fa-solid {{ $actions['custom']['related']['fa_icon'] ?? 'fa-plus-circle' }}"></i>
         @endempty
     </a>
-@endempty
-@empty(!$actions['custom']['images'])
+@endif
+@if(!empty($actions['custom']['images']) && empty($actions['restore']['enabled']))
     <a class="dt-custom-action tooltip" data-tooltip="{{ $actions['custom']['images']['tooltip'] ?? '' }}"
        href="{{ route($actions['custom']['images']['route'], $record -> id) }}"
     >
-        <i class="fa-solid fa-image"></i>
+        <i class="fa-solid fa-images"></i>
     </a>
-@endempty
-@empty(!$actions['custom']['video'])
+@endif
+@if(!empty($actions['custom']['video']) && empty($actions['restore']['enabled']))
     <a class="dt-custom-action tooltip" data-tooltip="{{ $actions['custom']['video']['tooltip'] ?? '' }}"
        href="{{ route($actions['custom']['video']['route'], $record -> id) }}"
     >
         <i class="fa-solid fa-film"></i>
     </a>
-@endempty
-@empty(!$actions['custom']['download'])
+@endif
+@if(!empty($actions['custom']['download']) && empty($actions['restore']['enabled']))
     <a class="dt-custom-action tooltip" data-tooltip="{{ $actions['custom']['download']['tooltip'] ?? '' }}"
        href="{{ route($actions['custom']['download']['route'], $record -> id) }}"
     >
         <i class="fa-solid fa-file-arrow-down"></i>
     </a>
-@endempty
-@empty(!$actions['custom']['download'])
-    <a class="dt-custom-action tooltip" data-tooltip="{{ $actions['custom']['download']['tooltip'] ?? '' }}"
-       href="{{ route($actions['custom']['download']['route'], $record -> id) }}"
-    >
-        <i class="fa-solid fa-file-arrow-down"></i>
-    </a>
-@endempty
-@if( $actions['divider'])
+@endif
+@if( $actions['divider'] && empty($actions['restore']['enabled']) )
 <span class="inline-block ms-1 me-1 w-[0.05rem] h-5 bg-stone-200">&nbsp;</span>
 @endif
 @if( !empty($actions['restore']) && $actions['restore']['enabled'] )
