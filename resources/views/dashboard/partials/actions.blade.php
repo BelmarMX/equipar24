@@ -2,7 +2,12 @@
     <a class="dt-custom-action tooltip" data-tooltip="{{ $actions['custom']['related']['tooltip'] ?? '' }}"
        href="{{ route($actions['custom']['related']['route'], $record -> id) }}"
     >
-        <i class="fa-solid fa-circle-nodes"></i>
+        @empty( $actions['custom']['related']['fa_icon'] )
+            <i class="fa-solid fa-circle-nodes"></i>
+        @else
+            <i class="fa-solid "></i>
+            <i class="fa-solid {{ $actions['custom']['related']['fa_icon'] ?? 'fa-plus-circle' }}"></i>
+        @endempty
     </a>
 @endempty
 @empty(!$actions['custom']['images'])

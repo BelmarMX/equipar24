@@ -19,10 +19,10 @@ export default {
 
     safelist:   [
         {
-            pattern: /bg-(red|yellow|amber|green|emerald|blue|sky)-(50|100|200|300|400|500|600|700|800|900)/
+            pattern: /bg-(red|yellow|amber|green|emerald|blue|sky|indigo|pink)-(50|100|200|300|400|500|600|700|800|900)/
         },
         {
-            pattern: /text-(red|yellow|amber|green|emerald|blue)-(50|100|200|300|400|500|600|700|800|900)/
+            pattern: /text-(red|yellow|amber|green|emerald|blue|sky|indigo|pink)-(50|100|200|300|400|500|600|700|800|900)/
         }
     ],
 

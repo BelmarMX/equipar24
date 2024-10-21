@@ -4,7 +4,7 @@
            class="cursor-pointer text-blue-400 hover:text-blue-600 disabled:opacity-30"
            data-tooltip="Imagen original"
            data-title="Vista previa '{{ $record->title }}': Original"
-           @if( !file_exists('storage/'.$ImagesSettings::BANNER_FOLDER.$record->image) ) disabled @endif
+           @if( !file_exists($record->asset_folder.$record->image) ) disabled @endif
         ><i class="fa-solid fa-panorama fa-lg mx-1"></i></button>
     @endif
     @if( $record->image_rx )
@@ -12,7 +12,7 @@
            class="cursor-pointer text-blue-400 hover:text-blue-600 disabled:opacity-30"
            data-tooltip="Recorte automático"
            data-title="Vista previa '{{ $record->title }}': Recorte"
-           @if( !file_exists('storage/'.$ImagesSettings::BANNER_FOLDER.$record->image_rx) ) disabled @endif
+           @if( !file_exists($record->asset_folder.$record->image_rx) ) disabled @endif
         ><i class="fa-regular fa-image fa-lg mx-1"></i></button>
     @endif
     @if( $record->image_mv )
@@ -20,7 +20,7 @@
            class="cursor-pointer text-blue-400 hover:text-blue-600 disabled:opacity-30"
            data-tooltip="Versión móvil"
            data-title="Vista previa '{{ $record->title }}': Móvil"
-           @if( !file_exists('storage/'.$ImagesSettings::BANNER_FOLDER.$record->image_mv) ) disabled @endif
+           @if( !file_exists($record->asset_folder.$record->image_mv) ) disabled @endif
         ><i class="fa-solid fa-image fa-lg mx-1"></i></button>
     @endif
 </div>

@@ -13,6 +13,12 @@ class ImagesSettings
     const BANNER_WIDTH_MV                               = 340;
     const BANNER_HEIGHT_MV                              = 220;
 
+    const REEL_FOLDER                                   = "reel/";
+    const REEL_WIDTH                                    = 1920;
+    const REEL_HEIGHT                                   = 520;
+    const REEL_WIDTH_MV                                 = 340;
+    const REEL_HEIGHT_MV                                = 220;
+
     const PROMOS_FOLDER                                 = "promos/";
     const PROMOS_WIDTH                                  = 1920;
     const PROMOS_HEIGHT                                 = 520;

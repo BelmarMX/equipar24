@@ -1,4 +1,4 @@
-@props(['name', 'placeholder', 'required', 'min', 'max', 'value', 'readonly', 'disabled'])
+@props(['name', 'placeholder', 'required', 'min', 'max', 'decimal', 'value', 'readonly', 'disabled'])
 
 <div {{ $attributes->merge(['class' => 'relative z-0 w-full px-2 mb-5']) }}>
     <input id="{{$name}}"
@@ -7,6 +7,7 @@
            name="{{ $name }}"
            @isset($min) min="{{ $min }}" @endisset
            @isset($max) max="{{ $max }}" @endisset
+           @isset($decimal) step=".01" @else step="1" @endisset
            placeholder="{{ $placeholder }}"
            value="{{ $value }}"
            @isset($required) required @endisset
@@ -14,7 +15,9 @@
            @isset($disabled) disabled @endisset
            data-clear-errors
     >
-    <label for="{{$name}}" class="absolute duration-300 top-3 pl-2 z-1 origin-0 text-gray-500">{{ $placeholder }}</label>
+    <label for="{{$name}}" class="absolute duration-300 top-3 pl-2 z-1 origin-0 text-gray-500">
+        {{ $placeholder }} @isset($required) <span class="text-red-500"><i class="fa-solid fa-asterisk" style="font-size: 0.7rem"></i></span> @endisset
+    </label>
     @error($name)
         <x-form.error-field :id="$name" :error="$message" />
     @enderror

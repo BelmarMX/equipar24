@@ -12,7 +12,9 @@
            @isset($disabled) disabled @endisset
            data-clear-errors
     />
-    <label for="{{$name}}" class="absolute duration-300 top-3 pl-2 z-1 origin-0 text-gray-500">{{ $placeholder }}</label>
+    <label for="{{$name}}" class="absolute duration-300 top-3 pl-2 z-1 origin-0 text-gray-500">
+        {{ $placeholder }} @isset($required) <span class="text-red-500"><i class="fa-solid fa-asterisk" style="font-size: 0.7rem"></i></span> @endisset
+    </label>
     @error($name)
         <x-form.error-field :id="$name" :error="$message" />
     @enderror

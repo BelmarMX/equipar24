@@ -34,7 +34,7 @@ abstract class Controller
         ];
     }
 
-    public static function store_all_images_from_request($original_field, $mobile_field, $title, $folder, $resize = FALSE, $resize_width = 0, $resize_height = 0)
+    public static function store_all_images_from_request($original_field, $mobile_field, $title, $folder, $resize = FALSE, $resize_width = 0, $resize_height = 0, $remove_original = FALSE, $remove_mobile = FALSE, $remove_original_cut = FALSE)
     {
         $return                 = new \stdClass();
         if( !empty($original_field) )
@@ -59,6 +59,19 @@ abstract class Controller
 
         $return -> full     = $stored_image         ?? NULL;
         $return -> mobile   = $stored_mobile_image  ?? NULL;
+
+        if( $return -> full && $remove_original)
+        {
+            Storage::disk('public')->delete($folder.'/'.$remove_original);
+            if( $resize )
+            {
+                Storage::disk('public')->delete($folder.'/'.$remove_original_cut);
+            }
+        }
+        if( $return -> mobile && $remove_mobile)
+        {
+            Storage::disk('public')->delete($folder.'/'.$remove_mobile);
+        }
         return $return;
     }
 

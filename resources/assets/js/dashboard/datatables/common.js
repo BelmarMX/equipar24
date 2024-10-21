@@ -74,6 +74,41 @@ const DT_OPTIONS_SSR        = {
     }
 }
 
+const RANGE_LOCALE          = {
+        format:             'DD/MM/YYYY'
+    ,   separator:          ' - '
+    ,   applyLabel:         'Aplicar'
+    ,   cancelLabel:        'Cancelar'
+    ,   fromLabel:          'Desde'
+    ,   toLabel:            'Hasta'
+    ,   customRangeLabel:   'Personalizado'
+    ,   weekLabel:          'S'
+    ,   daysOfWeek:         [
+                'Do'
+            ,   'Lu'
+            ,   'Ma'
+            ,   'Mi'
+            ,   'Ju'
+            ,   'Vi'
+            ,   'Sa'
+        ]
+    ,   monthNames:         [
+                'Enero'
+            ,   'Febrero'
+            ,   'Marzo'
+            ,   'Abril'
+            ,   'Mayo'
+            ,   'Junio'
+            ,   'Julio'
+            ,   'Agosto'
+            ,   'Septiembre'
+            ,   'Octubre'
+            ,   'Noviembre'
+            ,   'Diciembre'
+        ]
+    ,   firstDay:           1
+}
+
 const set_human_datetime    = ({human_created_at, created_dmy, deleted_at}) => {
     let is_deleted = deleted_at !== null
         ? `<br><small class="bg-red-500 text-white p-1 rounded">ELIMINADO</small>`
@@ -81,4 +116,4 @@ const set_human_datetime    = ({human_created_at, created_dmy, deleted_at}) => {
     return `${created_dmy}<br><small class="human-date">${human_created_at}</small>${is_deleted}`
 }
 
-export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime }
+export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime, RANGE_LOCALE }

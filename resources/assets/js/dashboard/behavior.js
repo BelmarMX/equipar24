@@ -1,6 +1,6 @@
 import axios                                from "axios";
 import Alert                                from "./alerts";
-import {URL_PARAMS}                         from "./datatables/common.js";
+import {URL_PARAMS, RANGE_LOCALE}           from "./datatables/common.js";
 const working                               = activate => {
     if( activate)
     {
@@ -116,6 +116,17 @@ $(document).ready(function() {
         Alert.toast('Lo sentimos: algo salió mal', 'error')
         clear_path_name()
     }
+
+    $('input[data-range]').map((i, el) => {
+        $(el).daterangepicker({
+                locale:             { ...RANGE_LOCALE }
+            ,   minDate:            $(el).val() ? $(el).val().split(' - ')[0] : new Date()
+        })
+    })
+    $('input[data-range]').on('apply.daterangepicker', function(ev, picker) {
+        $( $(this).attr('data-range-set_start') ).val(picker.startDate.format('YYYY-MM-DD'))
+        $( $(this).attr('data-range-set_end') ).val(picker.endDate.format('YYYY-MM-DD'))
+    })
 
     working(false)
 })
