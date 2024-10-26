@@ -20,6 +20,7 @@ class ProjectRequest extends FormRequest
     {
         return [
                 "title"                     => "Título"
+            ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "image"                     => "Portada"
             ,   "image_rx"                  => "Recorte de portada"
             ,   "description"               => "Descripción"
@@ -50,7 +51,7 @@ class ProjectRequest extends FormRequest
 
         if( request() -> routeIs('projects.update') )
         {
-            $rules["slug"]                  = "required|string|unique:projects,slug,".$this->id;
+            $rules["slug"]                  = "required|string|unique:projects,slug,".$this->route('project.id');
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::PORTFOLIO_WIDTH.",min_height=".ImagesSettings::PORTFOLIO_HEIGHT;
             $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_RX_WIDTH.",height=".ImagesSettings::PORTFOLIO_RX_HEIGHT;
         }

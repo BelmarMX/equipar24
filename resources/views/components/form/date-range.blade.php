@@ -14,6 +14,7 @@
            data-range
            data-range-set_start="#{{ $start_name }}"
            data-range-set_end="#{{ $end_name }}"
+           data-clear-errors
     />
     <input type="hidden" id="{{ $start_name }}" name="{{ $start_name }}" value="{{ $start_value }}" @isset($required) required @endisset>
     <input type="hidden" id="{{ $end_name }}" name="{{ $end_name }}" value="{{ $end_value }}" @isset($required) required @endisset>

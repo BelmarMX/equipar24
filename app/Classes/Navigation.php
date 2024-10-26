@@ -11,6 +11,7 @@ use App\Models\ProductCategory;
 use App\Models\Promotion;
 use App\Models\Reel;
 use App\Models\State;
+use Carbon\Carbon;
 
 class Navigation
 {
@@ -91,10 +92,37 @@ class Navigation
                 ,   'route_is'      => 'reels.*'
                 ,   'link_text'     => '<i class="fa-solid fa-clapperboard me-1"></i> Reels'
             ]
-            ,   'products'              => [
-                    'route'         => route('products.index')
-                ,   'route_is'      => 'products.*'
-                ,   'link_text'     => '<i class="fa-solid fa-barcode me-1"></i> Productos'
+            ,   'products'                  => [
+                    'dropdown'      => TRUE
+                ,   'route_is'      => ['products.*', 'productBrands.*', 'productCategories.*', 'productSubcategories.*', 'productPrices.*']
+                ,   'link_text'     => '<i class="fa-solid fa-barcode me-1" style="vertical-align: middle;"></i> Productos'
+                ,   'items'         => [
+                        'productos'      => [
+                            'route'         => route('products.index')
+                        ,   'route_is'      => 'products.*'
+                        ,   'link_text'     => '<i class="fa-solid fa-barcode me-1"></i> Productos'
+                    ]
+                    ,   'brands'        => [
+                            'route'         => route('productBrands.index')
+                        ,   'route_is'      => 'productBrands.*'
+                        ,   'link_text'     => '<i class="fa-solid fa-registered me-1"></i> Marcas'
+                    ]
+                    ,   'categories'     => [
+                            'route'         => route('productCategories.index')
+                        ,   'route_is'      => 'productCategories.*'
+                        ,   'link_text'     => '<i class="fa-solid fa-tag me-1"></i> Categorías'
+                    ]
+                    ,   'subcategories' => [
+                            'route'         => route('productSubcategories.index')
+                        ,   'route_is'      => 'productSubcategories.*'
+                        ,   'link_text'     => '<i class="fa-solid fa-tags me-1"></i> Subcategorías'
+                    ]
+                    ,   'prices'        => [
+                            'route'         => route('productPrices.index')
+                        ,   'route_is'      => 'productPrices.*'
+                        ,   'link_text'     => '<i class="fa-solid fa-dollar-sign me-1"></i> Precios'
+                    ]
+                ]
             ]
             ,   'promotions'            => [
                     'route'         => route('promotions.index')
@@ -107,9 +135,21 @@ class Navigation
                 ,   'link_text'     => '<i class="fa-regular fa-folder-open me-1"></i> Proyectos'
             ]
             ,   'blog'                  => [
-                    'route'         => route('blogArticles.index')
-                ,   'route_is'      => 'blogArticles.*'
-                ,   'link_text'     => '<i class="fa-solid fa-rss me-1"></i> Blog'
+                    'dropdown'      => TRUE
+                ,   'route_is'      => ['blogArticles.*', 'blogCategories.*']
+                ,   'link_text'     => '<i class="fa-solid fa-rss me-1" style="vertical-align: middle;"></i> Blog'
+                ,   'items'         => [
+                        'articles'      => [
+                            'route'         => route('blogArticles.index')
+                        ,   'route_is'      => 'blogArticles.*'
+                        ,   'link_text'     => '<i class="fa-solid fa-rss me-1"></i> Artículos'
+                    ]
+                    ,   'categories'     => [
+                            'route'         => route('blogCategories.index')
+                        ,   'route_is'      => 'blogCategories.*'
+                        ,   'link_text'     => '<i class="fa-solid fa-tag me-1"></i> Categorías'
+                    ]
+                ]
             ]
             ,   'contacts'              => [
                     'route'         => route('contacts.index')
@@ -121,12 +161,27 @@ class Navigation
                 ,   'route_is'      => 'branches.*'
                 ,   'link_text'     => '<i class="fa-solid fa-store me-1"></i> Sucursales'
             ]
-            ,   'site'                  => [
+            /*,   'site'                  => [
                     'route'         => route('index')
                 ,   'route_is'      => NULL
                 ,   'link_text'     => '<i class="fa-solid fa-earth-americas me-1"></i>'
                 ,   'tooltip'       => 'Ir al sitio web'
-            ]
+            ]*/
+        ];
+    }
+
+    public static function split_date($date)
+    {
+        $parsed         = Carbon::parse( $date );
+        $months         = array('', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+        $short_months   = array('', 'ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC');
+
+        return (object) [
+                'day'           => $parsed -> day
+            ,   'month'         => $parsed -> month
+            ,   'short_month'   => $short_months[ $parsed -> month ]
+            ,   'year'          => $parsed -> year
+            ,   'large'         => "{$parsed -> day} {$months[ $parsed -> month ]} de {$parsed -> year}"
         ];
     }
 }

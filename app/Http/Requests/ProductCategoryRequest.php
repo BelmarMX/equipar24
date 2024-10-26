@@ -20,6 +20,7 @@ class ProductCategoryRequest extends FormRequest
     {
         return [
                 "title"                     => "Título"
+            ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "image"                     => "Portada"
             ,   "image_rx"                  => "Recorte de portada"
             ,   "is_featured"               => "Destacado"
@@ -52,7 +53,7 @@ class ProductCategoryRequest extends FormRequest
 
         if( request() -> routeIs('productCategories.update') )
         {
-            $rules["slug"]                  = "required|string|unique:product_categories,slug,".$this->id;
+            $rules["slug"]                  = "required|string|unique:product_categories,slug,".$this->route('productCategory.id');
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_CAT_WIDTH.",height=".ImagesSettings::PRODUCT_CAT_HEIGHT;
             $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_CAT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_CAT_RX_HEIGHT;
         }

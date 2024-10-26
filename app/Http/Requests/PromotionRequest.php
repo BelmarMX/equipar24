@@ -20,6 +20,7 @@ class PromotionRequest extends FormRequest
     {
         return [
                 "title"                     => "Título"
+            ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "image"                     => "Anuncio"
             ,   "image_rx"                  => "Recorte de anuncio"
             ,   "image_mv"                  => "Anuncio para versión móvil"
@@ -60,7 +61,7 @@ class PromotionRequest extends FormRequest
 
         if( request() -> routeIs('promotions.update') )
         {
-            $rules["slug"]                  = "required|string|unique:promotions,slug,".$this->id;
+            $rules["slug"]                  = "required|string|unique:promotions,slug,".$this->route('promotion.id');
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH.",height=".ImagesSettings::PROMOS_HEIGHT;
             $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH_MV.",height=".ImagesSettings::PROMOS_HEIGHT_MV;
             $rules["image_mv"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PROMOS_WIDTH_MV.",height=".ImagesSettings::PROMOS_HEIGHT_MV;

@@ -20,6 +20,7 @@ class ProductBrandRequest extends FormRequest
     {
         return [
                 "title"                     => "Título"
+            ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "image"                     => "Identificador"
             ,   "image_rx"                  => "Recorte de identificador"
             ,   "is_featured"               => "Destacado"
@@ -52,7 +53,7 @@ class ProductBrandRequest extends FormRequest
 
         if( request() -> routeIs('productBrands.update') )
         {
-            $rules["slug"]                  = "required|string|unique:product_brands,slug,".$this->id;
+            $rules["slug"]                  = "required|string|unique:product_brands,slug,".$this->route('productBrand.id');
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_BRAND_WIDTH.",height=".ImagesSettings::PRODUCT_BRAND_HEIGHT;
             $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_BRAND_RX_WIDTH.",height=".ImagesSettings::PRODUCT_BRAND_RX_HEIGHT;
         }

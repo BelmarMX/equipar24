@@ -1,4 +1,4 @@
-@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white dark:bg-gray-700'])
+@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white dark:bg-gray-700', 'is_navbar' => false])
 
 @php
 $alignmentClasses = match ($align) {
@@ -13,7 +13,7 @@ $width = match ($width) {
 };
 @endphp
 
-<div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
+<div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false" @if($is_navbar) style="margin-top:2px;" @endif>
     <div @click="open = ! open">
         {{ $trigger }}
     </div>

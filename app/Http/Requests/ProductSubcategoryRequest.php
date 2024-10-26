@@ -21,6 +21,7 @@ class ProductSubcategoryRequest extends FormRequest
         return [
                 "product_category_id"       => "ID Categoría"
             ,   "title"                     => "Título"
+            ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "image"                     => "Portada"
             ,   "image_rx"                  => "Recorte de portada"
             ,   "is_featured"               => "Destacado"
@@ -54,7 +55,7 @@ class ProductSubcategoryRequest extends FormRequest
 
         if( request() -> routeIs('productSubcategories.update') )
         {
-            $rules["slug"]                  = "required|string|unique:product_subcategories,slug,".$this->id;
+            $rules["slug"]                  = "required|string|unique:product_subcategories,slug,".$this->route('productSubcategory.id');
         }
 
         return $rules;

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FileRequest;
+use App\Http\Requests\ImageRequest;
 use App\Models\City;
 use App\Models\Product;
 use App\Models\Promotion;
@@ -99,4 +101,10 @@ class DashboardController extends Controller
             })
             ->toJson();
     }
+
+    public function upload_image(ImageRequest $request)
+    {}
+
+    public function upload_file(FileRequest $request)
+    {}
 }

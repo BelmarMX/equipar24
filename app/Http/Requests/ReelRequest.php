@@ -21,6 +21,7 @@ class ReelRequest extends FormRequest
                 "promotion_id"              => "ID Promoción"
             ,   "product_id"                => "ID del producto"
             ,   "title"                     => "Título"
+            ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "video"                     => "Video"
             ,   "link"                      => "Enlace"
             ,   "link_title"                => "Título del enlace"
@@ -59,7 +60,7 @@ class ReelRequest extends FormRequest
 
         if( request() -> routeIs('promotions.update') )
         {
-            $rules["slug"]                  = "required|string|unique:reels,slug,".$this->id;
+            $rules["slug"]                  = "required|string|unique:reels,slug,".$this->route('reel.id');
             $rules["video"]                 = "nullable|file|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4,video/ogg,video/webm";
         }
 

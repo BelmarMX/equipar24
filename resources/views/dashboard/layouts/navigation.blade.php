@@ -92,7 +92,7 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                            onclick="this.preventDefault();
                                         this.closest('form').submit();">
                         <i class="fa-solid fa-power-off me-1"></i> {{ __('Log Out') }}
                     </x-responsive-nav-link>
