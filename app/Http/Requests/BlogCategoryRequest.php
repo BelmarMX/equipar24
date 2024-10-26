@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Classes\ImagesSettings;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class BlogCategoryRequest extends FormRequest
 {
@@ -20,6 +21,7 @@ class BlogCategoryRequest extends FormRequest
     {
         return [
                 "title"                     => "Título"
+            ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "image"                     => "Portada"
             ,   "image_rx"                  => "Recorte de portada"
         ];
@@ -48,7 +50,7 @@ class BlogCategoryRequest extends FormRequest
 
         if( request() -> routeIs('blogCategories.update') )
         {
-            $rules["slug"]                  = "required|string|unique:blog_categories,slug,".$this->id;
+            $rules["slug"]                  = "required|string|unique:blog_categories,slug,".$this->route('blogCategory.id');
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_WIDTH.",height=".ImagesSettings::ARTICLE_HEIGHT;
             $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_RX_WIDTH.",height=".ImagesSettings::ARTICLE_RX_HEIGHT;
         }

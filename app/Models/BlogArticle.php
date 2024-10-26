@@ -22,6 +22,7 @@ class BlogArticle extends Model
         ,   'content'
         ,   'image'
         ,   'image_rx'
+        ,   'raw_editor'
         ,   'published_at'
     ];
 
@@ -76,6 +77,14 @@ class BlogArticle extends Model
     {
         return self::where('published_at', '<=', now())
             ->orderBy('published_at', 'DESC')
+            ->get();
+    }
+
+    public static function get_latest($take)
+    {
+        return self::where('published_at', '<=', now())
+            ->inRandomOrder()
+            ->take($take)
             ->get();
     }
 }

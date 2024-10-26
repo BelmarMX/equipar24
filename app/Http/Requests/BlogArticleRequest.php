@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Classes\ImagesSettings;
+use Durlecode\EJSParser\Parser;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class BlogArticleRequest extends FormRequest
 {
@@ -21,6 +23,7 @@ class BlogArticleRequest extends FormRequest
         return [
                 "blog_category_id"          => "ID Categoría"
             ,   "title"                     => "Título"
+            ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "summary"                   => "Enlace"
             ,   "content"                   => "Contenido"
             ,   "image"                     => "Portada"
@@ -32,7 +35,8 @@ class BlogArticleRequest extends FormRequest
     public function prepareforValidation()
     {
         $this -> merge([
-            'slug' => Str::slug($this -> title)
+                'slug'      => Str::slug($this->title)
+            ,   'content'   => Parser::parse($this->raw_editor)->toHtml()
         ]);
     }
 
@@ -49,16 +53,17 @@ class BlogArticleRequest extends FormRequest
             ,   "slug"                      => "required|string|unique:blog_articles,slug"
             ,   "summary"                   => "required|string"
             ,   "content"                   => "required|string"
-            ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_WIDTH.",height=".ImagesSettings::ARTICLE_HEIGHT
-            ,   "image_rx"                  => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_RX_WIDTH.",height=".ImagesSettings::ARTICLE_RX_HEIGHT
+            ,   "raw_editor"                => "required|json"
+            ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::ARTICLE_WIDTH.",min_height=".ImagesSettings::ARTICLE_HEIGHT
+            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::ARTICLE_RX_WIDTH.",min_height=".ImagesSettings::ARTICLE_RX_HEIGHT
             ,   "published_at"              => "required|date"
         ];
 
         if( request() -> routeIs('blogArticles.update') )
         {
-            $rules["slug"]                  = "required|string|unique:blog_articles,slug,".$this->id;
-            $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_WIDTH.",height=".ImagesSettings::ARTICLE_HEIGHT;
-            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::ARTICLE_RX_WIDTH.",height=".ImagesSettings::ARTICLE_RX_HEIGHT;
+            $rules["slug"]                  = "required|string|unique:blog_articles,slug,".$this->route('blogArticle.id');
+            $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::ARTICLE_WIDTH.",min_height=".ImagesSettings::ARTICLE_HEIGHT;
+            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::ARTICLE_RX_WIDTH.",min_height=".ImagesSettings::ARTICLE_RX_HEIGHT;
         }
 
         return $rules;

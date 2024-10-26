@@ -68,4 +68,17 @@ class BlogCategory extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function get_categories()
+    {
+        return self::orderBy('title')
+            ->get();
+    }
+
+    public static function get_articles_by_slug($slug, $paginate = 12)
+    {
+        $category = self::where('slug', $slug) -> first();
+        return BlogArticle::where('blog_category_id', $category->id)
+            ->orderBy('published_at', 'desc')
+            ->paginate($paginate);
+    }
 }

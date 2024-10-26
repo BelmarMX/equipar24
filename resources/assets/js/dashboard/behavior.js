@@ -1,6 +1,20 @@
-import axios                                from "axios";
-import Alert                                from "./alerts";
-import {URL_PARAMS, RANGE_LOCALE}           from "./datatables/common.js";
+import axios                                from "axios"
+import Alert                                from "./alerts"
+import flatpickr                            from "flatpickr"
+import { Spanish }                          from "flatpickr/dist/l10n/es.js";
+import EditorJS                             from "@editorjs/editorjs";
+import AttachesTool                         from "@editorjs/attaches";
+import Delimiter                            from "@editorjs/delimiter";
+import Embed                                from "@editorjs/embed";
+import Header                               from "editorjs-header-with-alignment";
+import ImageTool                            from "@editorjs/image";
+import LinkTool                             from "@editorjs/link";
+import List                                 from '@editorjs/list';
+import Paragraph                            from 'editorjs-paragraph-with-alignment';
+import Table                                from "@editorjs/table";
+import Title                                from "title-editorjs";
+import {URL_PARAMS, RANGE_LOCALE}           from "./datatables/common.js"
+
 const working                               = activate => {
     if( activate)
     {
@@ -24,6 +38,7 @@ const clear_path_name                       = O => {
     })
     window.history.replaceState({}, document.title, url.pathname);
 }
+
 $(document).ready(function() {
     if( typeof $().select2 === 'function' )
     {
@@ -128,5 +143,65 @@ $(document).ready(function() {
         $( $(this).attr('data-range-set_end') ).val(picker.endDate.format('YYYY-MM-DD'))
     })
 
+    flatpickr('[data-date-picker]', {
+            locale:         Spanish
+        ,   altInput:       true
+        ,   altFormat:      "j F, Y"
+        ,   dateFormat:     "Y-m-d"
+        ,   minDate:        "today"
+    })
+    if( document.getElementById('editorjs') )
+    {
+        const editor = new EditorJS({
+                holder:         'editorjs'
+            ,   autofocus:      false
+            ,   inlineToolbar:  ['link', 'bold', 'italic']
+            ,   tools:          {
+                    attaches:       {
+                            class:          AttachesTool
+                        ,   config:         {
+                                endpoint:               '/dashboard/upload_file'
+                            ,   field:                  'file'
+                            ,   types:                  '*'
+                            ,   additionalRequestData:  { "_token": $('meta[name="csrf-token"]').attr('content') }
+                            ,   onUploadResponse:       ({success, file}) => { success, file }
+                        }
+                    }
+                ,   delimiter:      Delimiter
+                ,   embed:          Embed
+                ,   header:         {
+                            class:          Header
+                        ,   inlineToolbar:  true
+                        ,   config:         {
+                                placeholder:        'Agrega un título'
+                            ,   levels:             [2, 3, 4, 5, 6]
+                            ,   defaultLevel:       2
+                            ,   defaultAlignment:   'left'
+                        }
+                    }
+                ,   list:           List
+                ,   paragraph:      {class: Paragraph, inlineToolbar: true}
+                ,   table:          Table
+            }
+            ,   data:           {}
+            ,   placeholder:    'Comienza a escribir o pega el contenido del artículo...'
+            ,   onReady:        O => {
+                console.log('Editor is ready!')
+                if( $('#raw_editor').val() !== '' )
+                {
+                    editor.render(JSON.parse($('#raw_editor').val()))
+                }
+            }
+            ,   onChange:       (api, event) => {
+                editor
+                    .save()
+                    .then(result => {
+                        $('#raw_editor').val(JSON.stringify(result))
+                        console.log('Article content', result)
+                    })
+                    .catch(error => console.error('Article content error', error))
+            }
+        })
+    }
     working(false)
 })

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Classes\ImagesSettings;
 use App\Classes\Navigation;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
     {
         View::share('Navigation', new Navigation());
         View::share('ImagesSettings', new ImagesSettings());
+        Paginator::useBootstrapFive();
     }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->string('image', 2040);
             $table->string('image_rx', 2040)->nullable();
+            $table->text('raw_editor')->nullable();
             $table->dateTime('published_at')->useCurrent();
             $table->timestamps();
             $table->softDeletes();

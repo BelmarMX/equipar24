@@ -374,17 +374,17 @@
             <div class="row">
                 @foreach($articles AS $blog)
                     <div class="col-md-4">
-                        @include('web._layout.blog.partials.blog-view', [
-                                'title'             => $blog -> titleA
+                        @include('web.blog.partials.blog-view', [
+                                'title'             => $blog -> title
                             ,   'link'              => route('blog-open', [
-                                    $blog -> slugC, $blog -> slugA
+                                    $blog -> blog_category -> slug, $blog -> slug
                                 ])
-                            ,   'image'             => url('storage/articulos/'.$blog -> image_rx)
-                            ,   'day'               => split_date($blog -> publish) -> day
-                            ,   'month'             => split_date($blog -> publish) -> short_month
-                            ,   'category_title'    => $blog -> titleC
-                            ,   'category_link'     => route('blog-filter', $blog -> slugC)
-                            ,   'summary'           => $blog -> shortdesc
+                            ,   'image'             => $blog->asset_url.$blog -> image_rx
+                            ,   'day'               => $Navigation::split_date($blog -> published_at) -> day
+                            ,   'month'             => $Navigation::split_date($blog -> published_at) -> short_month
+                            ,   'category_title'    => $blog -> blog_category -> title
+                            ,   'category_link'     => route('blog-categories', $blog -> blog_category -> slug)
+                            ,   'summary'           => $blog -> summary
                         ])
                     </div>
                 @endforeach

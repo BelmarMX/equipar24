@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogArticleController;
+use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\FormSubmitController;
 use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\ProductBrandController;
@@ -81,8 +82,8 @@ Route::group(['prefix' => 'unox', 'controller' => UnoxController::class], functi
 
 Route::group(['prefix' => 'blog', 'controller' => BlogArticleController::class], function () {
     Route::get('/', 'index')->name('blog');
-    Route::get('/{slug_blog_category}', 'index')->name('blog-categories');
-    Route::get('/{slug_blog_category}/{slug_blog_article}', 'index')->name('blog-open');
+    Route::get('/{slug_blog_category}', [BlogCategoryController::class, 'show'])->name('blog-categories');
+    Route::get('/{slug_blog_category}/{slug_blog_article}', 'view')->name('blog-open');
 });
 
 Route::group(['prefix' => 'contacto', 'controller' => FormSubmitController::class], function () {

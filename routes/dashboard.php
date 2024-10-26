@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductBrandController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGalleryController;
+use App\Http\Controllers\ProductPriceController;
 use App\Http\Controllers\ProductSubcategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -34,6 +35,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
 
     Route::get('/cities', [DashboardController::class, 'cities'])->name('dashboard.cities');
     Route::post('/cities', [DashboardController::class, 'get_cities'])->name('dashboard.cities.get');
+
+    Route::post('upload_image', [DashboardController::class, 'upload_image'])->name('dashboard.upload_image');
+    Route::post('upload_file', [DashboardController::class, 'upload_file'])->name('dashboard.upload_file');
 
     // * WITH RESOURCES
 
@@ -91,6 +95,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('archived/view', 'archived')->name('productGalleries.archived');
         Route::get('delete/{product_gallery}', 'destroy')->name('productGalleries.delete');
         Route::get('restore/{product_gallery_id}', 'restore')->name('productGalleries.restore');
+    });
+
+    Route::resource('productPrices', ProductPriceController::class);
+    Route::group(['prefix' => 'productPrices', 'controller' => ProductPriceController::class], function () {
+        Route::post('datatable', 'datatable')->name('dashboard.productPrices.datatable');
+        Route::get('archived/view', 'archived')->name('productPrices.archived');
+        Route::get('delete/{product_price}', 'destroy')->name('productPrices.delete');
+        Route::get('restore/{product_price_id}', 'restore')->name('productPrices.restore');
     });
 
     Route::resource('promotions', PromotionController::class);
