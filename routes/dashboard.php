@@ -9,6 +9,7 @@ use App\Http\Controllers\FormSubmitController;
 use App\Http\Controllers\ProductBrandController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductFreightController;
 use App\Http\Controllers\ProductGalleryController;
 use App\Http\Controllers\ProductPriceController;
 use App\Http\Controllers\ProductSubcategoryController;
@@ -59,10 +60,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
 
     Route::resource('products', ProductController::class);
     Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
-        Route::post('datatable', 'datatable')->name('dashboard.projects.datatable');
-        Route::get('archived/view', 'archived')->name('projects.archived');
-        Route::get('delete/{project}', 'destroy')->name('projects.delete');
-        Route::get('restore/{project_id}', 'restore')->name('projects.restore');
+        Route::post('datatable', 'datatable')->name('dashboard.products.datatable');
+        Route::get('archived/view', 'archived')->name('products.archived');
+        Route::get('delete/{product}', 'destroy')->name('products.delete');
+        Route::get('restore/{product_id}', 'restore')->name('products.restore');
     });
 
     Route::resource('productBrands', ProductBrandController::class);
@@ -103,6 +104,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('archived/view', 'archived')->name('productPrices.archived');
         Route::get('delete/{product_price}', 'destroy')->name('productPrices.delete');
         Route::get('restore/{product_price_id}', 'restore')->name('productPrices.restore');
+    });
+
+    Route::resource('productFreights', ProductFreightController::class);
+    Route::group(['prefix' => 'productFreights', 'controller' => ProductFreightController::class], function () {
+        Route::post('datatable', 'datatable')->name('dashboard.productFreights.datatable');
+        Route::get('archived/view', 'archived')->name('productFreights.archived');
+        Route::get('delete/{product_freight}', 'destroy')->name('productFreights.delete');
+        Route::get('restore/{product_freight_id}', 'restore')->name('productFreights.restore');
     });
 
     Route::resource('promotions', PromotionController::class);

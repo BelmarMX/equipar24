@@ -122,6 +122,11 @@ class Navigation
                         ,   'route_is'      => 'productPrices.*'
                         ,   'link_text'     => '<i class="fa-solid fa-dollar-sign me-1"></i> Precios'
                     ]
+                    ,   'freight'        => [
+                            'route'         => route('productFreights.index')
+                        ,   'route_is'      => 'productFreights.*'
+                        ,   'link_text'     => '<i class="fa-solid fa-truck-fast me-1"></i> Flete'
+                    ]
                 ]
             ]
             ,   'promotions'            => [

@@ -11,7 +11,7 @@
     </x-secondary-link>
     @if( Route::has($resource.'.archived') )
     <x-secondary-link class="mx-1" :href="route($resource.'.archived')" :active="request()->routeIs($resource.'.archived')">
-        <i class="fa-solid fa-box-archive md:me-1 text-base"></i><span class="hidden md:inline">Archivados</span>
+        <i class="fa-solid fa-box-archive md:me-1 text-base"></i><span class="hidden md:inline">Papelera</span>
     </x-secondary-link>
     @endif
     <x-primary-link class="mx-1 md:ms-20 md:me-10 justify-center" :href="route($resource.'.create')" :active="request()->routeIs($resource.'.create')">

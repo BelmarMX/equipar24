@@ -148,7 +148,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        return redirect() -> route('projects.archived', ['deleted' => $project -> id]);
+        return redirect() -> route('projects.archived', ['deleted' => $project->id]);
     }
 
     public function restore($project_id)

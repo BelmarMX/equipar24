@@ -80,7 +80,7 @@ class ProductBrand extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
-    public function get_brands()
+    public static function get_brands()
     {
         return self::orderBy('order', 'ASC')
             ->get();

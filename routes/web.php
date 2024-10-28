@@ -53,6 +53,7 @@ Route::group(['prefix' => 'productos', 'controller' => ProductController::class]
     Route::get('/{slug_category}/{slug_subcategory}', 'index')->name('productos-subcategories');
     Route::get('/{slug_category}/{slug_subcategory}/{slug_product}', 'index')->name('producto-open');
     // * POST METHODS
+    Route::post('subcategorias', 'get_subcategories')->name('get_subcategories');
     Route::post('search', 'search')->name('search');
     Route::post('autocomplete', 'autocomplete')->name('autocomplete');
 });

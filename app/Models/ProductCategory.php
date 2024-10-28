@@ -77,13 +77,13 @@ class ProductCategory extends Model
     ----------------------------------------------------------------------------------------------------------------- */
     public static function get_categories()
     {
-        return ProductCategory::orderBy('order', 'ASC')
+        return self::orderBy('order', 'ASC')
             ->get();
     }
 
     public static function get_categories_featured()
     {
-        return ProductCategory::where('is_featured', 1)
+        return self::where('is_featured', 1)
             ->orderBy('order', 'ASC')
             ->orderBy('id', 'DESC')
             ->get();

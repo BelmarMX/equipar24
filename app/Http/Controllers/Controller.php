@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
@@ -190,5 +191,27 @@ abstract class Controller
         {
             Storage::disk('public')->delete($storage_folder.$image);
         }
+    }
+
+    public static function store_file($request_file, $file_name, $storage_folder, $remove_current = NULL)
+    {
+        if( empty($request_file) )
+        { return NULL; }
+
+        $time           = time();
+        $original       = $request_file -> getClientOriginalName();
+        $extension      = pathinfo($original, PATHINFO_EXTENSION);
+        $file_name      = Str::slug($file_name)."-{$time}.{$extension}";
+        $storage_folder = rtrim($storage_folder, '/');
+
+        if( $request_file->storeAs($storage_folder, $file_name, ['disk' => 'public']) )
+        {
+            if( !empty($remove_current) )
+            {
+                Storage::disk('public')->delete($storage_folder.'/'.$remove_current);
+            }
+            return $file_name;
+        }
+        return NULL;
     }
 }

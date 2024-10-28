@@ -33,6 +33,7 @@ class Product extends Model
         ,   'image'
         ,   'image_rx'
         ,   'data_sheet'
+        ,   'raw_editor'
     ];
 
     protected $appends  = [

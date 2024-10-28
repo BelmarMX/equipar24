@@ -46,8 +46,8 @@ class ProductCategoryRequest extends FormRequest
                 "title"                     => "required|string"
             ,   "slug"                      => "required|string|unique:product_categories,slug"
             ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_CAT_WIDTH.",height=".ImagesSettings::PRODUCT_CAT_HEIGHT
-            ,   "image_rx"                  => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_CAT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_CAT_RX_HEIGHT
-            ,   "is_featured"               => "required|boolean"
+            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_CAT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_CAT_RX_HEIGHT
+            ,   "is_featured"               => "nullable|boolean"
             ,   "order"                     => "required|numeric|min:0"
         ];
 
@@ -55,7 +55,6 @@ class ProductCategoryRequest extends FormRequest
         {
             $rules["slug"]                  = "required|string|unique:product_categories,slug,".$this->route('productCategory.id');
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_CAT_WIDTH.",height=".ImagesSettings::PRODUCT_CAT_HEIGHT;
-            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_CAT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_CAT_RX_HEIGHT;
         }
 
         return $rules;

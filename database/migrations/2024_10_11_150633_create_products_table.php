@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('image', 2040);
             $table->string('image_rx', 2040)->nullable();
             $table->string('data_sheet', 2040)->nullable();
+            $table->text('raw_editor')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

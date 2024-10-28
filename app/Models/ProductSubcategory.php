@@ -77,9 +77,19 @@ class ProductSubcategory extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
-    public function get_subcategories()
+    public static function get_subcategories($category_id)
     {
-        return self::orderBy('order', 'ASC')
+        return self::where('product_category_id', $category_id)
+            ->orderBy('order', 'ASC')
+            ->get();
+    }
+
+    public static function get_subcategories_featured($category_id)
+    {
+        return self::where('product_category_id', $category_id)
+            ->where('is_featured', 1)
+            ->orderBy('order', 'ASC')
+            ->orderBy('id', 'DESC')
             ->get();
     }
 }

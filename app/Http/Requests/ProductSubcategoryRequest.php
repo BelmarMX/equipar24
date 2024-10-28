@@ -49,7 +49,7 @@ class ProductSubcategoryRequest extends FormRequest
             ,   "slug"                      => "required|string|unique:product_subcategories,slug"
             ,   "image"                     => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_SUBCAT_WIDTH.",height=".ImagesSettings::PRODUCT_SUBCAT_HEIGHT
             ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_SUBCAT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_SUBCAT_RX_HEIGHT
-            ,   "is_featured"               => "required|boolean"
+            ,   "is_featured"               => "nullable|boolean"
             ,   "order"                     => "required|numeric|min:0"
         ];
 

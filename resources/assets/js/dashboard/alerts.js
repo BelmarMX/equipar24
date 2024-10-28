@@ -117,17 +117,16 @@ class Alert
 
     html(message, title, wide)
     {
-        let customClass = wide ? 'w-screen' : ''
+        let customClass =
         swal.fire({
-            title: '<strong>'+title+'</strong>',
-            html: message,
-            showCloseButton: true,
-            showCancelButton: false,
-            showConfirmButton: false,
-            focusConfirm: false,
-            customClass: customClass
+            title:              '<strong>'+title+'</strong>',
+            html:               message,
+            showCloseButton:    true,
+            showCancelButton:   false,
+            showConfirmButton:  false,
+            focusConfirm:       false,
+            customClass:        wide ? 'w-screen-80' : ''
         })
-        working(false)
     }
 
     toast(title, type = 'success', timer = 4000)

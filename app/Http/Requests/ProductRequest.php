@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Classes\ImagesSettings;
+use Durlecode\EJSParser\Parser;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
@@ -40,7 +41,8 @@ class ProductRequest extends FormRequest
     public function prepareforValidation()
     {
         $this -> merge([
-            'slug' => Str::slug($this -> title)
+                'slug'          => Str::slug($this->title)
+            ,   'description'   => Parser::parse($this->raw_editor)->toHtml()
         ]);
     }
 
@@ -62,18 +64,18 @@ class ProductRequest extends FormRequest
             ,   "features"                  => "required|string"
             ,   "description"               => "required|string"
             ,   "price"                     => "required|numeric|min:1"
-            ,   "is_featured"               => "required|boolean"
-            ,   "with_freight"              => "required|boolean"
+            ,   "is_featured"               => "nullable|boolean"
+            ,   "with_freight"              => "nullable|boolean"
             ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_WIDTH.",height=".ImagesSettings::PRODUCT_HEIGHT
-            ,   "image_rx"                  => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_RX_HEIGHT
-            ,   "data_sheet"                => "required|file|mimes:pdf"
+            ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_RX_HEIGHT
+            ,   "data_sheet"                => "nullable|file|mimes:pdf"
+            ,   "raw_editor"                => "required|json"
         ];
 
         if( request() -> routeIs('products.update') )
         {
             $rules["slug"]                  = "required|string|unique:products,slug,".$this->route('product.id');
             $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_WIDTH.",height=".ImagesSettings::PRODUCT_HEIGHT;
-            $rules["image_rx"]              = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_RX_HEIGHT;
             $rules["data_sheet"]            = "nullable|file|mimes:pdf";
         }
 
