@@ -47,20 +47,20 @@ class ProductController extends Controller
 
         return DataTables::of($dt_of)
             ->addColumn('category', function($record) {
-                return $record -> product_category -> title;
+                return $record -> product_category -> title ?? '🚫 Eliminada';
             })
             ->addColumn('subcategory', function($record) {
-                return $record -> product_subcategory -> title;
+                return $record -> product_subcategory -> title ?? '🚫 Eliminada';
             })
             ->addColumn('brand', function($record) {
-                return $record -> product_brand -> title;
+                return $record -> product_brand -> title ?? '🚫 Eliminada';
             })
             ->addColumn('preview', function($record) {
                 $show_thumbnail  = FALSE;
                 return view('dashboard.partials.preview', compact('record', 'show_thumbnail')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('products', 'title', FALSE, $restore);
+                $actions            = parent::set_actions('products', 'title', TRUE, $restore, TRUE, TRUE, FALSE, ['route' => 'productGalleries.gallery', 'tooltip' => 'Agregar imágenes a la galería']);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['preview', 'action'])

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class file_image extends Component
+class TextareaEditor extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class file_image extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form.file-image');
+        return view('components.form.textarea-editor');
     }
 }

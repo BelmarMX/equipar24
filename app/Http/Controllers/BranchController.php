@@ -43,10 +43,10 @@ class BranchController extends Controller
 
         return DataTables::of($dt_of)
             ->addColumn('city_name', function ($record) {
-                return $record -> city -> name;
+                return $record->city->name ?? '🚫 Eliminada';
             })
             ->addColumn('state_name', function ($record) {
-                return $record -> state -> name;
+                return $record->state->name ?? '🚫 Eliminado';
             })
             ->addColumn('action', function ($record) use ($restore) {
                 $actions    = parent::set_actions('branches', 'title', FALSE, $restore);

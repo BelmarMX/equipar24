@@ -14,10 +14,10 @@ $(document).ready(function() {
                 ...DT_OPTIONS_SSR.columns
             ,   { data: 'title' }
             ,   { data: 'model' }
-            ,   { data: 'is_featured', className: 'text-center', render: data => data ? '⭐' : '' }
             ,   { data: 'category' }
             ,   { data: 'subcategory' }
             ,   { data: 'brand' }
+            ,   { data: 'is_featured', className: 'text-center', render: data => data ? '⭐' : '' }
             ,   { data: 'price', render: price => '$'+price }
             ,   { data: 'with_freight', render: data => data ? 'Sí' : 'No' }
             ,   { data: 'preview', className: 'text-center' }
@@ -28,12 +28,24 @@ $(document).ready(function() {
                 }
             ,   { data: 'action', className: 'text-center' }
         ]
+        ,   fixedColumns: {
+                start:  3
+            ,   end:    1
+        }
         ,   layout:                 {
                 ...DT_OPTIONS_SSR.layout
             ,   top0start:                  {
                 buttons:                        [
                 ]
             }
+        }
+        ,   drawCallback:           settings => {
+            console.log('scrolling horizontal', settings)
+            const scroll_container = document.querySelector('.dt-scroll-body')
+            scroll_container.addEventListener('wheel', e => {
+                e.preventDefault()
+                scroll_container.scrollLeft += e.deltaY
+            })
         }
     })
 })

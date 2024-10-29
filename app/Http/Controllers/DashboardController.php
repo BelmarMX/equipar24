@@ -6,6 +6,7 @@ use App\Http\Requests\FileRequest;
 use App\Http\Requests\ImageRequest;
 use App\Models\City;
 use App\Models\Product;
+use App\Models\ProductPrice;
 use App\Models\Promotion;
 use App\Models\State;
 use Carbon\Carbon;
@@ -16,11 +17,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $last_price                                 = ProductPrice::orderBy('id', 'desc')->first();
         $stats                                      = new \stdClass();
         $stats -> products                          = Product::all() -> count();
         $stats -> active_promotions                 = Promotion::get_promotions()->count();
-        $stats -> prices_last_update                = Carbon::parse(now()) -> format('d/m/Y H:i:s');
-        $stats -> prices_changed_by                 = 'John Doe';
+        $stats -> prices_last_update                = Carbon::parse($last_price -> created_at) -> format('d/m/Y H:i:s');
+        $stats -> prices_changed_by                 = $last_price -> user -> name;
 
         $stats -> quotations                        = new \stdClass();
         $stats -> quotations -> month               = 1234;

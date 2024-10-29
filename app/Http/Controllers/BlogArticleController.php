@@ -59,7 +59,7 @@ class BlogArticleController extends Controller
 
         return DataTables::of($dt_of)
             ->addColumn('category', function($record) {
-                return $record->blog_category->title;
+                return $record->blog_category->title ?? '🚫 Eliminada';
             })
             ->addColumn('preview', function($record) {
                 return view('dashboard.partials.preview', compact('record')) -> render();

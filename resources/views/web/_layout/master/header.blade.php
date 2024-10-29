@@ -103,7 +103,7 @@
                             </li>
                             @foreach($menu_cat AS $menu_item)
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('productos-category-list', $menu_item -> slug) }}">{{ ucfirst(strtolower($menu_item -> title)) }}</a>
+                                    <a class="dropdown-item" href="{{ route('productos-categories', $menu_item -> slug) }}">{{ ucfirst(strtolower($menu_item -> title)) }}</a>
                                 </li>
                             @endforeach
                         </ul>

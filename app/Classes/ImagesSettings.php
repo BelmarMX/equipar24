@@ -7,6 +7,8 @@ class ImagesSettings
     const FILE_MIN_SIZE                                 = 0;
     const FILE_MAX_SIZE                                 = 2048;
 
+    const DOCUMENTS_FOLDER                              = 'upload/';
+
     const BANNER_FOLDER                                 = "banners/";
     const BANNER_WIDTH                                  = 1920;
     const BANNER_HEIGHT                                 = 520;
@@ -72,16 +74,4 @@ class ImagesSettings
     const PORTFOLIO_IMG_HEIGHT                          = 800;
     const PORTFOLIO_IMG_RX_WIDTH                        = 380;
     const PORTFOLIO_IMG_RX_HEIGHT                       = 380;
-
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {}
-
-    public function upload_image($file_name, $image, $width, $height, $folder)
-    {}
-
-    public function resize_image($file_name, $image, $width, $height, $folder)
-    {}
 }

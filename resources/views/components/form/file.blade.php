@@ -1,9 +1,16 @@
 @props(['name', 'placeholder', 'required', 'value', 'readonly', 'disabled', 'accept'])
 
 @php
-    $exts = array_map(function($mime){
-        return strtoupper(explode('/', $mime)[1]);
-    }, explode(',', $accept));
+    if(Str::startsWith($accept, '.'))
+    {
+        $exts = [strtoupper(str_replace('.', '', $accept))];
+    }
+    else
+    {
+        $exts = array_map(function($mime){
+            return strtoupper(explode('/', $mime)[1]);
+        }, explode(',', $accept));
+    }
 @endphp
 
 <div {{ $attributes->merge(['class' => 'flex flex-col justify-center w-full']) }}>

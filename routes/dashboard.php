@@ -92,7 +92,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
 
     Route::resource('productGalleries', ProductGalleryController::class);
     Route::group(['prefix' => 'productGalleries', 'controller' => ProductGalleryController::class], function () {
-        Route::post('datatable', 'datatable')->name('dashboard.productGalleries.datatable');
+        Route::post('datatable/{product}', 'datatable')->name('dashboard.productGalleries.datatable');
+        Route::get('product/{product}', 'gallery')->name('productGalleries.gallery');
         Route::get('archived/view', 'archived')->name('productGalleries.archived');
         Route::get('delete/{product_gallery}', 'destroy')->name('productGalleries.delete');
         Route::get('restore/{product_gallery_id}', 'restore')->name('productGalleries.restore');
@@ -101,6 +102,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::resource('productPrices', ProductPriceController::class);
     Route::group(['prefix' => 'productPrices', 'controller' => ProductPriceController::class], function () {
         Route::post('datatable', 'datatable')->name('dashboard.productPrices.datatable');
+        Route::post('update_massive', 'update_massive')->name('productPrices.update_massive');
+        Route::post('generate_massive_file', 'generate_massive_file')->name('productPrices.generate_massive_file');
+        Route::post('update_massive_file', 'update_massive_file')->name('productPrices.update_massive_file');
         Route::get('archived/view', 'archived')->name('productPrices.archived');
         Route::get('delete/{product_price}', 'destroy')->name('productPrices.delete');
         Route::get('restore/{product_price_id}', 'restore')->name('productPrices.restore');

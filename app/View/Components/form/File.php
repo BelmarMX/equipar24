@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class checkbox extends Component
+class File extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class checkbox extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form.checkbox');
+        return view('components.form.file');
     }
 }

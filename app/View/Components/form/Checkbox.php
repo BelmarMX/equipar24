@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class textarea_editor extends Component
+class Checkbox extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class textarea_editor extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form.textarea-editor');
+        return view('components.form.checkbox');
     }
 }

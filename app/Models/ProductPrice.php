@@ -10,17 +10,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductGallery extends Model
+class ProductPrice extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-            'product_id'
-        ,   'title'
-        ,   'image'
-        ,   'image_rx'
-        ,   'video'
-        ,   'youtube_code'
+            'user_id'
+        ,   'old_prices'
+        ,   'new_prices'
+        ,   'is_deleted'
+        ,   'is_blocked'
     ];
 
     protected $appends  = [
@@ -33,9 +32,9 @@ class ProductGallery extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * RELATIONSHIP
     ----------------------------------------------------------------------------------------------------------------- */
-    public function product(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(User::class);
     }
 
     /* ----------------------------------------------------------------------------------------------------------------
@@ -57,13 +56,13 @@ class ProductGallery extends Model
     protected function assetFolder(): Attribute
     {
         return Attribute::make(
-            get: fn() => 'storage/'.ImagesSettings::PRODUCT_FOLDER
+            get: fn() => 'storage/'.ImagesSettings::DOCUMENTS_FOLDER
         );
     }
     protected function assetUrl(): Attribute
     {
         return Attribute::make(
-            get: fn() => asset('storage/'.ImagesSettings::PRODUCT_FOLDER).'/'
+            get: fn() => asset('storage/'.ImagesSettings::DOCUMENTS_FOLDER).'/'
         );
     }
 

@@ -48,7 +48,11 @@ class BannerController extends Controller
                 {
                     return 'Sin promoción';
                 }
-                $promotion  = $record -> promotion;
+                if( !$promotion = $record -> promotion )
+                {
+                    return '🚫 Eliminada';
+                }
+
                 $vigency    = $promotion -> get_vigency();
                 $discount   = $promotion -> discount_type == 'percentage'
                     ? "{$promotion -> amount}% de descuento"

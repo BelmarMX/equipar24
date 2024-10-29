@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class input_date extends Component
+class Textarea extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class input_date extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form.input-date');
+        return view('components.form.textarea');
     }
 }

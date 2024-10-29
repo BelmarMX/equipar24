@@ -29,7 +29,6 @@ const DT_OPTIONS            = {
     ,   fixerHeader:        true
     ,   scrollCollapse:     true
     ,   scrollY:            "65vh"
-    //,   scrollX:            "100vw"
     ,   pageLength:         64
     ,   responsive:         true
     ,   searching:          true

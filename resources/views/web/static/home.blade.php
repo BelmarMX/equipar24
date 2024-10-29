@@ -15,7 +15,7 @@
                         @include('web.products.partials.product-category-view', [
                                 'position'  => str_pad($loop -> index + 1, 2, '0', STR_PAD_LEFT)
                             ,   'title'     => $category -> title
-                            ,   'route'     => route('productos-category-list', $category -> slug)
+                            ,   'route'     => route('productos-categories', $category -> slug)
                             ,   'image'     => url("storage/productos-categorias/{$category -> image_rx}")
                         ])
                     </div>

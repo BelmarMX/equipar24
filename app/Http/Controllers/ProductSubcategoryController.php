@@ -44,7 +44,7 @@ class ProductSubcategoryController extends Controller
 
         return DataTables::of($dt_of)
             ->addColumn('category', function($record) {
-                return $record -> product_category -> title;
+                return $record -> product_category -> title ?? '🚫 Eliminada';
             })
             ->addColumn('count_products', function($record) {
                 return $record -> products -> count();

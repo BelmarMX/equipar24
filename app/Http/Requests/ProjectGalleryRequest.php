@@ -40,7 +40,7 @@ class ProjectGalleryRequest extends FormRequest
             ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::PORTFOLIO_IMG_WIDTH.",min_height=".ImagesSettings::PORTFOLIO_IMG_HEIGHT
             ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PORTFOLIO_IMG_RX_WIDTH.",height=".ImagesSettings::PORTFOLIO_IMG_RX_HEIGHT
             ,   "video"                     => "nullable|string"
-            ,   "youtube_code"              => "nullable|numeric|min:0"
+            ,   "youtube_code"              => "nullable|string"
         ];
     }
 }

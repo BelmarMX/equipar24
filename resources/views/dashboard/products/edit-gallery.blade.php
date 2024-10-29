@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center">
             <h2 class="mb-3 md:mb-0 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                <i class="fa-solid fa-folder-open me-1"></i> Gallería "{{ $record->title }}"
+                <i class="fa-solid fa-barcode me-1"></i> Gallería producto"{{ $record->title }}"
             </h2>
             @include('dashboard.partials.submenu-galleries', ['resource' => $resource])
         </div>
@@ -35,8 +35,8 @@
             <div class="bg-neutral-50 px-3 py-10">
                 <div class="flex flex-wrap">
                     <div class="md:w-6/12 w-full">
-                        <input type="hidden" name="project_id" value="{{ $record->id }}">
-                        <x-form.input-text name="title" placeholder="Título de la imagen" value="{{ old('title', $gallery->title) }}" required class="mb-6"/>
+                        <input type="hidden" name="product_id" value="{{ $record->id }}">
+                        <x-form.input-text name="title" placeholder="Título de la imagen" value="{{ old('title', $record->title) }}" required class="mb-6"/>
                     </div>
                     <div class="md:w-4/12 md:ms-[8.333%] w-full">
                         <x-form.file-image name="image"
@@ -44,8 +44,8 @@
                                            placeholder="Imagen principal"
                                            required
                                            dimensions_tag="mínimo: "
-                                           :width="$ImagesSettings::PORTFOLIO_IMG_WIDTH"
-                                           :height="$ImagesSettings::PORTFOLIO_IMG_HEIGHT"
+                                           :width="$ImagesSettings::PRODUCT_WIDTH"
+                                           :height="$ImagesSettings::PRODUCT_HEIGHT"
                                            :value="$gallery->id ? $gallery->asset_url.$gallery->image : NULL"
                         />
                     </div>
@@ -63,7 +63,7 @@
     </div>
 
     <div class="container mx-auto bg-gray-50 dark:bg-white p-4">
-        <table id="projectGallery-table" class="display" style="width:100%">
+        <table id="productGallery-table" class="display" style="width:100%">
             <thead>
             <tr>
                 <th>ID</th>
@@ -80,9 +80,9 @@
     @endpush
     @push('ESmodules')
         <script>
-            const url_route     = '{{ route('dashboard.projectGalleries.datatable', $record->id) }}';
+            const url_route     = '{{ route('dashboard.productGalleries.datatable', $record->id) }}'
             const with_trashed  = {{ !empty($with_trashed) && $with_trashed ? 'true' : 'false' }}
         </script>
-        @vite(['resources/assets/js/dashboard/datatables/common.js', 'resources/assets/js/dashboard/behavior.js', 'resources/assets/js/dashboard/datatables/projectGalleries.js'])
+        @vite(['resources/assets/js/dashboard/datatables/common.js', 'resources/assets/js/dashboard/behavior.js', 'resources/assets/js/dashboard/datatables/productGalleries.js'])
     @endpush
 </x-app-layout>

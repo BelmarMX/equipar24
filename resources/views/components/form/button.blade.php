@@ -10,6 +10,14 @@
     {
         $clases .= "bg-emerald-500 border-emerald-500 text-white shadow-lg hover:bg-emerald-600 hover:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200 focus:ring-offset-2 disabled:opacity-25 hover:scale-105 hover:-translate-y-1";
     }
+    elseif( $type == 'info' )
+    {
+        $clases .= "bg-sky-500 border-sky-500 text-white shadow-lg hover:bg-sky-600 hover:border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 disabled:opacity-25 hover:scale-105 hover:-translate-y-1";
+    }
+    elseif( $type == 'info-outline' )
+    {
+        $clases .= "bg-white border-sky-400 text-sky-400 hover:bg-sky-600 hover:text-white focus:bg-sky-600 focus:text-white active:bg-sky-700 active:text-white focus:outline-none focus:ring-2 focus:ring-sky-200 focus:ring-offset-2";
+    }
 @endphp
 
 @empty($href)

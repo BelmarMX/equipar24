@@ -41,8 +41,8 @@
                             <div class="md:w-6/12 w-full">
                                 <x-form.select select2 name="discount_type" placeholder="Tipo de descuento" required class="mb-6">
                                     <option value="" selected disabled>Selecciona un tipo</option>
-                                    <option value="fixed" @if( old('discount_type', $record->discount_type) == 'fixed') selected @endif>[_$_] Cantidad fija</option>
-                                    <option value="percentage"@if( old('discount_type', $record->discount_type) == 'percentage') selected @endif>[_%_] Porcentaje</option>
+                                    <option value="fixed" @if( old('discount_type', $record->discount_type) == 'fixed') selected @endif>[ $ ] Cantidad fija</option>
+                                    <option value="percentage"@if( old('discount_type', $record->discount_type) == 'percentage') selected @endif>[ % ] Porcentaje</option>
                                 </x-form.select>
                             </div>
                             <div class="md:w-6/12 w-full">

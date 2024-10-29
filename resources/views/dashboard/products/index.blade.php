@@ -18,17 +18,17 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th data-priority="1">Título</th>
-                <th data-priority="2">Modelo</th>
-                <th data-priority="4">Destacado</th>
-                <th data-priority="3">Categoría</th>
-                <th data-priority="3">Subcategoría</th>
-                <th data-priority="2">Marca</th>
-                <th data-priority="2">Precio</th>
-                <th data-priority="2">Flete</th>
-                <th data-priority="3">Vista Previa</th>
-                <th data-orderable="false">Alta</th>
-                <th data-orderable="false" data-priority="1">Acciones</th>
+                <th style="min-width: 260px">Título</th>
+                <th style="min-width: 140px">Modelo</th>
+                <th style="min-width: 180px">Categoría</th>
+                <th style="min-width: 220px">Subcategoría</th>
+                <th style="min-width: 120px">Marca</th>
+                <th>Destacado</th>
+                <th>Precio</th>
+                <th>Flete</th>
+                <th style="min-width: 120px">Vista Previa</th>
+                <th data-orderable="false" style="min-width: 120px">Alta</th>
+                <th data-orderable="false" style="min-width: 120px" data-priority="1">Acciones</th>
             </tr>
             </thead>
         </table>
