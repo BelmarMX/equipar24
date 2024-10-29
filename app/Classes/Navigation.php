@@ -94,7 +94,7 @@ class Navigation
             ]
             ,   'products'                  => [
                     'dropdown'      => TRUE
-                ,   'route_is'      => ['products.*', 'productBrands.*', 'productCategories.*', 'productSubcategories.*', 'productPrices.*']
+                ,   'route_is'      => ['products.*', 'productBrands.*', 'productCategories.*', 'productSubcategories.*', 'productPrices.*', 'productFreights.*']
                 ,   'link_text'     => '<i class="fa-solid fa-barcode me-1" style="vertical-align: middle;"></i> Productos'
                 ,   'items'         => [
                         'productos'      => [

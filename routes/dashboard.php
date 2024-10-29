@@ -113,6 +113,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::resource('productFreights', ProductFreightController::class);
     Route::group(['prefix' => 'productFreights', 'controller' => ProductFreightController::class], function () {
         Route::post('datatable', 'datatable')->name('dashboard.productFreights.datatable');
+        Route::post('update_massive', 'update_massive')->name('productFreights.update_massive');
         Route::get('archived/view', 'archived')->name('productFreights.archived');
         Route::get('delete/{product_freight}', 'destroy')->name('productFreights.delete');
         Route::get('restore/{product_freight_id}', 'restore')->name('productFreights.restore');
