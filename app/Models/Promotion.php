@@ -34,6 +34,7 @@ class Promotion extends Model
         ,   'created_dmy'
         ,   'asset_folder'
         ,   'asset_url'
+        ,   'days_left'
     ];
 
     /* ----------------------------------------------------------------------------------------------------------------
@@ -85,9 +86,27 @@ class Promotion extends Model
         );
     }
 
+    protected function daysLeft(): Attribute
+    {
+        $human = !empty($this->ends_at) ? ucfirst(Carbon::createFromDate($this->ends_at)->diffForHumans()) : NULL;
+        return Attribute::make(
+            get: fn() => $human
+        );
+    }
+
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function get_active_promotions()
+    {
+        return self::where(function($query){
+            $query->where('starts_at', '<=', now())
+                ->where('ends_at', '>=', now());
+        })
+            ->orderBy('starts_at', 'ASC')
+            ->get();
+    }
+
     public static function get_promotions()
     {
         return self::where(function($query){

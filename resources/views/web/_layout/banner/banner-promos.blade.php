@@ -6,16 +6,16 @@
          data-bs-interval="5500"
     >
         <div class="carousel-inner">
-            @foreach($banners AS $banner)
-                <div class="carousel-item @if($loop -> first) active @endif">
+            @foreach($promos AS $promo)
+                <div class="carousel-item @if($loop->first) active @endif">
                     @include('web._layout.banner.banner-single', [
-                            'slide'         => url('storage/banners/'.$banner -> image)
-                        ,   'slide_mobile'  => url('storage/banners/'.$banner -> image_mv)
-                        ,   'slide_alt'     => $banner->title
-                        ,   'summary'       => $banner->promotion ?? FALSE
+                            'slide'         => $promo->asset_url.$promo->image
+                        ,   'slide_mobile'  => $promo->asset_url.$promo->image_mv
+                        ,   'slide_alt'     => $promo->title
+                        ,   'summary'       => TRUE
                         ,   'title'         => NULL
-                        ,   'cta'           => $banner->promotion ? "Finaliza ".$banner->promotion->days_left : $banner->title ?? NULL
-                        ,   'cta_href'      => $banner->promotion ? route('promociones-productos', $banner->promotion->slug) : $banner->link ?? NULL
+                        ,   'cta'           => "Finaliza ".$promo->days_left
+                        ,   'cta_href'      => route('promociones-productos', $promo->slug)
                     ])
                 </div>
             @endforeach

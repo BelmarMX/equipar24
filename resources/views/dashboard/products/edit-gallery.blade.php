@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center">
             <h2 class="mb-3 md:mb-0 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                <i class="fa-solid fa-barcode me-1"></i> Gallería producto"{{ $record->title }}"
+                <i class="fa-solid fa-barcode me-1"></i> Gallería producto<br>"{{ $record->title }}"
             </h2>
             @include('dashboard.partials.submenu-galleries', ['resource' => $resource])
         </div>

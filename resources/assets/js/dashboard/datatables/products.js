@@ -21,6 +21,7 @@ $(document).ready(function() {
             ,   { data: 'price', render: price => '$'+price }
             ,   { data: 'with_freight', render: data => data ? 'Sí' : 'No' }
             ,   { data: 'preview', className: 'text-center' }
+            ,   { data: 'gallery_count', render: count => `${count} <i class="fa-solid fa-images ms-1 fa-sm text-sky-400"></i>` }
             ,   {
                         data:       null
                     ,   className:  'text-right'
@@ -38,14 +39,6 @@ $(document).ready(function() {
                 buttons:                        [
                 ]
             }
-        }
-        ,   drawCallback:           settings => {
-            console.log('scrolling horizontal', settings)
-            const scroll_container = document.querySelector('.dt-scroll-body')
-            scroll_container.addEventListener('wheel', e => {
-                e.preventDefault()
-                scroll_container.scrollLeft += e.deltaY
-            })
         }
     })
 })

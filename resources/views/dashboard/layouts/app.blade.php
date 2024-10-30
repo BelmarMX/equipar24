@@ -75,11 +75,11 @@
     <script>
         tippy.delegate('html', {
                 target:         '[data-tooltip]'
-            ,   content:        el => el.dataset.tooltip
             ,   arrow:          true
-            ,   allowHtml:      true
+            ,   allowHTML:      true
             ,   animation:      'scale'
             ,   theme:          'dspx'
+            ,   content:        el => el.dataset.tooltip
         })
     </script>
     @vite(['resources/assets/js/dashboard/behavior.js', 'resources/assets/scss/dashboard/swal.scss'])

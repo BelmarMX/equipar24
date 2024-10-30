@@ -56,5 +56,14 @@
             @endif
         </button>
     @endif
-
+    @if( $record->video)
+            <button data-lightbox-video="{{ $record->asset_url.$record->video }}"
+                    class="cursor-pointer text-blue-400 hover:text-blue-600 disabled:opacity-30"
+                    data-tooltip="Video"
+                    data-title="Vista previa '{{ $record->title }}'"
+                    @if( !file_exists($record->asset_folder.$record->video) ) disabled @endif
+            >
+                <i class="fa-solid fa-video fa-lg mx-1"></i>
+            </button>
+    @endif
 </div>

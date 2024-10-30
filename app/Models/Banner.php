@@ -73,6 +73,11 @@ class Banner extends Model
     ----------------------------------------------------------------------------------------------------------------- */
     public static function get_banners()
     {
-        return self::orderBy('id', 'DESC') -> get();
+        return self::whereHas('promotion', function($query) {
+            $query->where('starts_at', '<=', now())
+                ->where('ends_at', '>=', now());
+        })
+            ->orWhereDoesntHave('promotion')
+            ->orderBy('id', 'DESC') -> get();
     }
 }

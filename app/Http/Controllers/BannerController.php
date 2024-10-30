@@ -166,13 +166,13 @@ class BannerController extends Controller
     public function destroy(Banner $banner)
     {
         $banner->delete();
-        return redirect() -> route('banners.archived', ['deleted' => $banner -> id]);
+        return redirect() -> route('banners.archived', ['deleted' => $banner->id]);
     }
 
     public function restore($banner_id)
     {
         $banner = Banner::onlyTrashed() -> find($banner_id);
         $banner->restore();
-        return redirect() -> route('banners.index', ['restored' => $banner -> id]);
+        return redirect() -> route('banners.index', ['restored' => $banner->id]);
     }
 }

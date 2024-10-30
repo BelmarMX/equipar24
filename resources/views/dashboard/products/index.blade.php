@@ -18,7 +18,7 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th style="min-width: 260px">Título</th>
+                <th style="min-width: 380px">Título</th>
                 <th style="min-width: 140px">Modelo</th>
                 <th style="min-width: 180px">Categoría</th>
                 <th style="min-width: 220px">Subcategoría</th>
@@ -27,6 +27,7 @@
                 <th>Precio</th>
                 <th>Flete</th>
                 <th style="min-width: 120px">Vista Previa</th>
+                <th data-orderable="false">Galería</th>
                 <th data-orderable="false" style="min-width: 120px">Alta</th>
                 <th data-orderable="false" style="min-width: 120px" data-priority="1">Acciones</th>
             </tr>

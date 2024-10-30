@@ -64,4 +64,11 @@ window.onload = event => {
             .classList
             .remove('empty')
     }
+
+    // Scroll horizontal
+    const scroll_container = document.querySelector('.scroll_categories--list')
+    scroll_container.addEventListener('wheel', e => {
+        e.preventDefault()
+        scroll_container.scrollLeft += e.deltaY
+    })
 }

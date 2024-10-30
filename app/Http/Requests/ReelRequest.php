@@ -46,19 +46,19 @@ class ReelRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-                "product_id"                => "required|numeric|exists:products,id"
+                "product_id"                => "nullable|numeric|exists:products,id"
             ,   "promotion_id"              => "nullable|numeric|exists:promotions,id"
             ,   "title"                     => "required|string"
             ,   "slug"                      => "required|string|unique:reels,slug"
-            ,   "video"                     => "required|file|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4,video/ogg,video/webm"
-            ,   "link"                      => "required|url"
-            ,   "link_title"                => "required|string"
-            ,   "link_summary"              => "required|string"
+            ,   "video"                     => "required|file|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4,video/ogg,video/webm|max:16384"
+            ,   "link"                      => "nullable|url"
+            ,   "link_title"                => "nullable|string"
+            ,   "link_summary"              => "nullable|string"
             ,   "starts_at"                 => "required|date"
             ,   "ends_at"                   => "required|date"
         ];
 
-        if( request() -> routeIs('promotions.update') )
+        if( request() -> routeIs('reels.update') )
         {
             $rules["slug"]                  = "required|string|unique:reels,slug,".$this->route('reel.id');
             $rules["video"]                 = "nullable|file|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4,video/ogg,video/webm";

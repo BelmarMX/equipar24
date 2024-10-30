@@ -14,7 +14,7 @@ class ProjectController extends Controller
     public function view()
     {
         return view('web.static.portafolio', array_merge(
-                Navigation::get_static_data(['projects', 'reels', 'related', 'articles'])
+                Navigation::get_static_data(['reels', 'related', 'articles'])
             ,   [
                 'records' => Project::paginate(12)
             ]
@@ -54,6 +54,9 @@ class ProjectController extends Controller
         return DataTables::of($dt_of)
             ->addColumn('preview', function($record) {
                 return view('dashboard.partials.preview', compact('record')) -> render();
+            })
+            ->addColumn('gallery_count', function($record){
+                return $record->project_galleries->count();
             })
             ->addColumn('action', function ($record) use ($restore) {
                 $actions            = parent::set_actions('projects', 'title', TRUE, $restore, TRUE, TRUE, FALSE, ['route' => 'projectGalleries.gallery', 'tooltip' => 'Agregar imágenes a la galería']);
@@ -100,9 +103,16 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show($slug_project)
     {
-        //
+        $project = Project::where('slug', $slug_project)->firstOrFail();
+        return view('web.portfolio.portafolio-open', array_merge(
+                Navigation::get_static_data(['banners', 'promos', 'reels', 'related', 'articles'])
+            ,   [
+                    'entry'     => $project
+                ,   'gallery'   => $project->project_galleries
+            ]
+        ));
     }
 
     /**

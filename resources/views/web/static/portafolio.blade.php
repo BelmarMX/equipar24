@@ -22,9 +22,9 @@
                 @foreach($records AS $portafolio)
                     <div class="col-md-4 mb-4">
                         @include('web.portfolio.partials.portfolio-view', [
-                                'title'             => $portafolio -> title
-                            ,   'link'              => route('portfolio-open', $portafolio -> slug)
-                            ,   'image'             => url('storage/portafolio/'.$portafolio -> image_rx)
+                                'title'             => $portafolio->title
+                            ,   'link'              => route('portafolio-open', $portafolio->slug)
+                            ,   'image'             => $portafolio->asset_url.$portafolio->image_rx
                             ,   'summary'           => strip_tags($portafolio -> content)
                         ])
                     </div>

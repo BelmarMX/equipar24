@@ -12,6 +12,7 @@ import LinkTool                             from "@editorjs/link";
 import List                                 from '@editorjs/list';
 import Paragraph                            from 'editorjs-paragraph-with-alignment';
 import Table                                from "@editorjs/table";
+import Plyr                                 from "plyr";
 import {URL_PARAMS, RANGE_LOCALE}           from "./datatables/common.js"
 
 const working                               = activate => {
@@ -55,6 +56,17 @@ $(document).ready(function() {
         let title   = $(this).attr('data-title') ? $(this).attr('data-title') : 'Vista previa'
         let src     = $(this).attr('data-lightbox-embed')
         Alert.html(`<embed src="${src}" class="w-full" style="min-height: 80vh;">`, title, true)
+    })
+
+    $(document).on('click', '[data-lightbox-video]', function(e){
+        e.preventDefault()
+        let html    = `<div class="w-full">
+            <video class="js-player mx-auto" playsinline controls muted>
+                <source src="${ $(this).attr('data-lightbox-video') }"/>
+            </video>
+        </div>`
+        Alert.html(html, 'Reel')
+        const player = Plyr.setup('.js-player', { controls: ['play-large', 'restart', 'play', 'progress', 'current-time', 'duration','mute', 'volume', 'fullscreen'] });
     })
 
     $(document).on('click', '[data-confirm-redirect]', function(e) {
@@ -169,6 +181,26 @@ $(document).ready(function() {
             })
             .catch(error => {
                 console.error('Subcategories Error', error)
+            })
+    })
+
+    $('[data-subcategory-fill]').on('change', function() {
+        let category_id         = $('[data-category-fill]').find('select').val();
+        let subcategory_id      = $(this).find('select').val();
+        let products_el         = $(this).attr('data-subcategory-fill');
+
+        axios.post('/productos/filtrados'
+            ,   {category_id, subcategory_id}
+        )
+            .then(({data}) => {
+                $(products_el).empty()
+                $(products_el).append(`<option selected>Producto</option>`)
+                data.forEach(product => {
+                    $(products_el).append(`<option value="${product.id}">${product.title}</option>`)
+                })
+            })
+            .catch(error => {
+                console.error('Products Error', error)
             })
     })
 
@@ -319,7 +351,6 @@ $(document).ready(function() {
             }
         })
     }
-
 
     /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     * DOWN LOADER

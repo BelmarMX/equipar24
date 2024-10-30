@@ -16,18 +16,18 @@
 
 	.banner__single__summary{
 		position: absolute;
-		background: rgba($gray_equipar, .9);
+		background: rgba($gray_equipar, .65);
 		color: $white;
-		max-width: 592px;
-		width: calc(100% - 100px);
-		height: 100%;
+		width: calc(100% - 2px);
+		height: 40px;
 		top: 0;
-		right: 50px;
-		padding: 20px;
-		display: none; /* display: flex */
+		padding: 30px;
+		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+        opacity: 0;
+        @include ease(.25s);
 
 		.banner__single__summary--title{
 			align-self: end;
@@ -81,4 +81,10 @@
 			}
 		}
 	}
+
+    &:hover{
+        .banner__single__summary{
+            opacity: 1;
+        }
+    }
 }

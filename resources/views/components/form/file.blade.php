@@ -1,4 +1,4 @@
-@props(['name', 'placeholder', 'required', 'value', 'readonly', 'disabled', 'accept'])
+@props(['name', 'placeholder', 'required', 'value', 'readonly', 'disabled', 'accept', 'size_tag'])
 
 @php
     if(Str::startsWith($accept, '.'))
@@ -23,7 +23,7 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
             </svg>
             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Click para cargar <span class="font-semibold">{{ mb_strtoupper($placeholder) }}</span></p>
-            <p class="text-xs text-gray-500 dark:text-gray-400">{{ implode(', ', $exts) }} (Max. 4096 kb)</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ implode(', ', $exts) }} @if(!empty($size_tag)) ({{ $size_tag }}) @else (Max. 4096 kb) @endif</p>
             <span class="metadata text-xs text-sky-500 dark:text-sky-400 hidden" style="padding: 1px 10px"></span>
         </div>
         <input id="{{ $name }}" name="{{ $name }}" type="file" class="hidden" data-preview-file="#vista_previa_{{ $name }}" accept="{{ $accept  }}"/>

@@ -16,6 +16,7 @@ $(document).ready(function() {
             ,   { data: 'title' }
             ,   { data: 'description' }
             ,   { data: 'preview', className: 'text-center' }
+            ,   { data: 'gallery_count', render: count => `${count} <i class="fa-solid fa-images ms-1 fa-sm text-sky-400"></i>` }
             ,   {
                         data:               null
                     ,   className:          'text-right'

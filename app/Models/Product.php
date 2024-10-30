@@ -132,4 +132,12 @@ class Product extends Model
             ->inRandomOrder()
             ->get();
     }
+
+    public static function get_filtered($product_category_id, $product_subcategory_id)
+    {
+        return self::where('product_category_id', $product_category_id)
+            ->where('product_subcategory_id', $product_subcategory_id)
+            ->orderBy('title', 'ASC')
+            ->get();
+    }
 }

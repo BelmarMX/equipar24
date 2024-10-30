@@ -72,6 +72,13 @@ const DT_OPTIONS_SSR        = {
             idx: 0
         ,   dir: 'desc'
     }
+    ,   drawCallback:           settings => {
+        const scroll_container = document.querySelector('.dt-scroll-body')
+        scroll_container.addEventListener('wheel', e => {
+            e.preventDefault()
+            scroll_container.scrollLeft += e.deltaY
+        })
+    }
 }
 
 const RANGE_LOCALE          = {
@@ -109,11 +116,11 @@ const RANGE_LOCALE          = {
     ,   firstDay:           1
 }
 
-const set_human_datetime    = ({human_created_at, created_dmy, deleted_at}) => {
+const set_human_datetime    = ({human_created_at, created_dmy, updated_at, deleted_at}) => {
     let is_deleted = deleted_at !== null
-        ? `<br><small class="bg-red-500 text-white p-1 rounded">ELIMINADO</small>`
+        ? `<br><small class="bg-red-500 text-white p-1 rounded" data-tooltip="Eliminado el ${moment(deleted_at).format('DD/MM/YYYY HH:mm')}">ELIMINADO</small>`
         : ''
-    return `${created_dmy}<br><small class="human-date">${human_created_at}</small>${is_deleted}`
+    return `<small class="human-date" data-tooltip="<b>Creado:</b> ${created_dmy}<br><b>Actualizado:</b> ${ updated_at !== null ? moment(updated_at).format('DD/MM/YYYY HH:mm') : created_dmy}">${human_created_at}</small>${is_deleted}`
 }
 
 export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime, RANGE_LOCALE }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\ImagesSettings;
+use App\Classes\Navigation;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductBrand;
@@ -58,6 +59,9 @@ class ProductController extends Controller
             ->addColumn('preview', function($record) {
                 $show_thumbnail  = FALSE;
                 return view('dashboard.partials.preview', compact('record', 'show_thumbnail')) -> render();
+            })
+            ->addColumn('gallery_count', function($record){
+                return $record->product_galleries->count();
             })
             ->addColumn('action', function ($record) use ($restore) {
                 $actions            = parent::set_actions('products', 'title', TRUE, $restore, TRUE, TRUE, FALSE, ['route' => 'productGalleries.gallery', 'tooltip' => 'Agregar imágenes a la galería']);
@@ -172,10 +176,14 @@ class ProductController extends Controller
         return redirect() -> route('products.index', ['restored' => $product->id]);
     }
 
-
     public function get_subcategories(Request $request)
     {
         return ProductSubcategory::get_subcategories($request->category_id);
+    }
+
+    public function get_filtrados(Request $request)
+    {
+        return Product::get_filtered($request->category_id, $request->subcategory_id);
     }
 
     public function search()
@@ -187,4 +195,54 @@ class ProductController extends Controller
     {
         return [];
     }
+
+    public function show_categories()
+    {
+        return view('web.products.categorias-todas', Navigation::get_static_data());
+    }
+
+    public function show_category($slug_category)
+    {
+        $product_category   = ProductCategory::where('slug', $slug_category)->firstOrFail();
+        $entries            = Product::with(['product_brand', 'product_category', 'product_subcategory'])
+            -> where('product_category_id', $product_category->id)
+            -> paginate(24);
+
+        return view('web.products.categoria-productos', array_merge(
+                Navigation::get_static_data(['reels', 'featured', 'articles'])
+            ,   compact('product_category', 'entries')
+        ));
+    }
+
+    public function show_subcategory($slug_category, $slug_subcategory)
+    {
+        $product_category       = ProductCategory::where('slug', $slug_category)->firstOrFail();
+        $product_subcategory    = ProductSubcategory::where('slug', $slug_subcategory)->where('product_category_id', $product_category->id)->firstOrFail();
+        $entries                = Product::with(['product_brand', 'product_category', 'product_subcategory'])
+            -> where('product_category_id', $product_category->id)
+            -> where('product_subcategory_id', $product_subcategory->id)
+            -> paginate(24);
+
+        return view('web.products.categoria-productos', array_merge(
+                Navigation::get_static_data(['reels', 'featured', 'articles'])
+            ,   compact('product_category', 'product_subcategory', 'entries')
+        ));
+    }
+
+    public function show_product($slug_category, $slug_subcategory, $slug_product)
+    {
+        $product_category       = ProductCategory::where('slug', $slug_category)->firstOrFail();
+        $product_subcategory    = ProductSubcategory::where('slug', $slug_subcategory)->where('product_category_id', $product_category->id)->firstOrFail();
+        $entry                  = Product::with(['product_brand', 'product_category', 'product_subcategory', 'product_galleries'])
+            -> where('product_category_id', $product_category->id)
+            -> where('product_subcategory_id', $product_subcategory->id)
+            -> where('slug', $slug_product)
+            -> firstOrFail();
+
+        return view('web.products.producto-open', array_merge(
+                Navigation::get_static_data(['banners', 'reels', 'featured', 'articles'])
+            ,   compact('product_category', 'product_subcategory', 'entry')
+        ));
+    }
+
 }

@@ -1,5 +1,5 @@
-import Swal from "sweetalert2";
-const axios = require('axios').default
+import Swal                                 from "sweetalert2";
+import axios                                from "axios"
 const instance = axios.create({
     headers: {
         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

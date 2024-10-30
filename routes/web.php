@@ -48,12 +48,13 @@ Route::group(['prefix' => 'portafolio', 'controller' => ProjectController::class
 });
 
 Route::group(['prefix' => 'productos', 'controller' => ProductController::class], function () {
-    Route::get('/', 'index')->name('productos');
-    Route::get('/{slug_category}', 'index')->name('productos-categories');
-    Route::get('/{slug_category}/{slug_subcategory}', 'index')->name('productos-subcategories');
-    Route::get('/{slug_category}/{slug_subcategory}/{slug_product}', 'index')->name('producto-open');
+    Route::get('/', 'show_categories')->name('productos');
+    Route::get('/{slug_category}', 'show_category')->name('productos-categories');
+    Route::get('/{slug_category}/{slug_subcategory}', 'show_subcategory')->name('productos-subcategories');
+    Route::get('/{slug_category}/{slug_subcategory}/{slug_product}', 'show_product')->name('producto-open');
     // * POST METHODS
     Route::post('subcategorias', 'get_subcategories')->name('get_subcategories');
+    Route::post('filtrados', 'get_filtrados')->name('get_filtrados');
     Route::post('search', 'search')->name('search');
     Route::post('autocomplete', 'autocomplete')->name('autocomplete');
 });
@@ -82,9 +83,9 @@ Route::group(['prefix' => 'unox', 'controller' => UnoxController::class], functi
 });
 
 Route::group(['prefix' => 'blog', 'controller' => BlogArticleController::class], function () {
-    Route::get('/', 'index')->name('blog');
-    Route::get('/{slug_blog_category}', [BlogCategoryController::class, 'show'])->name('blog-categories');
-    Route::get('/{slug_blog_category}/{slug_blog_article}', 'view')->name('blog-open');
+    Route::get('/', 'show_categories')->name('blog');
+    Route::get('/{slug_blog_category}', 'show_category')->name('blog-categories');
+    Route::get('/{slug_blog_category}/{slug_blog_article}', 'show_article')->name('blog-open');
 });
 
 Route::group(['prefix' => 'contacto', 'controller' => FormSubmitController::class], function () {

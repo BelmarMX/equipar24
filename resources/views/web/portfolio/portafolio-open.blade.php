@@ -6,39 +6,39 @@
     <div class="modal-body">
         <div id="portfolio_slider" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img width="{{ env('PORTFOLIO_WIDTH') }}"
-                         height="{{ env('PORTFOLIO_HEIGHT') }}"
-                         src="{{ url("storage/portafolio/{$entry -> image}") }}"
-                         class="d-block w-100 img-fluid"
-                         alt="{{ $entry -> title }}"
+                <div class="carousel-item text-center active">
+                    <img width="{{ $ImagesSettings::PORTFOLIO_IMG_WIDTH }}"
+                         height="{{ $ImagesSettings::PORTFOLIO_IMG_HEIGHT }}"
+                         src="{{ $entry->asset_url.$entry->image }}"
+                         class="d-block mx-auto img-fluid"
+                         alt="{{ $entry->title }}"
                     >
                     <div class="row mx-0 w-100 p-3">
                         <div class="col-md-6 order-md-2 text-md-end">
-                            <h3>{{$entry -> title}}</h3>
+                            <h3>{{$entry->title}}</h3>
                             <small>1 de {{ count($gallery) > 0 ? count($gallery) + 1 : 1  }}</small>
                         </div>
                         <div class="col-md-6 order-md-1">
-                            {!! $entry -> summary !!}
+                            {!! $entry->description !!}
                         </div>
                     </div>
                 </div>
                 @foreach($gallery AS $g => $item)
-                    <div class="carousel-item">
-                        <img width="{{ env('PORTFOLIO_IMG_WIDTH') }}"
-                             height="{{ env('PORTFOLIO_IMG_HEIGHT') }}"
-                             src="{{ url("storage/portafolio-images/{$item -> image}") }}"
-                             class="d-block w-100 img-fluid"
-                             alt="{{ $item -> title }}"
+                    <div class="carousel-item text-center">
+                        <img width="{{ $ImagesSettings::PORTFOLIO_IMG_WIDTH }}"
+                             height="{{ $ImagesSettings::PORTFOLIO_IMG_HEIGHT }}"
+                             src="{{ $item->asset_url.$item->image }}"
+                             class="d-block mx-auto img-fluid"
+                             alt="{{ $item->title }}"
                         >
                         <div class="row mx-0 w-100 p-3">
                             <div class="col-md-6 order-md-2 text-md-end">
-                                <h3>{{ $entry -> title }}</h3>
-                                <small>{{ $loop -> index + 2 }} de {{ count($gallery) + 1 }}</small>
+                                <h3>{{ $entry->title }}</h3>
+                                <small>{{ $loop->index+2 }} de {{ count($gallery)+1 }}</small>
                             </div>
                             <div class="col-md-6 order-md-1">
                                 <p>
-                                    {{ $item -> title }}
+                                    {{ $item->title }}
                                 </p>
                             </div>
                         </div>

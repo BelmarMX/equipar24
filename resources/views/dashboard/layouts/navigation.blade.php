@@ -36,6 +36,10 @@
                             <i class="fa-solid fa-moon me-1"></i> Dark mode: {{ Auth::user() -> dark_mode ? 'On' : 'Off' }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('index')" target="_blank">
+                            <i class="fa-solid fa-earth-america me-1"></i> Ver sitio
+                        </x-dropdown-link>
+
                         <x-dropdown-link :href="route('profile.edit')">
                             <i class="fa-solid fa-id-card me-1"></i> {{ __('Profile') }}
                         </x-dropdown-link>

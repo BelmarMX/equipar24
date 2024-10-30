@@ -16,6 +16,7 @@
                 <th>Título</th>
                 <th>Descripción</th>
                 <th data-orderable="false">Vista previa</th>
+                <th data-orderable="false">Galería</th>
                 <th data-orderable="false">Alta</th>
                 <th data-orderable="false">Acciones</th>
             </tr>

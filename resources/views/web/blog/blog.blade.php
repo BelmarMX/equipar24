@@ -1,6 +1,6 @@
-@section('title',           'Artículos del blog en la categoría '.$record->title)
+@section('title',           isset($blog_category) ? 'Artículos del blog en la categoría '.$blog_category->title : 'Blog de noticias')
 @section('description',     'Descubra aquí nuevas noticias y tips para llevar una excelente alimentación en su espacio de trabajo.')
-@section('image',           asset('images/template/blog.jpg'))
+@section('image',           asset('images/samples/banner_productos.jpg'))
 @extends('web._layout.master.app')
 
 @section('content')
@@ -9,7 +9,7 @@
                 'slide'         => asset('images/samples/banner.jpg')
             ,   'slide_mobile'  => asset('images/samples/banner-mv.jpg')
             ,   'slide_alt'     => 'Blog Banner'
-            ,   'summary'       => TRUE
+            ,   'summary'       => FALSE
             ,   'title'         => '<strong>BLOG</strong>'
             ,   'description'   => 'Artículos de interés general sobre <strong>equipamientos de cocinas industriales</strong>'
             ,   'h1'            => TRUE
@@ -17,6 +17,7 @@
     </div>
 
     <main class="container">
+        <h1>{{ $blog_category->title ?? 'Blog de noticias' }}</h1>
         @include('web.blog.partials.scroll-categories', [
                 'tag_title'     => 'Categorías'
             ,   'todas_link'    => route('blog')

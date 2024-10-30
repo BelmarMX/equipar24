@@ -12,19 +12,7 @@ use Yajra\DataTables\DataTables;
 
 class BlogArticleController extends Controller
 {
-    public function view($slug_blog_category, $slug_blog_article)
-    {
-        $article = BlogArticle::where('slug', $slug_blog_article) -> first();
-        return view('web.blog.blog-article', array_merge(
-                Navigation::get_static_data(['banners', 'reels', 'related', 'articles', 'states'])
-            ,   [
-                        'article'       => $article
-                    ,   'categories'    => BlogCategory::get_categories()
-                    ,   'latest'        => BlogArticle::get_latest(4)
-                ]
-            )
-        );
-    }
+
 
     /**
      * Display a listing of the resource.
@@ -167,5 +155,46 @@ class BlogArticleController extends Controller
         $blogArticle = BlogArticle::onlyTrashed() -> find($blog_article_id);
         $blogArticle->restore();
         return redirect() -> route('blogArticles.index', ['restored' => $blogArticle->id]);
+    }
+
+    public function show_categories()
+    {
+        return view('web.blog.blog', array_merge(
+                    Navigation::get_static_data(['reels', 'related', 'articles'])
+                ,   [
+                        'categories'    => BlogCategory::get_categories()
+                    ,   'articles'      => BlogArticle::where('published_at', '<=', now())->orderBy('published_at', 'DESC')->paginate(12)
+                ]
+            )
+        );
+    }
+
+    public function show_category($slug_blog_category)
+    {
+        $blog_category  = BlogCategory::where('slug', $slug_blog_category)->firstOrFail();
+        return view('web.blog.blog', array_merge(
+                    Navigation::get_static_data(['reels', 'related'])
+                ,   [
+                        'blog_category' => $blog_category
+                    ,   'categories'    => BlogCategory::get_categories()
+                    ,   'articles'      => BlogArticle::where('blog_category_id', $blog_category->id)->where('published_at', '<=', now())->orderBy('published_at', 'DESC')->paginate(12)
+                ]
+            )
+        );
+    }
+
+    public function show_article($slug_blog_category, $slug_blog_article)
+    {
+        $blog_category  = BlogCategory::where('slug', $slug_blog_category)->firstOrFail();
+        $article        = BlogArticle::where('slug', $slug_blog_article)->where('blog_category_id', $blog_category->id)->firstOrFail();
+        return view('web.blog.blog-article', array_merge(
+                    Navigation::get_static_data(['banners', 'reels', 'related', 'articles'])
+                ,   [
+                        'article'       => $article
+                    ,   'categories'    => BlogCategory::get_categories()
+                    ,   'latest'        => BlogArticle::get_latest(4)
+                ]
+            )
+        );
     }
 }

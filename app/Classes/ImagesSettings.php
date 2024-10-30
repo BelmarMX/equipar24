@@ -64,8 +64,8 @@ class ImagesSettings
     const PRODUCT_RX_HEIGHT                             = 380;
 
     const PORTFOLIO_FOLDER                              = "portafolio/";
-    const PORTFOLIO_WIDTH                               = 800;
-    const PORTFOLIO_HEIGHT                              = 600;
+    const PORTFOLIO_WIDTH                               = 1200;
+    const PORTFOLIO_HEIGHT                              = 800;
     const PORTFOLIO_RX_WIDTH                            = 380;
     const PORTFOLIO_RX_HEIGHT                           = 380;
 

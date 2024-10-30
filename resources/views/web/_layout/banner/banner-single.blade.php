@@ -1,4 +1,7 @@
 <div class="banner__single">
+@if( !empty($cta_href) )
+    <a href="{{ $cta_href }}" class="banner__single__summary--cta">
+@endif
     @if($Navigation::is_mobile() === true && !empty($slide_mobile) )
         <img width="{{ $ImagesSettings::BANNER_WIDTH_MV }}"
              height="{{ $ImagesSettings::BANNER_HEIGHT_MV }}"
@@ -14,6 +17,9 @@
              alt="{{$slide_alt ?? 'Banner image'}}"
         >
     @endif
+@if( !empty($cta_href) )
+    </a>
+@endif
     @if( $summary )
     <div class="banner__single__summary">
         @if( isset($h1) && $h1 )

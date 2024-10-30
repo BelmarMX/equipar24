@@ -15,7 +15,7 @@ $(document).ready(function() {
                         data:       null
                     ,   className:  'text-right'
                     ,   render:     ({human_created_at, created_dmy}) => {
-                            return `${created_dmy}<br><small class="human-date">${human_created_at}</small>`
+                            return `<small class="human-date" data-tooltip="Creado ${created_dmy}">${human_created_at}</small>`
                         }
                 }
             ,   { data: 'action', className: 'text-center' }
