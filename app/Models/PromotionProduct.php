@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PromotionProduct extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
             'promotion_id'
@@ -59,4 +59,29 @@ class PromotionProduct extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function sync_prices_by_promotion(Promotion $promotion)
+    {
+        $set        = self::where('promotion_id', $promotion->id)->get();
+        foreach($set AS $item)
+        {
+            $with_promotion         = $promotion->calculate(Product::find($item->product_id));
+            $item->original_price   = $with_promotion->original_price;
+            $item->discount         = $with_promotion->discount;
+            $item->total            = $with_promotion->total;
+            $item->save();
+        }
+    }
+
+    public static function sync_prices_by_product(Product $product)
+    {
+        $set        = self::where('product_id', $product->id)->get();
+        foreach($set AS $item)
+        {
+            $with_promotion         = Promotion::find($item->promotion_id)->calculate($product);
+            $item->original_price   = $with_promotion->original_price;
+            $item->discount         = $with_promotion->discount;
+            $item->total            = $with_promotion->total;
+            $item->save();
+        }
+    }
 }

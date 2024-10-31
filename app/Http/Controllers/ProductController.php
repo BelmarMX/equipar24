@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductBrand;
 use App\Models\ProductCategory;
 use App\Models\ProductSubcategory;
+use App\Models\PromotionProduct;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -157,6 +158,7 @@ class ProductController extends Controller
         $validated['data_sheet']= $sheet ?? $product->data_sheet;
 
         $product -> update($validated);
+        PromotionProduct::sync_prices_by_product($product);
         return redirect() -> route('products.index', ['updated' => $product->id]);
     }
 

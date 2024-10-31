@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promotion_product', function (Blueprint $table) {
+        Schema::create('promotion_products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('promotion_id')->constrained('promotions')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
@@ -19,6 +19,8 @@ return new class extends Migration
             $table->decimal('discount', 10, 2);
             $table->decimal('total', 10, 2);
             $table->timestamps();
+
+            $table->unique(['promotion_id', 'product_id'])->name('uniquepromotions');
         });
     }
 

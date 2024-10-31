@@ -47,7 +47,7 @@ class Promotion extends Model
 
     public function products(): HasManyThrough
     {
-        return $this->hasManyThrough(Product::class, PromotionProduct::class);
+        return $this->hasManyThrough(Product::class, PromotionProduct::class, 'promotion_id', 'id', 'id', 'product_id');
     }
 
     public function reels(): HasMany
@@ -144,5 +144,29 @@ class Promotion extends Model
         }
 
         return $vigency;
+    }
+
+    public function has_product($product_id)
+    {
+        return $this->products()->where('product_id', $product_id)->first();
+    }
+
+    public function calculate($product)
+    {
+        if( $this->discount_type == 'fixed' )
+        {
+            $total = $product->price - $this->amount;
+        }
+        else
+        {
+            $total = $product->price - ($this->amount * $product->price) / 100;
+        }
+
+        $return = new \stdClass();
+        $return->original_price = $product->price;
+        $return->discount       = $product->price - $total;
+        $return->total          = $total;
+
+         return $return;
     }
 }

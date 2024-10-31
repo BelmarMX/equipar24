@@ -71,6 +71,9 @@ class Product extends Model
         return $this->belongsToMany(Promotion::class, PromotionProduct::class);
     }
 
+    public function promotion()
+    {}
+
     public function reels(): HasMany
     {
         return $this->hasMany(Reel::class);

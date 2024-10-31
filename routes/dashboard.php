@@ -17,6 +17,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectGalleryController;
 use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\PromotionProductController;
 use App\Http\Controllers\ReelController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -125,6 +126,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('archived/view', 'archived')->name('promotions.archived');
         Route::get('delete/{promotion}', 'destroy')->name('promotions.delete');
         Route::get('restore/{promotion_id}', 'restore')->name('promotions.restore');
+    });
+
+    //Route::resource('promotionProducts', PromotionProductController::class);
+    Route::group(['prefix' => 'promotionProducts', 'controller' => PromotionProductController::class], function () {
+        Route::get('{promotion}', 'index')->name('promotionProducts.index');
+        Route::post('{promotion}/datatable', 'datatable')->name('dashboard.promotionProducts.datatable');
+        Route::post('{promotion}/update_massive', 'update_massive')->name('promotionProducts.update_massive');
+        Route::get('delete/{promotion_product}', 'destroy')->name('promotionProducts.delete');
     });
 
     Route::resource('projects', ProjectController::class);

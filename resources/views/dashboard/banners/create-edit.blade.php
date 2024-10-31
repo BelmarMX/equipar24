@@ -35,14 +35,23 @@
             <div class="bg-neutral-50 px-3 py-10">
                 <div class="flex flex-wrap">
                     <div class="md:w-6/12 w-full">
-                        <x-form.input-text name="title" placeholder="Título del banner" value="{{ old('title', $record->title) }}" required class="mb-6"/>
-                        <x-form.input-text name="link" placeholder="Enlace (opcional)" value="{{ old('link', $record->link) }}" class="mb-6"/>
-                        <x-form.select select2 name="promotion_id" placeholder="Promoción" value="{{ $record->promotion_id }}" class="mb-6">
+                        <x-form.select select2 name="promotion_id" placeholder="Promoción (opcional)" value="{{ $record->promotion_id }}" class="mb-6">
                             <option value="" selected>Ninguna</option>
                             @foreach($promotions AS $promotion)
-                                <option value="{{ $promotion -> id }}" @if( old('promotion_id', $record->promotion_id) == $promotion->id) selected @endif>{{ $promotion->title }}</option>
+                                <option value="{{ $promotion -> id }}" @if( old('promotion_id', $record->promotion_id) == $promotion->id) selected @endif
+                                        data-link-href="{{route('promociones-productos', $promotion->slug)}}"
+                                        data-link-title="{{ $promotion->title }}"
+                                >{{ $promotion->title }}</option>
                             @endforeach
                         </x-form.select>
+                        <div class="flex flex-wrap mb-3">
+                            <div class="leading-relaxed text-end pr-1 w-full">
+                                Autocompletar con:
+                                <x-form.button form="button" class="me-2" type="info-outline" icon="fa-money-check-dollar" text="Promoción" onclick="update_with_promotion()"/>
+                            </div>
+                        </div>
+                        <x-form.input-text name="title" placeholder="Título del banner" value="{{ old('title', $record->title) }}" required class="mb-6"/>
+                        <x-form.input-text name="link" placeholder="Enlace (opcional)" value="{{ old('link', $record->link) }}" class="mb-6"/>
                     </div>
                     <div class="md:w-4/12 md:ms-[8.333%] w-full">
                         <x-form.file-image name="image"
@@ -77,5 +86,15 @@
     @push('style')
     @endpush
     @push('ESmodules')
+        <script>
+            const update_link = option => {
+                $('#link').val(option.attr('data-link-href'))
+                $('#title').val(option.attr('data-link-title'))
+            }
+
+            const update_with_promotion = O => {
+                update_link( $('#promotion_id').find('option:selected') )
+            }
+        </script>
     @endpush
 </x-app-layout>

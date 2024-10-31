@@ -147,7 +147,7 @@ class ReelController extends Controller
         return view('dashboard.reels.create-edit', [
                 'resource'      => 'reels'
             ,   'record'        => $reel
-            ,   'rcrd_products' => Product::where('product_subcategory_id', $reel->product->product_subcategory_id)->get()
+            ,   'rcrd_products' => $reel->product_id ? Product::where('product_subcategory_id', $reel->product->product_subcategory_id)->get() : NULL
             ,   'promotions'    => Promotion::get_promotions()
             ,   'categories'    => ProductCategory::get_categories()
         ]);
