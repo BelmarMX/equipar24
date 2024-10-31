@@ -5,6 +5,7 @@
 
 @section('content')
     @include('web._layout.banner.banner-array', ['banners' => $banners])
+    @include('web._layout.partials.reels', ['reels' => $reels])
 
     <main class="container">
         <section id="index__productos_destacados" class="mb-5">

@@ -1,5 +1,5 @@
 @if( $banners )
-<div id="banner__array" class="container-fluid mb-5">
+<div id="banner__array" class="container-fluid mb-4">
     <div id="banner__slider" class="carousel slide"
          data-bs-ride="carousel"
          data-bs-touch="true"

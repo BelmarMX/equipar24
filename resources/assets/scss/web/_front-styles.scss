@@ -442,6 +442,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 @import 'partials/search';
+@import 'partials/reels';
 @import 'partials/home';
 @import 'partials/productos';
 @import 'partials/servicios';
@@ -449,6 +450,7 @@ h1, h2, h3, h4, h5, h6{
 @import 'partials/blog';
 @import 'partials/portafolio';
 @import 'partials/contacto';
+@import '../dashboard/plyr';
 
 #index__clientes,
 #index__marcas{

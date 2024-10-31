@@ -1,6 +1,8 @@
 // Include Bootstrap5
 import 'bootstrap'
-import {Tooltip} from 'bootstrap';
+import {Tooltip}    from 'bootstrap';
+import Plyr         from "plyr";
+import swal         from "sweetalert2";
 
 // Initialize the tooltips
 const tooltipTriggerList = []
@@ -66,9 +68,38 @@ window.onload = event => {
     }
 
     // Scroll horizontal
-    const scroll_container = document.querySelector('.scroll_categories--list')
-    scroll_container.addEventListener('wheel', e => {
-        e.preventDefault()
-        scroll_container.scrollLeft += e.deltaY
-    })
+    if( document.querySelector('.scroll_categories--list') )
+    {
+        const scroll_container = document.querySelector('.scroll_categories--list')
+        scroll_container.addEventListener('wheel', e => {
+            e.preventDefault()
+            scroll_container.scrollLeft += e.deltaY
+        })
+    }
+
+    // Video reels
+    if( document.querySelector('.reels__item--video') )
+    {
+        document.querySelectorAll('.reels__item--video').forEach(el => {
+            el.addEventListener('click', event => {
+                event.preventDefault()
+                let video_url = event.target.src
+                let html    = `<div class="reel-story">
+                    <video class="js-player mx-auto" playsinline controls autoplay>
+                        <source src="${ video_url }"/>
+                    </video>
+                </div>`
+                swal.fire({
+                    html:               html,
+                    showCloseButton:    true,
+                    showCancelButton:   false,
+                    showConfirmButton:  false,
+                    focusConfirm:       false,
+                    customClass:        'reels_pop'
+                })
+                Plyr.setup('.js-player', { controls: ['play-large', 'restart', 'play', 'progress', 'current-time', 'duration','mute', 'volume', 'fullscreen'] });
+                document.querySelector('.bs-tooltip-auto').remove()
+            })
+        })
+    }
 }
