@@ -13,6 +13,7 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th data-orderable="false" style="min-width: 104px">Estatus</th>
                 <th style="min-width: 240px">Título</th>
                 <th style="min-width: 160px" data-orderable="false">Enlace</th>
                 <th style="min-width: 220px">Promoción</th>

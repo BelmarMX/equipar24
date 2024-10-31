@@ -41,7 +41,11 @@
                                 <x-form.select select2 name="promotion_id" placeholder="Promoción" value="{{ $record->promotion_id }}" class="mb-6">
                                     <option value="" selected>Ninguna</option>
                                     @foreach($promotions AS $promotion)
-                                        <option value="{{ $promotion->id }}" @if( old('promotion_id', $record->promotion_id) == $promotion->id) selected @endif>{{ $promotion->title }}</option>
+                                        <option value="{{ $promotion->id }}" @if( old('promotion_id', $record->promotion_id) == $promotion->id) selected @endif
+                                                data-link-href="{{route('promociones-productos', $promotion->slug)}}"
+                                                data-link-title="¡Ver promoción!"
+                                                data-link-description="{{ $promotion->title }}"
+                                        >{{ $promotion->title }}</option>
                                     @endforeach
                                 </x-form.select>
                             </div>
@@ -71,7 +75,7 @@
                                     <option value="" selected>Ninguna</option>
                                     @if( $record->product->product_subcategory_id ?? NULL )
                                         @foreach($record->product->product_category->subcategories AS $subcategory)
-                                            <option value="{{ $subcategory->id }}" @if( old('product_subcategory_id', $record->product_subcategory_id) == $subcategory->id) selected @endif>{{ $subcategory->title }}</option>
+                                            <option value="{{ $subcategory->id }}" @if( old('product_subcategory_id', $record->product->product_subcategory_id) == $subcategory->id) selected @endif>{{ $subcategory->title }}</option>
                                         @endforeach
                                     @endif
                                 </x-form.select>
@@ -80,11 +84,22 @@
                         <x-form.select select2 name="product_id" placeholder="Producto" value="{{ $record->product_id }}" class="mb-6">
                             <option value="" selected>Ninguno</option>
                             @if( $record->product->id ?? NULL )
-                                @foreach($record->product->product_category->subcategories->products AS $product)
-                                    <option value="{{ $product->id }}" @if( old('product_subcategory_id', $record->product->id) == $product->id) selected @endif>{{ $product->title }}</option>
+                                @foreach($rcrd_products AS $product)
+                                    <option value="{{ $product->id }}" @if( old('product_subcategory_id', $record->product->id) == $product->id) selected @endif
+                                            data-link-href="{{route('producto-open', [$product->product_category->slug,$product->product_subcategory->slug, $product->slug])}}"
+                                            data-link-title="¡Ver producto!"
+                                            data-link-description="{{ $product->title }}"
+                                    >{{ $product->title }}</option>
                                 @endforeach
                             @endif
                         </x-form.select>
+                        <div class="flex flex-wrap mb-3">
+                            <div class="leading-relaxed text-end pr-1 w-full">
+                                Autocompletar con:
+                                <x-form.button form="button" class="me-2" type="info-outline" icon="fa-money-check-dollar" text="Promoción" onclick="update_with_promotion()"/>
+                                <x-form.button form="button" class="me-2" type="info-outline" icon="fa-barcode" text="Producto" onclick="update_with_product()"/>
+                            </div>
+                        </div>
                         <x-form.input-text name="link" placeholder="Enlace (opcional)" value="{{ old('link', $record->link) }}" class="mb-6"/>
                         <x-form.input-text name="link_title" placeholder="Título del enlace (opcional)" value="{{ old('link_title', $record->link_title) }}" class="mb-6"/>
                         <x-form.input-text name="link_summary" placeholder="Descripción del enlace (opcional)" value="{{ old('link_summary', $record->link_summary) }}" class="mb-6"/>
@@ -114,5 +129,20 @@
     @push('style')
     @endpush
     @push('ESmodules')
+        <script >
+
+            const update_link = option => {
+                $('#link').val(option.attr('data-link-href'))
+                $('#link_title').val(option.attr('data-link-title'))
+                $('#link_summary').val(option.attr('data-link-description'))
+            }
+
+            const update_with_promotion = O => {
+                update_link( $('#promotion_id').find('option:selected') )
+            }
+            const update_with_product = O => {
+                update_link( $('#product_id').find('option:selected') )
+            }
+        </script>
     @endpush
 </x-app-layout>

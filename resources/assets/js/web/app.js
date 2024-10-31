@@ -83,6 +83,9 @@ window.onload = event => {
         document.querySelectorAll('.reels__item--video').forEach(el => {
             el.addEventListener('click', event => {
                 event.preventDefault()
+                setTimeout(() => {
+                    document.querySelectorAll('.bs-tooltip-auto').forEach(e => e.remove())
+                }, 100)
                 let video_url = event.target.src
                 let html    = `<div class="reel-story">
                     <video class="js-player mx-auto" playsinline controls autoplay>
@@ -98,7 +101,6 @@ window.onload = event => {
                     customClass:        'reels_pop'
                 })
                 Plyr.setup('.js-player', { controls: ['play-large', 'restart', 'play', 'progress', 'current-time', 'duration','mute', 'volume', 'fullscreen'] });
-                document.querySelector('.bs-tooltip-auto').remove()
             })
         })
     }

@@ -86,4 +86,29 @@ class Reel extends Model
             ->orderBy('starts_at', 'ASC')
             ->get();
     }
+
+    public function get_vigency()
+    {
+        $vigency = new \stdClass();
+        if( now() >= $this->starts_at && now() <= $this->ends_at )
+        {
+            $vigency->type  = 'success';
+            $vigency->text  = 'Vigente';
+            $vigency->html  = '<i class="fa-regular fa-calendar-check me-1"></i> Vigente';
+        }
+        elseif( now() > $this->ends_at )
+        {
+            $vigency->type  = 'danger';
+            $vigency->text  = 'Vencido';
+            $vigency->html  = '<i class="fa-regular fa-calendar-xmark me-1"></i> Vencido';
+        }
+        elseif( now() < $this->starts_at )
+        {
+            $vigency->type  = 'info';
+            $vigency->text  = 'Próximo';
+            $vigency->html  = '<i class="fa-regular fa-calendar me-1"></i> Próximo';
+        }
+
+        return $vigency;
+    }
 }

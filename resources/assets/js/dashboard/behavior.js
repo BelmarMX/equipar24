@@ -196,7 +196,11 @@ $(document).ready(function() {
                 $(products_el).empty()
                 $(products_el).append(`<option selected>Producto</option>`)
                 data.forEach(product => {
-                    $(products_el).append(`<option value="${product.id}">${product.title}</option>`)
+                    $(products_el).append(`<option value="${product.id}"
+                        data-link-href="${product.asset_url.replace('storage/', '')}${product.product_category.slug}/${product.product_subcategory.slug}/${product.slug}"
+                        data-link-title="${product.model}"
+                        data-link-description="${product.title}"
+                    >${product.title}</option>`)
                 })
             })
             .catch(error => {

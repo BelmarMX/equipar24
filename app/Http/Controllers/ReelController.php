@@ -44,7 +44,27 @@ class ReelController extends Controller
             $dt_of      = Reel::query();
         }
 
+        if( isset($_GET['filter']) )
+        {
+            if( $_GET['filter'] == 'vigentes' )
+            {
+                $dt_of -> where('starts_at', '<=', now()) -> where('ends_at', '>=', now());
+            }
+            elseif( $_GET['filter'] == 'vencidas' )
+            {
+                $dt_of -> where('ends_at', '<', now());
+            }
+            elseif( $_GET['filter'] == 'proximas' )
+            {
+                $dt_of -> where('starts_at', '>', now());
+            }
+        }
+
         return DataTables::of($dt_of)
+            ->addColumn('status', function($record) {
+                $vigency = $record -> get_vigency();
+                return view('dashboard.partials.status', compact('record', 'vigency')) -> render();
+            })
             ->addColumn('promocion', function($record) {
                 if( $record -> promotion_id == NULL )
                 {
@@ -82,7 +102,7 @@ class ReelController extends Controller
                 $actions            = parent::set_actions('reels', 'title', FALSE, $restore);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
-            ->rawColumns(['promocion', 'preview', 'action'])
+            ->rawColumns(['status','promocion', 'preview', 'action'])
             ->toJson();
     }
 
@@ -127,6 +147,7 @@ class ReelController extends Controller
         return view('dashboard.reels.create-edit', [
                 'resource'      => 'reels'
             ,   'record'        => $reel
+            ,   'rcrd_products' => Product::where('product_subcategory_id', $reel->product->product_subcategory_id)->get()
             ,   'promotions'    => Promotion::get_promotions()
             ,   'categories'    => ProductCategory::get_categories()
         ]);
