@@ -17,12 +17,15 @@ class FormContactRequest extends FormRequest
     public function attributes(): array
     {
         return [
-                "state_id"                  => "ID Estado"
+                'g-recaptcha-response'      => 'Captcha'
+            ,   "uuid"                      => "Usuario"
+            ,   "state_id"                  => "ID Estado"
             ,   "city_id"                   => "ID Ciudad"
             ,   "name"                      => "Nombre(s)"
             ,   "email"                     => "Correo electrónico"
             ,   "phone"                     => "Teléfono"
             ,   "company"                   => "Empresa"
+            ,   "comments"                  => "Motivo"
         ];
     }
 
@@ -34,12 +37,15 @@ class FormContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-                "state_id"                  => "required|numeric|exists:states,id"
+                'g-recaptcha-response'      => 'required'
+            ,   "uuid"                      => 'nullable|uuid|exists:form_contacts,uuid'
+            ,   "state_id"                  => "required|numeric|exists:states,id"
             ,   "city_id"                   => "required|numeric|exists:cities,id"
             ,   "name"                      => "required|string"
             ,   "email"                     => "required|string"
             ,   "phone"                     => "required|digits:10"
-            ,   "company"                   => "required|string"
+            ,   "company"                   => "nullable|string"
+            ,   "comments"                  => "required|string"
         ];
     }
 }

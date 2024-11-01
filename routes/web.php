@@ -88,19 +88,15 @@ Route::group(['prefix' => 'blog', 'controller' => BlogArticleController::class],
 });
 
 Route::group(['prefix' => 'contacto', 'controller' => FormSubmitController::class], function () {
-    Route::get('/'
-        ,   [NavigationController::class, 'contacto']
-    )->name('contacto');
+    Route::get('/', [NavigationController::class, 'contacto'])->name('contacto');
     // * POST METHODS
-    Route::post('find', 'find')->name('clientfind');
+    Route::post('find', 'find_contact')->name('contacto.find');
     Route::post('cities', 'get_cities')->name('contacto.get_cities');
-    Route::post('send', 'send')->name('contacto-send');
+    Route::post('send', 'send_contact')->name('contacto-send');
 });
 
 Route::group(['prefix' => 'cotizar', 'controller' => FormSubmitController::class], function () {
-    Route::get('/'
-        ,   [NavigationController::class, 'cotizar']
-    )->name('cotizar');
+    Route::get('/', [NavigationController::class, 'cotizar'])->name('cotizar');
     // * POST METHODS
     Route::post('add', 'add_quotation')->name('cotizaciones.add');
     Route::post('update', 'update_quotation')->name('cotizaciones.remove');

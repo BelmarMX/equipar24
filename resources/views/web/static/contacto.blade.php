@@ -12,28 +12,19 @@
 
                 <form class="custom_form mx-auto w-100 px-2 py-4"
                       enctype="multipart/form-data"
-                      method="post"
+                      method="POST"
                       action="{{ route('contacto-send') }}"
                       style="max-width: 630px"
                       id="contactForm"
                 >
                     {!! csrf_field() !!}
+                    <input id="uuid" name="uuid" type="hidden" value="">
                     @include('web._layout.alerts.alerts')
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <label for="nombre" class="form-label">¿Cuál es tu nombre?</label>
-                            <input id="nombre"
-                                   name="nombre"
-                                   class="form-control"
-                                   type="text"
-                                   placeholder="Nombre y Apellido"
-                                   required
-                            >
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <label for="correo" class="form-label">Correo electrónico</label>
-                            <input id="correo"
-                                   name="correo"
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input id="email"
+                                   name="email"
                                    class="form-control"
                                    type="email"
                                    placeholder="mi-email@mi-dominio.com"
@@ -41,9 +32,19 @@
                             >
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label for="telefono" class="form-label">Celular (opcional)</label>
-                            <input id="telefono"
-                                   name="telefono"
+                            <label for="name" class="form-label">¿Cuál es tu nombre?</label>
+                            <input id="name"
+                                   name="name"
+                                   class="form-control"
+                                   type="text"
+                                   placeholder="Nombre y Apellido"
+                                   required
+                            >
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="phone" class="form-label">Celular (opcional)</label>
+                            <input id="phone"
+                                   name="phone"
                                    class="form-control"
                                    type="number"
                                    min="1000000000"
@@ -52,18 +53,18 @@
                             >
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label for="empresa" class="form-label">Empresa (opcional)</label>
-                            <input id="empresa"
-                                   name="empresa"
+                            <label for="company" class="form-label">Empresa (opcional)</label>
+                            <input id="company"
+                                   name="company"
                                    class="form-control"
                                    type="text"
                                    placeholder="Nombre de la empresa"
                             >
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label for="estado" class="form-label">Estado</label>
-                            <select id="estado"
-                                    name="estado"
+                            <label for="state_id" class="form-label">Estado</label>
+                            <select id="state_id"
+                                    name="state_id"
                                     class="form-select"
                                     aria-label="Selecciona un estado"
                             >
@@ -74,9 +75,9 @@
                             </select>
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label for="ciudad" class="form-label">Ciudad</label>
-                            <select id="ciudad"
-                                    name="ciudad"
+                            <label for="city_id" class="form-label">Ciudad</label>
+                            <select id="city_id"
+                                    name="city_id"
                                     class="form-select"
                                     aria-label="Selecciona una ciudad"
                             >
@@ -85,9 +86,9 @@
                         </div>
 
                         <div class="col-md-12 mb-4">
-                            <label for="cuerpo" class="form-label">Motivo de contacto</label>
-                            <textarea id="cuerpo"
-                                      name="cuerpo"
+                            <label for="comments" class="form-label">Motivo de contacto</label>
+                            <textarea id="comments"
+                                      name="comments"
                                       class="form-control"
                                       placeholder="Espacio para tus comentarios, dudas y sugerencias"
                                       rows="5"
