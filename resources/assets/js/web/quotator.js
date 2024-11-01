@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import axios from "axios";
 
 // Agregar productos al cotizador
 document
@@ -176,3 +177,22 @@ document
             }
         })
     })
+
+$(document).ready(function(){
+    $('#email').on('focusout', function(e) {
+        axios.post('/contacto/find', {
+            email: $(this).val()
+        })
+            .then(({data}) => {
+                if( data)
+                {
+                    $('#uuid').val(data.uuid)
+                    $('#name').val(data.name)
+                    $('#phone').val(data.phone)
+                    $('#company').val(data.company)
+                    $('#state_id').val(data.state_id).change()
+                }
+            })
+            .catch(e => console.error(e))
+    })
+})

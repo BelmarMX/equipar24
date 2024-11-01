@@ -17,15 +17,17 @@ class FormQuotationDetailRequest extends FormRequest
     public function attributes(): array
     {
         return [
-                "form_submit_id"            => "ID Formulario de contacto"
-            ,   "product_id"                => "ID del producto"
-            ,   "promotion_id"              => "ID de la promoción"
-            ,   "quantity"                  => "Cantidad"
-            ,   "product_name"              => "Nombre del producto"
-            ,   "original_price"            => "Precio original"
-            ,   "discount"                  => "Descuento"
-            ,   "total"                     => "Total"
-            ,   "notes"                     => "Notas"
+                'g-recaptcha-response'      => 'Captcha'
+            ,   "uuid"                      => "Usuario"
+            ,   "state_id"                  => "ID Estado"
+            ,   "city_id"                   => "ID Ciudad"
+            ,   "name"                      => "Nombre(s)"
+            ,   "email"                     => "Correo electrónico"
+            ,   "phone"                     => "Teléfono"
+            ,   "company"                   => "Empresa"
+            ,   "comments"                  => "Comentarios"
+            ,   'id'                        => "Producto"
+            ,   'qty'                       => "Cantidad"
         ];
     }
 
@@ -37,15 +39,17 @@ class FormQuotationDetailRequest extends FormRequest
     public function rules(): array
     {
         return [
-                "form_submit_id"            => "required|numeric|exists:form_submits,id"
-            ,   "product_id"                => "required|numeric|exists:products,id"
-            ,   "promotion_id"              => "nullable|numeric|exists:promotions,id"
-            ,   "quantity"                  => "required|numeric|min:1"
-            ,   "product_name"              => "required|string"
-            ,   "original_price"            => "required|numeric"
-            ,   "discount"                  => "required|numeric"
-            ,   "total"                     => "required|numeric"
-            ,   "notes"                     => "nullable|string"
+                'g-recaptcha-response'      => 'required'
+            ,   "uuid"                      => 'nullable|uuid|exists:form_contacts,uuid'
+            ,   "state_id"                  => "required|numeric|exists:states,id"
+            ,   "city_id"                   => "required|numeric|exists:cities,id"
+            ,   "name"                      => "required|string"
+            ,   "email"                     => "required|string"
+            ,   "phone"                     => "required|digits:10"
+            ,   "company"                   => "nullable|string"
+            ,   "comments"                  => "required|string"
+            ,   'id'                        => "required"
+            ,   'qty'                       => "required"
         ];
     }
 }
