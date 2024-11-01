@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Classes\ImagesSettings;
+use App\Classes\Navigation;
 use App\Http\Requests\ProductBrandRequest;
+use App\Models\Product;
 use App\Models\ProductBrand;
+use App\Models\ProductCategory;
+use App\Models\ProductSubcategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -150,5 +154,56 @@ class ProductBrandController extends Controller
         $productBrand = ProductBrand::onlyTrashed() -> find($product_brand_id);
         $productBrand->restore();
         return redirect() -> route('productBrands.index', ['restored' => $productBrand->id]);
+    }
+
+    public function show_brand($slug_brand)
+    {
+        $product_brand          = ProductBrand::where('slug', $slug_brand)->firstOrFail();
+        $product_category       = NULL;
+        $entries                = Product::with(['product_brand', 'product_category', 'product_subcategory'])
+            ->where('product_brand_id', $product_brand->id)
+            ->paginate(24);
+        $related_categories     = ProductBrand::get_product_categories_of_brand($product_brand->id);
+
+        return view('web.products.marca-productos', array_merge(
+                Navigation::get_static_data(['banner', 'reels', 'articles'])
+            ,   compact('product_brand', 'entries', 'product_category', 'related_categories')
+        ));
+    }
+
+    public function show_category($slug_brand, $slug_category)
+    {
+        $product_brand          = ProductBrand::where('slug', $slug_brand)->firstOrFail();
+        $product_category       = ProductCategory::where('slug', $slug_category)->firstOrFail();
+        $entries                = Product::with(['product_brand', 'product_category', 'product_subcategory'])
+            ->where('product_brand_id', $product_brand->id)
+            ->where('product_category_id', $product_category->id)
+            ->paginate(24);
+        $related_categories     = ProductBrand::get_product_categories_of_brand($product_brand->id);
+        $related_subcategories  = ProductBrand::get_product_subcategories_of_brand($product_brand->id, $product_category->id);
+
+        return view('web.products.marca-productos', array_merge(
+            Navigation::get_static_data(['banner', 'reels', 'articles'])
+            ,   compact('product_brand', 'entries', 'product_category', 'related_categories', 'related_subcategories')
+        ));
+    }
+
+    public function show_subcategory($slug_brand, $slug_category, $slug_subcategory)
+    {
+        $product_brand          = ProductBrand::where('slug', $slug_brand)->firstOrFail();
+        $product_category       = ProductCategory::where('slug', $slug_category)->firstOrFail();
+        $product_subcategory    = ProductSubcategory::where('slug', $slug_subcategory)->firstOrFail();
+        $entries                = Product::with(['product_brand', 'product_category', 'product_subcategory'])
+            ->where('product_brand_id', $product_brand->id)
+            ->where('product_category_id', $product_category->id)
+            ->where('product_subcategory_id', $product_subcategory->id)
+            ->paginate(24);
+        $related_categories     = ProductBrand::get_product_categories_of_brand($product_brand->id);
+        $related_subcategories  = ProductBrand::get_product_subcategories_of_brand($product_brand->id, $product_category->id);
+
+        return view('web.products.marca-productos', array_merge(
+            Navigation::get_static_data(['banner', 'reels', 'articles'])
+            ,   compact('product_brand', 'entries', 'product_category', 'product_subcategory', 'related_categories', 'related_subcategories')
+        ));
     }
 }

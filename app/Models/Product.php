@@ -68,11 +68,8 @@ class Product extends Model
 
     public function promotions(): BelongsToMany
     {
-        return $this->belongsToMany(Promotion::class, PromotionProduct::class);
+        return $this->belongsToMany(Promotion::class, PromotionProduct::class, 'product_id', 'promotion_id', 'id', 'id');
     }
-
-    public function promotion()
-    {}
 
     public function reels(): HasMany
     {
@@ -143,5 +140,21 @@ class Product extends Model
             ->where('product_subcategory_id', $product_subcategory_id)
             ->orderBy('title', 'ASC')
             ->get();
+    }
+
+    public function get_higer_active_promo()
+    {
+        $high_promo     = NULL;
+        $max_discount   = 0;
+        $promotions     = $this->promotions()->where('starts_at', '<=', now())->where('ends_at', '>=', now())->get();
+        foreach ($promotions as $promotion) {
+            $promo_product = $promotion->promotion_products()->where('product_id', $this->id)->orderBy('discount', 'DESC')->first();
+            if ($promo_product->discount > $max_discount)
+            {
+                $max_discount   = $promo_product->discount;
+                $high_promo     = $promo_product;
+            }
+        }
+        return $high_promo;
     }
 }

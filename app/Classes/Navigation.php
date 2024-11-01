@@ -192,4 +192,16 @@ class Navigation
             ,   'large'         => "{$parsed -> day} {$months[ $parsed -> month ]} de {$parsed -> year}"
         ];
     }
+
+    public static function percent($original, $final)
+    {
+        if ($original == $final)
+        {
+            return 0;
+        }
+
+        $original		= $original > 0 ? $original : $final;
+        $percent	= (100 * $final) / $original - 100;
+        return number_format( $percent, 2);
+    }
 }

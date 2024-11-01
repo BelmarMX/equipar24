@@ -61,14 +61,13 @@ Route::group(['prefix' => 'productos', 'controller' => ProductController::class]
 Route::get('resultados/{termino}', [ProductController::class, 'index'])->name('results');
 
 Route::group(['prefix' => 'marcas', 'controller' => ProductBrandController::class], function () {
-    Route::get('/{slug_brand}', 'index')->name('brands');
-    Route::get('/{slug_brand}/{slug_category}', 'index')->name('brands-categories');
-    Route::get('/{slug_brand}/{slug_category}/{slug_subcategory}', 'index')->name('brands-subcategories');
+    Route::get('/{slug_brand}', 'show_brand')->name('brands');
+    Route::get('/{slug_brand}/{slug_category}', 'show_category')->name('brands-categories');
+    Route::get('/{slug_brand}/{slug_category}/{slug_subcategory}', 'show_subcategory')->name('brands-subcategories');
 });
 
 Route::group(['prefix' => 'promociones', 'controller' => PromotionController::class], function () {
-    Route::get('/{slug_promotion}', 'index')->name('promociones');
-    Route::get('/{slug_promotion}/productos', 'index')->name('promociones-productos');
+    Route::get('/{slug_promotion}', 'show_promotion')->name('promociones-productos');
 });
 
 Route::group(['prefix' => 'unox', 'controller' => UnoxController::class], function () {

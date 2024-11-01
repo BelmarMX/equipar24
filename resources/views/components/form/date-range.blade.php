@@ -1,4 +1,4 @@
-@props(['id', 'start_name', 'end_name', 'placeholder', 'required', 'start_value', 'end_value', 'readonly', 'disabled'])
+@props(['id', 'start_name', 'end_name', 'placeholder', 'required', 'min_date', 'start_value', 'end_value', 'readonly', 'disabled'])
 
 <div {{ $attributes->merge(['class' => 'relative z-0 w-full px-2']) }}>
     <input id="{{$id}}"
@@ -12,6 +12,7 @@
            @isset($readonly) readonly @endisset
            @isset($disabled) disabled @endisset
            data-range
+           @isset($min_date) data-range-min_date="{{$min_date}}" @endisset
            data-range-set_start="#{{ $start_name }}"
            data-range-set_end="#{{ $end_name }}"
            data-clear-errors

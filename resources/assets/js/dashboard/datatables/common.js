@@ -123,4 +123,13 @@ const set_human_datetime    = ({human_created_at, created_dmy, updated_at, delet
     return `<small class="human-date" data-tooltip="<b>Creado:</b> ${created_dmy}<br><b>Actualizado:</b> ${ updated_at !== null ? moment(updated_at).format('DD/MM/YYYY HH:mm') : created_dmy}">${human_created_at}</small>${is_deleted}`
 }
 
-export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime, RANGE_LOCALE }
+const number_format                = (number, allow_zero = false) => {
+    console.log('number', number, typeof number, allow_zero)
+
+    if( (!allow_zero && !number) || !allow_zero && (number === 0 || number === '0') )
+    { return '' }
+
+    return new Intl.NumberFormat('es-MX').format(number)
+}
+
+export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime, RANGE_LOCALE, number_format }

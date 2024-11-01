@@ -53,6 +53,7 @@
                                            start_name="starts_at"
                                            end_name="ends_at"
                                            placeholder="Vigencia"
+                                           min_date="{{ $record->starts_at && $record->starts_at <= date('Y-m-d') ? $record->starts_at : date('Y-m-d 00:00:00') }}"
                                            start_value="{{ old('starts_at', $record->starts_at ?? date('Y-m-d')) }}"
                                            end_value="{{ old('ends_at', $record->ends_at ?? date('Y-m-d')) }}"
                                            required

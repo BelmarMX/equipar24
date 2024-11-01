@@ -1,4 +1,4 @@
-import {DT_OPTIONS_SSR, set_human_datetime} from './common.js'
+import {DT_OPTIONS_SSR, number_format, set_human_datetime} from './common.js'
 
 $(document).ready(function() {
     $('#blogCategories-table').DataTable({
@@ -13,7 +13,7 @@ $(document).ready(function() {
         ,   columns:                [
                 ...DT_OPTIONS_SSR.columns
             ,   { data: 'title' }
-            ,   { data: 'count_articles' }
+            ,   { data: 'count_articles', render: count => number_format(count, true) }
             ,   {
                         data:       null
                     ,   className:  'text-right'

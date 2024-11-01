@@ -3,7 +3,7 @@
         <div class="flex flex-col md:flex-row justify-between items-center">
             <h2 class="mb-3 md:mb-0 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 <i class="fa-solid fa-money-check-dollar me-1"></i> Víncular productos: {{ $record->title }}<br>
-                Tipo: {{ $record->discount_type == 'fixed' ? 'Fijo' : 'Porcentaje' }} Monto: {{ $record->amount }}
+                Descuento: {{ $record->discount_type == 'percentage' ? number_format($record->amount).'%' : '$'.number_format($record->amount) }}
             </h2>
             @include('dashboard.partials.submenu', ['push_buttons' => [
                     ['icon' => 'fa-barcode', 'text' => 'Productos', 'route_name' => 'products.index']
@@ -69,7 +69,7 @@
                 <th style="min-width: 120px">Marca</th>
                 <th>Rel. Actual</th>
                 <th>Rel. Nueva</th>
-                <th style="min-width: 120px">Precios</th>
+                <th data-orderable="false" style="min-width: 120px">Precio</th>
             </tr>
             </thead>
         </table>

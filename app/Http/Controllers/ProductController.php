@@ -64,6 +64,9 @@ class ProductController extends Controller
             ->addColumn('gallery_count', function($record){
                 return $record->product_galleries->count();
             })
+            ->addColumn('promotions_count', function($record){
+                return $record->promotions->count();
+            })
             ->addColumn('action', function ($record) use ($restore) {
                 $actions            = parent::set_actions('products', 'title', TRUE, $restore, TRUE, TRUE, FALSE, ['route' => 'productGalleries.gallery', 'tooltip' => 'Agregar imágenes a la galería']);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();

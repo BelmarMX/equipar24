@@ -18,16 +18,17 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th style="min-width: 380px">Título</th>
+                <th style="min-width: 360px">Título</th>
                 <th style="min-width: 140px">Modelo</th>
+                <th style="min-width: 120px">Marca</th>
                 <th style="min-width: 180px">Categoría</th>
                 <th style="min-width: 220px">Subcategoría</th>
-                <th style="min-width: 120px">Marca</th>
-                <th>Destacado</th>
                 <th>Precio</th>
-                <th>Flete</th>
+                <th><i class="fa-solid fa-star fa-lg" data-tooltip="Producto destacado"></i></th>
+                <th><i class="fa-solid fa-truck-fast fa-lg" data-tooltip="Incluye flete"></i></th>
+                <th data-orderable="false"><i class="fa-solid fa-money-check-dollar fa-lg" data-tooltip="Promociones relacionadas"></i></th>
+                <th data-orderable="false"><i class="fa-solid fa-images fa-lg" data-tooltip="Imágenes en galería"></i></th>
                 <th style="min-width: 120px">Vista Previa</th>
-                <th data-orderable="false">Galería</th>
                 <th data-orderable="false" style="min-width: 120px">Alta</th>
                 <th data-orderable="false" style="min-width: 120px" data-priority="1">Acciones</th>
             </tr>

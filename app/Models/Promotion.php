@@ -55,6 +55,11 @@ class Promotion extends Model
         return $this->hasMany(Reel::class);
     }
 
+    public function promotion_products()
+    {
+        return $this->hasMany(PromotionProduct::class, 'promotion_id');
+    }
+
     /* ----------------------------------------------------------------------------------------------------------------
      * MUTATORS AND ACCESSORS
     ----------------------------------------------------------------------------------------------------------------- */

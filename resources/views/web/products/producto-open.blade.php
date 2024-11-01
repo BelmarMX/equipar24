@@ -86,15 +86,26 @@
                         <div class="row productos__main_product__price">
                             <div class="col-md-6 mb-2">
                                 <div class="productos__main_product__price--price">
-                                    ${{ number_format($entry -> final_price ?? $entry -> price, 2, '.', ',') }} <span class="productos__main_product__price--currency">MXN</span>
+                                    @if( $with_discount = $entry -> get_higer_active_promo() )
+                                        ${{ number_format($with_discount -> total, 2, '.', ',') }} <span class="productos__main_product__price--currency">MXN</span>
+                                    @else
+                                        ${{ number_format($entry -> price, 2, '.', ',') }} <span class="productos__main_product__price--currency">MXN</span>
+                                    @endif
                                     @if( !empty($entry->with_freight) )
-                                        <span class="productos__main_product__price--flete" data-bs-toggle="tooltip" title="¡Flete incluido!">
+                                        <br><span class="productos__main_product__price--flete">
                                             <i class="bi bi-truck"></i>
                                         </span>
+                                        <span>¡Incluye flete!</span>
                                     @endif
                                 </div>
                             </div>
                             <div class="col-md-6 productos__main_product__price--quote">
+                                @if( $with_discount )
+                                    <div class="productos__main_product__price--price mb-1">
+                                        <strong>Ahorra ${{ number_format($with_discount->discount, 2, '.', ',') }}</strong><br>
+                                        <small>Antes:</small> <small style="text-decoration: line-through">${{ number_format($with_discount->original_price, 2, '.', ',') }}</small>
+                                    </div>
+                                @endif
                                 <button aria-label="Agrega el producto al cotizador"
                                         data-bs-toggle="tooltip"
                                         title="Agregar al cotizador"
@@ -159,7 +170,7 @@
                             ,   'model'     => $product->model
                             ,   'brand'     => $product->product_brand->title
                             ,   'price'     => $product->precio
-                            ,   'promo'     => NULL
+                            ,   'promo'     => $product->get_higer_active_promo()
                             ,   'con_flete' => $product->with_freight
                             ,   'tag'       => $product->product_subcategory->title
                             ,   'tag_link'  => route('productos-subcategories', [$product_category->slug, $product->product_subcategory->slug])

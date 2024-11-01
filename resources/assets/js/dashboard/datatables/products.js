@@ -1,6 +1,7 @@
-import {DT_OPTIONS_SSR, set_human_datetime} from './common.js'
+import {DT_OPTIONS_SSR, set_human_datetime, number_format} from './common.js'
 
 $(document).ready(function() {
+    console.log(number_format(0))
     $('#products-table').DataTable({
             ...DT_OPTIONS_SSR
         ,   ajax:                   {
@@ -14,14 +15,15 @@ $(document).ready(function() {
                 ...DT_OPTIONS_SSR.columns
             ,   { data: 'title' }
             ,   { data: 'model' }
+            ,   { data: 'brand' }
             ,   { data: 'category' }
             ,   { data: 'subcategory' }
-            ,   { data: 'brand' }
+            ,   { data: 'price', render: price => '$' + number_format(price, true) }
             ,   { data: 'is_featured', className: 'text-center', render: data => data ? '⭐' : '' }
-            ,   { data: 'price', render: price => '$'+price }
-            ,   { data: 'with_freight', render: data => data ? 'Sí' : 'No' }
+            ,   { data: 'with_freight', className: 'text-center', render: data => data ? '🚚' : '' }
+            ,   { data: 'promotions_count', render: count => number_format(count) }
+            ,   { data: 'gallery_count', render: count => number_format(count) }
             ,   { data: 'preview', className: 'text-center' }
-            ,   { data: 'gallery_count', render: count => `${count} <i class="fa-solid fa-images ms-1 fa-sm text-sky-400"></i>` }
             ,   {
                         data:       null
                     ,   className:  'text-right'

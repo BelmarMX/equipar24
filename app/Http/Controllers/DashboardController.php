@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $last_price                                 = ProductPrice::orderBy('id', 'desc')->first();
         $stats                                      = new \stdClass();
         $stats -> products                          = Product::all() -> count();
-        $stats -> active_promotions                 = Promotion::get_promotions()->count();
+        $stats -> active_promotions                 = Promotion::get_active_promotions()->count();
         $stats -> prices_last_update                = Carbon::parse($last_price -> created_at) -> format('d/m/Y H:i:s');
         $stats -> prices_changed_by                 = $last_price -> user -> name;
 

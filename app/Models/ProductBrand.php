@@ -85,4 +85,16 @@ class ProductBrand extends Model
         return self::orderBy('order', 'ASC')
             ->get();
     }
+
+    public static function get_product_categories_of_brand($brand_id)
+    {
+        $products = array_column(Product::where('product_brand_id', $brand_id)->get()->toArray(), 'product_category_id');
+        return ProductCategory::whereIn('id', $products)->get();
+    }
+
+    public static function get_product_subcategories_of_brand($brand_id, $product_category_id)
+    {
+        $products = array_column(Product::where('product_brand_id', $brand_id)->where('product_category_id', $product_category_id)->get()->toArray(), 'product_subcategory_id');
+        return ProductSubcategory::whereIn('id', $products)->get();
+    }
 }

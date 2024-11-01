@@ -22,10 +22,18 @@
         @include('web.products.partials.scroll-categories', [
                 'tag_title'     => $product_category->title
             ,   'todas_link'    => route('productos-categories', $product_category->slug)
-            ,   'categories'    => array_map(function($subcategory) use($product_category) {
+            ,   'categories'    => array_map(function($category) {
+                    return [
+                            $category['title']
+                        ,   route('productos-categories', $category['slug'])
+                        ,   isset(Route::current()->parameters()['slug_category']) && Route::current()->parameters()['slug_category'] == $category['slug']
+                    ];
+                }, $menu_cat -> toArray() )
+            ,   'subcategories' => array_map(function($subcategory) use ($product_category) {
                 return [
                         $subcategory['title']
                     ,   route('productos-subcategories', [$product_category->slug, $subcategory['slug']])
+                    ,   isset(Route::current()->parameters()['slug_subcategory']) && Route::current()->parameters()['slug_subcategory'] == $subcategory['slug']
                 ];
             }, $product_category->subcategories->toArray() )
         ])
@@ -40,7 +48,7 @@
                             ,   'model'     => $product->model
                             ,   'brand'     => $product->product_brand->title
                             ,   'price'     => $product->price
-                            ,   'promo'     => NULL
+                            ,   'promo'     => $product->get_higer_active_promo()
                             ,   'con_flete' => $product->with_freight
                             ,   'tag'       => $product->product_subcategory->title
                             ,   'tag_link'  => route('productos-subcategories', [$product_category->slug, $product->product_subcategory->slug])

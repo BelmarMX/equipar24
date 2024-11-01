@@ -70,10 +70,12 @@ window.onload = event => {
     // Scroll horizontal
     if( document.querySelector('.scroll_categories--list') )
     {
-        const scroll_container = document.querySelector('.scroll_categories--list')
-        scroll_container.addEventListener('wheel', e => {
-            e.preventDefault()
-            scroll_container.scrollLeft += e.deltaY
+        const scroll_container = document.querySelectorAll('.scroll_categories--list')
+        scroll_container.forEach(el => {
+            el.addEventListener('wheel', e => {
+                e.preventDefault()
+                el.scrollLeft += e.deltaY
+            })
         })
     }
 

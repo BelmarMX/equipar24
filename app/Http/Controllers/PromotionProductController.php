@@ -76,12 +76,12 @@ class PromotionProductController extends Controller
             ->addColumn('prices', function($record) use($promotion_data){
                 if( $promo = $promotion_data->where('product_id', $record->id)->first()  )
                 {
-                    return "<strong>$ {$promo->total}</strong><br>
-                        <span style='text-decoration: line-through;'>$ {$promo->original_price}</span>";
+                    return "<strong>$".number_format($promo->total)."</strong><br>
+                        <span style='text-decoration: line-through;'>$".number_format($promo->original_price)."</span>";
                 }
                 else
                 {
-                    return $record->price;
+                    return "$".number_format($record->price);
                 }
             })
             ->rawColumns(['old_link', 'new_link', 'prices'])

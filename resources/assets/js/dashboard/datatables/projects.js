@@ -1,4 +1,4 @@
-import { DT_OPTIONS_SSR, set_human_datetime } from './common.js'
+import {DT_OPTIONS_SSR, number_format, set_human_datetime} from './common.js'
 
 $(document).ready(function() {
     $('#projects-table').DataTable({
@@ -16,7 +16,7 @@ $(document).ready(function() {
             ,   { data: 'title' }
             ,   { data: 'description' }
             ,   { data: 'preview', className: 'text-center' }
-            ,   { data: 'gallery_count', render: count => `${count} <i class="fa-solid fa-images ms-1 fa-sm text-sky-400"></i>` }
+            ,   { data: 'gallery_count', render: count => number_format(count) }
             ,   {
                         data:               null
                     ,   className:          'text-right'

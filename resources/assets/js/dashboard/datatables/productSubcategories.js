@@ -1,4 +1,4 @@
-import {DT_OPTIONS_SSR, set_human_datetime} from './common.js'
+import {DT_OPTIONS_SSR, number_format, set_human_datetime} from './common.js'
 import Alerts                               from "../alerts.js";
 
 $(document).ready(function() {
@@ -16,7 +16,7 @@ $(document).ready(function() {
             ,   { data: 'title' }
             ,   { data: 'is_featured', className: 'text-center', render: data => data ? '⭐' : '' }
             ,   { data: 'category' }
-            ,   { data: 'count_products' }
+            ,   { data: 'count_products', render: count => number_format(count, true) }
             ,   { data: 'order' }
             ,   {
                         data:       null

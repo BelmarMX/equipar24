@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\ImagesSettings;
+use App\Classes\Navigation;
 use App\Http\Requests\PromotionRequest;
 use App\Models\Product;
 use App\Models\ProductBrand;
@@ -167,4 +168,13 @@ class PromotionController extends Controller
         return redirect()->route('promotions.index', ['restored' => $promotion->id]);
     }
 
+    public function show_promotion($slug_promotion)
+    {
+        $promotion  = Promotion::where('slug', $slug_promotion)->where('starts_at', '<=', now())->where('ends_at', '>=', now())->firstOrFail();
+        $entries    = $promotion->products()->paginate(24);
+        return view('web.products.promocion-productos', array_merge(
+                Navigation::get_static_data(['reels', 'featured', 'articles'])
+            ,   compact('promotion', 'entries')
+        ));
+    }
 }

@@ -1,4 +1,4 @@
-import { DT_OPTIONS_SSR, set_human_datetime } from './common.js'
+import {DT_OPTIONS_SSR, number_format, set_human_datetime} from './common.js'
 
 $(document).ready(function() {
     $('#promotions-table').DataTable({
@@ -19,7 +19,7 @@ $(document).ready(function() {
             ,   {
                         data:               null
                     ,   render:             data => {
-                        return `${data.discount_type === 'percentage' ? data.amount+' %' : '$ '+data.amount}`
+                        return `${data.discount_type === 'percentage' ? number_format(data.amount)+'%' : '$'+number_format(data.amount)}`
                     }
                 }
             ,   {

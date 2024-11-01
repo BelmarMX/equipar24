@@ -90,10 +90,10 @@
 					.product__card__front--flete{
 						position: absolute;
 						top: 30px;
-						right: -10px;
+						right: -5px;
 						z-index: 1;
 						background: red;
-						border-radius: 18px 0;
+						border-radius: 5px 0 5px 15px;
 						color: #fff;
 						display: inline-block;
 						font-size: .95rem;
@@ -101,6 +101,9 @@
 						letter-spacing: .015rem;
 						max-width: 294px;
 						padding: 1px 10px;
+                        &.lower{
+                            top: 50px;
+                        }
 					}
 					.product__card__front--price{
 						position: absolute;
@@ -125,9 +128,9 @@
 							}
 							.percent{
 								padding: .35rem;
-								background: $danger;
+								background: #fb923c;
 								color: $white;
-								border-radius: 0 5px 0 0;
+								border-radius: 5px 5px 0 5px;
 								font-size: .9rem;
 							}
 						}
@@ -303,10 +306,15 @@
 			background: $primary;
 			padding: 5px;
 			margin-left: 5px;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
 			i{
 				color: $white;
-				font-size: 20px;
-				margin-left: 1px;
+				font-size: 18px;
+                line-height: 18px;
 			}
 		}
 	}

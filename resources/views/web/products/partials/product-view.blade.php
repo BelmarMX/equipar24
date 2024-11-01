@@ -23,19 +23,19 @@
                 </button>
                 <a href="{{ $route }}">
                     @if( isset($con_flete) && $con_flete)
-                        <span class="product__card__front--flete">¡Flete incluido!</span>
+                        <span class="product__card__front--flete @if(isset($promo) && $promo->total>0) lower @endif">¡Flete incluido!</span>
                     @endif
                     <img class="product__card__front--image img-fluid"
                          src="{{ $image }}"
                          alt="{{ $title }}"
                     >
-                    @isset($promo)
+                    @if(isset($promo) && $promo->total>0)
                         <span class="product__card__front--price">
                             <span class="discount">
-                                <small class="old_price">${{ number_format($price, 2) }}</small>
-                                <small class="percent">{{ percent( $price, $promo ) }}%</small>
+                                <small class="old_price">${{ number_format($promo->original_price, 2) }}</small>
+                                <small class="percent">{{ $Navigation::percent($promo->original_price, $promo->total) }}%</small>
                             </span>
-                            ${{ number_format($promo, 2) }} <small>MXN</small>
+                            ${{ number_format($promo->total, 2) }} <small>MXN</small>
                         </span>
                     @else
                         <span class="product__card__front--price">${{ number_format($price, 2) }} <small>MXN</small></span>

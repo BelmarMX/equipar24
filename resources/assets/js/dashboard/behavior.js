@@ -284,9 +284,10 @@ $(document).ready(function() {
     }
 
     $('input[data-range]').map((i, el) => {
+        let min_date = $(el).attr('data-range-min_date') || $(el).val().split(' - ')[0]
         $(el).daterangepicker({
                 locale:             { ...RANGE_LOCALE }
-            ,   minDate:            $(el).val() ? $(el).val().split(' - ')[0] : new Date()
+            ,   minDate:            min_date ? new Date(min_date) : new Date()
         })
     })
     $('input[data-range]').on('apply.daterangepicker', function(ev, picker) {
