@@ -58,7 +58,7 @@ Route::group(['prefix' => 'productos', 'controller' => ProductController::class]
     Route::post('search', 'search')->name('search');
     Route::post('autocomplete', 'autocomplete')->name('autocomplete');
 });
-Route::get('resultados/{termino}', [ProductController::class, 'index'])->name('results');
+Route::get('resultados/{termino}', [ProductController::class, 'results'])->name('results');
 
 Route::group(['prefix' => 'marcas', 'controller' => ProductBrandController::class], function () {
     Route::get('/{slug_brand}', 'show_brand')->name('brands');

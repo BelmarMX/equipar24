@@ -155,11 +155,12 @@
     </nav>
     <div id="search-box" class="bg-light pb-1 px-1">
         <small class="text-center align-self-center" id="eslogan">¡Aseguramos la eficiencia de tu cocina!</small>
-        <form id="search-form" action="{{ route('search') }}" method="post" @isset( $promos ) @endif>
+        <form id="search-form" action="{{ route('results', '__search_term__') }}" method="post" @isset( $promos ) @endif>
             @csrf
             <input id="autocomplete"
                    type="search"
                    name="search"
+                   class="data-search-term"
                    placeholder="Busca por producto, categoría, subcategoría o marca"
             >
             <button id="do-search" type="submit" aria-label="Muestra la barra de búsqueda">

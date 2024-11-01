@@ -9,11 +9,14 @@ $(function() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         },
-        valueField: 'slug',
+        valueField: 'name',
         hideTrigger: true,
         highlight: true,
         useTabKey: true,
+        matchCase: false,
         maxSelection: 1,
+        maxSuggestions: 12,
+        strictSuggest: false,
         maxSelectionRenderer: function()
         {
             return 'Presiona buscar'
@@ -26,25 +29,8 @@ $(function() {
         noSuggestionText: 'Sin coincidencias',
         selectionRenderer: function(data)
         {
-            let el_return = ''
-            if( data.brand )
-            {
-                el_return += ' '+data.brand
-            }
-            if( data.category)
-            {
-                if( data.brand )
-                {
-                    el_return += '| '
-                }
-                el_return += ' '+data.category
-            }
-
-            if( el_return )
-            {
-                return data.title + ' ('+el_return+')'
-            }
-            return data.title
+            if( !data ){ return; }
+            return data.title+' | '+data.brand+' | '+data.category+' | '+data.subcategory
         },
         renderer: function(data)
         {
@@ -75,7 +61,25 @@ $(function() {
 })
 
 $(document).on('click', '.ms-res-item', function(ev){
-    $('#do-search').click()
+    document.getElementById('load8')
+        .removeAttribute('hidden')
+
+    let info = JSON.parse($(this).attr('data-json'))
+    if( info )
+    {
+        return location.href = info.route
+    }
+})
+
+$(document).on('click', '#do-search', function(e) {
+    e.preventDefault()
+    document.getElementById('load8')
+        .removeAttribute('hidden')
+
+    let form    = $(this).parent('form')
+    let input   = $(document).find('input[name="search[]"]').val()
+    let url     = form.attr('action').replace('__search_term__', encodeURI(input))
+    location.href = url
 })
 
 $(document).on('keydown', '.ms-sel-ctn > input[type="text"]', function(event){

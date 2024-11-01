@@ -11,6 +11,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductSubcategory;
 use App\Models\PromotionProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
@@ -191,14 +192,128 @@ class ProductController extends Controller
         return Product::get_filtered($request->category_id, $request->subcategory_id);
     }
 
-    public function search()
+    private function products_search_instance($like_text)
     {
-        return [];
+        return Product::with(['product_brand', 'product_category', 'product_subcategory'])
+            ->where(function($query) use ($like_text){
+                    $query->where('title', 'LIKE', '%'.$like_text.'%');
+                    $query->orWhere('model', 'LIKE', '%'.$like_text.'%');
+            })
+            ->orWhereHas('product_brand', function($query) use ($like_text) {
+                $query->where('title', 'LIKE', '%'.$like_text.'%');
+            })
+            ->orWhereHas('product_category', function($query) use ($like_text) {
+                $query->where('title', 'LIKE', '%'.$like_text.'%');
+            })
+            ->orWhereHas('product_subcategory', function($query) use ($like_text) {
+                $query->where('title', 'LIKE', '%'.$like_text.'%');
+            });
     }
 
-    public function autocomplete()
+    public function autocomplete(Request $request)
     {
-        return [];
+        $return                 = [];
+        if( empty($request['query']) )
+        { return $return; }
+
+        $products = $this->products_search_instance($request['query'])->orderBy('model')
+            ->distinct()
+            ->get();
+
+        foreach($products AS $product)
+        {
+            $has_promo = $product->get_higer_active_promo();
+
+            $price          = $product->price;
+            $final_price    = $product->price;
+            $discount       = 0;
+            if( $has_promo )
+            {
+                $price          = $has_promo->original_price;
+                $final_price    = $has_promo->total;
+                $discount       = Navigation::percent($has_promo->original_price, $has_promo->total);
+            }
+            $full_search    = "{$product->title} | {$product->product_brand->title} | {$product->product_category->title} | {$product->product_subcategory->title}";
+
+            // ? La llave name es la importante para encontrar los resultados y coincidencias
+            $return[] = [
+                    'id'            => $product->id
+                ,   'slug'          => $product->slug
+                ,   'name'          => $full_search
+                ,   'title'         => $product->title
+                ,   'category'      => $product->product_category->title
+                ,   'subcategory'   => $product->product_subcategory->title
+                ,   'brand'         => $product->product_brand->title
+                ,   'price'         => $price
+                ,   'final_price'   => $final_price
+                ,   'con_flete'     => $product->with_freight
+                ,   'discount'      => $discount
+                ,   'image'         => $product->asset_url.$product -> image_rx
+                ,   'route'         => route('producto-open', [$product->product_category->slug, $product->product_subcategory->slug, $product->slug])
+            ];
+        }
+
+        return response() -> json($return);
+
+    }
+
+    public function results($termino)
+    {
+        $termino                = urldecode($termino);
+        if( Str::contains($termino, '|') )
+        {
+            $termino            = trim(explode('|', $termino)[0]);
+        }
+        $entries                = $this->products_search_instance($termino);
+        $all_results_query      = $entries;
+        $all                    = $all_results_query->get()->toArray();
+
+        if( !empty($_GET['brand']) )
+        {
+            $product_brand      = ProductBrand::where('slug', $_GET['brand'])->first();
+            $entries->where('product_brand_id', $product_brand->id);
+        }
+        if( !empty($_GET['category']) )
+        {
+            $product_category   = ProductCategory::where('slug', $_GET['category'])->first();
+            $entries->where('product_category_id', $product_category->id);
+        }
+
+        if( !empty($_GET['orderby']) )
+        {
+            switch($_GET['orderby'])
+            {
+                case 'az':
+                    $entries->orderBy('title', 'ASC');
+                break;
+                case 'za':
+                    $entries->orderBy('title', 'DESC');
+                break;
+                case 'min':
+                    $entries->orderBy('price', 'ASC');
+                break;
+                case 'max':
+                    $entries->orderBy('price', 'DESC');
+                break;
+            }
+        }
+        else
+        {
+            $entries->orderBy('id', 'DESC');
+        }
+
+        $entries->distinct();
+        $entries                = $entries->paginate(24);
+
+        $brands_ids             = array_column($all, 'product_brand_id');
+        $categories_ids         = array_column($all, 'product_category_id');
+        $filtered_brands        = ProductBrand::whereIn('id', $brands_ids)->get();
+        $filtered_categories    = ProductCategory::whereIn('id', $categories_ids)->get();
+
+        return view('web.products.results', array_merge(
+            Navigation::get_static_data(['reels', 'featured', 'articles'])
+            ,   compact('termino', 'entries', 'filtered_brands', 'filtered_categories')
+        ));
     }
 
     public function show_categories()
