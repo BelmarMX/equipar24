@@ -201,7 +201,7 @@ class Navigation
         }
 
         $original		= $original > 0 ? $original : $final;
-        $percent	= (100 * $final) / $original - 100;
+        $percent        = (100 * $final) / $original - 100;
         return number_format( $percent, 2);
     }
 }

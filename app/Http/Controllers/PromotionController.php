@@ -29,8 +29,8 @@ class PromotionController extends Controller
     public function archived()
     {
         return view('dashboard.promotions.index', [
-            'subtitle' => 'Registros eliminados'
-            , 'with_trashed' => TRUE
+                'subtitle' => 'Registros eliminados'
+            ,   'with_trashed' => TRUE
         ]);
     }
 

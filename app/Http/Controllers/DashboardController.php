@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FileRequest;
 use App\Http\Requests\ImageRequest;
 use App\Models\City;
+use App\Models\FormContact;
+use App\Models\FormSubmit;
 use App\Models\Product;
 use App\Models\ProductPrice;
 use App\Models\Promotion;
@@ -21,26 +23,28 @@ class DashboardController extends Controller
         $stats                                      = new \stdClass();
         $stats -> products                          = Product::all() -> count();
         $stats -> active_promotions                 = Promotion::get_active_promotions()->count();
-        $stats -> prices_last_update                = Carbon::parse($last_price -> created_at) -> format('d/m/Y H:i:s');
-        $stats -> prices_changed_by                 = $last_price -> user -> name;
+        $stats -> prices_last_update                = $last_price ? Carbon::parse($last_price -> created_at) -> format('d/m/Y H:i:s') : NULL;
+        $stats -> prices_changed_by                 = $last_price -> user -> name ?? NULL;
 
+        $submits                                    = FormSubmit::get_statistics();
         $stats -> quotations                        = new \stdClass();
-        $stats -> quotations -> month               = 1234;
-        $stats -> quotations -> month_attended      = 678;
-        $stats -> quotations -> total               = 9125821;
-        $stats -> quotations -> healt               = 'danger';
-        $stats -> quotations -> tooltip             = 'Es urgente prestar atención';
+        $stats -> quotations -> month               = $submits->quotations_month;
+        $stats -> quotations -> month_attended      = $submits->quotations_month-$submits->quotations_month_pending;
+        $stats -> quotations -> total               = $submits->quotations_total;
+        $stats -> quotations -> healt               = $submits->healt_quotations_month;
+        $stats -> quotations -> tooltip             = FormSubmit::set_healt_message($submits->healt_quotations_month);
 
         $stats -> contact_forms                     = new \stdClass();
-        $stats -> contact_forms -> month            = 4891;
-        $stats -> contact_forms -> month_attended   = 4800;
-        $stats -> contact_forms -> total            = 458912;
-        $stats -> contact_forms -> healt            = 'warning';
-        $stats -> contact_forms -> tooltip          = 'Es necesario prestar atención';
+        $stats -> contact_forms -> month            = $submits->contacts_month;
+        $stats -> contact_forms -> month_attended   = $submits->contacts_month-$submits->contacts_month_pending;
+        $stats -> contact_forms -> total            = $submits->contacts_total;
+        $stats -> contact_forms -> healt            = $submits->healt_contacts_month;
+        $stats -> contact_forms -> tooltip          = FormSubmit::set_healt_message($submits->healt_contacts_month);
 
+        $contacts                                   = FormContact::get_statistics();
         $stats -> contacts                          = new \stdClass();
-        $stats -> contacts -> month                 = 678;
-        $stats -> contacts -> total                 = 2987;
+        $stats -> contacts -> month                 = $contacts->month;
+        $stats -> contacts -> total                 = $contacts->total;
 
         return view('dashboard.dashboard', compact('stats'));
     }

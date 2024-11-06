@@ -2,7 +2,7 @@
 <div class="container-fluid mb-5">
     <div class="row">
         <div class="col-12">
-            <div class="text-center mb-2">Nuevos Reels</div>
+            <div class="text-center mb-2">Nuevas Historias</div>
             <ul class="reels flex-wrap">
                 @foreach($reels AS $reel)
                     <li class="reels__item position-relative mb-2" data-bs-toggle="tooltip" title="{{$reel->title}}">

@@ -214,4 +214,25 @@ abstract class Controller
         }
         return NULL;
     }
+
+    public static function verify_recaptcha($token)
+    {
+        //re-captcha-vertify
+        $url                = 'https://www.google.com/recaptcha/api/siteverify';
+        $query              = http_build_query([
+                'secret'        => env('CAPTCHA_SECRET')
+            ,   'response'      => $token
+        ]);
+        $options            = [
+            'http'              => [
+                    'header'    => "Content-Type: application/x-www-form-urlencoded\r\n"
+                        ."Content-Length: ".strlen($query)."\r\n"
+                        ."User-Agent:MyAgent/1.0\r\n"
+                ,   'method'    => 'POST'
+                ,   'content'   => $query
+            ]
+        ];
+        $verify          = file_get_contents($url, FALSE, stream_context_create($options));
+        return json_decode($verify);
+    }
 }

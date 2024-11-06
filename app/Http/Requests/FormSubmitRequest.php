@@ -17,7 +17,8 @@ class FormSubmitRequest extends FormRequest
     public function attributes(): array
     {
         return [
-                "form_contact_id"           => "Información del contacto"
+                "g-recaptcha-response"      => "reCaptcha"
+            ,   "form_contact_id"           => "Información del contacto"
             ,   "type"                      => "Tipo de formulario"
             ,   "comment"                   => "Comentarios"
             ,   "notes"                     => "Notas"
@@ -37,7 +38,8 @@ class FormSubmitRequest extends FormRequest
     public function rules(): array
     {
         return [
-                "form_contact_id"           => "required|numeric|exists:form_contacts,id"
+                "g-recaptcha-response"      => "required|string"
+            ,   "form_contact_id"           => "required|numeric|exists:form_contacts,id"
             ,   "type"                      => "required|string|in:contact,quotation"
             ,   "comment"                   => "required|string"
             ,   "notes"                     => "nullable|string"

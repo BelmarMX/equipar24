@@ -103,7 +103,7 @@
                     <span class="text-1xl font-medium text-gray-800 uppercase dark:text-gray-100">Realizado por:</span>
                     <br>
                     <span class="text-1xl font-medium text-gray-800 uppercase dark:text-gray-100">
-                        <i class="fa-solid fa-circle-user"></i> {{ Auth::user()->name }}
+                        <i class="fa-solid fa-circle-user"></i> {{ $stats -> prices_changed_by }}
                     </span>
                 </div>
             </div>

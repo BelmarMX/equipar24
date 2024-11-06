@@ -42,5 +42,15 @@
     "Showing": "Mostrando",
     "to": "en",
     "of": "de",
-    "results": "registros."
+    "results": "registros.",
+    "Hello!": "¡Hola!",
+    "Reset Password Notification": "Notificación de reestablecimiento de contraseña",
+    "Verify Email Address": "Verificación de dirección de correo electrónico",
+    "Please click the button below to verify your email address.": "Por favor haz clic en el siguiente enlace para verificar tu correo electrónico.",
+    "If you did not create an account, no further action is required.": "Si tú no creaste esta cuenta, ignora este email",
+    "You are receiving this email because we received a password reset request for your account.": "Has recibido este email porque solicitaste un enlace de reestablecimiento de contraseña para tu cuenta.",
+    "This password reset link will expire in :attribute minutes.": "Este enlace expira en :attribute minutos.",
+    "If you did not request a password reset, no further action is required.": "Si no realizaste una solicitud de reestablecimiento de contraseña, ignora este correo electrónico.",
+    "Regards,": "Saludos,",
+    "If you're having trouble clicking the :attribute button, copy and paste the URL below into your web browser:": "Si tienes problemas para hacer click en el botón de :attribute, copia y pega la siguiente URL en tu navegador"
 }

@@ -38,8 +38,9 @@ $(document).ready(function() {
             ,   { data: 'action', className: 'text-center' }
         ]
         ,   layout:                 {
-            top0start:                  {
-                buttons:                    [
+                ...DT_OPTIONS_SSR.layout
+            ,   top0start:                  {
+                buttons:                        [
                     {
                             text:   '<i class="fa-regular fa-calendar-check me-1"></i> Vigentes'
                         ,   action: (e, dt, node, config) => {

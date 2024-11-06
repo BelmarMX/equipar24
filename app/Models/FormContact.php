@@ -73,4 +73,21 @@ class FormContact extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function get_all_contacts()
+    {
+        return self::orderBy('created_at')->get();
+    }
+
+    public static function get_monthly_contacts()
+    {
+        return self::whereBetween('created_at', [(new Carbon())->startOfMonth(), (new Carbon())->endOfMonth()])->get();
+    }
+
+    public static function get_statistics()
+    {
+        $statistics                 = new \stdClass();
+        $statistics->total          = self::get_all_contacts()->count();
+        $statistics->month          = self::get_monthly_contacts()->count();
+        return $statistics;
+    }
 }
