@@ -29,7 +29,7 @@ $(document).ready(function() {
                         data: 'assigned'
                     ,   render: assigned => {
                             if( !assigned )
-                            { return 'Sin asignación' }
+                            { return 'Sin atención' }
                             return `<strong>${assigned.name}</strong><br>
                                     <span>${assigned.email}</span>
                                     `
@@ -68,16 +68,23 @@ $(document).ready(function() {
                         ,   className: 'items-center px-4 py-2 bg-white dark:bg-gray-300 border border-gray-300 dark:border-gray-50 rounded-md font-semibold text-xs uppercase shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 mx-1 text-indigo-400'
                     },
                     {
-                        text: '<i class="fa-regular fa-dollar-sign" data-tooltip="Solo cotizaciones"></i>'
+                            text: '<i class="fa-regular fa-dollar-sign" data-tooltip="Solo cotizaciones"></i>'
                         ,   action: (e, dt, node, config) => {
                             dt.ajax.url(url_route+'?filter=only_quotation').load()
                         }
                         ,   className: 'items-center px-4 py-2 bg-white dark:bg-gray-300 border border-gray-300 dark:border-gray-50 rounded-md font-semibold text-xs uppercase shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 mx-1 text-sky-400'
                     },
                     {
-                        text: '<i class="fa-solid fa-envelope-open" data-tooltip="Solo contactos"></i>'
+                            text: '<i class="fa-solid fa-envelope-open" data-tooltip="Solo contactos"></i>'
                         ,   action: (e, dt, node, config) => {
                             dt.ajax.url(url_route+'?filter=only_contact').load()
+                        }
+                        ,   className: 'items-center px-4 py-2 bg-white dark:bg-gray-300 border border-gray-300 dark:border-gray-50 rounded-md font-semibold text-xs uppercase shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 mx-1 text-sky-400'
+                    },
+                    {
+                            text: '<i class="fa-solid fa-clipboard" data-tooltip="Todos"></i>'
+                        ,   action: (e, dt, node, config) => {
+                            dt.ajax.url(url_route).load()
                         }
                         ,   className: 'items-center px-4 py-2 bg-white dark:bg-gray-300 border border-gray-300 dark:border-gray-50 rounded-md font-semibold text-xs uppercase shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 mx-1 text-sky-400'
                     }

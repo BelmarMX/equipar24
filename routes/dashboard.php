@@ -20,6 +20,7 @@ use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\PromotionProductController;
 use App\Http\Controllers\ReelController;
 use App\Http\Controllers\UserController;
+use App\Models\FormContact;
 use Illuminate\Support\Facades\Route;
 
 /* --------------------------------------------------------------------------------------------------------------------
@@ -38,8 +39,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::get('/cities', [DashboardController::class, 'cities'])->name('dashboard.cities');
     Route::post('/cities', [DashboardController::class, 'get_cities'])->name('dashboard.cities.get');
 
-    Route::post('upload_image', [DashboardController::class, 'upload_image'])->name('dashboard.upload_image');
-    Route::post('upload_file', [DashboardController::class, 'upload_file'])->name('dashboard.upload_file');
+    Route::get('/contactList', [DashboardController::class, 'contactList'])->name('dashboard.contactList');
+    Route::post('/contactList', [DashboardController::class, 'get_contactList'])->name('dashboard.contactList.get');
 
     // * WITH RESOURCES
 
@@ -172,6 +173,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::resource('contacts', FormSubmitController::class);
     Route::group(['prefix' => 'contacts', 'controller' => FormSubmitController::class], function () {
         Route::post('datatable', 'datatable')->name('dashboard.contacts.datatable');
+        Route::post('datatable/{filter}', 'datatable')->name('dashboard.contacts.datatable.filter');
+        Route::get('index/{filter}', 'index')->name('contacts.filter');
         Route::get('archived/view', 'archived')->name('contacts.archived');
         Route::get('delete/{contact}', 'destroy')->name('contacts.delete');
         Route::get('restore/{contact_id}', 'restore')->name('contacts.restore');

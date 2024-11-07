@@ -108,9 +108,20 @@ class DashboardController extends Controller
             ->toJson();
     }
 
-    public function upload_image(ImageRequest $request)
-    {}
+    public function contactList()
+    {
+        return view('dashboard.dashboard-items.contacts');
+    }
 
-    public function upload_file(FileRequest $request)
-    {}
+    public function get_contactList(Request $request)
+    {
+        return DataTables::of(FormContact::query()->orderBy('id', 'DESC'))
+            ->addColumn('state_name', function($record){
+                return $record -> state -> name;
+            })
+            ->addColumn('city_name', function($record){
+                return $record -> city -> name;
+            })
+            ->toJson();
+    }
 }

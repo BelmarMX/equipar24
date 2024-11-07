@@ -12,7 +12,6 @@ use App\Models\FormContact;
 use App\Models\FormQuotationDetail;
 use App\Models\FormSubmit;
 use App\Models\Product;
-use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -24,22 +23,23 @@ class FormSubmitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($filter = NULL)
     {
         return view('dashboard.contacts.index', [
-            'subtitle' => 'Registros activos'
+                'subtitle'  => 'Registros activos'
+            ,   'filter'    => $filter
         ]);
     }
 
     public function archived()
     {
         return view('dashboard.contacts.index', [
-                'subtitle' => 'Registros eliminados'
-            ,   'with_trashed' => TRUE
+                'subtitle'      => 'Registros eliminados'
+            ,   'with_trashed'  => TRUE
         ]);
     }
 
-    public function datatable(Request $request)
+    public function datatable(Request $request, $filter = NULL)
     {
         $restore = FALSE;
         if ($request->has('with_trashed') && $request->with_trashed == 'true')
@@ -75,6 +75,14 @@ class FormSubmitController extends Controller
             {
                 $dt_of->where('type', 'contact');
             }
+        }
+        if( !empty($filter) && $filter=='quotations' )
+        {
+            $dt_of->where('type', 'quotation');
+        }
+        if( !empty($filter) && $filter=='contacts' )
+        {
+            $dt_of->where('type', 'contact');
         }
 
         return DataTables::of($dt_of)
@@ -196,11 +204,15 @@ class FormSubmitController extends Controller
      */
     public function destroy(FormSubmit $contact)
     {
-        //
+        $contact->delete();
+        return redirect()->route('contacts.archived', ['deleted' => $contact->id]);
     }
 
     public function restore($form_submit_id)
     {
+        $contact = FormSubmit::onlyTrashed()->find($form_submit_id);
+        $contact->restore();
+        return redirect()->route('contacts.index', ['restored' => $contact->id]);
     }
 
     public function get_cities(Request $request)

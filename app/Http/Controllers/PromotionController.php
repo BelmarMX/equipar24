@@ -5,12 +5,8 @@ namespace App\Http\Controllers;
 use App\Classes\ImagesSettings;
 use App\Classes\Navigation;
 use App\Http\Requests\PromotionRequest;
-use App\Models\Product;
-use App\Models\ProductBrand;
-use App\Models\ProductCategory;
 use App\Models\Promotion;
 use App\Models\PromotionProduct;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 

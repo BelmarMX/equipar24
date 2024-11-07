@@ -161,6 +161,9 @@ class FormSubmit extends Model
     public static function set_healt($pending, $total)
     {
         $percent = Navigation::percent($total, $pending);
+        if( $percent != 0 )
+        { $percent = $percent * -1; }
+
         if( $pending > 0 && $percent < 35 )
         {
             return 'danger';

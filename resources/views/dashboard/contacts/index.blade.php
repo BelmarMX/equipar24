@@ -29,7 +29,7 @@
 
     @push('ESmodules')
         <script>
-            const url_route     = '{{ route('dashboard.contacts.datatable') }}';
+            const url_route     = '{{ empty($filter) ? route('dashboard.contacts.datatable') : route('dashboard.contacts.datatable.filter', ['filter'=>$filter]) }}';
             const with_trashed  = {{ !empty($with_trashed) && $with_trashed ? 'true' : 'false' }}
         </script>
         @vite(['resources/assets/js/dashboard/datatables/common.js', 'resources/assets/js/dashboard/datatables/contacts.js'])
