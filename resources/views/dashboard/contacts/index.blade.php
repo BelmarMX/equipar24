@@ -13,13 +13,13 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th data-orderable="false" style="min-width: 80px">Estatus</th>
+                <th data-orderable="false" style="min-width: 126px">Estatus</th>
                 <th>Tipo</th>
                 <th data-orderable="false">Contacto</th>
                 <th data-orderable="false">Estado</th>
                 <th data-orderable="false">Ciudad</th>
                 <th data-orderable="false">Estimado</th>
-                <th data-orderable="false">Asignado</th>
+                <th data-orderable="false">Atendido</th>
                 <th data-orderable="false">Recibido</th>
                 <th data-orderable="false">Acciones</th>
             </tr>

@@ -30,7 +30,6 @@ $(document).ready(function() {
                     ,   render: assigned => {
                             if( !assigned )
                             { return 'Sin asignación' }
-
                             return `<strong>${assigned.name}</strong><br>
                                     <span>${assigned.email}</span>
                                     `

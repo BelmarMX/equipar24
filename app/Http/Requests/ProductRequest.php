@@ -66,7 +66,7 @@ class ProductRequest extends FormRequest
             ,   "price"                     => "required|numeric|min:1"
             ,   "is_featured"               => "nullable|boolean"
             ,   "with_freight"              => "nullable|boolean"
-            ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_WIDTH.",height=".ImagesSettings::PRODUCT_HEIGHT
+            ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::PRODUCT_WIDTH.",min_height=".ImagesSettings::PRODUCT_HEIGHT.",ratio:1"
             ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_RX_HEIGHT
             ,   "data_sheet"                => "nullable|file|mimes:pdf"
             ,   "raw_editor"                => "required|json"
@@ -75,7 +75,7 @@ class ProductRequest extends FormRequest
         if( request() -> routeIs('products.update') )
         {
             $rules["slug"]                  = "required|string|unique:products,slug,".$this->route('product.id');
-            $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_WIDTH.",height=".ImagesSettings::PRODUCT_HEIGHT;
+            $rules["image"]                 = "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::PRODUCT_WIDTH.",min_height=".ImagesSettings::PRODUCT_HEIGHT.",ratio:1";
             $rules["data_sheet"]            = "nullable|file|mimes:pdf";
         }
 

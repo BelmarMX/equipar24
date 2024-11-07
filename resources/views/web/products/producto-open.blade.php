@@ -102,8 +102,8 @@
                             <div class="col-md-6 productos__main_product__price--quote">
                                 @if( $with_discount )
                                     <div class="productos__main_product__price--price mb-1">
-                                        <strong>Ahorra ${{ number_format($with_discount->discount, 2, '.', ',') }}</strong><br>
-                                        <small>Antes:</small> <small style="text-decoration: line-through">${{ number_format($with_discount->original_price, 2, '.', ',') }}</small>
+                                        <small>Antes:</small> <small style="text-decoration: line-through">${{ number_format($with_discount->original_price, 2, '.', ',') }}</small><br>
+                                        <strong>Ahorras: ${{ number_format($with_discount->discount, 2, '.', ',') }}</strong>
                                     </div>
                                 @endif
                                 <button aria-label="Agrega el producto al cotizador"

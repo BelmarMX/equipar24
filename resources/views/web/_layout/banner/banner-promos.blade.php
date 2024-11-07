@@ -14,7 +14,7 @@
                         ,   'slide_alt'     => $promo->title
                         ,   'summary'       => TRUE
                         ,   'title'         => NULL
-                        ,   'cta'           => "Finaliza ".$promo->days_left
+                        ,   'cta'           => "Finaliza {$promo->days_left} | {$promo->description}"
                         ,   'cta_href'      => route('promociones-productos', $promo->slug)
                     ])
                 </div>

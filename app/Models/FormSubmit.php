@@ -191,18 +191,29 @@ class FormSubmit extends Model
         }
     }
 
-    public function calculate_value_quotation()
+    public function calculate_value_quotation($only_estimated = TRUE)
     {
         if( $this->type == 'contact' )
         {
             return NULL;
         }
-        $details    = $this->form_quotation_details()->get();
-        $estimated  = 0;
+        $details                = $this->form_quotation_details()->get();
+        $calculated             = new \stdClass();
+        $calculated->original   = 0;
+        $calculated->discount   = 0;
+        $calculated->unitary    = 0;
+        $estimated              = 0;
         foreach($details AS $detail)
         {
-            $estimated = $estimated + $detail->total;
+            $calculated->original   = $calculated->original + ($detail->quantity * $detail->original_price);
+            $calculated->discount   = $calculated->discount + ($detail->quantity * $detail->discount);
+            $calculated->unitary    = $calculated->unitary + $detail->total;
+            $calculated->total      = $estimated = $estimated + ($detail->quantity * $detail->total);
         }
-        return '$'.number_format($estimated);
+        if( $only_estimated )
+        {
+            return '$'.number_format($estimated);
+        }
+        return $calculated;
     }
 }

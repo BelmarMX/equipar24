@@ -14,7 +14,7 @@
                         ,   'slide_alt'     => $banner->title
                         ,   'summary'       => $banner->promotion ?? FALSE
                         ,   'title'         => NULL
-                        ,   'cta'           => $banner->promotion ? "Finaliza ".$banner->promotion->days_left : $banner->title ?? NULL
+                        ,   'cta'           => $banner->promotion ? "Finaliza ".$banner->promotion->days_left." | {$banner->promotion->description}" : $banner->title ?? NULL
                         ,   'cta_href'      => $banner->promotion ? route('promociones-productos', $banner->promotion->slug) : $banner->link ?? NULL
                     ])
                 </div>

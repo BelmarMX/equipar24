@@ -75,8 +75,14 @@ const DT_OPTIONS_SSR        = {
     ,   drawCallback:           settings => {
         const scroll_container = document.querySelector('.dt-scroll-body')
         scroll_container.addEventListener('wheel', e => {
-            e.preventDefault()
-            scroll_container.scrollLeft += e.deltaY
+            let has_horizontal_scrollbar    = scroll_container.scrollWidth > scroll_container.clientWidth
+            let has_vertical_scrollbar      = scroll_container.scrollHeight > scroll_container.scrollHeight
+
+            if( has_horizontal_scrollbar )
+            {
+                e.preventDefault()
+                scroll_container.scrollLeft += e.deltaY
+            }
         })
     }
 }
@@ -124,8 +130,6 @@ const set_human_datetime    = ({human_created_at, created_dmy, updated_at, delet
 }
 
 const number_format                = (number, allow_zero = false) => {
-    console.log('number', number, typeof number, allow_zero)
-
     if( (!allow_zero && !number) || !allow_zero && (number === 0 || number === '0') )
     { return '' }
 

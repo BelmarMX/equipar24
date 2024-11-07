@@ -15,6 +15,7 @@ class BrandSeeder extends Seeder
     {
         $records = [
             ['title' => 'Migali', 'slug' => 'migali', 'image' => 'migali.png', 'order' => 1, 'created_at' => now()],
+            ['title' => ucfirst('concassé'), 'slug' => 'concasse', 'image' => 'concasse.png', 'order' => 2, 'created_at' => now()],
             ['title' => ucfirst('avantco'), 'slug' => 'avantco', 'image' => 'avantco.png', 'order' => 2, 'created_at' => now()],
             ['title' => ucfirst('choice'), 'slug' => 'choice', 'image' => 'choice.png', 'order' => 3, 'created_at' => now()],
             ['title' => ucfirst('galaxy'), 'slug' => 'galaxy', 'image' => 'galaxy.png', 'order' => 4, 'created_at' => now()],

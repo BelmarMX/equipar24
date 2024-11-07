@@ -58,8 +58,8 @@ class ImagesSettings
     const PRODUCT_BRAND_RX_HEIGHT                      = 25;
 
     const PRODUCT_FOLDER                                = "productos/";
-    const PRODUCT_WIDTH                                 = 600;
-    const PRODUCT_HEIGHT                                = 600;
+    const PRODUCT_WIDTH                                 = 545;
+    const PRODUCT_HEIGHT                                = 545;
     const PRODUCT_RX_WIDTH                              = 380;
     const PRODUCT_RX_HEIGHT                             = 380;
 

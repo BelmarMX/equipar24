@@ -12,7 +12,9 @@ use App\Models\FormContact;
 use App\Models\FormQuotationDetail;
 use App\Models\FormSubmit;
 use App\Models\Product;
+use App\Models\State;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
@@ -85,11 +87,11 @@ class FormSubmitController extends Controller
             ->addColumn('assigned', function($record){
                 if( $record -> approved_at )
                 {
-                    return $record->approved_by;
+                    return json_decode($record->approved_by);
                 }
                 else
                 {
-                    return $record->rejected_by;
+                    return json_decode($record->rejected_by);
                 }
             })
             ->addColumn('state', function($record){
@@ -99,8 +101,18 @@ class FormSubmitController extends Controller
                 return $record->form_contact->city->name;
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions = parent::set_actions('promotions', 'title', TRUE, $restore, TRUE, TRUE, NULL, NULL, NULL, NULL);
-                return view('dashboard.partials.actions', compact(['actions', 'record']))->render();
+                $actions = [
+                        'delete'        => [
+                            'enabled'   => !$restore
+                        ,   'route'     => 'contacts.delete'
+                    ]
+                    ,   'restore'       => [
+                            'enabled'   => $restore
+                        ,   'route'     => 'contacts.restore'
+                    ]
+                    ,   'watch'         => ['route' => 'contacts.show']
+                ];
+                return view('dashboard.contacts.actions', compact('actions','record'))->render();
             })
             ->rawColumns(['status', 'action'])
             ->toJson();
@@ -125,15 +137,16 @@ class FormSubmitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FormSubmit $formSubmit)
+    public function show(FormSubmit $contact)
     {
-        //
+        $totals = $contact->calculate_value_quotation(FALSE);
+        return view('dashboard.contacts.show', compact('contact', 'totals'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FormSubmit $formSubmit)
+    public function edit(FormSubmit $contact)
     {
         //
     }
@@ -141,15 +154,47 @@ class FormSubmitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(FormSubmitRequest $request, FormSubmit $formSubmit)
+    public function update(Request $request, FormSubmit $contact)
     {
-        //
+        $validated              = $request->validate([
+                'notes'     => 'required|string'
+            ,   'status'    => 'required|in:approved,rejected'
+        ], [
+                'notes'     => 'Debes agregar una nota para actualizar el estado de esta solicitud.'
+        ]);
+
+        $contact->notes         = $validated['notes'];
+        $contact->status        = $validated['status'];
+        if( $validated['status'] == 'approved' )
+        {
+            $contact->approved_by_user_id   = Auth::user()->id;
+            $contact->approved_at           = now();
+        }
+        else
+        {
+            $contact->rejected_by_user_id   = Auth::user()->id;
+            $contact->rejected_at           = now();
+        }
+        $contact->save();
+
+        if( $contact->type=='quotation' )
+        {
+            Mail::to($contact->form_contact->email, $contact->form_contact->name)
+                ->send(new Quotation($contact->id));
+        }
+        else
+        {
+            Mail::to($contact->form_contact->email, $contact->form_contact->name)
+                ->send(new Contact($contact->id));
+        }
+
+        return redirect()->route('contacts.index', ['updated' => $contact->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FormSubmit $formSubmit)
+    public function destroy(FormSubmit $contact)
     {
         //
     }
@@ -195,12 +240,12 @@ class FormSubmitController extends Controller
             $contact->state_id  = $validated['state_id'];
             $contact->city_id   = $validated['city_id'];
             $contact->name      = $validated['name'];
-            $contact->email     = $validated['email'];
+            //$contact->email     = $validated['email'];
             $contact->phone     = $validated['phone'];
             $contact->save();
         }
 
-        FormSubmit::create([
+        $form_submit = FormSubmit::create([
                 'form_contact_id'   => $form_contact_id
             ,   'type'              => 'contact'
             ,   'comment'           => $validated['comments']
@@ -208,7 +253,7 @@ class FormSubmitController extends Controller
 
         // Enviar email
         Mail::to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
-            ->send(new Contact(['toda' => 'falta construir la data']));
+            ->send(new Contact($form_submit->id));
 
         return redirect() -> route('gracias');
     }
@@ -236,7 +281,7 @@ class FormSubmitController extends Controller
             $contact->state_id  = $validated['state_id'];
             $contact->city_id   = $validated['city_id'];
             $contact->name      = $validated['name'];
-            $contact->email     = $validated['email'];
+            //$contact->email     = $validated['email'];
             $contact->phone     = $validated['phone'];
             $contact->save();
         }
@@ -270,7 +315,7 @@ class FormSubmitController extends Controller
 
         // Enviar email
         Mail::to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
-            ->send(new Quotation(['toda' => 'falta construir la data']));
+            ->send(new Quotation($submitted->id));
 
         return redirect() -> route('gracias');
     }
