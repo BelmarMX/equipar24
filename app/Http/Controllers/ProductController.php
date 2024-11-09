@@ -194,20 +194,27 @@ class ProductController extends Controller
 
     private function products_search_instance($like_text)
     {
-        return Product::with(['product_brand', 'product_category', 'product_subcategory'])
+        $return = Product::with(['product_brand', 'product_category', 'product_subcategory'])
             ->where(function($query) use ($like_text){
                     $query->where('title', 'LIKE', '%'.$like_text.'%');
                     $query->orWhere('model', 'LIKE', '%'.$like_text.'%');
-            })
-            ->orWhereHas('product_brand', function($query) use ($like_text) {
-                $query->where('title', 'LIKE', '%'.$like_text.'%');
-            })
-            ->orWhereHas('product_category', function($query) use ($like_text) {
-                $query->where('title', 'LIKE', '%'.$like_text.'%');
-            })
-            ->orWhereHas('product_subcategory', function($query) use ($like_text) {
+            });
+        if( empty($_GET['brand']) )
+        {
+            $return->orWhereHas('product_brand', function($query) use ($like_text) {
                 $query->where('title', 'LIKE', '%'.$like_text.'%');
             });
+        }
+       if( empty($_GET['brand']) && empty($_GET['category']) )
+        {
+            $return->orWhereHas('product_category', function($query) use ($like_text) {
+                $query->where('title', 'LIKE', '%'.$like_text.'%');
+            })
+                ->orWhereHas('product_subcategory', function($query) use ($like_text) {
+                    $query->where('title', 'LIKE', '%'.$like_text.'%');
+                });
+        }
+        return $return->distinct();
     }
 
     public function autocomplete(Request $request)
@@ -217,7 +224,6 @@ class ProductController extends Controller
         { return $return; }
 
         $products = $this->products_search_instance($request['query'])->orderBy('model')
-            ->distinct()
             ->get();
 
         foreach($products AS $product)
@@ -302,9 +308,7 @@ class ProductController extends Controller
             $entries->orderBy('id', 'DESC');
         }
 
-        $entries->distinct();
         $entries                = $entries->paginate(24);
-
         $brands_ids             = array_column($all, 'product_brand_id');
         $categories_ids         = array_column($all, 'product_category_id');
         $filtered_brands        = ProductBrand::whereIn('id', $brands_ids)->get();

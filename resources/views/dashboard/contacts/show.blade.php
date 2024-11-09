@@ -4,6 +4,9 @@
             <h2 class="mb-3 md:mb-0 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 <i class="fa-solid fa-envelope-open me-1"></i> Formulario de {{ $contact->type == 'quotation' ? 'Cotización' : 'Solicitud de información' }}
             </h2>
+            <x-secondary-link class="mx-1" :href="route('contacts.index')">
+                <i class="fa-solid fa-clipboard-list md:me-1 text-base"></i><span class="hidden md:inline">Registros</span>
+            </x-secondary-link>
         </div>
     </x-slot>
 

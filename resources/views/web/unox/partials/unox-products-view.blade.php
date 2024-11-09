@@ -8,16 +8,17 @@
             @endif
             <div class="col-md-3 d-flex justify-content-center mb-4">
                 @include('web.products.partials.product-view', [
-                        'id'        => $product -> idP
-                    ,   'title'     => $product -> titleP
-                    ,   'model'     => $product -> modelo
-                    ,   'brand'     => $product -> marca
-                    ,   'price'     => $product -> precio
-                    ,   'promo'     => $product -> final_price
-                    ,   'tag'       => $product -> titleS
-                    ,   'tag_link'  => route('productos-category', [$product -> slugC, $product -> slugS])
-                    ,   'route'     => route('productos-open', [$product -> slugC, $product -> slugS, $product -> slugP])
-                    ,   'image'     => url("storage/productos/{$product -> image_rxP}")
+                        'id'        => $product->id
+                    ,   'title'     => $product->title
+                    ,   'model'     => $product->model
+                    ,   'brand'     => $product->product_brand->title
+                    ,   'price'     => $product->price
+                    ,   'promo'     => $product->get_higer_active_promo()
+                    ,   'con_flete' => $product->with_freight
+                    ,   'tag'       => $product->product_subcategory->title
+                    ,   'tag_link'  => route('productos-subcategories', [$product->product_category->slug, $product->product_subcategory->slug])
+                    ,   'route'     => route('producto-open', [$product->product_category->slug, $product->product_subcategory->slug, $product->slug])
+                    ,   'image'     => $product->asset_url.$product->image_rx
                 ])
             </div>
         @empty

@@ -46,7 +46,7 @@
                             ,   'title'     => $product->title
                             ,   'model'     => $product->model
                             ,   'brand'     => $product->product_brand->title
-                            ,   'price'     => $product->precio
+                            ,   'price'     => $product->price
                             ,   'promo'     => $product->get_higer_active_promo()
                             ,   'con_flete' => $product->with_freight
                             ,   'tag'       => $product->product_subcategory->title

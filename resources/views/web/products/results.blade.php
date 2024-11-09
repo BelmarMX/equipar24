@@ -101,7 +101,7 @@
             </div>
             <div class="col-12">
                 <div class="table-responsive">
-                    {{ $entries->render() }}
+                    {{--{{ $entries->render() }}--}}
                 </div>
             </div>
         </section>

@@ -13,6 +13,7 @@ use App\Models\Promotion;
 use App\Models\Reel;
 use App\Models\State;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Route;
 
 class Navigation
 {
@@ -54,11 +55,16 @@ class Navigation
 
     public static function get_static_data($unset = [], $states = FALSE)
     {
+        $slug_brand         = Route::current()->parameter('slug_brand');
+        $slug_category      = Route::current()->parameter('slug_category');
+        $slug_subcategory   = Route::current()->parameter('slug_subcategory');
+        $slug_product       = Route::current()->parameter('slug_product');
+
         $data = [
                 'banners'   => !in_array('banners', $unset)     ? Banner::get_banners()                         : NULL
             ,   'reels'     => !in_array('reels', $unset)       ? Reel::get_reels()                             : NULL
             ,   'featured'  => !in_array('featured', $unset)    ? ProductCategory::get_categories_featured()    : NULL
-            ,   'related'   => !in_array('related', $unset)     ? Product::take_products()                      : NULL
+            ,   'related'   => !in_array('related', $unset)     ? Product::take_products(4, $slug_brand, $slug_category, $slug_subcategory, $slug_product) : NULL
             ,   'promos'    => !in_array('promos', $unset)      ? Promotion::get_active_promotions()            : NULL
             ,   'articles'  => !in_array('articles', $unset)    ? BlogArticle::get_articles()                   : NULL
             ,   'states'    => $states                                  ? State::get_states_alias()                     : NULL

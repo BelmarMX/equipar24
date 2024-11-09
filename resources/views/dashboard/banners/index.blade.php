@@ -1,9 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center">
-            <h2 class="mb-3 md:mb-0 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                <i class="fa-solid fa-images me-1"></i> Banners @isset($subtitle) <i class="fa-solid fa-right-long fa-xs"></i> {{ $subtitle }} @endisset
-            </h2>
+            @include('dashboard.partials.section-title', ['section_name'=>'Banners', 'fa_icon'=>'images', 'subtitle'=>$subtitle])
             @include('dashboard.partials.submenu', ['resource' => 'banners'])
         </div>
     </x-slot>

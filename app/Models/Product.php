@@ -108,6 +108,33 @@ class Product extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function search($like_text, $brand = NULL)
+    {
+        $return     = self::query();
+        $return->with(['product_brand', 'product_category', 'product_subcategory']);
+        $return->where(function($query) use ($like_text) {
+            $query->where('title', 'LIKE', '%'.$like_text.'%');
+            $query->orWhere('model', 'LIKE', '%'.$like_text.'%');
+        });
+
+        if(!is_null($brand))
+        {
+            $return->whereHas('product_brand', function($query) use ($brand) {
+                $query->where('title', $brand);
+                $query->orWhere('slug', $brand);
+            });
+        }
+        else
+        {
+            $return->orWhereHas('product_brand', function($query) use ($like_text) {
+                $query->where('title', 'LIKE', '%'.$like_text.'%');
+            });
+        }
+
+        $return->orderBy('is_featured', 'DESC');
+        return $return->get();
+    }
+
     public static function featured_products()
     {
         return self::where('is_featured', 1)
@@ -115,12 +142,38 @@ class Product extends Model
             ->get();
     }
 
-    public static function take_products($take = 4)
+    public static function take_products($take = 4, $slug_brand = NULL, $slug_category = NULL, $slug_subcategory = NULL, $slug_product = NULL)
     {
-        return self::orderBy('is_featured', 'DESC')
-            ->orderBy('id', 'DESC')
-            ->take($take)
-            ->get();
+        $return = self::query();
+        $return->with(['product_brand', 'product_category', 'product_subcategory']);
+        if( !is_null($slug_brand) )
+        {
+            $brand          = ProductBrand::where('slug', $slug_brand)->first();
+            $return->where('product_brand_id', $brand->id);
+        }
+        if( !is_null($slug_subcategory) )
+        {
+            $subcategory    = ProductSubcategory::where('slug', $slug_subcategory)->first();
+            $return->orWhere('product_subcategory_id', $subcategory->id);
+        }
+        $return->inRandomOrder();
+        $return->orderBy('is_featured', 'DESC');
+        if( !is_null($take) )
+        {
+            $return->take($take);
+        }
+        $return->get();
+
+        if( (is_null($take) && $return->count() < $take) && !is_null($slug_category) )
+        {
+            $category       = ProductCategory::where('slug', $slug_category)->first();
+            $return->orWhere('product_category_id', $category->id);
+        }
+        if( !is_null($take) )
+        {
+            $return->take($take);
+        }
+        return $return->get();
     }
 
     public static function get_related($product_brand_id, $product_category_id, $product_subcategory_id, $take = 4)
