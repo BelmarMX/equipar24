@@ -6,7 +6,6 @@ use App\Classes\ImagesSettings;
 use Durlecode\EJSParser\Parser;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class BlogArticleRequest extends FormRequest
 {

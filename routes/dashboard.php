@@ -187,6 +187,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('delete/{branch}', 'destroy')->name('branches.delete');
         Route::get('restore/{branch_id}', 'restore')->name('branches.restore');
     });
+
+    Route::resource('users', UserController::class);
+    Route::group(['prefix'=>'users', 'controller'=>UserController::class], function(){
+        Route::post('datatable', 'datatable')->name('dashboard.users.datatable');
+        Route::get('archived/view', 'archived')->name('users.archived');
+        Route::get('delete/{user}', 'destroy')->name('users.delete');
+        Route::get('restore/{user_id}', 'restore')->name('users.restore');
+    });
 });
 
 Route::middleware('auth')->group(function () {

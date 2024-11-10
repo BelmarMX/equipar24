@@ -338,11 +338,15 @@ $(document).ready(function() {
             }
             ,   data:           {}
             ,   placeholder:    'Comienza a escribir o pega el contenido del artículo...'
-            ,   onReady:        O => {
+            ,   onReady:        async O => {
                 console.log('Editor is ready!')
                 if( $('#raw_editor').val() !== '' )
                 {
-                    editor.render(JSON.parse($('#raw_editor').val()))
+                    await editor.render(JSON.parse($('#raw_editor').val()))
+                }
+                else if (editor_data_html)
+                {
+                    await editor.blocks.renderFromHTML(editor_data_html);
                 }
             }
             ,   onChange:       (api, event) => {

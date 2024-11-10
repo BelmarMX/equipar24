@@ -118,5 +118,10 @@
     @push('style')
     @endpush
     @push('ESmodules')
+        @if($record->id && is_null($record->raw_editor))
+            <script>
+                const editor_data_html = `{!! $record->description !!}`
+            </script>
+        @endif
     @endpush
 </x-app-layout>
