@@ -80,6 +80,13 @@ class ProductBrand extends Model
     /* ----------------------------------------------------------------------------------------------------------------
      * OTHER FEATURES
     ----------------------------------------------------------------------------------------------------------------- */
+    public static function get_featured_brands()
+    {
+        return self::where('is_featured', 1)
+            ->orderBy('order', 'ASC')
+            ->get();
+    }
+
     public static function get_brands()
     {
         return self::orderBy('order', 'ASC')

@@ -140,6 +140,26 @@ class ProductBrandController extends Controller
         return redirect() -> route('productBrands.index', ['updated' => $productBrand->id]);
     }
 
+    public function reorder()
+    {
+        return view('dashboard.productBrands.order', [
+                'subtitle'  => 'Reordenar'
+            ,   'records'   => ProductBrand::get_brands()
+        ]);
+    }
+
+    public function update_order(Request $request)
+    {
+        foreach($request->order AS $order)
+        {
+            $brand        = ProductBrand::find($order['id']);
+            $brand->order = $order['position'];
+            $brand->save();
+        }
+
+        return response()->json(['success'=>TRUE, 'message'=>'Orden actualizado']);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

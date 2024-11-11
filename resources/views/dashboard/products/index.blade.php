@@ -37,7 +37,7 @@
 
     @push('ESmodules')
         <script>
-            const url_route     = '{{ route('dashboard.products.datatable') }}';
+            const url_route     = '{{ empty($filter_type) ? route('dashboard.products.datatable') : route('dashboard.products.datatable.filter', ['filter_type'=>$filter_type, 'filter_id'=>$filter_id]) }}';
             const with_trashed  = {{ !empty($with_trashed) && $with_trashed ? 'true' : 'false' }}
         </script>
         @vite(['resources/assets/js/dashboard/datatables/common.js', 'resources/assets/js/dashboard/datatables/products.js'])

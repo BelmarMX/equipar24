@@ -69,7 +69,7 @@ class Navigation
             ,   'articles'  => !in_array('articles', $unset)    ? BlogArticle::get_articles()                   : NULL
             ,   'states'    => $states                                  ? State::get_states_alias()                     : NULL
             ,   'menu_cat'  => ProductCategory::get_categories()
-            ,   'brands'    => ProductBrand::get_brands()
+            ,   'brands'    => ProductBrand::get_featured_brands()
             ,   'branches'  => Branch::all()
 
         ];

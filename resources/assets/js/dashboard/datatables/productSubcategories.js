@@ -16,7 +16,12 @@ $(document).ready(function() {
             ,   { data: 'title' }
             ,   { data: 'is_featured', className: 'text-center', render: data => data ? '⭐' : '' }
             ,   { data: 'category' }
-            ,   { data: 'count_products', render: count => number_format(count, true) }
+            ,   {
+                        data: null
+                    ,   render: ({id, count_products}) => {
+                        return `<a href="/dashboard/products/index/subcategory/${id}" class="font-semibold text-sky-600 hover:text-sky-900">${number_format(count_products, true)}</a>`
+                    }
+                }
             ,   { data: 'order' }
             ,   {
                         data:       null
@@ -29,7 +34,7 @@ $(document).ready(function() {
                 ...DT_OPTIONS_SSR.layout
             ,   top0start:                  {
                 buttons:                        [
-                    {
+                    /*{
                         text:   '<i class="fa-solid fa-sort me-1"></i> Reordenar'
                         ,   action: (e, dt, node, config) => {
                             if( with_trashed )
@@ -38,10 +43,10 @@ $(document).ready(function() {
                                 return
                             }
                             Alerts.html('Modal para reordenar subcategorías', 'Reordenar Marcas')
-                            /*dt.ajax.url(url_route+'?filter=vigentes').load()*/
+                            /!*dt.ajax.url(url_route+'?filter=vigentes').load()*!/
                         }
                         ,   className: 'items-center px-4 py-2 bg-white dark:bg-gray-300 border border-gray-300 dark:border-gray-50 rounded-md font-semibold text-xs uppercase shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 mx-1 text-sky-400'
-                    }
+                    }*/
                 ]
             }
         }

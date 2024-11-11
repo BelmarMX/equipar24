@@ -295,12 +295,13 @@ $(document).ready(function() {
         $( $(this).attr('data-range-set_end') ).val(picker.endDate.format('YYYY-MM-DD'))
     })
 
+    let date_value = $('[data-date-picker]').val()
     flatpickr('[data-date-picker]', {
             locale:         Spanish
         ,   altInput:       true
         ,   altFormat:      "j F, Y"
         ,   dateFormat:     "Y-m-d"
-        ,   minDate:        "today"
+        ,   minDate:        date_value || "today"
     })
 
     if( document.getElementById('editorjs') )

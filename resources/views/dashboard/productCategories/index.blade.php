@@ -3,7 +3,9 @@
         <div class="flex flex-col md:flex-row justify-between items-center">
             @include('dashboard.partials.section-title', ['section_name'=>'Productos Categorías', 'fa_icon'=>'tag', 'subtitle'=>$subtitle])
             @include('dashboard.partials.submenu', ['resource' => 'productCategories', 'push_buttons' => [
-                ['icon' => 'fa-barcode', 'text' => 'Productos', 'route_name' => 'products.index']
+                    ['icon' => 'fa-barcode', 'text' => 'Productos', 'route_name' => 'products.index']
+                ,   ['icon' => 'fa-registered', 'text' => 'Marcas', 'route_name' => 'productBrands.index']
+                ,   ['icon' => 'fa-tags', 'text' => 'Subcategorías', 'route_name' => 'productSubcategories.index']
             ]])
         </div>
     </x-slot>
@@ -15,8 +17,8 @@
                 <th>ID</th>
                 <th>Título</th>
                 <th>Destacado</th>
-                <th>Productos</th>
-                <th>Subcategorías</th>
+                <th data-orderable="false">Productos</th>
+                <th data-orderable="false">Subcategorías</th>
                 <th>Vista Previa</th>
                 <th>Orden</th>
                 <th data-orderable="false">Alta</th>
@@ -28,8 +30,9 @@
 
     @push('ESmodules')
         <script>
-            const url_route     = '{{ route('dashboard.productCategories.datatable') }}';
-            const with_trashed  = {{ !empty($with_trashed) && $with_trashed ? 'true' : 'false' }}
+            const url_route         = '{{ route('dashboard.productCategories.datatable') }}';
+            const url_route_order   = '{{ route('dashboard.productCategories.reorder') }}'
+            const with_trashed      = {{ !empty($with_trashed) && $with_trashed ? 'true' : 'false' }}
         </script>
         @vite(['resources/assets/js/dashboard/datatables/common.js', 'resources/assets/js/dashboard/datatables/productCategories.js'])
     @endpush

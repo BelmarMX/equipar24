@@ -140,6 +140,26 @@ class ProductCategoryController extends Controller
         return redirect() -> route('productCategories.index', ['updated' => $productCategory->id]);
     }
 
+    public function reorder()
+    {
+        return view('dashboard.productCategories.order', [
+                'subtitle'  => 'Reordenar'
+            ,   'records'   => ProductCategory::get_categories()
+        ]);
+    }
+
+    public function update_order(Request $request)
+    {
+        foreach($request->order AS $order)
+        {
+            $cat        = ProductCategory::find($order['id']);
+            $cat->order = $order['position'];
+            $cat->save();
+        }
+
+        return response()->json(['success'=>TRUE, 'message'=>'Orden actualizado']);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

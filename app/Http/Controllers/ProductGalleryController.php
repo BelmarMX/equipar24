@@ -50,7 +50,7 @@ class ProductGalleryController extends Controller
                 return view('dashboard.partials.preview', compact('record')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('productGalleries', 'title', TRUE, $restore, FALSE);
+                $actions            = parent::set_actions('productGalleries', 'title', FALSE, $restore, FALSE);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['preview', 'action'])

@@ -20,10 +20,12 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($filter_type = NULL, $filter_id = NULL)
     {
         return view('dashboard.products.index', [
-            'subtitle' => 'Registros activos'
+                'subtitle'      => 'Registros activos'
+            ,   'filter_type'   => $filter_type
+            ,   'filter_id'     => $filter_id
         ]);
     }
 
@@ -35,7 +37,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function datatable(Request $request)
+    public function datatable(Request $request, $filter_type = NULL, $filter_id = NULL)
     {
         $restore        = FALSE;
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
@@ -46,6 +48,17 @@ class ProductController extends Controller
         else
         {
             $dt_of      = Product::query();
+        }
+
+        if( !empty($filter_type) )
+        {
+            switch($filter_type)
+            {
+                case 'brand':           $dt_of->where('product_brand_id', $filter_id);          break;
+                case 'category':        $dt_of->where('product_category_id', $filter_id);       break;
+                case 'subcategory':     $dt_of->where('product_subcategory_id', $filter_id);    break;
+                case 'freight':         $dt_of->where('with_freight', !empty($filter_id));      break;
+            }
         }
 
         return DataTables::of($dt_of)

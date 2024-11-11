@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Classes\Navigation;
 use App\Models\Product;
+use App\Models\ProductBrand;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class UnoxController extends Controller
 {
     public function unox()
     {
+        $unox_brand             = ProductBrand::where('slug', 'unox')->first();
+        $unox_categories_ids    = array_column(Product::where('product_brand_id', $unox_brand->id)->get()->toArray(), 'product_category_id');
+        $unox_categories        = ProductCategory::whereIn('id', $unox_categories_ids)->get();
+
         return view('web.unox.unox', array_merge(Navigation::get_static_data([
             'banners', 'featured', 'reels', 'related', 'articles'
         ])
         ,   [
-            'featured' => Product::take_products(NULL, 'unox')
+            'featured' => $unox_categories
         ]));
     }
 

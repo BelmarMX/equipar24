@@ -9,7 +9,7 @@
                 'slide'         => asset('images/samples/banner.jpg')
             ,   'slide_mobile'  => asset('images/samples/banner-mv.jpg')
             ,   'slide_alt'     => 'Proyectos para personas'
-            ,   'summary'       => TRUE
+            ,   'summary'       => FALSE
             ,   'title'         => 'Proyectos para <strong>Personas</strong>'
             ,   'description'   => 'Aseguramos el correcto diseño y selección de equipo necesarios para la <strong>operación eficiente de su cocina</strong>'
             ,   'h1'            => TRUE
@@ -18,6 +18,7 @@
 
     <main class="container">
         <section>
+            <h1>Proyectos para Personas: Diseño y selección para la operación eficiente de su cocina.</h1>
             <div class="row">
                 @foreach($records AS $portafolio)
                     <div class="col-md-4 mb-4">

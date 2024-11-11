@@ -73,17 +73,20 @@ const DT_OPTIONS_SSR        = {
         ,   dir: 'desc'
     }
     ,   drawCallback:           settings => {
-        const scroll_container = document.querySelector('.dt-scroll-body')
-        scroll_container.addEventListener('wheel', e => {
-            let has_horizontal_scrollbar    = scroll_container.scrollWidth > scroll_container.clientWidth
-            let has_vertical_scrollbar      = scroll_container.scrollHeight > scroll_container.scrollHeight
-
-            if( has_horizontal_scrollbar )
+            if(document.querySelector('.dt-scroll-body-activate'))
             {
-                e.preventDefault()
-                scroll_container.scrollLeft += e.deltaY
+                const scroll_container = document.querySelector('.dt-scroll-body-activate')
+                scroll_container.addEventListener('wheel', e => {
+                    let has_horizontal_scrollbar    = scroll_container.scrollWidth > scroll_container.clientWidth
+                    let has_vertical_scrollbar      = scroll_container.scrollHeight > scroll_container.scrollHeight
+
+                    if( has_horizontal_scrollbar )
+                    {
+                        e.preventDefault()
+                        scroll_container.scrollLeft += e.deltaY
+                    }
+                })
             }
-        })
     }
 }
 
@@ -129,11 +132,11 @@ const set_human_datetime    = ({human_created_at, created_dmy, updated_at, delet
     return `<small class="human-date" data-tooltip="<b>Creado:</b> ${created_dmy}<br><b>Actualizado:</b> ${ updated_at !== null ? moment(updated_at).format('DD/MM/YYYY HH:mm') : created_dmy}">${human_created_at}</small>${is_deleted}`
 }
 
-const number_format                = (number, allow_zero = false) => {
+const number_format         = (number, allow_zero = false) => {
     if( (!allow_zero && !number) || !allow_zero && (number === 0 || number === '0') )
     { return '' }
 
     return new Intl.NumberFormat('es-MX').format(number)
 }
 
-export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime, RANGE_LOCALE, number_format }
+export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime, RANGE_LOCALE, number_format}

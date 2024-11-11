@@ -14,10 +14,12 @@ class ProductSubcategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($filter_type = NULL, $filter_id = NULL)
     {
         return view('dashboard.productSubcategories.index', [
-            'subtitle' => 'Registros activos'
+                'subtitle' => 'Registros activos'
+            ,   'filter_type'   => $filter_type
+            ,   'filter_id'     => $filter_id
         ]);
     }
 
@@ -29,7 +31,7 @@ class ProductSubcategoryController extends Controller
         ]);
     }
 
-    public function datatable(Request $request)
+    public function datatable(Request $request, $filter_type = NULL, $filter_id = NULL)
     {
         $restore        = FALSE;
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
@@ -40,6 +42,14 @@ class ProductSubcategoryController extends Controller
         else
         {
             $dt_of      = ProductSubcategory::query();
+        }
+
+        if( !empty($filter_type) )
+        {
+            switch($filter_type)
+            {
+                case 'category':        $dt_of->where('product_category_id', $filter_id);       break;
+            }
         }
 
         return DataTables::of($dt_of)

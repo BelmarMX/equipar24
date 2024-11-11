@@ -66,6 +66,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('archived/view', 'archived')->name('products.archived');
         Route::get('delete/{product}', 'destroy')->name('products.delete');
         Route::get('restore/{product_id}', 'restore')->name('products.restore');
+        // Filtered
+        Route::get('index/{filter_type}/{filter_id}', 'index')->name('dashboard.products.filter');
+        Route::post('datatable/{filter_type}/{filter_id}', 'datatable')->name('dashboard.products.datatable.filter');
     });
 
     Route::resource('productBrands', ProductBrandController::class);
@@ -74,6 +77,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('archived/view', 'archived')->name('productBrands.archived');
         Route::get('delete/{product_brand}', 'destroy')->name('productBrands.delete');
         Route::get('restore/{product_brand_id}', 'restore')->name('productBrands.restore');
+        Route::get('reorder/view', 'reorder')->name('dashboard.productBrands.reorder');
+        Route::post('reorder/sort', 'update_order')->name('dashboard.productBrands.sort');
     });
 
     Route::resource('productCategories', ProductCategoryController::class);
@@ -82,6 +87,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('archived/view', 'archived')->name('productCategories.archived');
         Route::get('delete/{product_category}', 'destroy')->name('productCategories.delete');
         Route::get('restore/{product_category_id}', 'restore')->name('productCategories.restore');
+        Route::get('reorder/view', 'reorder')->name('dashboard.productCategories.reorder');
+        Route::post('reorder/sort', 'update_order')->name('dashboard.productCategories.sort');
     });
 
     Route::resource('productSubcategories', ProductSubcategoryController::class);
@@ -90,6 +97,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('archived/view', 'archived')->name('productSubcategories.archived');
         Route::get('delete/{product_subcategory}', 'destroy')->name('productSubcategories.delete');
         Route::get('restore/{product_subcategory_id}', 'restore')->name('productSubcategories.restore');
+        // Filtered
+        Route::get('index/{filter_type}/{filter_id}', 'index')->name('dashboard.productSubcategories.filter');
+        Route::post('datatable/{filter_type}/{filter_id}', 'datatable')->name('dashboard.productSubcategories.datatable.filter');
     });
 
     Route::resource('productGalleries', ProductGalleryController::class);
@@ -129,7 +139,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('restore/{promotion_id}', 'restore')->name('promotions.restore');
     });
 
-    //Route::resource('promotionProducts', PromotionProductController::class);
     Route::group(['prefix' => 'promotionProducts', 'controller' => PromotionProductController::class], function () {
         Route::get('{promotion}', 'index')->name('promotionProducts.index');
         Route::post('{promotion}/datatable', 'datatable')->name('dashboard.promotionProducts.datatable');
