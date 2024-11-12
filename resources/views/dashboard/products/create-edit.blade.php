@@ -28,6 +28,7 @@
             </h1>
             @if($errors -> any() )
                 <x-form.alert type="danger" title="Hay errores en el formulario que impidieron su registro." />
+                <p class="hidden">{{ json_encode($errors->all()) }}</p>
             @endif
             <hr class="mb-2 border-2 border-slate-50"/>
 
