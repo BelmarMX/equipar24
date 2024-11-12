@@ -32,6 +32,7 @@ export default defineConfig({
                 'resources/assets/js/dashboard/datatables/branches.js',
                 'resources/assets/js/dashboard/datatables/contactList.js',
                 'resources/assets/js/dashboard/datatables/contacts.js',
+                'resources/assets/js/dashboard/datatables/dragger.js',
                 'resources/assets/js/dashboard/datatables/productBrands.js',
                 'resources/assets/js/dashboard/datatables/productCategories.js',
                 'resources/assets/js/dashboard/datatables/productFreights.js',

@@ -146,6 +146,16 @@
       "resources/assets/js/dashboard/datatables/common.js"
     ]
   },
+  "resources/assets/js/dashboard/datatables/dragger.js": {
+    "file": "assets/dragger-DCxNdBZh.js",
+    "name": "dragger",
+    "src": "resources/assets/js/dashboard/datatables/dragger.js",
+    "isEntry": true,
+    "imports": [
+      "resources/assets/js/dashboard/alerts.js",
+      "_sweetalert2.esm.all-Br4OTrmy.js"
+    ]
+  },
   "resources/assets/js/dashboard/datatables/productBrands.js": {
     "file": "assets/productBrands-hWlSgtnp.js",
     "name": "productBrands",
