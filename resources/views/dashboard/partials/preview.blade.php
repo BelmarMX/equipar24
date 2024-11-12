@@ -7,7 +7,11 @@
            @if( !file_exists($record->asset_folder.$record->image) ) disabled @endif
         >
             @if(isset($show_thumbnail) && $show_thumbnail)
-                <img src="{{ $record->asset_url.$record->image }}" alt="{{ $record->title }}" class="object-cover rounded-lg">
+                @if( !file_exists($record->asset_folder.$record->image) )
+                    <em>No disponible</em>
+                @else
+                    <img src="{{ $record->asset_url.$record->image }}" alt="{{ $record->title }}" class="object-cover rounded-lg">
+                @endif
             @else
                 <i class="fa-solid fa-panorama fa-lg mx-1"></i>
             @endif

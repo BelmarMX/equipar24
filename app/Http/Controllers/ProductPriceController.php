@@ -10,7 +10,6 @@ use App\Models\ProductCategory;
 use App\Models\ProductPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Nette\Utils\Image;
 use Shuchkin\SimpleXLSX;
 use Shuchkin\SimpleXLSXGen;
 use Yajra\DataTables\DataTables;
@@ -171,8 +170,9 @@ class ProductPriceController extends Controller
             ];
         }
 
-        $file = 'storage/'.ImagesSettings::DOCUMENTS_FOLDER.'/'.date('YmdHis').'_equipar_productos_price_update.xlsx';
+        $file = 'storage/'.ImagesSettings::DOCUMENTS_FOLDER.date('YmdHis').'_equipar_productos_price_update.xlsx';
         SimpleXLSXGen::fromArray($data)
+            ->setDefaultFont('Courier New')
             ->setDefaultFontSize(12)
             ->saveAs($file);
         return $file;
