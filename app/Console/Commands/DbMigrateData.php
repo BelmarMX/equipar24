@@ -293,7 +293,7 @@ class DbMigrateData extends Command
      */
     private function migrate_banners()
     {
-        return;
+        //return;
         $this->info(" Step: Migration of banners");
 
         $records   = DB::connection('DB_Prod')->table('banner')->whereNull('deleted_at')
@@ -325,7 +325,7 @@ class DbMigrateData extends Command
      */
     private function migrate_blog_categories()
     {
-        return;
+        //return;
         $this->info(" Step: Migration of blog_categories");
 
         $records   = DB::connection('DB_Prod')->table('blog_categories')->whereNull('deleted_at')
@@ -350,7 +350,7 @@ class DbMigrateData extends Command
 
     private function migrate_blog_articles()
     {
-        return;
+        //return;
         $this->info(" Step: Migration of blog_articles");
 
         $old_new_cat    = $this->get_older_newer_blog_categories();
@@ -398,7 +398,7 @@ class DbMigrateData extends Command
      */
     private function migrate_contacts($states, $cities)
     {
-        return;
+        //return;
         $this->info(" Step: Migration of contacts");
 
         $records   = DB::connection('DB_Prod')->table('clientes')->whereNull('deleted_at')
@@ -434,7 +434,7 @@ class DbMigrateData extends Command
      */
     private function migrate_projects()
     {
-        return;
+        //return;
         $this->info(" Step: Migration of projects");
 
         $records   = DB::connection('DB_Prod')->table('portfolio')->whereNull('deleted_at')
@@ -464,7 +464,7 @@ class DbMigrateData extends Command
      */
     private function migrate_project_images()
     {
-        return;
+        //return;
         $this->info(" Step: Migration of projects images");
 
         $new_old_porfolio   = $this->get_newer_older_porfolio();
@@ -500,7 +500,7 @@ class DbMigrateData extends Command
      */
     private function migrate_product_categories()
     {
-        return;
+        //return;
         $this->info(" Step: Migration of product categories");
 
         $records   = DB::connection('DB_Prod')->table('products_categories')->whereNull('deleted_at')
@@ -529,7 +529,7 @@ class DbMigrateData extends Command
      */
     private function migrate_product_subcategories()
     {
-        return;
+        //return;
         $this->info(" Step: Migration of product subcategories");
         $new_old_categories = $this -> get_older_newer_product_categories();
 
@@ -563,7 +563,7 @@ class DbMigrateData extends Command
      */
     private function migrate_products()
     {
-        return;
+        //return;
         $this->info(" Step: Migration of products");
 
         $new_old_subcategories  = $this->get_older_newer_product_subcategories();
