@@ -54,7 +54,7 @@ class BrandSeeder extends Seeder
             ['title' => ucfirst('ascaso'), 'slug' => Str::slug('ascaso'), 'image' => 'null.webp', 'is_featured' => 0, 'order' => 37, 'created_at' => now()],
             ['title' => ucfirst('AvaValley'), 'slug' => Str::slug('AvaValley'), 'image' => 'null.webp', 'is_featured' => 0, 'order' => 38, 'created_at' => now()],
             ['title' => ucfirst('balance'), 'slug' => Str::slug('balance'), 'image' => 'null.webp', 'is_featured' => 0, 'order' => 39, 'created_at' => now()],
-            ['title' => ucfirst('barmaid'), 'slug' => Str::slug('barmaid'), 'image' => 'null.webp', 'is_featured' => 0, 'order' => 40, 'created_at' => now()],
+            ['title' => ucfirst('bar maid'), 'slug' => Str::slug('bar maid'), 'image' => 'null.webp', 'is_featured' => 0, 'order' => 40, 'created_at' => now()],
             ['title' => ucfirst('bellini'), 'slug' => Str::slug('bellini'), 'image' => 'null.webp', 'is_featured' => 0, 'order' => 41, 'created_at' => now()],
             ['title' => ucfirst('blendtec'), 'slug' => Str::slug('blendtec'), 'image' => 'null.webp', 'is_featured' => 0, 'order' => 42, 'created_at' => now()],
             ['title' => ucfirst('bunn'), 'slug' => Str::slug('bunn'), 'image' => 'null.webp', 'is_featured' => 0, 'order' => 43, 'created_at' => now()],
