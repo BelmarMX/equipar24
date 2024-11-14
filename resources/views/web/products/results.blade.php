@@ -101,7 +101,7 @@
             </div>
             <div class="col-12">
                 <div class="table-responsive">
-                    {{--{{ $entries->render() }}--}}
+                    {{ $entries->render() }}
                 </div>
             </div>
         </section>
@@ -110,6 +110,14 @@
 
 @push('customJs')
 <script>
+    @if($filtered_brands)
+        @foreach($filtered_brands AS $brand)
+            @if($brand->slug == Str::slug($termino) && empty($_GET['brand']) )
+                location.href = '?filter=y&brand={{$brand->slug}}';
+            @endif
+        @endforeach
+    @endif
+
     document.querySelectorAll('[data-filter]').forEach(element => {
         element.addEventListener('change', event => {
             event.preventDefault()

@@ -1,5 +1,6 @@
 <div class="marcas-wrap row justify-content-center align-items-center">
     @foreach($brands AS $brand)
+        @if($brand->is_featured)
         <a href="{{ route('brands', $brand->slug) }}"
            class="col"
            data-bs-toggle="tooltip"
@@ -11,5 +12,15 @@
                  alt="{{$brand->title}}"
             >
         </a>
+        @endif
+    @endforeach
+</div>
+<div class="marcas-wrap not_featured row justify-content-center align-items-center">
+    @foreach($brands AS $brand)
+        @if(!$brand->is_featured)
+            <a href="{{ route('brands', $brand->slug) }}"
+               class="col"
+            >{{ mb_strtoupper($brand->title)}}</a>
+        @endif
     @endforeach
 </div>
