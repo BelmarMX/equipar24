@@ -68,6 +68,9 @@
 					height: 36px;
 					color: $white;
 					z-index: 1000;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 					@include ease();
 					i{
 						color: $white;
@@ -168,7 +171,7 @@
 		text-align: center;
 		display: block;
 		width: 100%;
-		font-size: 16px
+		font-size: 14px
 	}
 }
 

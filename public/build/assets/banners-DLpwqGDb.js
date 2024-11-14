@@ -1,1 +1,0 @@
-import{D as a,s as e}from"./common-Bm_rDy6i.js";$(document).ready(function(){$("#banners-table").DataTable({...a,ajax:{...a.ajax,url:url_route,data:{with_trashed}},columns:[...a.columns,{data:"title"},{data:"link"},{data:"promocion"},{data:"preview",className:"text-center"},{data:null,className:"text-right",render:t=>e(t)},{data:"action",className:"text-center"}]})});

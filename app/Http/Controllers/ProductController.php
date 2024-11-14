@@ -341,9 +341,32 @@ class ProductController extends Controller
     public function show_category($slug_category)
     {
         $product_category   = ProductCategory::where('slug', $slug_category)->firstOrFail();
+        $column             = 'id';
+        $sort               = 'DESC';
+        if( !empty($_GET['sort']) && $_GET['sort'] == 'y' )
+        {
+            switch($_GET['orderby'])
+            {
+                case 'min':
+                    $column             = 'price';
+                    $sort               = 'ASC';
+                break;
+                case 'max':
+                    $column             = 'price';
+                break;
+                case 'az':
+                    $column             = 'title';
+                    $sort               = 'ASC';
+                break;
+                case 'za':
+                    $column             = 'title';
+                break;
+            }
+        }
         $entries            = Product::with(['product_brand', 'product_category', 'product_subcategory'])
-            -> where('product_category_id', $product_category->id)
-            -> paginate(24);
+            ->where('product_category_id', $product_category->id)
+            ->orderBy($column, $sort)
+            ->paginate(24);
 
         return view('web.products.categoria-productos', array_merge(
                 Navigation::get_static_data(['reels', 'featured', 'articles'])
@@ -355,10 +378,33 @@ class ProductController extends Controller
     {
         $product_category       = ProductCategory::where('slug', $slug_category)->firstOrFail();
         $product_subcategory    = ProductSubcategory::where('slug', $slug_subcategory)->where('product_category_id', $product_category->id)->firstOrFail();
+        $column                 = 'id';
+        $sort                   = 'DESC';
+        if( !empty($_GET['sort']) && $_GET['sort'] == 'y' )
+        {
+            switch($_GET['orderby'])
+            {
+                case 'min':
+                    $column             = 'price';
+                    $sort               = 'ASC';
+                    break;
+                case 'max':
+                    $column             = 'price';
+                    break;
+                case 'az':
+                    $column             = 'title';
+                    $sort               = 'ASC';
+                    break;
+                case 'za':
+                    $column             = 'title';
+                    break;
+            }
+        }
         $entries                = Product::with(['product_brand', 'product_category', 'product_subcategory'])
-            -> where('product_category_id', $product_category->id)
-            -> where('product_subcategory_id', $product_subcategory->id)
-            -> paginate(24);
+            ->where('product_category_id', $product_category->id)
+            ->where('product_subcategory_id', $product_subcategory->id)
+            ->orderBy($column, $sort)
+            ->paginate(24);
 
         return view('web.products.categoria-productos', array_merge(
                 Navigation::get_static_data(['reels', 'featured', 'articles'])

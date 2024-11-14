@@ -38,6 +38,22 @@
             }, $product_category->subcategories->toArray() )
         ])
 
+        <section id="filter-box" class="row mb-4 pt-2 px-2">
+            <div class="col-md-4 offset-md-8">
+                <div class="input-group mb-3">
+                    <label class="d-block w-100 text-center" for="sel-order">Ordenar por</label>
+                    <span class="input-group-text"><i class="bi bi-filter"></i></span>
+                    <select data-filter="orderby" id="sel-order" class="form-select" aria-label="Ordenar por">
+                        <option value="">Ordenar por</option>
+                        <option value="min" @if(Request::get('orderby') == 'min') selected @endif>Precio menor a mayor</option>
+                        <option value="max" @if(Request::get('orderby') == 'max') selected @endif>Precio mayor a menor</option>
+                        <option value="az" @if(Request::get('orderby') == 'az') selected @endif>A-Z Alfabético</option>
+                        <option value="za" @if(Request::get('orderby') == 'za') selected @endif>Z-A Alfabético</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
         <section>
             <div class="row justify-content-center">
                 @forelse($entries AS $product)
@@ -80,5 +96,20 @@
 @endsection
 
 @push('customJs')
-    <script src="{{ asset('v2/js/hints.js') }}" async defer></script>
+    <script>
+        document.querySelectorAll('[data-filter]').forEach(element => {
+            element.addEventListener('change', event => {
+                event.preventDefault()
+
+                let chain = '?sort=y'
+                document.querySelectorAll('[data-filter]').forEach(element => {
+                    if( element.value !== "" )
+                    {
+                        chain += `&${element.getAttribute('data-filter')}=${element.value}`
+                    }
+                })
+                location.href = chain;
+            })
+        })
+    </script>
 @endpush

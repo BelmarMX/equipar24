@@ -49,7 +49,9 @@
                     <label class="d-block w-100 text-center" for="sel-brand">Filtrar por marca</label>
                     <span class="input-group-text"><i class="bi bi-patch-check-fill"></i></span>
                     <select data-filter="brand" id="sel-brand" class="form-select" aria-label="Filtro por marca">
-                        <option value="">Todas las marcas</option>
+                        @if( empty($_GET['brand']) )
+                            <option value="">Todas las marcas</option>
+                        @endif
                         @foreach( $filtered_brands AS $brand )
                             <option value="{{ $brand->slug }}" @if(Request::get('brand') == $brand->slug) selected @endif>{{ $brand->title }}</option>
                         @endforeach
