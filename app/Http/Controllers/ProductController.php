@@ -366,7 +366,8 @@ class ProductController extends Controller
         $entries            = Product::with(['product_brand', 'product_category', 'product_subcategory'])
             ->where('product_category_id', $product_category->id)
             ->orderBy($column, $sort)
-            ->paginate(24);
+            ->paginate(24)
+            ->appends(request()->query());
 
         return view('web.products.categoria-productos', array_merge(
                 Navigation::get_static_data(['reels', 'featured', 'articles'])
@@ -404,7 +405,8 @@ class ProductController extends Controller
             ->where('product_category_id', $product_category->id)
             ->where('product_subcategory_id', $product_subcategory->id)
             ->orderBy($column, $sort)
-            ->paginate(24);
+            ->paginate(24)
+            ->appends(request()->query());
 
         return view('web.products.categoria-productos', array_merge(
                 Navigation::get_static_data(['reels', 'featured', 'articles'])
