@@ -1,0 +1,1 @@
+import{D as a,s as e}from"./common-Bm_rDy6i.js";$(document).ready(function(){$("#projectGallery-table").DataTable({...a,ajax:{...a.ajax,url:url_route,data:{with_trashed}},columns:[...a.columns,{data:"title"},{data:"preview",className:"text-center"},{data:null,className:"text-right",render:t=>e(t)},{data:"action",className:"text-center"}]})});
