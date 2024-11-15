@@ -78,6 +78,16 @@ window.onload = event => {
             })
         })
     }
+    if( document.querySelector('.responsive-horizontal') )
+    {
+        const scroll_container = document.querySelectorAll('.responsive-horizontal')
+        scroll_container.forEach(el => {
+            el.addEventListener('wheel', e => {
+                e.preventDefault()
+                el.scrollLeft += e.deltaY
+            })
+        })
+    }
 
     // Video reels
     if( document.querySelector('.reels__item--video') )
