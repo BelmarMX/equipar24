@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row productos__main_product__price">
+                        <div class="row productos__main_product__price align-items-center">
                             <div class="col-md-6 mb-2">
                                 @if( $with_discount = $entry -> get_higer_active_promo() )
                                     <div class="productos__main_product__price--price mb-1">
@@ -93,7 +93,7 @@
                                 @endif
                             </div>
                             <div class="col-md-6 productos__main_product__price--quote">
-                                <div class="productos__main_product__price--price" style="transform: scale(1.1)">
+                                <div class="productos__main_product__price--price mb-3">
                                     @if( $with_discount )
                                         ${{ number_format($with_discount -> total, 2, '.', ',') }} <span class="productos__main_product__price--currency">MXN</span>
                                     @else
