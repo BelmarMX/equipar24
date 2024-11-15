@@ -25,6 +25,8 @@ class Reel extends Model
         ,   'link_summary'
         ,   'starts_at'
         ,   'ends_at'
+        ,   'image'
+        ,   'image_rx'
     ];
 
     protected $appends  = [
@@ -83,7 +85,7 @@ class Reel extends Model
     {
         return self::where('starts_at', '<=', now())
             ->where('ends_at', '>=', now())
-            ->orderBy('starts_at', 'ASC')
+            ->orderBy('ends_at', 'ASC')
             ->get();
     }
 

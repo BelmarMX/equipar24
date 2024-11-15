@@ -107,8 +107,16 @@
                                      class="mb-6"
                                      placeholder="Archivo de video"
                                      accept="video/mp4,video/webm"
-                                     size_tag="max: 16,380 kb"
+                                     size_tag="max: 32,768 kb"
                                      :value="$record->id ? $record->asset_url.$record->video : NULL"
+                        />
+                        <x-form.file-image name="image"
+                                           class="mb-6"
+                                           placeholder="Portada"
+                                           required
+                                           :width="$ImagesSettings::REEL_WIDTH"
+                                           :height="$ImagesSettings::REEL_HEIGHT"
+                                           :value="$record->id ? $record->asset_url.$record->image : NULL"
                         />
                     </div>
                 </div>

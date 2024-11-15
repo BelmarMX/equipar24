@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Promotion;
 use App\Models\Reel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -126,7 +127,21 @@ class ReelController extends Controller
     {
         $validated              = $request->validated();
         $video                  = parent::store_file($request->file('video'), $validated['title'], ImagesSettings::REEL_FOLDER);
+        $stored                 = parent::store_all_images_from_request(
+                $request -> file('image')
+            ,   NULL
+            ,   $validated['title']
+            ,   ImagesSettings::REEL_FOLDER
+            ,   TRUE
+            ,   ImagesSettings::REEL_WIDTH_RX
+            ,   ImagesSettings::REEL_HEIGHT_RX
+        );
+
+        $validated['image']     = $stored -> full -> original;
+        $validated['image_rx']  = $stored -> full -> thumbnail  ?? NULL;
         $validated['video']     = $video ?? NULL;
+        $validated['ends_at']   = Carbon::parse($validated['ends_at'])->endOfDay();
+
         $created                = Reel::create($validated);
         return redirect() -> route('reels.index', compact('created'));
     }
@@ -160,7 +175,23 @@ class ReelController extends Controller
     {
         $validated              = $request -> validated();
         $video                  = parent::store_file($request->file('video'), $validated['title'], ImagesSettings::REEL_FOLDER, $reel->video);
+        $stored                 = parent::store_all_images_from_request(
+                $request -> file('image')
+            ,   NULL
+            ,   $validated['title']
+            ,   ImagesSettings::REEL_FOLDER
+            ,   TRUE
+            ,   ImagesSettings::REEL_WIDTH_RX
+            ,   ImagesSettings::REEL_HEIGHT_RX
+            ,   $reel->image
+            ,   NULL
+            ,   $reel->image_rx
+        );
+
+        $validated['image']     = $stored -> full -> original   ?? $reel->image;
+        $validated['image_rx']  = $stored -> full -> thumbnail  ?? $reel->image_rx;
         $validated['video']     = $video ?? $reel->video;
+        $validated['ends_at']   = Carbon::parse($validated['ends_at'])->endOfDay();
 
         $reel -> update($validated);
         return redirect() -> route('reels.index', ['updated' => $reel->id]);

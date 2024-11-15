@@ -17,7 +17,7 @@
                 <th style="min-width: 220px">Promoción</th>
                 <th style="min-width: 220px">Producto</th>
                 <th style="min-width: 120px" data-orderable="false">Vigencia</th>
-                <th data-orderable="false">Reel</th>
+                <th style="min-width: 120px" data-orderable="false">Reel</th>
                 <th style="min-width: 140px" data-orderable="false">Alta</th>
                 <th style="min-width: 120px" data-orderable="false">Acciones</th>
             </tr>

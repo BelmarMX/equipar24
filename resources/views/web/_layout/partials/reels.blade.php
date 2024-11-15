@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-12">
             <div class="text-center mb-2">Nuevas Historias</div>
-            <div class="table-responsive responsive-horizontal">
+            <div class="table-responsive responsive-horizontal py-3">
                 <ul class="reels flex-wrap">
                     @foreach($reels AS $reel)
                         <li class="reels__item position-relative mb-2" data-bs-toggle="tooltip" title="{{$reel->title}}">

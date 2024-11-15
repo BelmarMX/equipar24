@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('link_summary', 512)->nullable();
             $table->dateTime('starts_at')->useCurrent();
             $table->dateTime('ends_at');
+            $table->string('image', 2040)->nullable();
+            $table->string('image_rx', 2040)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

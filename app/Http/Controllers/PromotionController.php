@@ -7,6 +7,7 @@ use App\Classes\Navigation;
 use App\Http\Requests\PromotionRequest;
 use App\Models\Promotion;
 use App\Models\PromotionProduct;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -93,9 +94,10 @@ class PromotionController extends Controller
             , ImagesSettings::PROMOS_HEIGHT_MV
         );
 
-        $validated['image'] = $stored->full->original;
-        $validated['image_rx'] = $stored->full->thumbnail ?? NULL;
-        $validated['image_mv'] = $stored->mobile->original ?? NULL;
+        $validated['image']     = $stored->full->original;
+        $validated['image_rx']  = $stored->full->thumbnail ?? NULL;
+        $validated['image_mv']  = $stored->mobile->original ?? NULL;
+        $validated['ends_at']   = Carbon::parse($validated['ends_at'])->endOfDay();
 
         $created = Promotion::create($validated);
         return redirect()->route('promotions.index', compact('created'));
@@ -139,9 +141,10 @@ class PromotionController extends Controller
             , $promotion->image_rx
         );
 
-        $validated['image'] = $stored->full->original ?? $promotion->image;
-        $validated['image_rx'] = $stored->full->thumbnail ?? $promotion->image_rx;
-        $validated['image_mv'] = $stored->mobile->original ?? $promotion->image_mv;
+        $validated['image']     = $stored->full->original ?? $promotion->image;
+        $validated['image_rx']  = $stored->full->thumbnail ?? $promotion->image_rx;
+        $validated['image_mv']  = $stored->mobile->original ?? $promotion->image_mv;
+        $validated['ends_at']   = Carbon::parse($validated['ends_at'])->endOfDay();
 
         $promotion->update($validated);
         PromotionProduct::sync_prices_by_promotion($promotion);
