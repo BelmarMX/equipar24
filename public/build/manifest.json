@@ -78,12 +78,14 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/banners.js": {
-    "file": "assets/banners-DLpwqGDb.js",
+    "file": "assets/banners-DCb2WLBJ.js",
     "name": "banners",
     "src": "resources/assets/js/dashboard/datatables/banners.js",
     "isEntry": true,
     "imports": [
-      "resources/assets/js/dashboard/datatables/common.js"
+      "resources/assets/js/dashboard/datatables/common.js",
+      "resources/assets/js/dashboard/alerts.js",
+      "_sweetalert2.esm.all-Br4OTrmy.js"
     ]
   },
   "resources/assets/js/dashboard/datatables/blogArticles.js": {
@@ -352,7 +354,7 @@
     "isEntry": true
   },
   "resources/assets/scss/web/app.scss": {
-    "file": "assets/app-7CqMgpMh.css",
+    "file": "assets/app-dORLSAqF.css",
     "src": "resources/assets/scss/web/app.scss",
     "isEntry": true
   },
