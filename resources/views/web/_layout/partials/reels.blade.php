@@ -8,8 +8,8 @@
                     <li class="reels__item position-relative mb-2" data-bs-toggle="tooltip" title="{{$reel->title}}">
                         <video class="reels__item--video"
                                src="{{$reel->asset_url.$reel->video}}"
-                               poster="{{ !is_null($reel->image_rx) ? $reel->asset_url.$reel->image_rx : asset('storage/web/equipar_reel_cover.webp' }}"
-                               data-poster="{{ !is_null($reel->image_rx) ? $reel->asset_url.$reel->image_rx : asset('storage/web/equipar_reel_cover.webp' }}"
+                               poster="{{ !is_null($reel->image_rx) ? $reel->asset_url.$reel->image_rx : asset('storage/web/equipar_reel_cover.webp') }}"
+                               data-poster="{{ !is_null($reel->image_rx) ? $reel->asset_url.$reel->image_rx : asset('storage/web/equipar_reel_cover.webp') }}"
                                muted
                         ></video>
                         @if($reel->link)
