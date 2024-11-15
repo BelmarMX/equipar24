@@ -95,6 +95,10 @@ window.onload = event => {
         document.querySelectorAll('.reels__item--video').forEach(el => {
             el.addEventListener('click', event => {
                 event.preventDefault()
+                if( document.querySelector('.reel-story') )
+                {
+                    document.querySelector('.reel-story').remove()
+                }
                 setTimeout(() => {
                     document.querySelectorAll('.bs-tooltip-auto').forEach(e => e.remove())
                 }, 100)
