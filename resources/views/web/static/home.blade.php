@@ -48,6 +48,7 @@
                         <video id="equipar-reel" class="reels__item--video w-100"
                                src="{{ asset('storage/web/equipar_reel.mp4')}}"
                                poster="{{ asset('storage/web/equipar_reel_cover.webp')}}"
+                               data-poster="{{ asset('storage/web/equipar_reel_cover.webp')}}"
                                autoplay
                                muted
                         >

@@ -91,7 +91,7 @@ window.onload = event => {
                 let video_url   = event.target.src
                 let dataset     = el.dataset
                 let html        = `<div class="reel-story">
-                    <video class="js-player mx-auto" playsinline controls autoplay muted poster="${dataset.poster}" data-poster="${dataset.poster}">
+                    <video class="js-player mx-auto" playsinline controls autoplay poster="${dataset.poster}">
                         <source src="${ video_url }"/>
                     </video>
                 </div>`
@@ -104,6 +104,9 @@ window.onload = event => {
                     customClass:        'reels_pop'
                 })
                 Plyr.setup('.js-player', { controls: ['play-large', 'restart', 'play', 'progress', 'current-time', 'duration','mute', 'volume', 'fullscreen'] });
+                setTimeout(() => {
+                    document.querySelector('.plyr__controls__item.plyr__control').click()
+                }, 100)
             })
         })
     }
