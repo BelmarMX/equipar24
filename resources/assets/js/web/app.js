@@ -105,8 +105,8 @@ window.onload = event => {
                 })
                 Plyr.setup('.js-player', { controls: ['play-large', 'restart', 'play', 'progress', 'current-time', 'duration','mute', 'volume', 'fullscreen'] });
                 setTimeout(() => {
-                    document.querySelector('.plyr__controls__item.plyr__control').click()
-                }, 100)
+                    document.querySelector('.plyr__controls__item.plyr__control[data-plyr="play"][aria-pressed="false"]').click()
+                }, 500)
             })
         })
     }
