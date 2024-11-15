@@ -85,7 +85,15 @@
                         </div>
                         <div class="row productos__main_product__price">
                             <div class="col-md-6 mb-2">
-                                <div class="productos__main_product__price--price">
+                                @if( $with_discount )
+                                    <div class="productos__main_product__price--price mb-1">
+                                        <small>Antes:</small> <small style="text-decoration: line-through">${{ number_format($with_discount->original_price, 2, '.', ',') }}</small><br>
+                                        <strong>Ahorras: ${{ number_format($with_discount->discount, 2, '.', ',') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="col-md-6 productos__main_product__price--quote">
+                                <div class="productos__main_product__price--price" style="transform: scale(1.1)">
                                     @if( $with_discount = $entry -> get_higer_active_promo() )
                                         ${{ number_format($with_discount -> total, 2, '.', ',') }} <span class="productos__main_product__price--currency">MXN</span>
                                     @else
@@ -98,14 +106,6 @@
                                         <span>¡Incluye flete!</span>
                                     @endif
                                 </div>
-                            </div>
-                            <div class="col-md-6 productos__main_product__price--quote">
-                                @if( $with_discount )
-                                    <div class="productos__main_product__price--price mb-1">
-                                        <small>Antes:</small> <small style="text-decoration: line-through">${{ number_format($with_discount->original_price, 2, '.', ',') }}</small><br>
-                                        <strong>Ahorras: ${{ number_format($with_discount->discount, 2, '.', ',') }}</strong>
-                                    </div>
-                                @endif
                                 <button aria-label="Agrega el producto al cotizador"
                                         data-bs-toggle="tooltip"
                                         title="Agregar al cotizador"

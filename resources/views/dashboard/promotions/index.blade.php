@@ -16,9 +16,9 @@
                 <th style="min-width: 240px">Descripción</th>
                 <th data-orderable="false">Vista previa</th>
                 <th data-orderable="false">Descuento</th>
-                <th data-orderable="false" style="min-width: 80px">Vigencia</th>
+                <th data-orderable="false" style="min-width: 100px">Vigencia</th>
                 <th data-orderable="false">Alta</th>
-                <th data-orderable="false">Acciones</th>
+                <th data-orderable="false"  style="min-width: 106px">Acciones</th>
             </tr>
             </thead>
         </table>

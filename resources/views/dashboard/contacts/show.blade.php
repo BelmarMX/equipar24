@@ -88,7 +88,7 @@
                                             <td class="px-3 py-2 text-right">{{ $detail->product_id }}</td>
                                             <td class="px-3 py-2" style="max-width: 430px">
                                                 <small>{{ $detail->product_name }}</small>
-                                                @if($detail->product_name != $detail->product->title)
+                                                @if(isset($detail->product) && $detail->product_name != $detail->product->title)
                                                 <br><small data-tooltip="Nombre actual"><i class="fa-solid fa-rotate-right"></i> {{ $detail->product->title }}</small>
                                                 @endif
                                             </td>

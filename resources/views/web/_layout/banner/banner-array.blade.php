@@ -5,6 +5,11 @@
          data-bs-touch="true"
          data-bs-interval="5500"
     >
+        <div class="carousel-indicators">
+            @for($i=0; $i<=count($banners); $i++)
+                <button type="button" data-bs-target="#banner__slider" data-bs-slide-to="{{$i}}" @if($i==0) class="active" @endif></button>
+            @endfor
+        </div>
         <div class="carousel-inner">
             @foreach($banners AS $banner)
                 <div class="carousel-item @if($loop -> first) active @endif">

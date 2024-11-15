@@ -78,6 +78,7 @@ class Banner extends Model
                 ->where('ends_at', '>=', now());
         })
             ->orWhereDoesntHave('promotion')
+            ->orderBy('order')
             ->orderBy('id', 'DESC') -> get();
     }
 }

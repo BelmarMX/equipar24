@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\ImagesSettings;
 use App\Http\Requests\BannerRequest;
 use App\Models\Banner;
+use App\Models\ProductCategory;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -158,6 +159,26 @@ class BannerController extends Controller
 
         $banner -> update($validated);
         return redirect() -> route('banners.index', ['updated' => $banner -> id]);
+    }
+
+    public function reorder()
+    {
+        return view('dashboard.banners.order', [
+                'subtitle'  => 'Reordenar'
+            ,   'records'   => Banner::get_banners()
+        ]);
+    }
+
+    public function update_order(Request $request)
+    {
+        foreach($request->order AS $order)
+        {
+            $banner        = Banner::find($order['id']);
+            $banner->order = $order['position'];
+            $banner->save();
+        }
+
+        return response()->json(['success'=>TRUE, 'message'=>'Orden actualizado']);
     }
 
     /**

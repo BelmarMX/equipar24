@@ -14,9 +14,10 @@
                 <th>Título</th>
                 <th>Enlace</th>
                 <th>Promoción</th>
-                <th data-orderable="false">Vista previa</th>
+                <th>Orden</th>
+                <th data-orderable="false" style="min-width: 106px;">Vista previa</th>
                 <th data-orderable="false">Alta</th>
-                <th data-orderable="false">Acciones</th>
+                <th data-orderable="false" style="min-width: 106px;">Acciones</th>
             </tr>
             </thead>
         </table>
@@ -24,8 +25,9 @@
 
     @push('ESmodules')
         <script>
-            const url_route     = '{{ route('dashboard.banners.datatable') }}';
-            const with_trashed  = {{ !empty($with_trashed) && $with_trashed ? 'true' : 'false' }}
+            const url_route         = '{{ route('dashboard.banners.datatable') }}';
+            const url_route_order   = '{{ route('dashboard.banners.reorder') }}'
+            const with_trashed      = {{ !empty($with_trashed) && $with_trashed ? 'true' : 'false' }}
         </script>
         @vite(['resources/assets/js/dashboard/datatables/common.js', 'resources/assets/js/dashboard/datatables/banners.js'])
     @endpush

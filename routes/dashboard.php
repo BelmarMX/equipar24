@@ -50,6 +50,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('archived/view', 'archived')->name('banners.archived');
         Route::get('delete/{banner}', 'destroy')->name('banners.delete');
         Route::get('restore/{banner_id}', 'restore')->name('banners.restore');
+        Route::get('reorder/view', 'reorder')->name('dashboard.banners.reorder');
+        Route::post('reorder/sort', 'update_order')->name('dashboard.banners.sort');
     });
 
     Route::resource('reels', ReelController::class);
