@@ -24,6 +24,22 @@ h1#home_h1{
 	background: $gray_equipar;
 	border-radius: 10px;
 	padding: 20px;
+
+    video{
+        cursor: pointer;
+    }
+    .reel-play-btn{
+        color: #d5ac63;
+        font-size: 50px;
+        top: calc(50% - 40px);
+        left: calc(50% - 25px);
+        cursor: pointer;
+    }
+    &:hover{
+        .reel-play-btn{
+            opacity: .75;
+        }
+    }
 }
 .index__nosotros__summary{
 	.index__nosotros--icon{
