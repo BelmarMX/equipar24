@@ -6,4 +6,4 @@ import{P as ci}from"./plyr.min-Bx69nal5.js";import{S as ui}from"./sweetalert2.es
                     <video class="js-player mx-auto" playsinline controls autoplay poster="${t.dataset.poster}">
                         <source src="${s}"/>
                     </video>
-                </div>`;ui.fire({html:r,showCloseButton:!0,showCancelButton:!1,showConfirmButton:!1,focusConfirm:!1,customClass:"reels_pop"}),ci.setup(".js-player",{controls:["play-large","restart","play","progress","current-time","duration","mute","volume","fullscreen"]}),setTimeout(()=>{document.querySelector('.plyr__controls__item.plyr__control[data-plyr="play"][aria-pressed="false"]').click()},500)})})};
+                </div>`;ui.fire({html:r,showCloseButton:!0,showCancelButton:!1,showConfirmButton:!1,focusConfirm:!1,customClass:"reels_pop"}),ci.setup(".js-player",{controls:["play-large","restart","play","progress","current-time","duration","mute","volume","fullscreen"]}),setTimeout(()=>{document.querySelector('.plyr__controls__item.plyr__control[data-plyr="play"][aria-pressed="false"]').click()},1250)})})};
