@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-md-6 mb-4">
                     <div id="reel-container" class="position-relative cursor-pointer">
-                        <video id="equipar-reel" class="reels__item--video w-100" src="{{ asset('storage/web/equipar_reel.mp4')}}" poster="{{ asset('storage/web/equipar_reel_cover.webp')}}" muted>
+                        <video id="equipar-reel" class="reels__item--video w-100" src="{{ asset('storage/web/equipar_reel.mp4')}}" poster="{{ asset('storage/web/equipar_reel_cover.webp')}}" autoplay muted>
                             <source src="{{ asset('storage/web/equipar_reel.mp4')}}" type="video/mp4">
                         </video>
                         <i class="bi bi-play-circle-fill position-absolute reel-play-btn"></i>
