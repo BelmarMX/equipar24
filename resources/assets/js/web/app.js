@@ -88,9 +88,10 @@ window.onload = event => {
                 setTimeout(() => {
                     document.querySelectorAll('.bs-tooltip-auto').forEach(e => e.remove())
                 }, 100)
-                let video_url = event.target.src
-                let html    = `<div class="reel-story">
-                    <video class="js-player mx-auto" playsinline controls autoplay>
+                let video_url   = event.target.src
+                let dataset     = event.target.dataset()
+                let html        = `<div class="reel-story">
+                    <video class="js-player mx-auto" playsinline controls autoplay muted poster="${dataset.poster}">
                         <source src="${ video_url }"/>
                     </video>
                 </div>`
