@@ -104,7 +104,8 @@ window.onload = event => {
                 }, 100)
                 let video_url   = event.target.src
                 let dataset     = el.dataset
-                let html        = `<div class="reel-story">
+                let random_id   = 'el_vid_'+Math.random().toString(36).substring(2, 8)
+                let html        = `<div class="reel-story" id="${random_id}">
                     <video class="js-player mx-auto" playsinline controls autoplay poster="${dataset.poster}">
                         <source src="${ video_url }"/>
                     </video>
@@ -119,7 +120,10 @@ window.onload = event => {
                 })
                 Plyr.setup('.js-player', { controls: ['play-large', 'restart', 'play', 'progress', 'current-time', 'duration','mute', 'volume', 'fullscreen'] });
                 setTimeout(() => {
-                    document.querySelector('.plyr__controls__item.plyr__control[data-plyr="play"][aria-pressed="false"]').click()
+                    if( document.querySelector('#'+random_id+' .plyr__controls__item.plyr__control[data-plyr="play"][aria-pressed="false"]') )
+                    {
+                        document.querySelector('#'+random_id+' .plyr__controls__item.plyr__control[data-plyr="play"][aria-pressed="false"]').click()
+                    }
                 }, 750)
             })
         })
