@@ -74,3 +74,12 @@
         }
     </style>
 @endpush
+@push('customJs')
+    <script>
+        if( localStorage.getItem('isFromQuota') && localStorage.getItem('isFromQuota') === 'true' )
+        {
+            localStorage.removeItem('products')
+        }
+    </script>
+    @vite(['resources/assets/js/web/contactor.js'])
+@endpush

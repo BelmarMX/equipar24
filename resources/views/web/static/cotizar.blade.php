@@ -129,6 +129,7 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         document.getElementById('quotasForm').addEventListener('submit', () => {
+            localStorage.setItem('isFromQuota', true)
             document.getElementById('load8').removeAttribute('hidden')
         })
     </script>
