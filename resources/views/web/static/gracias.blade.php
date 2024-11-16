@@ -79,6 +79,7 @@
         if( localStorage.getItem('isFromQuota') && localStorage.getItem('isFromQuota') === 'true' )
         {
             localStorage.removeItem('products')
+            localStorage.removeItem('isFromQuota')
         }
     </script>
     @vite(['resources/assets/js/web/contactor.js'])
