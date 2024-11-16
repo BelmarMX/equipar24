@@ -252,8 +252,8 @@ class FormSubmitController extends Controller
             $contact->state_id  = $validated['state_id'];
             $contact->city_id   = $validated['city_id'];
             $contact->name      = $validated['name'];
-            //$contact->email     = $validated['email'];
             $contact->phone     = $validated['phone'];
+            $contact->company   = $validated['company'];
             $contact->save();
         }
 
@@ -293,8 +293,8 @@ class FormSubmitController extends Controller
             $contact->state_id  = $validated['state_id'];
             $contact->city_id   = $validated['city_id'];
             $contact->name      = $validated['name'];
-            //$contact->email     = $validated['email'];
             $contact->phone     = $validated['phone'];
+            $contact->company   = $validated['company'];
             $contact->save();
         }
 
@@ -314,7 +314,6 @@ class FormSubmitController extends Controller
             FormQuotationDetail::create([
                     'form_submit_id'    => $submitted->id
                 ,   'product_id'        => $product->id
-                // ! Aquí hay algo raro: revisar
                 ,   'promotion_id'      => !empty($has_promo) ? $has_promo->promotion_id : NULL
                 ,   'uuid'              => Str::uuid()
                 ,   'quantity'          => $validated['qty'][$product_id][0]
