@@ -106,7 +106,6 @@ $(document).ready(function() {
                        class="block w-full pt-3 pb-2 p-2 mt-0 bg-gray-50 hover:bg-gray-100 border-0 border-b-2 border-violet-50 rounded appearance-none focus:outline-none focus:ring-0 focus:border-violet-700"
                        value="${input_source.val().replaceAll('"', "&quot;")}"
                        data-feature-item
-                       readonly
                 >
             </div>`)
         .val()
@@ -115,6 +114,21 @@ $(document).ready(function() {
         input_source.val('')
         input_source.focus()
     })
+
+    $(document).on('focusout', '[data-feature-item]', function(e) {
+        let wrapper         = $(this).parents('[data-features-wrapper]')
+        let raw_container   = wrapper.find('[data-features-raw]')
+        let all_items       = $($('[data-feature-item]').get().reverse())
+        let new_value       = ''
+        all_items.each((i, el) => {
+            new_value = new_value !== ''
+                ? new_value +'|'+el.value
+                : el.value
+        })
+
+        raw_container.val(new_value)
+    })
+
     $(document).on('click', '[data-feature-action-remove]', function(e) {
         let wrapper         = $(this).parents('[data-features-wrapper]')
         let raw_container   = wrapper.find('[data-features-raw]')

@@ -65,7 +65,7 @@
     ]
   },
   "resources/assets/js/dashboard/behavior.js": {
-    "file": "assets/behavior-C3PjBV9v.js",
+    "file": "assets/behavior-Cwh19ojr.js",
     "name": "behavior",
     "src": "resources/assets/js/dashboard/behavior.js",
     "isEntry": true,
@@ -290,7 +290,7 @@
     ]
   },
   "resources/assets/js/web/app.js": {
-    "file": "assets/app-C98mhZID.js",
+    "file": "assets/app-CMYOb97L.js",
     "name": "app",
     "src": "resources/assets/js/web/app.js",
     "isEntry": true,
@@ -344,7 +344,7 @@
     ]
   },
   "resources/assets/scss/dashboard/app.scss": {
-    "file": "assets/app-RyrOS0Vu.css",
+    "file": "assets/app-D3zWjuHg.css",
     "src": "resources/assets/scss/dashboard/app.scss",
     "isEntry": true
   },

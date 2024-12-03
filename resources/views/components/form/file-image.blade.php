@@ -1,7 +1,7 @@
 @props(['name', 'placeholder', 'required', 'value', 'readonly', 'disabled', 'dimensions_tag', 'width', 'height'])
 
 <div {{ $attributes->merge(['class' => 'flex flex-col justify-center w-full']) }}>
-    <label for="{{ $name }}" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-100 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+    <label for="{{ $name }}" class="flex flex-col items-center justify-center label-form-input-file-oculto w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-100 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
         <div class="flex flex-col items-center justify-center">
             <div id="vista_previa_{{ $name }}" class="flex mb-4 text-gray-500 dark:text-gray-400 justify-center @empty($value) hidden @endempty" style="max-height: 150px; padding: 0 10px">
                 <img class="image_preview h-full" src="@if( !empty($value) ){{ $value }}@endif" alt="Vista Previa de {{ $name }}">
@@ -13,7 +13,7 @@
             <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG o WEBP (@isset( $dimensions_tag ){{ $dimensions_tag }} @endisset{{ $width }}x{{ $height }}px)</p>
             <span class="metadata text-xs text-sky-500 dark:text-sky-400 hidden" style="padding: 1px 10px"></span>
         </div>
-        <input id="{{ $name }}" name="{{ $name }}" type="file" class="hidden" data-preview-image="#vista_previa_{{ $name }}" accept="image/jpeg,image/jpg,image/png,image/webp"/>
+        <input id="{{ $name }}" name="{{ $name }}" type="file" class="input-form-file-oculto" data-preview-image="#vista_previa_{{ $name }}" accept="image/jpeg,image/jpg,image/png,image/webp"/>
     </label>
     @error($name)
         <x-form.error-field :id="$name" :error="$message" />

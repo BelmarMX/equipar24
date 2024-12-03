@@ -111,12 +111,14 @@ window.onload = event => {
                     </video>
                 </div>`
                 swal.fire({
-                    html:               html,
-                    showCloseButton:    true,
-                    showCancelButton:   false,
-                    showConfirmButton:  false,
-                    focusConfirm:       false,
-                    customClass:        'reels_pop'
+                        html:               html
+                    ,   showCloseButton:    true
+                    ,   showCancelButton:   false
+                    ,   showConfirmButton:  false
+                    ,   focusConfirm:       false
+                    ,   customClass:        'reels_pop'
+                    ,   didOpen:            O => { window.location.hash = 'reel_open' }
+                    ,   didClose:           O => { window.location.hash = '' }
                 })
                 Plyr.setup('.js-player', { controls: ['play-large', 'restart', 'play', 'progress', 'current-time', 'duration','mute', 'volume', 'fullscreen'] });
                 setTimeout(() => {
@@ -128,4 +130,10 @@ window.onload = event => {
             })
         })
     }
+
+    $(window).on('hashchange', function (event) {
+        if(window.location.hash !== "#reel_open") {
+            $('.swal2-close').click()
+        }
+    });
 }

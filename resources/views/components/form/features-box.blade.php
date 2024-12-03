@@ -28,7 +28,6 @@
                        class="block w-full pt-3 pb-2 p-2 mt-0 bg-gray-50 hover:bg-gray-100 border-0 border-b-2 border-violet-50 rounded appearance-none focus:outline-none focus:ring-0 focus:border-violet-700"
                        value="{{ $feature }}"
                        data-feature-item
-                       readonly
                 >
             </div>
         @endforeach
@@ -47,6 +46,9 @@
                    data-feature-input-source
             >
         </div>
-        <textarea data-features-raw class="hidden" name="{{ $name }}" id="{{ $name }}" readonly>{{ $raw_features }}</textarea>
+        <textarea data-features-raw class="hidden w-full" name="{{ $name }}" id="{{ $name }}" @isset($required) required @endisset readonly>{{ $raw_features }}</textarea>
     </div>
+    @error($name)
+        <x-form.error-field :id="$name" :error="$message" />
+    @enderror
 </div>

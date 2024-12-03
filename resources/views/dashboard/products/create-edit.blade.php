@@ -82,7 +82,7 @@
                                 <x-form.checkbox name="with_freight" label="¿Incluye flete?" fa_icon="fa-truck-fast" value="1" checked="{{ old('with_freight', $record->with_freight) }}" :width="100" class="mb-6"/>
                             </div>
                         </div>
-                        <x-form.features-box name="features" placeholder="Características" value="{{ old('features', $record->features) }}" class="mb-6"/>
+                        <x-form.features-box name="features" placeholder="Características" value="{{ old('features', $record->features) }}" required class="mb-6"/>
                     </div>
                     <div class="md:w-4/12 md:ms-[8.333%] w-full">
                         <x-form.file-image name="image"
