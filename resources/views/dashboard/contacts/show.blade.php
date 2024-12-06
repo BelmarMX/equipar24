@@ -57,8 +57,8 @@
                     <div class="w-full mb-4">
                         <h2>Atención</h2>
                     </div>
-                    <x-form.input-text name="user.name" placeholder="Nombre del usuario de atención" value="{{ Auth::user()->name }}" readonly class="mb-6 md:w-4/12"/>
-                    <x-form.input-text name="user.email" placeholder="Email del usuario de atención" value="{{ Auth::user()->email }}" readonly class="mb-6 md:w-4/12"/>
+                    <x-form.input-text name="user.name" placeholder="Nombre del usuario de atención" value="{{ $attended->name }}" readonly class="mb-6 md:w-4/12"/>
+                    <x-form.input-text name="user.email" placeholder="Email del usuario de atención" value="{{ $attended->email }}" readonly class="mb-6 md:w-4/12"/>
                     <x-form.input-text name="form_contact.date" placeholder="Fecha de atención" value="{{ \Carbon\Carbon::parse(now())->format('d/m/Y H:i') }}" readonly class="mb-6 md:w-4/12"/>
                 </div>
                 <div class="flex flex-wrap">

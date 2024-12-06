@@ -340,9 +340,11 @@ class ProductController extends Controller
 
     public function show_category($slug_category)
     {
-        $product_category   = ProductCategory::where('slug', $slug_category)->firstOrFail();
-        $column             = 'id';
-        $sort               = 'DESC';
+        $product_category       = ProductCategory::where('slug', $slug_category)->firstOrFail();
+        $related_brands         = ProductBrand::get_brands_of_category($product_category->id);
+
+        $column                 = 'id';
+        $sort                   = 'DESC';
         if( !empty($_GET['sort']) && $_GET['sort'] == 'y' )
         {
             switch($_GET['orderby'])
@@ -371,7 +373,7 @@ class ProductController extends Controller
 
         return view('web.products.categoria-productos', array_merge(
                 Navigation::get_static_data(['reels', 'featured', 'articles'])
-            ,   compact('product_category', 'entries')
+            ,   compact('product_category', 'related_brands', 'entries')
         ));
     }
 
@@ -379,6 +381,8 @@ class ProductController extends Controller
     {
         $product_category       = ProductCategory::where('slug', $slug_category)->firstOrFail();
         $product_subcategory    = ProductSubcategory::where('slug', $slug_subcategory)->where('product_category_id', $product_category->id)->firstOrFail();
+        $related_brands         = ProductBrand::get_brands_of_category($product_category->id);
+
         $column                 = 'id';
         $sort                   = 'DESC';
         if( !empty($_GET['sort']) && $_GET['sort'] == 'y' )
@@ -410,7 +414,7 @@ class ProductController extends Controller
 
         return view('web.products.categoria-productos', array_merge(
                 Navigation::get_static_data(['reels', 'featured', 'articles'])
-            ,   compact('product_category', 'product_subcategory', 'entries')
+            ,   compact('product_category', 'product_subcategory', 'related_brands', 'entries')
         ));
     }
 

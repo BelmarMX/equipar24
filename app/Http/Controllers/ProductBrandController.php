@@ -180,8 +180,31 @@ class ProductBrandController extends Controller
     {
         $product_brand          = ProductBrand::where('slug', $slug_brand)->firstOrFail();
         $product_category       = NULL;
+        $column                 = 'id';
+        $sort                   = 'DESC';
+        if( !empty($_GET['sort']) && $_GET['sort'] == 'y' )
+        {
+            switch($_GET['orderby'])
+            {
+                case 'min':
+                    $column             = 'price';
+                    $sort               = 'ASC';
+                    break;
+                case 'max':
+                    $column             = 'price';
+                    break;
+                case 'az':
+                    $column             = 'title';
+                    $sort               = 'ASC';
+                    break;
+                case 'za':
+                    $column             = 'title';
+                    break;
+            }
+        }
         $entries                = Product::with(['product_brand', 'product_category', 'product_subcategory'])
             ->where('product_brand_id', $product_brand->id)
+            ->orderBy($column, $sort)
             ->paginate(24);
         $related_categories     = ProductBrand::get_product_categories_of_brand($product_brand->id);
 
@@ -195,16 +218,41 @@ class ProductBrandController extends Controller
     {
         $product_brand          = ProductBrand::where('slug', $slug_brand)->firstOrFail();
         $product_category       = ProductCategory::where('slug', $slug_category)->firstOrFail();
+        $column                 = 'id';
+        $sort                   = 'DESC';
+        if( !empty($_GET['sort']) && $_GET['sort'] == 'y' )
+        {
+            switch($_GET['orderby'])
+            {
+                case 'min':
+                    $column             = 'price';
+                    $sort               = 'ASC';
+                    break;
+                case 'max':
+                    $column             = 'price';
+                    break;
+                case 'az':
+                    $column             = 'title';
+                    $sort               = 'ASC';
+                    break;
+                case 'za':
+                    $column             = 'title';
+                    break;
+            }
+        }
         $entries                = Product::with(['product_brand', 'product_category', 'product_subcategory'])
             ->where('product_brand_id', $product_brand->id)
             ->where('product_category_id', $product_category->id)
+            ->orderBy($column, $sort)
             ->paginate(24);
+
+        $related_brands         = ProductBrand::get_brands_of_category($product_category->id);
         $related_categories     = ProductBrand::get_product_categories_of_brand($product_brand->id);
         $related_subcategories  = ProductBrand::get_product_subcategories_of_brand($product_brand->id, $product_category->id);
 
         return view('web.products.marca-productos', array_merge(
             Navigation::get_static_data(['banner', 'reels', 'articles'])
-            ,   compact('product_brand', 'entries', 'product_category', 'related_categories', 'related_subcategories')
+            ,   compact('product_brand', 'entries', 'product_category', 'related_categories', 'related_subcategories', 'related_brands')
         ));
     }
 
@@ -213,17 +261,42 @@ class ProductBrandController extends Controller
         $product_brand          = ProductBrand::where('slug', $slug_brand)->firstOrFail();
         $product_category       = ProductCategory::where('slug', $slug_category)->firstOrFail();
         $product_subcategory    = ProductSubcategory::where('slug', $slug_subcategory)->firstOrFail();
+        $column                 = 'id';
+        $sort                   = 'DESC';
+        if( !empty($_GET['sort']) && $_GET['sort'] == 'y' )
+        {
+            switch($_GET['orderby'])
+            {
+                case 'min':
+                    $column             = 'price';
+                    $sort               = 'ASC';
+                    break;
+                case 'max':
+                    $column             = 'price';
+                    break;
+                case 'az':
+                    $column             = 'title';
+                    $sort               = 'ASC';
+                    break;
+                case 'za':
+                    $column             = 'title';
+                    break;
+            }
+        }
         $entries                = Product::with(['product_brand', 'product_category', 'product_subcategory'])
             ->where('product_brand_id', $product_brand->id)
             ->where('product_category_id', $product_category->id)
             ->where('product_subcategory_id', $product_subcategory->id)
+            ->orderBy($column, $sort)
             ->paginate(24);
+
+        $related_brands         = ProductBrand::get_brands_of_category($product_category->id);
         $related_categories     = ProductBrand::get_product_categories_of_brand($product_brand->id);
         $related_subcategories  = ProductBrand::get_product_subcategories_of_brand($product_brand->id, $product_category->id);
 
         return view('web.products.marca-productos', array_merge(
             Navigation::get_static_data(['banner', 'reels', 'articles'])
-            ,   compact('product_brand', 'entries', 'product_category', 'product_subcategory', 'related_categories', 'related_subcategories')
+            ,   compact('product_brand', 'entries', 'product_category', 'product_subcategory', 'related_categories', 'related_subcategories', 'related_brands')
         ));
     }
 }

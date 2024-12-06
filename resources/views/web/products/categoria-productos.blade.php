@@ -39,7 +39,19 @@
         ])
 
         <section id="filter-box" class="row mb-4 pt-2 px-2">
-            <div class="col-md-4 offset-md-8">
+            <div class="col-md-4 offset-md-4">
+                <div class="input-group mb-3">
+                    <label class="d-block w-100 text-center" for="sel-order">Ver @yield('title') por marca</label>
+                    <span class="input-group-text"><i class="bi bi-filter"></i></span>
+                    <select data-filterby="brand" id="sel-brand" class="form-select" aria-label="Filtrar por marca">
+                        <option value="">Seleccionar marca</option>
+                        @foreach($related_brands AS $brand)
+                            <option value="{{ $brand->slug  }}">{{ $brand->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
                 <div class="input-group mb-3">
                     <label class="d-block w-100 text-center" for="sel-order">Ordenar por</label>
                     <span class="input-group-text"><i class="bi bi-filter"></i></span>
@@ -109,6 +121,15 @@
                     }
                 })
                 location.href = chain;
+            })
+        })
+
+        document.querySelectorAll('[data-filterby]').forEach(element => {
+            element.addEventListener('change', event => {
+                event.preventDefault()
+                let sorted = window.location.search
+
+                location.href = '/marcas/'+element.value+'/{{ $product_category->slug  }}' + sorted
             })
         })
     </script>

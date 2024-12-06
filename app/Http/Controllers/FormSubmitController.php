@@ -147,8 +147,22 @@ class FormSubmitController extends Controller
      */
     public function show(FormSubmit $contact)
     {
-        $totals = $contact->calculate_value_quotation(FALSE);
-        return view('dashboard.contacts.show', compact('contact', 'totals'));
+        $totals             = $contact->calculate_value_quotation(FALSE);
+        $attended           = new \stdClass();
+        $attended->email    = Auth::user()->email;
+        $attended->name     = Auth::user()->name;
+
+        if( !is_null($contact->approved_by_user_id) )
+        {
+            $attended->email    = $contact->approved_by->email;
+            $attended->name     = $contact->approved_by->name;
+        }
+        elseif( !is_null($contact->rejected_by_user_id) )
+        {
+            $attended->email    = $contact->rejected_by->email;
+            $attended->name     = $contact->rejected_by->name;
+        }
+        return view('dashboard.contacts.show', compact('contact', 'totals', 'attended'));
     }
 
     /**
