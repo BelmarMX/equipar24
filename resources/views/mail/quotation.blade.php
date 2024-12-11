@@ -105,7 +105,7 @@
                     EQUIPO DE COCINA INDUSTRIAL
                 </div>
                 <div class="col-md-12 mb-3">
-                    <table class="table w-100">
+                    <table class="table" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="text-center">PARTE</th>
@@ -121,20 +121,20 @@
                         <tbody>
                         @foreach($data->form_quotation_details()->get() AS $detail)
                             <tr>
-                                <td class="text-right">{{ $detail->product_id }}</td>
-                                <td class="text-center">
+                                <td style="width: 10%;" class="text-right">{{ $detail->product_id }}</td>
+                                <td style="width: 10%;" class="text-center">
                                     <img src="{{ url('storage/'.$ImagesSettings::PRODUCT_FOLDER.$detail->product_image) }}" width="75" height="75" alt="{{ $detail->product_name }}" style="height: 75px; width: auto;">
                                 </td>
-                                <td>{{ $detail->product_brand }}/{{ $detail->product_model }}</td>
-                                <td>{{ $detail->product_name }}</td>
-                                <td class="text-right">{{$detail->quantity}}</td>
-                                <td class="text-right">${{ number_format($detail->original_price) }}</td>
-                                <td class="text-right">
+                                <td style="width: 10%;">{{ $detail->product_brand }}/{{ $detail->product_model }}</td>
+                                <td style="width: 30%;">{{ $detail->product_name }}</td>
+                                <td style="width: 10%;" class="text-right">{{$detail->quantity}}</td>
+                                <td style="width: 10%;" class="text-right">${{ number_format($detail->original_price) }}</td>
+                                <td style="width: 10%;" class="text-right">
                                     @if( isset($detail->promotion->title) && !is_null($detail->promotion->title) )
                                         {{ $detail->promotion->title ? ($detail->promotion->type=='fixed' ? "-$".$detail->promotion->amount : "-".$detail->promotion->amount."%" ) : NULL }}
                                     @endif
                                 </td>
-                                <td class="text-right">${{ number_format($detail->quantity * $detail->total) }}</td>
+                                <td style="width: 10%;" class="text-right">${{ number_format($detail->quantity * $detail->total) }}</td>
                             </tr>
                         @endforeach
                         </tbody>
