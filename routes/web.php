@@ -42,6 +42,10 @@ Route::get('gracias'
     ,   [NavigationController::class, 'gracias']
 )->name('gracias');
 
+Route::get('test_quota', function(){
+    return view('mail.quotation');
+});
+
 Route::group(['prefix' => 'portafolio', 'controller' => ProjectController::class], function () {
     Route::get('/', 'view')->name('portafolio');
     Route::get('/{slug_project}', 'show')->name('portafolio-open');

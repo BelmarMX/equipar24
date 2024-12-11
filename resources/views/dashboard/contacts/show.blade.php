@@ -112,7 +112,12 @@
                                         <td class="px-3 py-2 text-right">${{ number_format($totals->original) }}</td>
                                         <td class="px-3 py-2 text-right">${{ number_format($totals->discount) }}</td>
                                         <td class="px-3 py-2 text-right"></td>
-                                        <td class="px-3 py-2 text-right">${{ number_format($totals->total) }}</td>
+                                        <td class="px-3 py-2 text-right">
+                                            ${{ number_format($totals->total, 2) }}<br>
+                                            + ${{ number_format($totals->iva, 2) }}
+                                            <hr>
+                                            ${{ number_format($totals->total + $totals->iva, 2) }}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

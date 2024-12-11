@@ -12,6 +12,7 @@ use App\Models\FormContact;
 use App\Models\FormQuotationDetail;
 use App\Models\FormSubmit;
 use App\Models\Product;
+use App\Models\ProductBrand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -332,6 +333,9 @@ class FormSubmitController extends Controller
                 ,   'uuid'              => Str::uuid()
                 ,   'quantity'          => $validated['qty'][$product_id][0]
                 ,   'product_name'      => $product->title
+                ,   'product_model'     => $product->model
+                ,   'product_brand'     => $product->product_brand->title
+                ,   'product_image'     => $product->image_rx
                 ,   'original_price'    => !empty($has_promo) ? $has_promo->original_price  : $product->price
                 ,   'discount'          => !empty($has_promo) ? $has_promo->discount        : 0
                 ,   'total'             => !empty($has_promo) ? $has_promo->total           : $product->price

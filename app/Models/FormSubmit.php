@@ -213,6 +213,8 @@ class FormSubmit extends Model
             $calculated->unitary    = $calculated->unitary + $detail->total;
             $calculated->total      = $estimated = $estimated + ($detail->quantity * $detail->total);
         }
+        $calculated->iva        = ($calculated->total * 1.16)-$calculated->total;
+
         if( $only_estimated )
         {
             return '$'.number_format($estimated);
