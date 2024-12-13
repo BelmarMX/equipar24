@@ -434,6 +434,7 @@
                             </td>
                         </tr>
                         <!-- ? PRECIO FINAL -->
+                        @if( empty($data->rejected_at) )
                         <tr>
                             <td class="wrapper text-right">
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -507,6 +508,7 @@
                                 </table>
                             </td>
                         </tr>
+                        @endif
                         <!-- ? FIRMAS -->
                         <tr>
                             <td class="wrapper">
@@ -514,6 +516,7 @@
                                 <br/>
                                 <br/>
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="5">
+                                    @if( !empty($data->rejected_at) )
                                     <tr>
                                         <td width="30%">&nbsp;</td>
                                         <td width="40%" class="border-t text-center">
@@ -522,6 +525,7 @@
                                         </td>
                                         <td width="30%">&nbsp;</td>
                                     </tr>
+                                    @endif
                                     @if( !empty($data->approved_at) || !empty($data->rejected_at) )
                                     <tr>
                                         <td width="30%">&nbsp;</td>
