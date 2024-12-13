@@ -425,11 +425,7 @@
                                         <td width="30%" class="border-b">{{ $detail->product_name }}</td>
                                         <td width="10%" class="border-b text-right">{{$detail->quantity}}</td>
                                         <td width="10%" class="border-b text-right">${{ number_format($detail->original_price, 2) }}</td>
-                                        <td width="10%" class="border-b text-right">
-                                            @if( isset($detail->promotion->title) && !is_null($detail->promotion->title) )
-                                                {{ $detail->promotion->title ? ($detail->promotion->type=='fixed' ? "-$".$detail->promotion->amount : "-".$detail->promotion->amount."%" ) : NULL }}
-                                            @endif
-                                        </td>
+                                        <td width="10%" class="border-b text-right">${{ number_format($detail->discount, 2) }}</td>
                                         <td width="10%" class="border-b text-right">${{ number_format($detail->quantity * $detail->total, 2) }}</td>
                                     </tr>
                                     @endforeach
