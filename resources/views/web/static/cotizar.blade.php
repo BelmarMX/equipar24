@@ -38,7 +38,7 @@
                             >
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label for="name" class="form-label">¿Cuál es tu name?</label>
+                            <label for="name" class="form-label">¿Cuál es tu nombre?</label>
                             <input id="name"
                                    name="name"
                                    class="form-control"
@@ -48,7 +48,7 @@
                             >
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label for="phone" class="form-label">Celular (opcional)</label>
+                            <label for="phone" class="form-label">Celular</label>
                             <input id="phone"
                                    name="phone"
                                    class="form-control"
@@ -59,7 +59,7 @@
                             >
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label for="company" class="form-label">Empresa (opcional)</label>
+                            <label for="company" class="form-label">Empresa</label>
                             <input id="company"
                                    name="company"
                                    class="form-control"
