@@ -516,7 +516,7 @@
                                 <br/>
                                 <br/>
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="5">
-                                    @if( !empty($data->rejected_at) )
+                                    @if( empty($data->rejected_at) )
                                     <tr>
                                         <td width="30%">&nbsp;</td>
                                         <td width="40%" class="border-t text-center">
