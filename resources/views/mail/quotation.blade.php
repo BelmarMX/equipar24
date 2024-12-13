@@ -391,12 +391,12 @@
                     </table>
                 </div>
                 <div class="content">
-                    <span class="preheader_show">🍽 <b>¡Hola, {{$data->form_contact->name}}!</b> agradecemos tu interés Equi-par, a continuación te hacemos llegar los detalles de tu cotización.</span>
+                    <span class="preheader_show"><b>¡Hola, {{$data->form_contact->name}}!</b> agradecemos tu interés Equi-par, a continuación te hacemos llegar los detalles de tu cotización.</span>
                     <br/>
                     <br/>
                     @if( !empty($data->approved_at) || !empty($data->rejected_at) )
-                        <span class="preheader_show"><b>Nuestro agente de atención ha dejado un mensaje:</b></span>
-                        <br/>
+                        {{--<span class="preheader"><b>Nuestro agente de atención ha dejado un mensaje:</b></span>
+                        <br/>--}}
                         <p style="margin: 0">{{ $data->notes }}</p>
                         <br/>
                     @endif
