@@ -371,7 +371,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-right" width="30%"><b>FECHA:</b>&nbsp;</td>
-                                        <td width="70%">{{ date('m/d/Y') }}</td>
+                                        <td width="70%">{{ date('d/m/Y') }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-right" width="30%"><b>CLIENTE:</b>&nbsp;</td>
