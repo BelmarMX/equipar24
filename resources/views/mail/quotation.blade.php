@@ -341,7 +341,7 @@
             <td>&nbsp;</td>
             <td class="container">
                 <div class="header">
-                    <span class="preheader">🍽 ¡Hola, {{$data->form_contact->name}}! gracias por tu interés en Equi-par, a continuación te hacemos llegar los detalles de tu cotización.</span>
+                    <span class="preheader">🍽 <b>¡Hola, {{$data->form_contact->name}}!</b> agradecemos tu interés Equi-par, a continuación te hacemos llegar los detalles de tu cotización.</span>
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td class="text-left" width="50%">
@@ -391,6 +391,18 @@
                     </table>
                 </div>
                 <div class="content">
+                    <span class="preheader_show">🍽 <b>¡Hola, {{$data->form_contact->name}}!</b> agradecemos tu interés Equi-par, a continuación te hacemos llegar los detalles de tu cotización.</span>
+                    <br/>
+                    <br/>
+                    @if( !empty($data->approved_at) || !empty($data->rejected_at) )
+                        <span class="preheader_show"><b>Nuestro agente de atención ha dejado un mensaje:</b></span>
+                        <br/>
+                        <p style="margin: 0">{{ $data->notes }}</p>
+                        <br/>
+                    @endif
+                    <span class="preheader_show">Si tienes alguna duda o comentario adicional, por favor contactanos al whatsapp al</span> <a href="https://api.whatsapp.com/send?phone=523322876603&text=Para%20brindarte%20un%20mejor%20servicio%20por%20favor%20deja%20tus%20datos%20({{$data->form_contact->name}},%20{{$data->form_contact->email}},%20%20y%20asunto:%20Cotización web ID:{{ $data->id }})">33 2287 6603</a> <span class="preheader_show">o respondiendo a este correo electrónico (</span><a href="mailto:atencionaclientes@equi-par.com">atencionaclientes@equi-par.com</a><span class="preheader_show">) donde con gusto resolveremos tus preguntas.</span>
+                    <br/>
+                    <br/>
                     <!-- START CENTERED WHITE CONTAINER -->
                     <div class="bg-blue text-center">
                         EQUIPO DE COCINA INDUSTRIAL
@@ -526,22 +538,21 @@
                                         <td width="30%">&nbsp;</td>
                                     </tr>
                                     @endif
-                                    @if( !empty($data->approved_at) || !empty($data->rejected_at) )
                                     <tr>
                                         <td width="30%">&nbsp;</td>
-                                        <td width="40%" class="text-center">
-                                            <br/>
-                                            <br/>
-                                            <b>RESPUESTA DEL AGENTE</b><br/>
-                                            <p style="margin: 0">{{ $data->notes }}</p>
+                                        <td width="40%">
+                                            &nbsp;<br/>
+                                            &nbsp;<br/>
                                         </td>
                                         <td width="30%">&nbsp;</td>
                                     </tr>
+                                    @if( !empty($data->approved_at) || !empty($data->rejected_at) )
                                     <tr>
                                         <td width="30%">&nbsp;</td>
                                         <td width="40%" class="border-t text-center">
                                             ATENTAMENTE<br/>
-                                            {{ !empty($data->approved_at) ? $data->approved_by->name : $data->rejected_by->name }}
+                                            {{ !empty($data->approved_at) ? $data->approved_by->name : $data->rejected_by->name }}<br/>
+                                            Equi-par Cocinas Industriales
                                         </td>
                                         <td width="30%">&nbsp;</td>
                                     </tr>
