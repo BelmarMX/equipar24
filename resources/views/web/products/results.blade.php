@@ -112,10 +112,15 @@
 
 @push('customJs')
 <script>
+    const current_params    = new URLSearchParams(window.location.search)
+    const page              = current_params.get('page')
+
     @if($filtered_brands)
         @foreach($filtered_brands AS $brand)
             @if($brand->slug == Str::slug($termino) && empty($_GET['brand']) )
-                location.href = '?filter=y&brand={{$brand->slug}}';
+                location.href = page
+                ? `?page=${page}&filter=y&brand={{$brand->slug}}`
+                : '?filter=y&brand={{$brand->slug}}';
             @endif
         @endforeach
     @endif
@@ -124,7 +129,9 @@
         element.addEventListener('change', event => {
             event.preventDefault()
 
-            let chain = '?filter=y'
+            let chain = page
+                ? `?page=${page}&filter=y`
+                : '?filter=y'
             document.querySelectorAll('[data-filter]').forEach(element => {
                 if( element.value !== "" )
                 {
