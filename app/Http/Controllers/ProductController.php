@@ -321,7 +321,7 @@ class ProductController extends Controller
             $entries->orderBy('id', 'DESC');
         }
 
-        $entries                = $entries->paginate(24);
+        $entries                = $entries->paginate(24)->appends(request()->query());
         $brands_ids             = array_column($all, 'product_brand_id');
         $categories_ids         = array_column($all, 'product_category_id');
         $filtered_brands        = ProductBrand::whereIn('id', $brands_ids)->get();
