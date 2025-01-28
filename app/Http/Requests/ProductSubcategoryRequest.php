@@ -24,6 +24,7 @@ class ProductSubcategoryRequest extends FormRequest
             ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "image"                     => "Portada"
             ,   "image_rx"                  => "Recorte de portada"
+            ,   "description"               => "Descripción"
             ,   "is_featured"               => "Destacado"
             ,   "order"                     => "Orden"
         ];
@@ -49,6 +50,7 @@ class ProductSubcategoryRequest extends FormRequest
             ,   "slug"                      => "required|string|unique:product_subcategories,slug"
             ,   "image"                     => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_SUBCAT_WIDTH.",height=".ImagesSettings::PRODUCT_SUBCAT_HEIGHT
             ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_SUBCAT_RX_WIDTH.",height=".ImagesSettings::PRODUCT_SUBCAT_RX_HEIGHT
+            ,   "description"               => "nullable|string"
             ,   "is_featured"               => "nullable|boolean"
             ,   "order"                     => "required|numeric|min:0"
         ];

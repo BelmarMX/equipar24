@@ -44,6 +44,9 @@
                                 <x-form.input-number name="order" placeholder="Orden" value="{{ old('order', $record->order ?? $max) }}" required class="mb-6"/>
                             </div>
                         </div>
+                        <div class="w-full">
+                            <x-form.textarea name="description" placeholder="Descripción" value="{{ old('description', $record->description) }}"/>
+                        </div>
                     </div>
                     <div class="md:w-4/12 md:ms-[8.333%] w-full">
                         <x-form.file-image name="image"

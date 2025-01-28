@@ -19,6 +19,7 @@ class ProductCategory extends Model
         ,   'slug'
         ,   'image'
         ,   'image_rx'
+        ,   'description'
         ,   'is_featured'
         ,   'order'
     ];

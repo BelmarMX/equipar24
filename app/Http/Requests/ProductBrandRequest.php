@@ -23,6 +23,7 @@ class ProductBrandRequest extends FormRequest
             ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "image"                     => "Identificador"
             ,   "image_rx"                  => "Recorte de identificador"
+            ,   "description"               => "Descripción"
             ,   "is_featured"               => "Destacado"
             ,   "order"                     => "Orden"
         ];
@@ -47,6 +48,7 @@ class ProductBrandRequest extends FormRequest
             ,   "slug"                      => "required|string|unique:product_brands,slug"
             ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_BRAND_WIDTH.",height=".ImagesSettings::PRODUCT_BRAND_HEIGHT
             ,   "image_rx"                  => "nullable|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:width=".ImagesSettings::PRODUCT_BRAND_RX_WIDTH.",height=".ImagesSettings::PRODUCT_BRAND_RX_HEIGHT
+            ,   "description"               => "nullable|string"
             ,   "is_featured"               => "nullable|boolean"
             ,   "order"                     => "required|numeric|min:0"
         ];

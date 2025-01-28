@@ -18,7 +18,22 @@
     </div>
 
     <main class="container">
-        <h1>{{ $product_subcategory->title ?? $product_category->title }}</h1>
+        @if( Route::currentRouteName() == 'productos-categories' && !is_null($product_category->description) )
+            <div class="row align-items-center mb-5">
+                <div class="col-md-6">
+                    <h1 class="m-0" style="transform: scale(1.75)">{{ $product_subcategory->title ?? $product_category->title }}</h1>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-justify m-0">{{ $product_category->description }}</p>
+                </div>
+            </div>
+        @else
+            <h1 @if( Route::currentRouteName() == 'productos-subcategories') class="mb-3 undash" @endif style="transform: scale(1.75)">{{ $product_subcategory->title ?? $product_category->title }}</h1>
+            @if( Route::currentRouteName() == 'productos-subcategories')
+                <h2>en: {{ $product_category->title  }}</h2>
+            @endif
+        @endif
+
         @include('web.products.partials.scroll-categories', [
                 'tag_title'     => $product_category->title
             ,   'todas_link'    => route('productos-categories', $product_category->slug)

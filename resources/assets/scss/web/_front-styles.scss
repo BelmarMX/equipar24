@@ -333,6 +333,11 @@ h1, h2, h3, h4, h5, h6{
 		margin: 0 auto;
 	}
 }
+h1.undash, h2.undash, h3.undash, h4.undash, h5.undash, h6.undash{
+    &:after{
+        border-bottom: none;
+    }
+}
 
 .alert-heading{
 	margin-bottom: 10px;
