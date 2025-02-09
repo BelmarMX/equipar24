@@ -28,6 +28,7 @@ class Product extends Model
         ,   'features'
         ,   'description'
         ,   'price'
+        ,   'in_stock'
         ,   'is_featured'
         ,   'with_freight'
         ,   'image'

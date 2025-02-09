@@ -13,6 +13,7 @@ $(document).ready(function() {
         }
         ,   columns:                [
                 ...DT_OPTIONS_SSR.columns
+            ,   { data: 'in_stock', className: 'text-center', render: data => data ? '<span class="cursor-pointer" data-tooltip="En existencia">🟢</span>' : '<span class="cursor-pointer" data-tooltip="Sin existencias">🔴</span>' }
             ,   { data: 'title' }
             ,   { data: 'model' }
             ,   { data: 'brand' }

@@ -211,14 +211,15 @@ class ProductController extends Controller
             ->where(function($query) use ($like_text){
                     $query->where('title', 'LIKE', '%'.$like_text.'%');
                     $query->orWhere('model', 'LIKE', '%'.$like_text.'%');
-            });
+            })
+            ->where('in_stock', '=', true);
         if( empty($_GET['brand']) )
         {
             $return->orWhereHas('product_brand', function($query) use ($like_text) {
                 $query->where('title', 'LIKE', '%'.$like_text.'%');
             });
         }
-       if( empty($_GET['brand']) && empty($_GET['category']) )
+        if( empty($_GET['brand']) && empty($_GET['category']) )
         {
             $return->orWhereHas('product_category', function($query) use ($like_text) {
                 $query->where('title', 'LIKE', '%'.$like_text.'%');
@@ -260,6 +261,7 @@ class ProductController extends Controller
                 ,   'slug'          => $product->slug
                 ,   'name'          => $full_search
                 ,   'title'         => $product->title
+                ,   'model'         => $product->model
                 ,   'category'      => $product->product_category->title
                 ,   'subcategory'   => $product->product_subcategory->title
                 ,   'brand'         => $product->product_brand->title
@@ -268,6 +270,7 @@ class ProductController extends Controller
                 ,   'con_flete'     => $product->with_freight
                 ,   'discount'      => $discount
                 ,   'image'         => $product->asset_url.$product -> image_rx
+                ,   'image_path'    => $product -> image_rx
                 ,   'route'         => route('producto-open', [$product->product_category->slug, $product->product_subcategory->slug, $product->slug])
             ];
         }

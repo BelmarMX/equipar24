@@ -1,4 +1,4 @@
-@props(['name', 'placeholder', 'required', 'value', 'readonly', 'disabled', 'with_slug'])
+@props(['name', 'placeholder', 'required', 'value', 'readonly', 'bind_readonly', 'disabled', 'with_slug'])
 
 <div {{ $attributes->merge(['class' => 'relative z-0 w-full px-2']) }}>
     <input id="{{$name}}"
@@ -10,6 +10,7 @@
            @isset($required) required @endisset
            @isset($readonly) readonly @endisset
            @isset($disabled) disabled @endisset
+           @isset($bind_readonly) x-bind:readonly="!edit_field" @endisset
            data-clear-errors
     />
     <label for="{{$name}}" class="absolute duration-300 top-3 pl-2 z-1 origin-0 text-gray-500">

@@ -30,6 +30,7 @@ class ProductRequest extends FormRequest
             ,   "features"                  => "Características"
             ,   "description"               => "Descripción"
             ,   "price"                     => "Precio"
+            ,   "in_stock"                  => "En existencia"
             ,   "is_featured"               => "Destacado"
             ,   "with_freight"              => "Con flete"
             ,   "image"                     => "Portada"
@@ -43,6 +44,7 @@ class ProductRequest extends FormRequest
         $this -> merge([
                 'slug'          => Str::slug($this->title)
             ,   'description'   => Parser::parse($this->raw_editor)->toHtml()
+            ,   'in_stock'      => isset($this->in_stock)
         ]);
     }
 
@@ -64,6 +66,7 @@ class ProductRequest extends FormRequest
             ,   "features"                  => "required|string"
             ,   "description"               => "required|string"
             ,   "price"                     => "required|numeric|min:1"
+            ,   "in_stock"                  => "nullable|boolean"
             ,   "is_featured"               => "nullable|boolean"
             ,   "with_freight"              => "nullable|boolean"
             ,   "image"                     => "required|image|mimes:jpeg,png,webp|max:".ImagesSettings::FILE_MAX_SIZE."|dimensions:min_width=".ImagesSettings::PRODUCT_WIDTH.",min_height=".ImagesSettings::PRODUCT_HEIGHT.",ratio:1"

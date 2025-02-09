@@ -106,6 +106,7 @@
                                         <span>¡Incluye flete!</span>
                                     @endif
                                 </div>
+                                @if($entry->in_stock)
                                 <button aria-label="Agrega el producto al cotizador"
                                         data-bs-toggle="tooltip"
                                         title="Agregar al cotizador"
@@ -119,6 +120,9 @@
                                 >
                                     <i class="bi bi-bag-plus-fill"></i> Agregar al cotizador
                                 </button>
+                                @else
+                                    Lo sentimos, este producto se encuentra agotado.
+                                @endif
                             </div>
                         </div>
                         @isset($entry -> final_price)
@@ -170,6 +174,7 @@
                             ,   'model'     => $product->model
                             ,   'brand'     => $product->product_brand->title
                             ,   'price'     => $product->price
+                            ,   'in_stock'  => $product->in_stock
                             ,   'promo'     => $product->get_higer_active_promo()
                             ,   'con_flete' => $product->with_freight
                             ,   'tag'       => $product->product_subcategory->title

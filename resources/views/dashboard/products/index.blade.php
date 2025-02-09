@@ -16,6 +16,7 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th><i class="fa-solid fa-cubes-stacked fa-lg" data-tooltip="En existencia"></i></th>
                 <th style="min-width: 360px">Título</th>
                 <th style="min-width: 140px">Modelo</th>
                 <th style="min-width: 120px">Marca</th>

@@ -9,6 +9,7 @@
                 <span class="product__card__behind--tag">{{ $tag }}</span>
             @endif
             <div class="product__card__front">
+                @if($in_stock)
                 <button aria-label="Agrega el producto al cotizador"
                         data-bs-toggle="tooltip"
                         title="Agregar al cotizador"
@@ -21,6 +22,14 @@
                 >
                     <i class="bi bi-bag-plus-fill"></i>
                 </button>
+                @else
+                    <button
+                            data-bs-toggle="tooltip"
+                            title="Producto sin existencias"
+                    >
+                        <i data-bs-toggle="tooltip" title="Producto sin existencias" class="bi bi-bag-x"></i>
+                    </button>
+                @endif
                 <a href="{{ $route }}">
                     @if( isset($con_flete) && $con_flete)
                         <span class="product__card__front--flete @if(isset($promo) && $promo->total>0) lower @endif">¡Flete incluido!</span>

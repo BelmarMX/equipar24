@@ -1,5 +1,4 @@
 import swal     from "sweetalert2";
-import Swal from "sweetalert2";
 
 class Alert
 {

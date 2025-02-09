@@ -77,6 +77,7 @@
                             ,   'model'     => $product->model
                             ,   'brand'     => $product->product_brand->title
                             ,   'price'     => $product->price
+                            ,   'in_stock'  => $product->in_stock
                             ,   'promo'     => $product->get_higer_active_promo()
                             ,   'con_flete' => $product->with_freight
                             ,   'tag'       => $product->product_subcategory->title

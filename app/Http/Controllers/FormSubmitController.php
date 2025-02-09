@@ -180,12 +180,114 @@ class FormSubmitController extends Controller
     public function update(Request $request, FormSubmit $contact)
     {
         $validated              = $request->validate([
-                'notes'     => 'required|string'
-            ,   'status'    => 'required|in:approved,rejected'
+                'notes'                     => 'required|string'
+            ,   'status'                    => 'required|in:approved,rejected'
+            ,   "form_contact_name"         => "required|string"
+            ,   "form_contact_email"        => "required|string|unique:form_contacts,email,{$contact->form_contact->id}"
+            ,   "form_contact_phone"        => "required|digits:10"
+            ,   "form_contact_company"      => "nullable|string"
         ], [
-                'notes'     => 'Debes agregar una nota para actualizar el estado de esta solicitud.'
+                'notes'                     => 'Debes agregar una nota para actualizar el estado de esta solicitud.'
+            ,   'status'                    => 'Debes seleccionar un estatus para la solicitud.'
+            ,   'form_contact_name'         => 'El nombre del contacto es requerido.'
+            ,   'form_contact_email'        => 'El formato de correo electrónico del contacto es incorrecto o ya existe en la base de datos para otro usuario.'
+            ,   'form_contact_phone'        => 'El teléfono del contacto debe ser un número de 10 dígitos.'
+            ,   'form_contact_company'      => 'La empresa del contacto debe ser una cadena de texto válida.'
         ]);
 
+        // ? Si el contacto ha sido modificado, actualizamos el registro.
+        if( $request->form_contact_name != $contact->form_contact->name ||
+            $request->form_contact_email != $contact->form_contact->email ||
+            $request->form_contact_phone != $contact->form_contact->phone ||
+            $request->form_contact_company != $contact->form_contact->company
+        ){
+            $update_contact = FormContact::find($contact->form_contact->id);
+            $update_contact->name       = $request->form_contact_name;
+            $update_contact->email      = $request->form_contact_email;
+            $update_contact->phone      = $request->form_contact_phone;
+            $update_contact->company    = $request->form_contact_company;
+            $update_contact->save();
+        }
+
+        if( $contact->type=='quotation' )
+        {
+            $no_to_update           = [];
+            // ? Marcamos productos como fuera de stock y se eliminan de la cotización
+            foreach($request->quotation_in_stock AS $product_id => $in_stock)
+            {
+                if( $in_stock != 1)
+                {
+                    FormQuotationDetail::where('form_submit_id', $contact->id)
+                        ->where('product_id', $product_id)
+                        ->delete();
+                    $product = Product::find($product_id);
+                    $product->in_stock = false;
+                    $product->save();
+                    $no_to_update[] = $product_id;
+                }
+            }
+
+            // ? Eliminamos productos de la cotización
+            foreach($request->quotation_is_deleted AS $product_id => $is_deleted)
+            {
+                if( $is_deleted == 1)
+                {
+                    FormQuotationDetail::where('form_submit_id', $contact->id)
+                        ->where('product_id', $product_id)
+                        ->delete();
+                    $no_to_update[] = $product_id;
+                }
+            }
+
+            // ? Agregamos nuevos productos a la cotización
+            foreach($request->quotation_model AS $product_id => $model)
+            {
+                $in_stock           = $request->quotation_in_stock[$product_id] == 1;
+                $is_deleted         = $request->quotation_is_deleted[$product_id] == 1;
+
+                if( !$in_stock || $is_deleted )
+                { continue; }
+
+                FormQuotationDetail::create([
+                        'form_submit_id'        => $contact->id
+                    ,   'product_id'            => $product_id
+                    ,   'promotion_id'          => null
+                    ,   'uuid'                  => Str::uuid()
+                    ,   'quantity'              => $request->quotation_quantity[$product_id]
+                    ,   'product_name'          => $request->quotation_title[$product_id]
+                    ,   'product_model'         => $request->quotation_model[$product_id]
+                    ,   'product_brand'         => $request->quotation_brand[$product_id]
+                    ,   'product_image'         => $request->quotation_image[$product_id]
+                    ,   'original_price'        => $request->quotation_original[$product_id]
+                    ,   'discount'              => $request->quotation_discount[$product_id]
+                    ,   'total'                 => $request->quotation_total[$product_id]
+                    ,   'notes'                 => 'Este producto fue agregado por el agente.'
+                ]);
+
+                $no_to_update[] = $product_id;
+            }
+
+            // ? Actualizamos los registros que tengan modificaciones
+            $no_to_update = array_unique($no_to_update);
+            foreach($request->quotation_product_id AS $product_id)
+            {
+                if( in_array($product_id, $no_to_update) )
+                { continue; }
+
+                $detail = FormQuotationDetail::where('form_submit_id', $contact->id)
+                    ->where('product_id', $product_id)
+                    ->first();
+                if( $request->quotation_quantity[$product_id] != $detail->quantity )
+                {
+                    $detail->quantity   = $request->quotation_quantity[$product_id];
+                    $detail->total      = $request->quotation_quantity[$product_id] * $detail->original_price;
+                    $detail->notes      = 'Producto actualizado por el agente.';
+                    $detail->save();
+                }
+            }
+        }
+
+        // ? Respuesta y envío del email
         $contact->notes         = $validated['notes'];
         $contact->status        = $validated['status'];
         if( $validated['status'] == 'approved' )
@@ -200,16 +302,8 @@ class FormSubmitController extends Controller
         }
         $contact->save();
 
-        if( $contact->type=='quotation' )
-        {
-            Mail::to($contact->form_contact->email, $contact->form_contact->name)
-                ->send(new Quotation($contact->id));
-        }
-        else
-        {
-            Mail::to($contact->form_contact->email, $contact->form_contact->name)
-                ->send(new Contact($contact->id));
-        }
+        Mail::to($request->form_contact_email, $request->form_contact_name)
+            ->send( $contact->type=='quotation' ? new Quotation($contact->id) : new Contact($contact->id) );
 
         return redirect()->route('contacts.index', ['updated' => $contact->id]);
     }

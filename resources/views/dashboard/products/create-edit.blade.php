@@ -76,6 +76,9 @@
                         <x-form.input-number name="price" placeholder="Precio" value="{{ old('price', $record->price) }}" decimal="true" required class="w-6/12 ml-auto mb-6"/>
                         <div class="flex flex-wrap">
                             <div class="md:w-6/12">
+                                <x-form.checkbox name="in_stock" label="En existencia" fa_icon="fa-cubes-stacked" value="1" checked="{{ $record->id ? old('in_stock', $record->in_stock) : true }}" :width="100" class="mb-6"/>
+                            </div>
+                            <div class="md:w-6/12">
                                 <x-form.checkbox name="is_featured" label="Producto destacado" fa_icon="fa-star" value="1" checked="{{ old('is_featured', $record->is_featured) }}" :width="100" class="mb-6"/>
                             </div>
                             <div class="md:w-6/12">
