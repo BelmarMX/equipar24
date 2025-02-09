@@ -158,6 +158,17 @@
       "_sweetalert2.esm.all-Br4OTrmy.js"
     ]
   },
+  "resources/assets/js/dashboard/datatables/form_contacts.js": {
+    "file": "assets/form_contacts-Dkl553ks.js",
+    "name": "form_contacts",
+    "src": "resources/assets/js/dashboard/datatables/form_contacts.js",
+    "isEntry": true,
+    "imports": [
+      "resources/assets/js/dashboard/datatables/common.js",
+      "resources/assets/js/dashboard/alerts.js",
+      "_sweetalert2.esm.all-Br4OTrmy.js"
+    ]
+  },
   "resources/assets/js/dashboard/datatables/productBrands.js": {
     "file": "assets/productBrands-hWlSgtnp.js",
     "name": "productBrands",

@@ -26,6 +26,7 @@ export default defineConfig({
                 'resources/assets/js/dashboard/datatables/common.js',
                 'resources/assets/js/dashboard/datatables/states.js',
                 'resources/assets/js/dashboard/datatables/cities.js',
+                'resources/assets/js/dashboard/datatables/form_contacts.js',
                 'resources/assets/js/dashboard/datatables/banners.js',
                 'resources/assets/js/dashboard/datatables/blogArticles.js',
                 'resources/assets/js/dashboard/datatables/blogCategories.js',
