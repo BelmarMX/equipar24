@@ -230,7 +230,10 @@
                     <x-form.input-text name="user.email" placeholder="Email del usuario de atención" value="{{ $attended->email }}" readonly class="mb-6 md:w-4/12"/>
                     <x-form.input-text name="form_contact_date" placeholder="Fecha de atención" value="{{ \Carbon\Carbon::parse(now())->format('d/m/Y H:i') }}" readonly class="mb-6 md:w-4/12"/>
 
-                    <x-form.textarea name="notes" placeholder="Notas del agente" value="{{$contact->notes}}" class="mb-6 md:w-8/12" required :readonly="$contact->status!='pending'"/>
+                    @php
+                    $default_text = "¡Hola! Es un gusto saludarte desde Equi-par.com.\nAgradecemos que te hayas comunicado con nosotros.\n\nLos productos que haz solicitado se encuentran disponibles bajo pedido.\nQuedamos atentos a tus comentarios"
+                    @endphp
+                    <x-form.textarea name="notes" placeholder="Notas del agente" value="{{$contact->notes ?? $default_text}}" class="mb-6 md:w-8/12" required :readonly="$contact->status!='pending'"/>
                     @if( $contact->status == 'pending' )
                         <x-form.select select2 name="status" placeholder="Cambiar estatus del formulario" class="mb-6 md:w-4/12">
                             <option value="approved" selected>Aprobado</option>
