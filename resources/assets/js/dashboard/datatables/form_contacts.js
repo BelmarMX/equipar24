@@ -65,8 +65,14 @@ $(document).ready(function() {
     ----------------------------------------------------------------------------------------------------------------- */
     $(document).on('click', '[data-delete]', function(e) {
         e.preventDefault()
-        const product_id    = $(this).attr('data-delete')
-        const btn_delete    = $(this)
+        const product_id        = $(this).attr('data-delete')
+        const btn_delete        = $(this)
+        const disabled          = $(document).find('tr[data-product_id]:not(.bg-red-50):not(.bg-red-100)').length
+
+        if( disabled <= 1 )
+        {
+            return Alerts.warning('La cotización debe tener por lo menos un producto activo', '¡Cuidado!')
+        }
 
         Alerts.confirm(`El producto ${product_id} será eliminado de la cotización.`, O => {
             btn_delete.addClass('hidden')

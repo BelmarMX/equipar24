@@ -246,7 +246,7 @@
             <div class="flex justify-end border-t-4 border-slate-50 mt-2 pt-8">
                 <x-form.button class="me-2" type="danger-outline" icon="fa-cancel" text="Cancelar" href="{{ route('contacts.index') }}" data-confirm-redirect=""/>
                 @if( $contact->status == 'pending' )
-                <x-form.button class="ms-1" type="success" icon="fa-pencil" text="Responder" form="submit"/>
+                <x-form.button class="ms-1" type="success" icon="fa-paper-plane" text="Responder" form="submit"/>
                 @endif
             </div>
         </form>

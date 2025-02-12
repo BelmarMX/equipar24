@@ -240,6 +240,7 @@ class FormSubmitController extends Controller
             }
 
             // ? Agregamos nuevos productos a la cotización
+            if( empty($request->quotation_model) ){ $request->quotation_model = []; }
             foreach($request->quotation_model AS $product_id => $model)
             {
                 $in_stock           = $request->quotation_in_stock[$product_id] == 1;
