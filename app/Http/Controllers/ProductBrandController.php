@@ -125,7 +125,7 @@ class ProductBrandController extends Controller
             ,   NULL
             ,   $validated['title']
             ,   ImagesSettings::PRODUCT_BRAND_FOLDER
-            ,   FALSE
+            ,   TRUE
             ,   ImagesSettings::PRODUCT_BRAND_WIDTH
             ,   ImagesSettings::PRODUCT_BRAND_HEIGHT
             ,   $productBrand->image

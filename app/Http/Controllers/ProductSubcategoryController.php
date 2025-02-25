@@ -133,7 +133,7 @@ class ProductSubcategoryController extends Controller
             ,   NULL
             ,   $validated['title']
             ,   ImagesSettings::PRODUCT_SUBCAT_FOLDER
-            ,   FALSE
+            ,   TRUE
             ,   ImagesSettings::PRODUCT_SUBCAT_WIDTH
             ,   ImagesSettings::PRODUCT_SUBCAT_HEIGHT
             ,   $productSubcategory->image

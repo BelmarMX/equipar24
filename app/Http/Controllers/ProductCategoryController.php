@@ -125,7 +125,7 @@ class ProductCategoryController extends Controller
             ,   NULL
             ,   $validated['title']
             ,   ImagesSettings::PRODUCT_CAT_FOLDER
-            ,   FALSE
+            ,   TRUE
             ,   ImagesSettings::PRODUCT_CAT_RX_WIDTH
             ,   ImagesSettings::PRODUCT_CAT_RX_HEIGHT
             ,   $productCategory->image

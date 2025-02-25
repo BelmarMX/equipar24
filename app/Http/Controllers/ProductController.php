@@ -161,7 +161,7 @@ class ProductController extends Controller
             ,   NULL
             ,   $validated['title']
             ,   ImagesSettings::PRODUCT_FOLDER
-            ,   FALSE
+            ,   TRUE
             ,   ImagesSettings::PRODUCT_RX_WIDTH
             ,   ImagesSettings::PRODUCT_RX_HEIGHT
             ,   $product->image
