@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        /*User::create([
                 'name'              => 'Belmar Alberto'
             ,   'email'             => 'dispersion.mx@gmail.com'
             ,   'email_verified_at' => now()
@@ -27,6 +27,14 @@ class UsersTableSeeder extends Seeder
             ,   'email'             => 'atencionaclientes@equi-par.com'
             ,   'email_verified_at' => now()
             ,   'password'          => Hash::make('f@5#UuBaVUz%')
+            ,   'created_at'        => now()
+        ]);*/
+
+        User::create([
+                'name'              => 'Ervin Muñoz'
+            ,   'email'             => 'ervinmo91@gmail.com'
+            ,   'email_verified_at' => now()
+            ,   'password'          => Hash::make('GY^Tu1v#%dsv')
             ,   'created_at'        => now()
         ]);
     }
