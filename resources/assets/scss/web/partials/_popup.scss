@@ -1,4 +1,4 @@
-.popup {
+.eventos {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -11,7 +11,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     transform-origin: center;
 
-    .popup__close{
+    .eventos__close{
         position: absolute;
         background: none;
         border:none;
@@ -21,8 +21,8 @@
             font-size: 40px;
         }
     }
-    .popup__content{
-        .popup__content--invite_cafe{
+    .eventos__content{
+        .eventos__content--invite_cafe{
             display: none;
             a{
                 width: 200px;
