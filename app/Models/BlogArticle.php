@@ -87,7 +87,7 @@ class BlogArticle extends Model
     public static function get_latest($take)
     {
         return self::where('published_at', '<=', now())
-            ->inRandomOrder()
+            ->orderBy('published_at', 'DESC')
             ->take($take)
             ->get();
     }

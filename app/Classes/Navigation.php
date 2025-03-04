@@ -66,7 +66,7 @@ class Navigation
             ,   'featured'  => !in_array('featured', $unset)    ? ProductCategory::get_categories_featured()    : NULL
             ,   'related'   => !in_array('related', $unset)     ? Product::take_products(4, $slug_brand, $slug_category, $slug_subcategory, $slug_product) : NULL
             ,   'promos'    => !in_array('promos', $unset)      ? Promotion::get_active_promotions()            : NULL
-            ,   'articles'  => !in_array('articles', $unset)    ? BlogArticle::get_articles()                   : NULL
+            ,   'articles'  => !in_array('articles', $unset)    ? BlogArticle::get_latest(6)                : NULL
             ,   'states'    => $states                                  ? State::get_states_alias()                     : NULL
             ,   'menu_cat'  => ProductCategory::get_categories()
             ,   'brands'    => ProductBrand::get_featured_brands()
