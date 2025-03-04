@@ -396,10 +396,47 @@
             </div>
         </section>
     </div>
+
+    @if( \Carbon\Carbon::now()->lt('2025-03-16') )
+    <div class="popup" id="announce_popup" style="display: none;">
+        <div class="popup__content position-relative">
+            <button class="popup__close" type="button">
+                <i class="bi bi-x"></i>
+            </button>
+            <div class="popup__content--invite_cafe popup_2">
+                <img src="{{ asset('images/popup/expo_cafe_gourmet_clean.webp') }}" alt="Expo Café & Gourmet 13 al 15 de marzo de 2025" width="434" height="525">
+                <a class="position-absolute" href="https://equi-par.com/blog/eventos-y-ferias-de-la-industria/expocafe-y-gourmet-2025-la-cita-imperdible-para-amantes-del-cafe-y-la-gastronomia-y-te-llevamos-gratis">
+                    Mas información
+                </a>
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection
 
 @push('customJs')
     <script>
         $('.reel-play-btn').on('click', e => $('#equipar-reel').click() )
     </script>
+    @if( \Carbon\Carbon::now()->lt('2025-03-16') )
+    <script>
+        $(document).ready(function(){
+            let popshows = localStorage.getItem('times_popup_has_viewed')
+                ? parseInt(localStorage.getItem('times_popup_has_viewed'))
+                : 0
+            console.log('', popshows)
+            if( popshows < 5 )
+            {
+                localStorage.setItem('times_popup_has_viewed', popshows+1)
+                setTimeout(O => {
+                    $('.popup').show(); $('.popup_2').show(500)
+                }, 1000)
+            }
+
+            $('.popup__close').on('click', function(e){
+                $('.popup').hide(200)
+            })
+        })
+    </script>
+    @endif
 @endpush

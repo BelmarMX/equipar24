@@ -37,7 +37,7 @@ class ImagesSettings
     const ARTICLE_FOLDER                                = "articulos/";
     const ARTICLE_WIDTH                                 = 844;
     const ARTICLE_HEIGHT                                = 274;
-    const ARTICLE_RX_WIDTH                              = 386;
+    const ARTICLE_RX_WIDTH                              = 420;
     const ARTICLE_RX_HEIGHT                             = 274;
 
     const PRODUCT_CAT_FOLDER                            = "productos-categorias/";
