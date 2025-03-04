@@ -42,6 +42,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::get('/contactList', [DashboardController::class, 'contactList'])->name('dashboard.contactList');
     Route::post('/contactList', [DashboardController::class, 'get_contactList'])->name('dashboard.contactList.get');
 
+    Route::post('/upload_file', [DashboardController::class, 'upload_file'])->name('dashboard.upload_file');
+
     // * WITH RESOURCES
 
     Route::resource('banners', BannerController::class);

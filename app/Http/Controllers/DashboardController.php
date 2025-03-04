@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FileRequest;
-use App\Http\Requests\ImageRequest;
+use App\Classes\ImagesSettings;
 use App\Models\City;
 use App\Models\FormContact;
 use App\Models\FormSubmit;
@@ -123,5 +122,19 @@ class DashboardController extends Controller
                 return $record -> city -> name;
             })
             ->toJson();
+    }
+
+    public function upload_file(Request $request)
+    {
+        $file_name  = date('YmdHis').'_'.$request->file('archivo')->getClientOriginalName();
+        $file       = parent::store_file($request->file('archivo'), $file_name, ImagesSettings::ASSETS_FOLDER);
+
+        return [
+                'success'   => !empty($file) ? 1 : 0
+            ,   'file'      => [
+                'url'           => url('storage/'.ImagesSettings::ASSETS_FOLDER.$file)
+            ]
+            ,   'src'       => url('storage/'.ImagesSettings::ASSETS_FOLDER.$file)
+        ];
     }
 }

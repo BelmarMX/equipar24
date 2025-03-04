@@ -10,6 +10,7 @@ import Header                               from "editorjs-header-with-alignment
 import ImageTool                            from "@editorjs/image";
 import LinkTool                             from "@editorjs/link";
 import List                                 from '@editorjs/list';
+import SimpleImage                          from "@editorjs/simple-image";
 import Paragraph                            from 'editorjs-paragraph-with-alignment';
 import Table                                from "@editorjs/table";
 import Plyr                                 from "plyr";
@@ -309,7 +310,7 @@ $(document).ready(function() {
         $( $(this).attr('data-range-set_end') ).val(picker.endDate.format('YYYY-MM-DD'))
     })
 
-    let date_value = $('[data-date-picker]').val()
+    let date_value = $('[data-date-picker]').attr('data-min_date')
     flatpickr('[data-date-picker]', {
             locale:         Spanish
         ,   altInput:       true
@@ -325,14 +326,48 @@ $(document).ready(function() {
             ,   autofocus:      false
             ,   inlineToolbar:  ['link', 'bold', 'italic']
             ,   tools:          {
-                    attaches:       {
+                    /*attaches:       {
                             class:          AttachesTool
                         ,   config:         {
-                                endpoint:               '/dashboard/upload_file'
-                            ,   field:                  'file'
-                            ,   types:                  '*'
-                            ,   additionalRequestData:  { "_token": $('meta[name="csrf-token"]').attr('content') }
-                            ,   onUploadResponse:       ({success, file}) => { success, file }
+                                buttonText:             'Selecciona un archivo'
+                            ,   uploader:               {
+                                uploadByFile(file)
+                                {
+                                    let form_data           = new FormData();
+                                    form_data.append('archivo', file)
+                                    return axios.post('/dashboard/upload_file', form_data, {
+                                        headers: {
+                                            'Content-Type': 'multipart/form-data'
+                                        }
+                                    })
+                                        .then(({status, data}) => {
+                                            console.log(data)
+                                            return data
+                                        })
+                                }
+                            }
+                        }
+                    }*/
+                    image:      {
+                            class:          ImageTool
+                        ,   config:         {
+                                captionPlaceholder:     'Agrega una descripción'
+                            ,   uploader:               {
+                                uploadByFile(file)
+                                {
+                                    let form_data           = new FormData();
+                                    form_data.append('archivo', file)
+                                    return axios.post('/dashboard/upload_file', form_data, {
+                                        headers: {
+                                            'Content-Type': 'multipart/form-data'
+                                        }
+                                    })
+                                        .then(({status, data}) => {
+                                            console.log(data)
+                                            return data
+                                        })
+                                }
+                            }
                         }
                     }
                 ,   delimiter:      Delimiter

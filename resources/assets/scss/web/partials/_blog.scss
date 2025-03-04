@@ -9,6 +9,7 @@
 			border-bottom: 5px solid $gold_equipar;
 			border-radius: 5px 5px 0 0;
 			text-align: center;
+            background: $black;
 			.blog__view__link__float{
 				position: absolute;
 				bottom: 0;
@@ -61,7 +62,7 @@
 {
 	margin-bottom: 5rem;
 	img{
-		border-radius: 20px;
+		border-radius: 6px;
 	}
 
 	.blog__article__tags{
@@ -87,8 +88,11 @@
 
 	.blog__article__content{
 		img{
-			width: 100%;
+			width: auto;
 			height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 3px;
 		}
 	}
 

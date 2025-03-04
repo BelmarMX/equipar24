@@ -8,6 +8,7 @@ class ImagesSettings
     const FILE_MAX_SIZE                                 = 2048;
 
     const DOCUMENTS_FOLDER                              = 'upload/';
+    const ASSETS_FOLDER                                 = 'assets/';
 
     const BANNER_FOLDER                                 = "banners/";
     const BANNER_WIDTH                                  = 1920;
@@ -34,10 +35,10 @@ class ImagesSettings
     const GALLERY_RX_HEIGHT                             = 300;
 
     const ARTICLE_FOLDER                                = "articulos/";
-    const ARTICLE_WIDTH                                 = 725;
-    const ARTICLE_HEIGHT                                = 195;
-    const ARTICLE_RX_WIDTH                              = 360;
-    const ARTICLE_RX_HEIGHT                             = 255;
+    const ARTICLE_WIDTH                                 = 844;
+    const ARTICLE_HEIGHT                                = 274;
+    const ARTICLE_RX_WIDTH                              = 386;
+    const ARTICLE_RX_HEIGHT                             = 274;
 
     const PRODUCT_CAT_FOLDER                            = "productos-categorias/";
     const PRODUCT_CAT_WIDTH                             = 250;

@@ -7,6 +7,7 @@
            name="{{ $name }}"
            placeholder="{{ $placeholder }}"
            value="{{ $value }}"
+           data-min_date="{{ $value && \Carbon\Carbon::now()->gt($value) ? $value : now()  }}"
            @isset($required) required @endisset
            @isset($readonly) readonly @endisset
            @isset($disabled) disabled @endisset

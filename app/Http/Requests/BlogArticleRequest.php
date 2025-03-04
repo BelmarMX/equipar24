@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Classes\EditorJS;
 use App\Classes\ImagesSettings;
 use Durlecode\EJSParser\Parser;
 use Illuminate\Foundation\Http\FormRequest;
@@ -33,9 +34,10 @@ class BlogArticleRequest extends FormRequest
 
     public function prepareforValidation()
     {
+        $json_editor = EditorJS::correct_images_src($this->raw_editor);
         $this -> merge([
                 'slug'      => Str::slug($this->title)
-            ,   'content'   => Parser::parse($this->raw_editor)->toHtml()
+            ,   'content'   => Parser::parse($json_editor)->toHtml()
         ]);
     }
 

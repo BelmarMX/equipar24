@@ -187,6 +187,7 @@ class BlogArticleController extends Controller
     {
         $blog_category  = BlogCategory::where('slug', $slug_blog_category)->firstOrFail();
         $article        = BlogArticle::where('slug', $slug_blog_article)->where('blog_category_id', $blog_category->id)->firstOrFail();
+
         return view('web.blog.blog-article', array_merge(
                     Navigation::get_static_data(['banners', 'reels', 'related', 'articles'])
                 ,   [

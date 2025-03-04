@@ -41,16 +41,16 @@
                 @foreach($latest AS $blog)
                     <div class="mb-5">
                         @include('web.blog.partials.blog-view', [
-                                'title'             => $article -> title
+                                'title'             => $blog -> title
                             ,   'link'              => route('blog-open', [
-                                    $article->blog_category->slug, $article->slug
+                                    $blog->blog_category->slug, $blog->slug
                                 ])
-                            ,   'image'             => $article->asset_url.$article->image_rx
-                            ,   'day'               => $Navigation::split_date($article->published_at) -> day
-                            ,   'month'             => $Navigation::split_date($article->published_at) -> short_month
-                            ,   'category_title'    => $article -> blog_category->title
-                            ,   'category_link'     => route('blog-categories', $article->blog_category -> slug)
-                            ,   'summary'           => $article->summary
+                            ,   'image'             => $blog->asset_url.$blog->image_rx
+                            ,   'day'               => $Navigation::split_date($blog->published_at) -> day
+                            ,   'month'             => $Navigation::split_date($blog->published_at) -> short_month
+                            ,   'category_title'    => $blog -> blog_category->title
+                            ,   'category_link'     => route('blog-categories', $blog->blog_category -> slug)
+                            ,   'summary'           => $blog->summary
                         ])
                     </div>
                 @endforeach
