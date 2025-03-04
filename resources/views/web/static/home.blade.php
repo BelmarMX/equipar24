@@ -403,8 +403,8 @@
             <button class="eventos__close" type="button">
                 <i class="bi bi-x"></i>
             </button>
-            <div class="eventos__content--invite_cafe eventos_2">
-                <img src="{{ asset('images/eventos/expo_cafe_gourmet_clean.webp') }}" alt="Expo Café & Gourmet 13 al 15 de marzo de 2025" width="434" height="525">
+            <div class="eventos__content--invite_cafe eventos_2 p-1">
+                <img src="{{ asset('images/eventos/expo_cafe_gourmet_clean.webp') }}" alt="Expo Café & Gourmet 13 al 15 de marzo de 2025" width="434" height="525" class="img-fluid max-w-100">
                 <a class="position-absolute" href="https://equi-par.com/blog/eventos-y-ferias-de-la-industria/expocafe-y-gourmet-2025-la-cita-imperdible-para-amantes-del-cafe-y-la-gastronomia-y-te-llevamos-gratis">
                     Mas información
                 </a>
@@ -424,7 +424,6 @@
             let popshows = localStorage.getItem('times_eventos_has_viewed')
                 ? parseInt(localStorage.getItem('times_eventos_has_viewed'))
                 : 0
-            console.log('', popshows)
             if( popshows < 5 )
             {
                 localStorage.setItem('times_eventos_has_viewed', popshows+1)
@@ -433,8 +432,11 @@
                 }, 1000)
             }
 
-            $('.eventos__close').on('click', function(e){
+            $('.eventos__close, .eventos').on('click', function(e){
                 $('.eventos').hide(200)
+            })
+            $('.eventos__content').on('click', function(e){
+                e.stopPropagation()
             })
         })
     </script>
