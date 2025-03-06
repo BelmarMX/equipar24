@@ -300,6 +300,15 @@
       "resources/assets/js/dashboard/datatables/common.js"
     ]
   },
+  "resources/assets/js/dashboard/datatables/users.js": {
+    "file": "assets/users-DuxB-uXD.js",
+    "name": "users",
+    "src": "resources/assets/js/dashboard/datatables/users.js",
+    "isEntry": true,
+    "imports": [
+      "resources/assets/js/dashboard/datatables/common.js"
+    ]
+  },
   "resources/assets/js/web/app.js": {
     "file": "assets/app-CMYOb97L.js",
     "name": "app",

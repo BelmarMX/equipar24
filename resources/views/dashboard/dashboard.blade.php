@@ -89,7 +89,9 @@
                         {{ $stats -> active_promotions }}
                     </span>
                     <br>
+                    @can('ver promociones')
                     <x-secondary-button onclick="location.href='{{ route('promotions.index') }}'">Ir a promociones</x-secondary-button>
+                    @endcan
                 </div>
                 <div class="w-full p-8 space-y-8 text-center border border-gray-200 rounded-lg dark:border-gray-700">
                     <p class="font-medium text-gray-500 uppercase dark:text-gray-300">Total de productos</p>
