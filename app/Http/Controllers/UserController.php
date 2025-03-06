@@ -197,6 +197,10 @@ class UserController extends Controller
 			$user->removeRole($validated['original_role']);
 			$user->syncRoles($validated['role']);
 		}
+		elseif( empty($validated['original_role']) )
+		{
+			$user->syncRoles($validated['role']);
+		}
         return redirect() -> route('users.index', ['updated' => $user->id]);
     }
 
