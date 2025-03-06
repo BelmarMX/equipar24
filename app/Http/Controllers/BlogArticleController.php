@@ -19,11 +19,18 @@ class BlogArticleController extends Controller
 
 	public function __construct()
 	{
-		$user               = Auth()->user();
-		$this->can_view     = $user->can('ver blog');
-		$this->can_create   = $user->can('crear blog');
-		$this->can_edit     = $user->can('editar blog');
-		$this->can_delete   = $user->can('eliminar blog');
+		$this->can_view     = FALSE;
+		$this->can_create   = FALSE;
+		$this->can_edit     = FALSE;
+		$this->can_delete   = FALSE;
+
+		if( $user = Auth()->user() )
+		{
+			$this->can_view     = $user->can('ver blog');
+			$this->can_create   = $user->can('crear blog');
+			$this->can_edit     = $user->can('editar blog');
+			$this->can_delete   = $user->can('eliminar blog');
+		}
 	}
 
     /**

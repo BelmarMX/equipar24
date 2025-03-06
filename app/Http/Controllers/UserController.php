@@ -20,11 +20,18 @@ class UserController extends Controller
 
 	public function __construct()
 	{
-		$user               = Auth()->user();
-		$this->can_view     = $user->can('ver usuarios');
-		$this->can_create   = $user->can('crear usuarios');
-		$this->can_edit     = $user->can('editar usuarios');
-		$this->can_delete   = $user->can('eliminar usuarios');
+		$this->can_view     = FALSE;
+		$this->can_create   = FALSE;
+		$this->can_edit     = FALSE;
+		$this->can_delete   = FALSE;
+
+		if( $user = Auth()->user() )
+		{
+			$this->can_view     = $user->can('ver usuarios');
+			$this->can_create   = $user->can('crear usuarios');
+			$this->can_edit     = $user->can('editar usuarios');
+			$this->can_delete   = $user->can('eliminar usuarios');
+		}
 	}
 
     public function toggle_dark_mode()

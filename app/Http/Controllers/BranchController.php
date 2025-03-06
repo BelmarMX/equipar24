@@ -17,11 +17,18 @@ class BranchController extends Controller
 
 	public function __construct()
 	{
-		$user               = Auth()->user();
-		$this->can_view     = $user->can('ver sucursales');
-		$this->can_create   = $user->can('crear sucursales');
-		$this->can_edit     = $user->can('editar sucursales');
-		$this->can_delete   = $user->can('eliminar sucursales');
+		$this->can_view     = FALSE;
+		$this->can_create   = FALSE;
+		$this->can_edit     = FALSE;
+		$this->can_delete   = FALSE;
+
+		if( $user = Auth()->user() )
+		{
+			$this->can_view     = $user->can('ver sucursales');
+			$this->can_create   = $user->can('crear sucursales');
+			$this->can_edit     = $user->can('editar sucursales');
+			$this->can_delete   = $user->can('eliminar sucursales');
+		}
 	}
     /**
      * Display a listing of the resource.

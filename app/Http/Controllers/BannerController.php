@@ -19,11 +19,18 @@ class BannerController extends Controller
 
 	public function __construct()
 	{
-		$user               = Auth()->user();
-		$this->can_view     = $user->can('ver banners');
-		$this->can_create   = $user->can('crear banners');
-		$this->can_edit     = $user->can('editar banners');
-		$this->can_delete   = $user->can('eliminar banners');
+		$this->can_view     = FALSE;
+		$this->can_create   = FALSE;
+		$this->can_edit     = FALSE;
+		$this->can_delete   = FALSE;
+
+		if( $user = Auth()->user() )
+		{
+			$this->can_view     = $user->can('ver banners');
+			$this->can_create   = $user->can('crear banners');
+			$this->can_edit     = $user->can('editar banners');
+			$this->can_delete   = $user->can('eliminar banners');
+		}
 	}
     /**
      * Display a listing of the resource.

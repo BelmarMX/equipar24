@@ -18,11 +18,18 @@ class ProjectController extends Controller
 
 	public function __construct()
 	{
-		$user               = Auth()->user();
-		$this->can_view     = $user->can('ver proyectos');
-		$this->can_create   = $user->can('crear proyectos');
-		$this->can_edit     = $user->can('editar proyectos');
-		$this->can_delete   = $user->can('eliminar proyectos');
+		$this->can_view     = FALSE;
+		$this->can_create   = FALSE;
+		$this->can_edit     = FALSE;
+		$this->can_delete   = FALSE;
+
+		if( $user = Auth()->user() )
+		{
+			$this->can_view     = $user->can('ver proyectos');
+			$this->can_create   = $user->can('crear proyectos');
+			$this->can_edit     = $user->can('editar proyectos');
+			$this->can_delete   = $user->can('eliminar proyectos');
+		}
 	}
 
     public function view()

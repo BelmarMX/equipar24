@@ -23,11 +23,18 @@ class ProductPriceController extends Controller
 
 	public function __construct()
 	{
-		$user               = Auth()->user();
-		$this->can_view     = $user->can('ver precios');
-		$this->can_create   = $user->can('crear precios');
-		$this->can_edit     = $user->can('editar precios');
-		$this->can_delete   = $user->can('eliminar precios');
+		$this->can_view     = FALSE;
+		$this->can_create   = FALSE;
+		$this->can_edit     = FALSE;
+		$this->can_delete   = FALSE;
+
+		if( $user = Auth()->user() )
+		{
+			$this->can_view     = $user->can('ver precios');
+			$this->can_create   = $user->can('crear precios');
+			$this->can_edit     = $user->can('editar precios');
+			$this->can_delete   = $user->can('eliminar precios');
+		}
 	}
 
     /**

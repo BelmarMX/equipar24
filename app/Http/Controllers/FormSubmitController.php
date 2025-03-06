@@ -32,15 +32,26 @@ class FormSubmitController extends Controller
 
 	public function __construct()
 	{
-		$user               = Auth()->user();
-		$this->can_view_contact         = $user->can('ver contactos');
-		$this->can_create_contact       = $user->can('crear contactos');
-		$this->can_edit_contact         = $user->can('editar contactos');
-		$this->can_delete_contact       = $user->can('eliminar contactos');
-		$this->can_view_quotation       = $user->can('ver cotizaciones');
-		$this->can_create_quotation     = $user->can('crear cotizaciones');
-		$this->can_edit_quotation       = $user->can('editar cotizaciones');
-		$this->can_delete_quotation     = $user->can('eliminar cotizaciones');
+		$this->can_view_contact         = FALSE;
+		$this->can_create_contact       = FALSE;
+		$this->can_edit_contact         = FALSE;
+		$this->can_delete_contact       = FALSE;
+		$this->can_view_quotation       = FALSE;
+		$this->can_create_quotation     = FALSE;
+		$this->can_edit_quotation       = FALSE;
+		$this->can_delete_quotation     = FALSE;
+
+		if( $user = Auth()->user() )
+		{
+			$this->can_view_contact         = $user->can('ver contactos');
+			$this->can_create_contact       = $user->can('crear contactos');
+			$this->can_edit_contact         = $user->can('editar contactos');
+			$this->can_delete_contact       = $user->can('eliminar contactos');
+			$this->can_view_quotation       = $user->can('ver cotizaciones');
+			$this->can_create_quotation     = $user->can('crear cotizaciones');
+			$this->can_edit_quotation       = $user->can('editar cotizaciones');
+			$this->can_delete_quotation     = $user->can('eliminar cotizaciones');
+		}
 	}
 
     /**
