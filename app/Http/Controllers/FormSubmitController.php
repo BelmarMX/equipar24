@@ -21,6 +21,28 @@ use Yajra\DataTables\DataTables;
 
 class FormSubmitController extends Controller
 {
+	private $can_view_contact;
+	private $can_create_contact;
+	private $can_edit_contact;
+	private $can_delete_contact;
+	private $can_view_quotation;
+	private $can_create_quotation;
+	private $can_edit_quotation;
+	private $can_delete_quotation;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view_contact         = $user->can('ver contactos');
+		$this->can_create_contact       = $user->can('crear contactos');
+		$this->can_edit_contact         = $user->can('editar contactos');
+		$this->can_delete_contact       = $user->can('eliminar contactos');
+		$this->can_view_quotation       = $user->can('ver cotizaciones');
+		$this->can_create_quotation     = $user->can('crear cotizaciones');
+		$this->can_edit_quotation       = $user->can('editar cotizaciones');
+		$this->can_delete_quotation     = $user->can('eliminar cotizaciones');
+	}
+
     /**
      * Display a listing of the resource.
      */
@@ -34,6 +56,9 @@ class FormSubmitController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete_contact && !$this->can_delete_quotation )
+	    { abort(403); }
+
         return view('dashboard.contacts.index', [
                 'subtitle'      => 'Registros eliminados'
             ,   'with_trashed'  => TRUE
@@ -77,11 +102,11 @@ class FormSubmitController extends Controller
                 $dt_of->where('type', 'contact');
             }
         }
-        if( !empty($filter) && $filter=='quotations' )
+        if( (!empty($filter) && $filter=='quotations') || ($this->can_view_quotation && !$this->can_view_contact) )
         {
             $dt_of->where('type', 'quotation');
         }
-        if( !empty($filter) && $filter=='contacts' )
+        if( (!empty($filter) && $filter=='contacts') || (!$this->can_view_quotation && $this->can_view_contact) )
         {
             $dt_of->where('type', 'contact');
         }
@@ -112,11 +137,11 @@ class FormSubmitController extends Controller
             ->addColumn('action', function ($record) use ($restore) {
                 $actions = [
                         'delete'        => [
-                            'enabled'   => !$restore
+                            'enabled'   => !$restore && (($record->type == 'quotation' && $this->can_delete_quotation) || ($record->type == 'contact' && $this->can_delete_contact))
                         ,   'route'     => 'contacts.delete'
                     ]
                     ,   'restore'       => [
-                            'enabled'   => $restore
+                            'enabled'   => $restore && (($record->type == 'quotation' && $this->can_delete_quotation) || ($record->type == 'contact' && $this->can_delete_contact))
                         ,   'route'     => 'contacts.restore'
                     ]
                     ,   'watch'         => ['route' => 'contacts.show']
@@ -179,6 +204,9 @@ class FormSubmitController extends Controller
      */
     public function update(Request $request, FormSubmit $contact)
     {
+	    if( ($contact->type=='quotation' && !$this->can_edit_quotation) || ($contact->type=='contact' && !$this->can_edit_contact) )
+	    { abort(403); }
+
         $validated              = $request->validate([
                 'notes'                     => 'required|string'
             ,   'status'                    => 'required|in:approved,rejected'

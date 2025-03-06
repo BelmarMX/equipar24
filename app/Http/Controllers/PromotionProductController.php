@@ -12,11 +12,28 @@ use Yajra\DataTables\DataTables;
 
 class PromotionProductController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver promociones');
+		$this->can_create   = $user->can('crear promociones');
+		$this->can_edit     = $user->can('editar promociones');
+		$this->can_delete   = $user->can('eliminar promociones');
+	}
+
     /**
      * Display a listing of the resource.
      */
     public function index(Promotion $promotion)
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.promotions.link.index', [
                 'record'        => $promotion
             ,   'brands'        => ProductBrand::get_brands()
@@ -138,6 +155,9 @@ class PromotionProductController extends Controller
 
     public function update_massive(Request $request, Promotion $promotion)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $news = 0;
         $upds = 0;
         $olds = 0;

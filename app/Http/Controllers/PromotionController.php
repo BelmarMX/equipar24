@@ -13,11 +13,28 @@ use Yajra\DataTables\DataTables;
 
 class PromotionController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver promociones');
+		$this->can_create   = $user->can('crear promociones');
+		$this->can_edit     = $user->can('editar promociones');
+		$this->can_delete   = $user->can('eliminar promociones');
+	}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.promotions.index', [
             'subtitle' => 'Registros activos'
         ]);
@@ -25,6 +42,9 @@ class PromotionController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         return view('dashboard.promotions.index', [
                 'subtitle' => 'Registros eliminados'
             ,   'with_trashed' => TRUE
@@ -34,19 +54,28 @@ class PromotionController extends Controller
     public function datatable(Request $request)
     {
         $restore = FALSE;
-        if ($request->has('with_trashed') && $request->with_trashed == 'true') {
+        if ($request->has('with_trashed') && $request->with_trashed == 'true')
+		{
             $dt_of = Promotion::onlyTrashed();
-            $restore = TRUE;
-        } else {
+            $restore = $this->can_delete;
+        }
+		else
+		{
             $dt_of = Promotion::query();
         }
 
-        if (isset($_GET['filter'])) {
-            if ($_GET['filter'] == 'vigentes') {
+        if (isset($_GET['filter']))
+		{
+            if ($_GET['filter'] == 'vigentes')
+			{
                 $dt_of->where('starts_at', '<=', now())->where('ends_at', '>=', now());
-            } elseif ($_GET['filter'] == 'vencidas') {
+            }
+			elseif ($_GET['filter'] == 'vencidas')
+			{
                 $dt_of->where('ends_at', '<', now());
-            } elseif ($_GET['filter'] == 'proximas') {
+            }
+			elseif ($_GET['filter'] == 'proximas')
+			{
                 $dt_of->where('starts_at', '>', now());
             }
         }
@@ -60,7 +89,7 @@ class PromotionController extends Controller
                 return view('dashboard.partials.status', compact('record', 'vigency'))->render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions = parent::set_actions('promotions', 'title', TRUE, $restore, TRUE, TRUE, ['route' => 'promotionProducts.index', 'tooltip' => 'Vincular productos', 'fa_icon' => 'fa-cart-plus']);
+                $actions = parent::set_actions('promotions', 'title', TRUE, $restore, $this->can_edit, $this->can_delete, ['route' => 'promotionProducts.index', 'tooltip' => 'Vincular productos', 'fa_icon' => 'fa-cart-plus']);
                 return view('dashboard.partials.actions', compact(['actions', 'record']))->render();
             })
             ->rawColumns(['preview', 'status', 'action'])
@@ -72,9 +101,12 @@ class PromotionController extends Controller
      */
     public function create()
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         return view('dashboard.promotions.create-edit', [
-            'resource' => 'promotions'
-            , 'record' => new Promotion()
+                'resource'  => 'promotions'
+            ,   'record'    => new Promotion()
         ]);
     }
 
@@ -83,15 +115,18 @@ class PromotionController extends Controller
      */
     public function store(PromotionRequest $request)
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         $validated = $request->validated();
         $stored = parent::store_all_images_from_request(
-            $request->file('image')
-            , $request->file('image_mv')
-            , $validated['title']
-            , ImagesSettings::PROMOS_FOLDER
-            , FALSE
-            , ImagesSettings::PROMOS_WIDTH_MV
-            , ImagesSettings::PROMOS_HEIGHT_MV
+                $request->file('image')
+            ,   $request->file('image_mv')
+            ,   $validated['title']
+            ,   ImagesSettings::PROMOS_FOLDER
+            ,   FALSE
+            ,   ImagesSettings::PROMOS_WIDTH_MV
+            ,   ImagesSettings::PROMOS_HEIGHT_MV
         );
 
         $validated['image']     = $stored->full->original;
@@ -116,6 +151,9 @@ class PromotionController extends Controller
      */
     public function edit(Promotion $promotion)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.promotions.create-edit', [
             'resource' => 'promotions'
             , 'record' => $promotion
@@ -127,6 +165,9 @@ class PromotionController extends Controller
      */
     public function update(PromotionRequest $request, Promotion $promotion)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated = $request->validated();
         $stored = parent::store_all_images_from_request(
             $request->file('image')
@@ -156,12 +197,18 @@ class PromotionController extends Controller
      */
     public function destroy(Promotion $promotion)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $promotion->delete();
         return redirect()->route('promotions.archived', ['deleted' => $promotion->id]);
     }
 
     public function restore($promotion_id)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $promotion = Promotion::onlyTrashed()->find($promotion_id);
         $promotion->restore();
         return redirect()->route('promotions.index', ['restored' => $promotion->id]);

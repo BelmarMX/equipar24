@@ -6,7 +6,7 @@
                     ['icon' => 'fa-barcode', 'text' => 'Productos', 'route_name' => 'products.index']
                 ,   ['icon' => 'fa-registered', 'text' => 'Marcas', 'route_name' => 'productBrands.index']
                 ,   ['icon' => 'fa-tags', 'text' => 'Subcategorías', 'route_name' => 'productSubcategories.index']
-            ]])
+            ], 'permission' => 'productos'])
         </div>
     </x-slot>
 
@@ -19,9 +19,11 @@
             @endforeach
         </div>
 
-        <div class="text-right">
-            <x-form.button class="ms-1" type="success" icon="fa-save" text="Actualizar" form="button" data-action-post/>
-        </div>
+        @can('editar productos')
+            <div class="text-right">
+                <x-form.button class="ms-1" type="success" icon="fa-save" text="Actualizar" form="button" data-action-post/>
+            </div>
+        @endcan
     </div>
 
     @push('ESmodules')

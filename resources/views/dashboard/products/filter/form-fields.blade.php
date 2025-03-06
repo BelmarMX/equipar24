@@ -30,7 +30,9 @@
         <div class="w-full md:w-4/12 text-center">
             <x-form.button id="btn-filter" class="ms-1" type="info-outline" icon="fa-filter-circle-dollar fa-lg" text="Filtrar" form="button" data-tooltip="Filtra los productos para modificar los precios del resultado."/>
             @if( !isset($btn_download) || $btn_download )
-            <x-form.button id="btn-download" class="mb-1" type="info-outline" icon="fa-file-arrow-down fa-lg" text="Descargar" form="button" data-tooltip="Descarga la plantilla filtrada para cambiar precios."/>
+                @can('editar precios')
+                    <x-form.button id="btn-download" class="mb-1" type="info-outline" icon="fa-file-arrow-down fa-lg" text="Descargar" form="button" data-tooltip="Descarga la plantilla filtrada para cambiar precios."/>
+                @endcan
             @endif
         </div>
     </div>

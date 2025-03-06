@@ -7,7 +7,7 @@
     }
 @endphp
 <div class="{{ $width_class }} w-full px-2">
-    <label for="{{ $name }}"
+    <label for="{{ $name }}_{{ $value }}"
            class="flex justify-between items-center w-full py-2 px-4 mb-3
            rounded-lg cursor-pointer
            text-gray-600
@@ -22,11 +22,12 @@
     >
         <span>@if(!empty($fa_icon)) <i class="fa-solid {{ $fa_icon }} fa-xs"></i> @endif {{ $label }}</span>
 
-        <input type="checkbox"
-               id="{{ $name }}" name="{{ $name }}" value="{{ $value }}"
+        <input type="radio"
+               id="{{ $name }}_{{ $value }}" name="{{ $name }}" value="{{ $value }}"
                class="peer size-3.5 appearance-none rounded-sm border border-slate-300 accent-pink-500 dark:accent-pink-600 checked:appearance-auto focus:ring-0"
                @if($checked) checked @endif
                @isset($required) required @endisset
+               {{ $attributes }}
         >
     </label>
 </div>

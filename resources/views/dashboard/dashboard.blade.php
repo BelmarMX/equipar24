@@ -30,7 +30,9 @@
                         Histórico
                     </span>
                     <br>
+                    @can('ver cotizaciones')
                     <x-secondary-button onclick="location.href='{{ route('contacts.filter', ['quotations']) }}'">Ver cotizaciones</x-secondary-button>
+                    @endcan
                 </div>
                 <div class="w-full p-8 space-y-8 text-center border border-gray-200 rounded-lg dark:border-gray-700">
                     <p class="font-medium text-gray-500 uppercase dark:text-gray-300">Solicitudes de información</p>
@@ -53,7 +55,9 @@
                         Histórico
                     </span>
                     <br>
+                    @can('ver contactos')
                     <x-secondary-button onclick="location.href='{{ route('contacts.filter', ['contacts']) }}'">Ver solicitudes</x-secondary-button>
+                    @endcan
                 </div>
                 <div class="w-full p-8 space-y-8 text-center border border-gray-200 rounded-lg dark:border-gray-700">
                     <p class="font-medium text-gray-500 uppercase dark:text-gray-300">Contactos</p>
@@ -72,7 +76,9 @@
                         Total
                     </span>
                     <br>
+                    @can('ver contactos')
                     <x-secondary-button onclick="location.href='{{ route('dashboard.contactList') }}'">Ver contactos</x-secondary-button>
+                    @endcan
                 </div>
             </div>
 
@@ -91,7 +97,9 @@
                         {{ $stats -> products }}
                     </span>
                     <br>
+                    @can('ver productos')
                     <x-secondary-button onclick="location.href='{{ route('products.index') }}'">Ir a productos</x-secondary-button>
+                    @endcan
                 </div>
                 <div class="w-full p-8 space-y-8 text-center border border-gray-200 rounded-lg dark:border-gray-700">
                     <p class="font-medium text-gray-500 uppercase dark:text-gray-300">Última actualización de precios</p>

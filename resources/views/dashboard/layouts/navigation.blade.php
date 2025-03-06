@@ -40,9 +40,11 @@
                             <i class="fa-solid fa-earth-america me-1"></i> Ver sitio
                         </x-dropdown-link>
 
+                        @can('editar perfil')
                         <x-dropdown-link :href="route('profile.edit')">
                             <i class="fa-solid fa-id-card me-1"></i> {{ __('Profile') }}
                         </x-dropdown-link>
+                        @endcan
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

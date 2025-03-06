@@ -10,11 +10,28 @@ use Yajra\DataTables\DataTables;
 
 class ProductCategoryController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver productos');
+		$this->can_create   = $user->can('crear productos');
+		$this->can_edit     = $user->can('editar productos');
+		$this->can_delete   = $user->can('eliminar productos');
+	}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.productCategories.index', [
             'subtitle' => 'Registros activos'
         ]);
@@ -22,6 +39,9 @@ class ProductCategoryController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         return view('dashboard.productCategories.index', [
                 'subtitle'      => 'Registros eliminados'
             ,   'with_trashed'  => TRUE
@@ -34,7 +54,7 @@ class ProductCategoryController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = ProductCategory::onlyTrashed();
-            $restore    = TRUE;
+	        $restore    = $this->can_delete;
         }
         else
         {
@@ -53,7 +73,7 @@ class ProductCategoryController extends Controller
                 return view('dashboard.partials.preview', compact('record', 'show_thumbnail')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('productCategories', 'title', FALSE, $restore);
+                $actions            = parent::set_actions('productCategories', 'title', FALSE, $restore, $this->can_edit, $this->can_delete);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['preview', 'action'])
@@ -65,6 +85,9 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         return view('dashboard.productCategories.create-edit', [
                 'resource'      => 'productCategories'
             ,   'record'        => new ProductCategory()
@@ -77,6 +100,9 @@ class ProductCategoryController extends Controller
      */
     public function store(ProductCategoryRequest $request)
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -108,6 +134,9 @@ class ProductCategoryController extends Controller
      */
     public function edit(ProductCategory $productCategory)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.productCategories.create-edit', [
                 'resource'      => 'productCategories'
             ,   'record'        => $productCategory
@@ -119,6 +148,9 @@ class ProductCategoryController extends Controller
      */
     public function update(ProductCategoryRequest $request, ProductCategory $productCategory)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -142,6 +174,9 @@ class ProductCategoryController extends Controller
 
     public function reorder()
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.productCategories.order', [
                 'subtitle'  => 'Reordenar'
             ,   'records'   => ProductCategory::get_categories()
@@ -150,6 +185,9 @@ class ProductCategoryController extends Controller
 
     public function update_order(Request $request)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         foreach($request->order AS $order)
         {
             $cat        = ProductCategory::find($order['id']);
@@ -165,12 +203,18 @@ class ProductCategoryController extends Controller
      */
     public function destroy(ProductCategory $productCategory)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $productCategory->delete();
         return redirect() -> route('productCategories.archived', ['deleted' => $productCategory->id]);
     }
 
     public function restore($product_category_id)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $productCategory = ProductCategory::onlyTrashed() -> find($product_category_id);
         $productCategory->restore();
         return redirect() -> route('productCategories.index', ['restored' => $productCategory->id]);

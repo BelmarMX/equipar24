@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center">
             @include('dashboard.partials.section-title', ['section_name'=>'Proyectos', 'fa_icon'=>'folder-open', 'subtitle'=>$subtitle])
-            @include('dashboard.partials.submenu', ['resource' => 'projects'])
+            @include('dashboard.partials.submenu', ['resource' => 'projects', 'permission' => 'proyectos'])
         </div>
     </x-slot>
 

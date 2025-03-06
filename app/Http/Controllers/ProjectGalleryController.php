@@ -12,6 +12,20 @@ use Yajra\DataTables\DataTables;
 
 class ProjectGalleryController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver proyectos');
+		$this->can_create   = $user->can('crear proyectos');
+		$this->can_edit     = $user->can('editar proyectos');
+		$this->can_delete   = $user->can('eliminar proyectos');
+	}
+
     /**
      * Display a listing of the resource.
      */
@@ -39,7 +53,7 @@ class ProjectGalleryController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = ProjectGallery::onlyTrashed();
-            $restore    = TRUE;
+            $restore    = $this->can_delete;
         }
         else
         {
@@ -52,7 +66,7 @@ class ProjectGalleryController extends Controller
                 return view('dashboard.partials.preview', compact('record')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('projectGalleries', 'title', TRUE, $restore, FALSE);
+                $actions            = parent::set_actions('projectGalleries', 'title', TRUE, $restore, FALSE, $this->can_delete);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['preview', 'action'])
@@ -117,6 +131,9 @@ class ProjectGalleryController extends Controller
      */
     public function destroy(ProjectGallery $projectGallery)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         parent::delete_image([
                 $projectGallery->image
             ,   $projectGallery->image_rx

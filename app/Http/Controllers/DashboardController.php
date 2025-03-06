@@ -49,6 +49,9 @@ class DashboardController extends Controller
     }
 
     public function states(){
+		if( !Auth()->user()->can('ver estados') )
+		{ abort(403); }
+
         return view('dashboard.dashboard-items.states');
     }
 
@@ -68,6 +71,9 @@ class DashboardController extends Controller
 
     public function state_cities(State $state)
     {
+	    if( !Auth()->user()->can('ver ciudades') )
+	    { abort(403); }
+
         return view('dashboard.dashboard-items.cities', compact('state'));
     }
 
@@ -91,6 +97,9 @@ class DashboardController extends Controller
 
     public function cities()
     {
+	    if( !Auth()->user()->can('ver ciudades') )
+	    { abort(403); }
+
         return view('dashboard.dashboard-items.cities');
     }
 
@@ -109,6 +118,9 @@ class DashboardController extends Controller
 
     public function contactList()
     {
+	    if( !Auth()->user()->can('ver contactos') )
+	    { abort(403); }
+
         return view('dashboard.dashboard-items.contacts');
     }
 

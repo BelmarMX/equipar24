@@ -11,11 +11,28 @@ use Yajra\DataTables\DataTables;
 
 class ProductSubcategoryController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver productos');
+		$this->can_create   = $user->can('crear productos');
+		$this->can_edit     = $user->can('editar productos');
+		$this->can_delete   = $user->can('eliminar productos');
+	}
+
     /**
      * Display a listing of the resource.
      */
     public function index($filter_type = NULL, $filter_id = NULL)
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.productSubcategories.index', [
                 'subtitle' => 'Registros activos'
             ,   'filter_type'   => $filter_type
@@ -25,6 +42,9 @@ class ProductSubcategoryController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         return view('dashboard.productSubcategories.index', [
                 'subtitle'      => 'Registros eliminados'
             ,   'with_trashed'  => TRUE
@@ -37,7 +57,7 @@ class ProductSubcategoryController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = ProductSubcategory::onlyTrashed();
-            $restore    = TRUE;
+	        $restore    = $this->can_delete;
         }
         else
         {
@@ -60,7 +80,7 @@ class ProductSubcategoryController extends Controller
                 return $record -> products -> count();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('productSubcategories', 'title', FALSE, $restore);
+                $actions            = parent::set_actions('productSubcategories', 'title', FALSE, $restore, $this->can_edit, $this->can_delete);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['action'])
@@ -72,6 +92,9 @@ class ProductSubcategoryController extends Controller
      */
     public function create()
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         return view('dashboard.productSubcategories.create-edit', [
                 'resource'      => 'productSubcategories'
             ,   'categories'    => ProductCategory::get_categories()
@@ -84,20 +107,10 @@ class ProductSubcategoryController extends Controller
      */
     public function store(ProductSubcategoryRequest $request)
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         $validated              = $request -> validated();
-        /*$stored                 = parent::store_all_images_from_request(
-            $request -> file('image')
-            ,   NULL
-            ,   $validated['title']
-            ,   ImagesSettings::PRODUCT_SUBCAT_FOLDER
-            ,   TRUE
-            ,   ImagesSettings::PRODUCT_SUBCAT_RX_WIDTH
-            ,   ImagesSettings::PRODUCT_SUBCAT_RX_HEIGHT
-        );
-
-        $validated['image']     = $stored -> full -> original;
-        $validated['image_rx']  = $stored -> full -> thumbnail  ?? NULL;*/
-
         $created                = ProductSubcategory::create($validated);
         return redirect() -> route('productSubcategories.index', compact('created'));
     }
@@ -115,6 +128,9 @@ class ProductSubcategoryController extends Controller
      */
     public function edit(ProductSubcategory $productSubcategory)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.productSubcategories.create-edit', [
                 'resource'      => 'productSubcategories'
             ,   'categories'    => ProductCategory::get_categories()
@@ -127,23 +143,10 @@ class ProductSubcategoryController extends Controller
      */
     public function update(ProductSubcategoryRequest $request, ProductSubcategory $productSubcategory)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated              = $request -> validated();
-        /*$stored                 = parent::store_all_images_from_request(
-                $request -> file('image')
-            ,   NULL
-            ,   $validated['title']
-            ,   ImagesSettings::PRODUCT_SUBCAT_FOLDER
-            ,   TRUE
-            ,   ImagesSettings::PRODUCT_SUBCAT_WIDTH
-            ,   ImagesSettings::PRODUCT_SUBCAT_HEIGHT
-            ,   $productSubcategory->image
-            ,   NULL
-            ,   $productSubcategory->image_rx
-        );
-
-        $validated['image']     = $stored -> full -> original   ?? $productSubcategory->image;
-        $validated['image_rx']  = $stored -> full -> thumbnail  ?? $productSubcategory->image_rx;*/
-
         $productSubcategory -> update($validated);
         return redirect() -> route('productSubcategories.index', ['updated' => $productSubcategory->id]);
     }
@@ -153,12 +156,18 @@ class ProductSubcategoryController extends Controller
      */
     public function destroy(ProductSubcategory $productSubcategory)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $productSubcategory->delete();
         return redirect() -> route('productSubcategories.archived', ['deleted' => $productSubcategory->id]);
     }
 
     public function restore($product_category_id)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $productSubcategory = ProductSubcategory::onlyTrashed() -> find($product_category_id);
         $productSubcategory->restore();
         return redirect() -> route('productSubcategories.index', ['restored' => $productSubcategory->id]);

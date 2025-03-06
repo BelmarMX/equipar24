@@ -12,11 +12,28 @@ use Yajra\DataTables\DataTables;
 
 class ProductFreightController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver fletes');
+		$this->can_create   = $user->can('crear fletes');
+		$this->can_edit     = $user->can('editar fletes');
+		$this->can_delete   = $user->can('eliminar fletes');
+	}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.products.freight.index', [
                 'brands'        => ProductBrand::get_brands()
             ,   'categories'    => ProductCategory::get_categories()
@@ -127,6 +144,9 @@ class ProductFreightController extends Controller
 
     public function update_massive(Request $request)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $counter = 0;
         foreach($request->dataset AS $data)
         {

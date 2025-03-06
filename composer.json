@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.9",
         "shuchkin/simplexlsx": "^1.1",
         "shuchkin/simplexlsxgen": "^1.4",
+        "spatie/laravel-permission": "^6.16",
         "yajra/laravel-datatables-oracle": "^11.0"
     },
     "require-dev": {

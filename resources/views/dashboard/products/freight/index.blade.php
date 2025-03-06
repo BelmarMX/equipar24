@@ -9,7 +9,7 @@
                 ,   ['icon' => 'fa-registered', 'text' => 'Marcas', 'route_name' => 'productBrands.index']
                 ,   ['icon' => 'fa-tag', 'text' => 'Categorías', 'route_name' => 'productCategories.index']
                 ,   ['icon' => 'fa-tags', 'text' => 'Subcategorías', 'route_name' => 'productSubcategories.index']
-            ]])
+            ], 'permission' => 'fletes'])
         </div>
     </x-slot>
 
@@ -72,10 +72,12 @@
             </thead>
         </table>
 
+        @can('editar fletes')
         <div id="btn-update-wrapper" class="hidden flex justify-end border-t-4 border-slate-50 mt-2 pt-8">
             <x-form.button id="btn-update" class="ms-1" type="success" icon="fa-save" text="Actualizar fletes"
                            form="button"/>
         </div>
+        @endcan
     </div>
 
     @push('ESmodules')

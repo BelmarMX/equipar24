@@ -19,9 +19,11 @@
             @endforeach
         </div>
 
-        <div class="text-right">
-            <x-form.button class="ms-1" type="success" icon="fa-save" text="Actualizar" form="button" data-action-post/>
-        </div>
+        @can('editar banners')
+            <div class="text-right">
+                <x-form.button class="ms-1" type="success" icon="fa-save" text="Actualizar" form="button" data-action-post/>
+            </div>
+        @endcan
     </div>
 
     @push('ESmodules')

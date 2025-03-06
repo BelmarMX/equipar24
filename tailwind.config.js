@@ -23,6 +23,9 @@ export default {
         },
         {
             pattern: /text-(red|yellow|amber|green|emerald|blue|sky|indigo|pink)-(50|100|200|300|400|500|600|700|800|900)/
+        },
+        {
+            pattern: /m-(1|2|3|4|5|6|7|8|9)/
         }
     ],
 

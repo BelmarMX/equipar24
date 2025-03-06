@@ -4,7 +4,7 @@
             @include('dashboard.partials.section-title', ['section_name'=>'Categorías del blog', 'fa_icon'=>'tag', 'subtitle'=>$record->id ? 'Editar' : 'Nuevo'])
             @include('dashboard.partials.submenu', ['resource' => $resource, 'push_buttons' => [
                 ['icon' => 'fa-rss', 'text' => 'Artículos', 'route_name' => 'blogArticles.index']
-            ]])
+            ], 'permission' => 'blog'])
         </div>
     </x-slot>
 

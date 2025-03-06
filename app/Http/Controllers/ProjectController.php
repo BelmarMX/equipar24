@@ -11,6 +11,20 @@ use Yajra\DataTables\DataTables;
 
 class ProjectController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver proyectos');
+		$this->can_create   = $user->can('crear proyectos');
+		$this->can_edit     = $user->can('editar proyectos');
+		$this->can_delete   = $user->can('eliminar proyectos');
+	}
+
     public function view()
     {
         return view('web.static.portafolio', array_merge(
@@ -25,6 +39,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.projects.index', [
             'subtitle' => 'Registros activos'
         ]);
@@ -32,6 +49,9 @@ class ProjectController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         return view('dashboard.projects.index', [
                 'subtitle'      => 'Registros eliminados'
             ,   'with_trashed'  => TRUE
@@ -44,7 +64,7 @@ class ProjectController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = Project::onlyTrashed();
-            $restore    = TRUE;
+            $restore    = $this->can_delete;
         }
         else
         {
@@ -59,7 +79,7 @@ class ProjectController extends Controller
                 return $record->project_galleries->count();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('projects', 'title', TRUE, $restore, TRUE, TRUE, FALSE, ['route' => 'projectGalleries.gallery', 'tooltip' => 'Agregar imágenes a la galería']);
+                $actions            = parent::set_actions('projects', 'title', TRUE, $restore, $this->can_edit, $this->can_delete, FALSE, ['route' => 'projectGalleries.gallery', 'tooltip' => 'Agregar imágenes a la galería']);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['preview', 'action'])
@@ -71,6 +91,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         return view('dashboard.projects.create-edit', [
                 'resource'      => 'projects'
             ,   'record'        => new Project()
@@ -82,6 +105,9 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -120,6 +146,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.projects.create-edit', [
                 'resource'      => 'projects'
             ,   'record'        => $project
@@ -131,6 +160,9 @@ class ProjectController extends Controller
      */
     public function update(ProjectRequest $request, Project $project)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -157,12 +189,18 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $project->delete();
         return redirect() -> route('projects.archived', ['deleted' => $project->id]);
     }
 
     public function restore($project_id)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $project = Project::onlyTrashed() -> find($project_id);
         $project->restore();
         return redirect() -> route('projects.index', ['restored' => $project -> id]);

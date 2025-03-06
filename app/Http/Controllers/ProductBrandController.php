@@ -14,11 +14,28 @@ use Yajra\DataTables\DataTables;
 
 class ProductBrandController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver productos');
+		$this->can_create   = $user->can('crear productos');
+		$this->can_edit     = $user->can('editar productos');
+		$this->can_delete   = $user->can('eliminar productos');
+	}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.productBrands.index', [
             'subtitle' => 'Registros activos'
         ]);
@@ -26,6 +43,9 @@ class ProductBrandController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         return view('dashboard.productBrands.index', [
                 'subtitle'      => 'Registros eliminados'
             ,   'with_trashed'  => TRUE
@@ -38,7 +58,7 @@ class ProductBrandController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = ProductBrand::onlyTrashed();
-            $restore    = TRUE;
+	        $restore    = $this->can_delete;
         }
         else
         {
@@ -54,7 +74,7 @@ class ProductBrandController extends Controller
                 return view('dashboard.partials.preview', compact('record', 'show_thumbnail')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('productBrands', 'title', FALSE, $restore);
+                $actions            = parent::set_actions('productBrands', 'title', FALSE, $restore, $this->can_edit, $this->can_delete);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['preview', 'action'])
@@ -66,6 +86,9 @@ class ProductBrandController extends Controller
      */
     public function create()
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         return view('dashboard.productBrands.create-edit', [
                 'resource'      => 'productBrands'
             ,   'record'        => new ProductBrand()
@@ -77,6 +100,9 @@ class ProductBrandController extends Controller
      */
     public function store(ProductBrandRequest $request)
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -108,6 +134,9 @@ class ProductBrandController extends Controller
      */
     public function edit(ProductBrand $productBrand)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.productBrands.create-edit', [
                 'resource'      => 'productBrands'
             ,   'record'        => $productBrand
@@ -119,6 +148,9 @@ class ProductBrandController extends Controller
      */
     public function update(ProductBrandRequest $request, ProductBrand $productBrand)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -142,6 +174,9 @@ class ProductBrandController extends Controller
 
     public function reorder()
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.productBrands.order', [
                 'subtitle'  => 'Reordenar'
             ,   'records'   => ProductBrand::get_brands()
@@ -150,6 +185,9 @@ class ProductBrandController extends Controller
 
     public function update_order(Request $request)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         foreach($request->order AS $order)
         {
             $brand        = ProductBrand::find($order['id']);
@@ -165,12 +203,18 @@ class ProductBrandController extends Controller
      */
     public function destroy(ProductBrand $productBrand)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $productBrand->delete();
         return redirect() -> route('productBrands.archived', ['deleted' => $productBrand->id]);
     }
 
     public function restore($product_brand_id)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $productBrand = ProductBrand::onlyTrashed() -> find($product_brand_id);
         $productBrand->restore();
         return redirect() -> route('productBrands.index', ['restored' => $productBrand->id]);

@@ -12,11 +12,27 @@ use Yajra\DataTables\DataTables;
 
 class BannerController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver banners');
+		$this->can_create   = $user->can('crear banners');
+		$this->can_edit     = $user->can('editar banners');
+		$this->can_delete   = $user->can('eliminar banners');
+	}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+		if( !$this->can_view )
+		{ abort(403); }
+
         return view('dashboard.banners.index', [
             'subtitle' => 'Registros activos'
         ]);
@@ -24,6 +40,9 @@ class BannerController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         return view('dashboard.banners.index', [
                 'subtitle'      => 'Registros eliminados'
             ,   'with_trashed'  => TRUE
@@ -36,7 +55,7 @@ class BannerController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = Banner::onlyTrashed();
-            $restore    = TRUE;
+            $restore    = $this->can_delete;
         }
         else
         {
@@ -71,7 +90,7 @@ class BannerController extends Controller
                 return view('dashboard.partials.preview', compact('record')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('banners', 'title', FALSE, $restore);
+                $actions            = parent::set_actions('banners', 'title', FALSE, $restore, $this->can_edit, $this->can_delete);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['promocion', 'preview', 'action'])
@@ -83,6 +102,9 @@ class BannerController extends Controller
      */
     public function create()
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         return view('dashboard.banners.create-edit', [
                 'resource'      => 'banners'
             ,   'record'        => new Banner()
@@ -95,6 +117,9 @@ class BannerController extends Controller
      */
     public function store(BannerRequest $request)
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -127,6 +152,9 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.banners.create-edit', [
                 'resource'      => 'banners'
             ,   'record'        => $banner
@@ -139,6 +167,9 @@ class BannerController extends Controller
      */
     public function update(BannerRequest $request, Banner $banner)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -163,6 +194,9 @@ class BannerController extends Controller
 
     public function reorder()
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.banners.order', [
                 'subtitle'  => 'Reordenar'
             ,   'records'   => Banner::get_banners()
@@ -171,6 +205,9 @@ class BannerController extends Controller
 
     public function update_order(Request $request)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         foreach($request->order AS $order)
         {
             $banner        = Banner::find($order['id']);
@@ -186,12 +223,18 @@ class BannerController extends Controller
      */
     public function destroy(Banner $banner)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $banner->delete();
         return redirect() -> route('banners.archived', ['deleted' => $banner->id]);
     }
 
     public function restore($banner_id)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $banner = Banner::onlyTrashed() -> find($banner_id);
         $banner->restore();
         return redirect() -> route('banners.index', ['restored' => $banner->id]);

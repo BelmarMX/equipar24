@@ -55,9 +55,11 @@
                     <x-form.input-text name="form_contact_company" placeholder="Empresa del contacto" value="{{ $contact->form_contact->company }}" bind_readonly data-field="contact_company" class="mb-6 md:w-8/12"/>
 
                     @if( $contact->status == 'pending' )
-                    <div class="flex justify-end border-t-4 border-slate-50 pb-8">
-                        <x-form.button class="ms-1" type="warning" icon="fa-pencil" text="Editar contacto" form="button" x-on:click="edit_field = !edit_field"/>
-                    </div>
+                        @can('editar contactos')
+                            <div class="flex justify-end border-t-4 border-slate-50 pb-8">
+                                <x-form.button class="ms-1" type="warning" icon="fa-pencil" text="Editar contacto" form="button" x-on:click="edit_field = !edit_field"/>
+                            </div>
+                        @endcan
                     @endif
                 </div>
                 <div class="flex flex-wrap">
@@ -73,6 +75,7 @@
                         <div class="table-responsive bg-white rounded p-1">
                             @if( $contact->status == 'pending' )
                             <div class="text-right p-3" x-data="{show_modal: false}">
+                                @can('editar cotizacion')
                                 <x-form.button class="ms-1 add-new-product" type="warning" icon="fa-add" text="Agregar producto" form="button" x-on:click="show_modal = true"/>
 
                                 <div id="crud-modal" tabindex="-1" x-show="show_modal" class="bg-gray-800/35 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full max-h-full flex" aria-modal="true" role="dialog">
@@ -130,6 +133,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endcan
                             </div>
                             @endif
                             <table class="min-w-full text-left text-sm font-light text-surface">
@@ -151,7 +155,9 @@
                                         <tr class="border-b border-neutral-200" data-product_id="{{ $detail->product_id }}">
                                             <td class="px-3 py-2 text-right">
                                                 @if( $contact->status == 'pending' )
-                                                <button type="button" data-tooltip="Marcar sin existencia" data-no-stock="{{ $detail->product_id }}">🔴</button>
+                                                    @can('editar productos')
+                                                        <button type="button" data-tooltip="Marcar sin existencia" data-no-stock="{{ $detail->product_id }}">🔴</button>
+                                                    @endcan
                                                 @endif
                                                 <small>{{ $detail->product_id }}</small>
                                                 <input type="hidden" name="quotation.product_id[]" value="{{ $detail->product_id }}">
@@ -184,7 +190,7 @@
                                                        value="{{ $detail->quantity }}"
                                                        class="block pt-3 pb-2 p-2 mt-0 bg-white border-0 border-b-2 border-violet-100 rounded appearance-none focus:outline-none focus:ring-0 focus:border-violet-700 text-right"
                                                        style="max-width: 80px;"
-                                                       @if($contact->status != 'pending') readonly @endif
+                                                       @if($contact->status != 'pending' || !Auth()->user()->can('editar cotizaciones')) readonly @endif
                                                 >
                                             </td>
                                             <td class="px-3 py-2 text-right" data-if-not-stock="{{ $detail->product_id }}">${{ number_format($detail->original_price) }}</td>
@@ -193,12 +199,14 @@
                                             <td class="px-3 py-2 text-right" data-if-not-stock="{{ $detail->product_id }}" data-update-amount="{{ $detail->product_id }}">${{ number_format($detail->quantity * $detail->total) }}</td>
                                             <td class="text-center">
                                                 @if( $contact->status == 'pending' )
-                                                <button class="text-red-500" data-tooltip="Eliminar de la cotización" data-delete="{{ $detail->product_id }}">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                                <button class="text-sky-500 hidden" data-tooltip="Restaurar en la cotización" data-restore="{{ $detail->product_id }}">
-                                                    <i class="fa-solid fa-trash-restore"></i>
-                                                </button>
+                                                    @can('editar cotizaciones')
+                                                        <button class="text-red-500" data-tooltip="Eliminar de la cotización" data-delete="{{ $detail->product_id }}">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                        <button class="text-sky-500 hidden" data-tooltip="Restaurar en la cotización" data-restore="{{ $detail->product_id }}">
+                                                            <i class="fa-solid fa-trash-restore"></i>
+                                                        </button>
+                                                    @endcan
                                                 @endif
                                             </td>
                                         </tr>
@@ -214,9 +222,11 @@
                             </table>
                         </div>
                         @if( $contact->status == 'pending' && $contact->type=='quotation' )
-                        <div class="text-right mt-3">
-                            <x-form.button id="send_whatsapp" class="ms-2" type="success" icon="fa-brands fa-whatsapp" text="Enviar whatsapp al cliente" form="button"/>
-                        </div>
+                            @can('editar cotizaciones')
+                                <div class="text-right mt-3">
+                                    <x-form.button id="send_whatsapp" class="ms-2" type="success" icon="fa-brands fa-whatsapp" text="Enviar whatsapp al cliente" form="button"/>
+                                </div>
+                            @endcan
                         @endif
                     </div>
                     @endif
@@ -233,8 +243,8 @@
                     @php
                     $default_text = "¡Hola! Es un gusto saludarte desde Equi-par.com.\nAgradecemos que te hayas comunicado con nosotros.\n\nLos productos que haz solicitado se encuentran disponibles bajo pedido.\nQuedamos atentos a tus comentarios"
                     @endphp
-                    <x-form.textarea name="notes" placeholder="Notas del agente" value="{{$contact->notes ?? $default_text}}" class="mb-6 md:w-8/12" required :readonly="$contact->status!='pending'"/>
-                    @if( $contact->status == 'pending' )
+                    <x-form.textarea name="notes" placeholder="Notas del agente" value="{{$contact->notes ?? $default_text}}" class="mb-6 md:w-8/12" required :readonly="$contact->status!='pending' || !Auth()->user()->canany(['editar contactos','editar cotizaciones'])"/>
+                    @if( $contact->status == 'pending' && ( ($contact->type=='quotation' && Auth()->user()->can('editar cotizaciones')) || ($contact->type=='contact' && Auth()->user()->can('editar contactos')) ))
                         <x-form.select select2 name="status" placeholder="Cambiar estatus del formulario" class="mb-6 md:w-4/12">
                             <option value="approved" selected>Aprobado</option>
                             <option value="rejected">Rechazado</option>
@@ -248,7 +258,7 @@
 
             <div class="flex justify-end border-t-4 border-slate-50 mt-2 pt-8">
                 <x-form.button class="me-2" type="danger-outline" icon="fa-cancel" text="Cancelar" href="{{ route('contacts.index') }}" data-confirm-redirect=""/>
-                @if( $contact->status == 'pending' )
+                @if( $contact->status == 'pending' && ( ($contact->type=='quotation' && Auth()->user()->can('editar cotizaciones')) || ($contact->type=='contact' && Auth()->user()->can('editar contactos')) ))
                 <x-form.button class="ms-1" type="success" icon="fa-paper-plane" text="Responder" form="submit"/>
                 @endif
             </div>

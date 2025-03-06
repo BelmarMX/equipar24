@@ -4,7 +4,7 @@
             @include('dashboard.partials.section-title', ['section_name'=>'Productos Marcas', 'fa_icon'=>'registered', 'subtitle'=>$record->id ? 'Editar' : 'Nuevo'])
             @include('dashboard.partials.submenu', ['resource' => $resource, 'push_buttons' => [
                 ['icon' => 'fa-barcode', 'text' => 'Productos', 'route_name' => 'products.index']
-            ]])
+            ], 'permission' => 'productos'])
         </div>
     </x-slot>
 

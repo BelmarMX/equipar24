@@ -11,6 +11,20 @@ use Yajra\DataTables\DataTables;
 
 class ProductGalleryController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver productos');
+		$this->can_create   = $user->can('crear productos');
+		$this->can_edit     = $user->can('editar productos');
+		$this->can_delete   = $user->can('eliminar productos');
+	}
+
     /**
      * Display a listing of the resource.
      */
@@ -37,7 +51,7 @@ class ProductGalleryController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = ProductGallery::onlyTrashed();
-            $restore    = TRUE;
+	        $restore    = $this->can_delete;
         }
         else
         {
@@ -50,7 +64,7 @@ class ProductGalleryController extends Controller
                 return view('dashboard.partials.preview', compact('record')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('productGalleries', 'title', FALSE, $restore, FALSE);
+                $actions            = parent::set_actions('productGalleries', 'title', FALSE, $restore, FALSE, $this->can_delete);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['preview', 'action'])
@@ -117,6 +131,9 @@ class ProductGalleryController extends Controller
      */
     public function destroy(ProductGallery $productGallery)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
             parent::delete_image([
                 $productGallery->image
             ,   $productGallery->image_rx

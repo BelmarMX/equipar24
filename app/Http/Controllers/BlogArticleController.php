@@ -12,13 +12,28 @@ use Yajra\DataTables\DataTables;
 
 class BlogArticleController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
 
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver blog');
+		$this->can_create   = $user->can('crear blog');
+		$this->can_edit     = $user->can('editar blog');
+		$this->can_delete   = $user->can('eliminar blog');
+	}
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.blogArticles.index', [
             'subtitle' => 'Registros activos'
         ]);
@@ -26,6 +41,9 @@ class BlogArticleController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         return view('dashboard.blogArticles.index', [
                 'subtitle'      => 'Registros eliminados'
             ,   'with_trashed'  => TRUE
@@ -38,7 +56,7 @@ class BlogArticleController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = BlogArticle::onlyTrashed();
-            $restore    = TRUE;
+            $restore    = $this->can_delete;
         }
         else
         {
@@ -53,7 +71,7 @@ class BlogArticleController extends Controller
                 return view('dashboard.partials.preview', compact('record')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('blogArticles', 'title', FALSE, $restore);
+                $actions            = parent::set_actions('blogArticles', 'title', FALSE, $restore, $this->can_edit, $this->can_delete);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['preview', 'action'])
@@ -65,6 +83,9 @@ class BlogArticleController extends Controller
      */
     public function create()
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         return view('dashboard.blogArticles.create-edit', [
                 'resource'      => 'blogArticles'
             ,   'record'        => new BlogArticle()
@@ -77,6 +98,9 @@ class BlogArticleController extends Controller
      */
     public function store(BlogArticleRequest $request)
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -108,6 +132,9 @@ class BlogArticleController extends Controller
      */
     public function edit(BlogArticle $blogArticle)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.blogArticles.create-edit', [
                 'resource'      => 'blogArticles'
             ,   'record'        => $blogArticle
@@ -120,6 +147,9 @@ class BlogArticleController extends Controller
      */
     public function update(BlogArticleRequest $request, BlogArticle $blogArticle)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -146,12 +176,18 @@ class BlogArticleController extends Controller
      */
     public function destroy(BlogArticle $blogArticle)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $blogArticle->delete();
         return redirect() -> route('blogArticles.archived', ['deleted' => $blogArticle->id]);
     }
 
     public function restore($blog_article_id)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $blogArticle = BlogArticle::onlyTrashed() -> find($blog_article_id);
         $blogArticle->restore();
         return redirect() -> route('blogArticles.index', ['restored' => $blogArticle->id]);

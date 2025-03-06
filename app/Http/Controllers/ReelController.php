@@ -14,11 +14,28 @@ use Yajra\DataTables\DataTables;
 
 class ReelController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver reels');
+		$this->can_create   = $user->can('crear reels');
+		$this->can_edit     = $user->can('editar reels');
+		$this->can_delete   = $user->can('eliminar reels');
+	}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.reels.index', [
             'subtitle' => 'Registros activos'
         ]);
@@ -26,6 +43,9 @@ class ReelController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         return view('dashboard.reels.index', [
                 'subtitle'      => 'Registros eliminados'
             ,   'with_trashed'  => TRUE
@@ -38,7 +58,7 @@ class ReelController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = Reel::onlyTrashed();
-            $restore    = TRUE;
+            $restore    = $this->can_delete;
         }
         else
         {
@@ -100,7 +120,7 @@ class ReelController extends Controller
                 return view('dashboard.partials.preview', compact('record')) -> render();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('reels', 'title', FALSE, $restore);
+                $actions            = parent::set_actions('reels', 'title', FALSE, $restore, $this->can_edit, $this->can_delete);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['status','promocion', 'preview', 'action'])
@@ -112,6 +132,9 @@ class ReelController extends Controller
      */
     public function create()
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         return view('dashboard.reels.create-edit', [
                 'resource'      => 'reels'
             ,   'record'        => new Reel()
@@ -125,6 +148,9 @@ class ReelController extends Controller
      */
     public function store(ReelRequest $request)
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         $validated              = $request->validated();
         $video                  = parent::store_file($request->file('video'), $validated['title'], ImagesSettings::REEL_FOLDER);
         $stored                 = parent::store_all_images_from_request(
@@ -159,6 +185,9 @@ class ReelController extends Controller
      */
     public function edit(Reel $reel)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.reels.create-edit', [
                 'resource'      => 'reels'
             ,   'record'        => $reel
@@ -173,6 +202,9 @@ class ReelController extends Controller
      */
     public function update(ReelRequest $request, Reel $reel)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $video                  = parent::store_file($request->file('video'), $validated['title'], ImagesSettings::REEL_FOLDER, $reel->video);
         $stored                 = parent::store_all_images_from_request(
@@ -202,12 +234,18 @@ class ReelController extends Controller
      */
     public function destroy(Reel $reel)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $reel->delete();
         return redirect() -> route('reels.archived', ['deleted' => $reel->id]);
     }
 
     public function restore($reel_id)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $reel = Reel::onlyTrashed() -> find($reel_id);
         $reel->restore();
         return redirect() -> route('reels.index', ['restored' => $reel->id]);

@@ -16,11 +16,28 @@ use Yajra\DataTables\DataTables;
 
 class ProductPriceController extends Controller
 {
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver precios');
+		$this->can_create   = $user->can('crear precios');
+		$this->can_edit     = $user->can('editar precios');
+		$this->can_delete   = $user->can('eliminar precios');
+	}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.products.prices.index', [
                 'brands'        => ProductBrand::get_brands()
             ,   'categories'    => ProductCategory::get_categories()
@@ -131,6 +148,9 @@ class ProductPriceController extends Controller
 
     public function generate_massive_file(Request $request)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $record = Product::query();
         if( !empty($request -> product_category_id) )
         {
@@ -180,6 +200,9 @@ class ProductPriceController extends Controller
 
     public function update_massive(Request $request)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $counter = 0;
         foreach($request->dataset AS $data)
         {
@@ -198,6 +221,9 @@ class ProductPriceController extends Controller
 
     public function update_massive_file(ProductPriceRequest $request)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated                  = $request->validated();
         $stored                     = parent::store_file($request->file('new_prices'), 'equipar productos price upgrade', ImagesSettings::DOCUMENTS_FOLDER);
         $validated['new_prices']    = $stored;

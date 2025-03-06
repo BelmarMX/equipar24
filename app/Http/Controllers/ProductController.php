@@ -17,11 +17,29 @@ use Yajra\DataTables\DataTables;
 class ProductController extends Controller
 {
     const DEFAULT_RAW_DESCRIPTION       = '{"time":1730082850296,"blocks":[{"id":"VlWyjSXHxZ","type":"paragraph","data":{"text":"<b>Dimensiones</b><br><b>Frente:</b> 0.00 m<br><b>Alto:</b> 0.00 m<br><b>Fondo: </b>0.00 m","alignment":"left"}}],"version":"2.30.6"}';
+
+	private $can_view;
+	private $can_create;
+	private $can_edit;
+	private $can_delete;
+
+	public function __construct()
+	{
+		$user               = Auth()->user();
+		$this->can_view     = $user->can('ver productos');
+		$this->can_create   = $user->can('crear productos');
+		$this->can_edit     = $user->can('editar productos');
+		$this->can_delete   = $user->can('eliminar productos');
+	}
+
     /**
      * Display a listing of the resource.
      */
     public function index($filter_type = NULL, $filter_id = NULL)
     {
+	    if( !$this->can_view )
+	    { abort(403); }
+
         return view('dashboard.products.index', [
                 'subtitle'      => 'Registros activos'
             ,   'filter_type'   => $filter_type
@@ -31,6 +49,9 @@ class ProductController extends Controller
 
     public function archived()
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         return view('dashboard.products.index', [
                 'subtitle'      => 'Registros eliminados'
             ,   'with_trashed'  => TRUE
@@ -43,7 +64,7 @@ class ProductController extends Controller
         if( $request -> has('with_trashed') && $request -> with_trashed == 'true' )
         {
             $dt_of      = Product::onlyTrashed();
-            $restore    = TRUE;
+            $restore    = $this->can_delete;
         }
         else
         {
@@ -82,7 +103,7 @@ class ProductController extends Controller
                 return $record->promotions->count();
             })
             ->addColumn('action', function ($record) use ($restore) {
-                $actions            = parent::set_actions('products', 'title', TRUE, $restore, TRUE, TRUE, FALSE, ['route' => 'productGalleries.gallery', 'tooltip' => 'Agregar imágenes a la galería']);
+                $actions            = parent::set_actions('products', 'title', TRUE, $restore, $this->can_edit, $this->can_delete, FALSE, ['route' => 'productGalleries.gallery', 'tooltip' => 'Agregar imágenes a la galería']);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
             ->rawColumns(['preview', 'action'])
@@ -94,6 +115,9 @@ class ProductController extends Controller
      */
     public function create()
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         return view('dashboard.products.create-edit', [
                 'resource'          => 'products'
             ,   'record'            => new Product()
@@ -108,6 +132,9 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+	    if( !$this->can_create )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -141,6 +168,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         return view('dashboard.products.create-edit', [
                 'resource'      => 'products'
             ,   'record'        => $product
@@ -155,6 +185,9 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
+	    if( !$this->can_edit )
+	    { abort(403); }
+
         $validated              = $request -> validated();
         $stored                 = parent::store_all_images_from_request(
                 $request -> file('image')
@@ -184,12 +217,18 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $product->delete();
         return redirect() -> route('products.archived', ['deleted' => $product->id]);
     }
 
     public function restore($product_id)
     {
+	    if( !$this->can_delete )
+	    { abort(403); }
+
         $product = Product::onlyTrashed() -> find($product_id);
         $product->restore();
         return redirect() -> route('products.index', ['restored' => $product->id]);

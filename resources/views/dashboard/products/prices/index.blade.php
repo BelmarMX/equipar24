@@ -9,7 +9,7 @@
                 ,   ['icon' => 'fa-registered', 'text' => 'Marcas', 'route_name' => 'productBrands.index']
                 ,   ['icon' => 'fa-tag', 'text' => 'Categorías', 'route_name' => 'productCategories.index']
                 ,   ['icon' => 'fa-tags', 'text' => 'Subcategorías', 'route_name' => 'productSubcategories.index']
-            ]])
+            ], 'permission' => 'precios'])
         </div>
     </x-slot>
 
@@ -35,6 +35,7 @@
                     <div class="md:w-9/12">
                         @include('dashboard.products.filter.form-fields')
                     </div>
+                    @can('editar precios')
                     <div class="w-full md:w-3/12">
                         <x-form.file name="new_prices"
                                      class="mb-6"
@@ -48,6 +49,7 @@
                                            data-tooltip="Carga la plantilla para actualizar los precios"/>
                         </div>
                     </div>
+                    @endcan
                 </div>
                 <div id="price_change_controller" class="hidden text-center w-full mt-5">
                     <hr class="mt-5 mb-5">
@@ -89,10 +91,12 @@
             </thead>
         </table>
 
+        @can('editar precios')
         <div id="btn-update-wrapper" class="hidden flex justify-end border-t-4 border-slate-50 mt-2 pt-8">
             <x-form.button id="btn-update" class="ms-1" type="success" icon="fa-save" text="Actualizar Precios"
                            form="button"/>
         </div>
+        @endcan
     </div>
 
     @push('ESmodules')

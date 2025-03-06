@@ -6,7 +6,7 @@
                     ['icon' => 'fa-barcode', 'text' => 'Productos', 'route_name' => 'products.index']
                 ,   ['icon' => 'fa-tag', 'text' => 'Categorías', 'route_name' => 'productCategories.index']
                 ,   ['icon' => 'fa-tags', 'text' => 'Subcategorías', 'route_name' => 'productSubcategories.index']
-            ]])
+            ], 'permission' => 'productos'])
         </div>
     </x-slot>
 

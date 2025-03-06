@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class UserRequest extends FormRequest
 {
@@ -11,7 +13,19 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function attributes(): array
+    {
+        return [
+                "name"                      => "Nombre del usuario"
+            ,   "email"                     => "Email del usuario"
+            ,   "password"                  => "Contraseña"
+            ,   'password_confirmation'     => 'Confirmación de contraseña'
+            ,   "role"                      => "Rol (Permisos)"
+            ,   "original_role"             => "Rol anterior"
+        ];
     }
 
     /**
@@ -21,8 +35,33 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules = [
+                "name"                      => "required|string"
+            ,   "email"                     => "required|email|unique:users,id"
+            ,   "password"                  => "required|string|confirmed|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/"
+            ,   "role"                      => "required|string"
+	        ,   "original_role"             => "nullable|string"
         ];
+
+        if( request() -> routeIs('users.update') )
+        {
+            $rules["password"]              = "nullable|string|confirmed|min:8";
+        }
+
+        return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            "password.regex"                => "La contraseña debe contener al menos una letra, un número y un carácter especial (@, $, !, %, *, ?, &)"
+        ];
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        $data               = parent::validated($key, $default);
+        $data["password"]   = Hash::make($data["password"]);
+        return $data;
     }
 }

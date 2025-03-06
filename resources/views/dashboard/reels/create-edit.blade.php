@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center">
             @include('dashboard.partials.section-title', ['section_name'=>'Reels', 'fa_icon'=>'clapperboard', 'subtitle'=>$record->id ? 'Editar' : 'Nuevo'])
-            @include('dashboard.partials.submenu', ['resource' => $resource])
+            @include('dashboard.partials.submenu', ['resource' => $resource, 'permission' => 'reels'])
         </div>
     </x-slot>
 
@@ -24,6 +24,7 @@
             </h1>
             @if($errors -> any() )
                 <x-form.alert type="danger" title="Hay errores en el formulario que impidieron su registro." />
+                <p class="hidden">{{ json_encode($errors->all()) }}</p>
             @endif
             <hr class="mb-2 border-2 border-slate-50"/>
 
