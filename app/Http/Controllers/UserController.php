@@ -17,20 +17,23 @@ class UserController extends Controller
 	private $can_create;
 	private $can_edit;
 	private $can_delete;
+	private $can_view_admins;
 
 	public function __construct()
 	{
-		$this->can_view     = FALSE;
-		$this->can_create   = FALSE;
-		$this->can_edit     = FALSE;
-		$this->can_delete   = FALSE;
+		$this->can_view         = FALSE;
+		$this->can_create       = FALSE;
+		$this->can_edit         = FALSE;
+		$this->can_delete       = FALSE;
+		$this->can_view_admins  = FALSE;
 
 		if( $user = Auth()->user() )
 		{
-			$this->can_view     = $user->can('ver usuarios');
-			$this->can_create   = $user->can('crear usuarios');
-			$this->can_edit     = $user->can('editar usuarios');
-			$this->can_delete   = $user->can('eliminar usuarios');
+			$this->can_view         = $user->can('ver usuarios');
+			$this->can_view_admins  = $user->can('ver administradores');
+			$this->can_create       = $user->can('crear usuarios');
+			$this->can_edit         = $user->can('editar usuarios');
+			$this->can_delete       = $user->can('eliminar usuarios');
 		}
 	}
 
@@ -69,7 +72,7 @@ class UserController extends Controller
 
     public function datatable(Request $request)
     {
-	    if( !Auth()->user()->can('ver usuarios') )
+	    if( !$this->can_view )
 	    { abort(403); }
 
         $restore        = FALSE;
@@ -84,7 +87,7 @@ class UserController extends Controller
         }
 
         $dt_of->withoutRole('webmaster');
-        if( !Auth()->user()->can('ver administradores') )
+        if( !$this->can_view_admins )
         {
             $dt_of->withoutRole('admin');
         }
@@ -118,10 +121,15 @@ class UserController extends Controller
 						{ $ver++; }
                     }
 
-	                $permissions['ver']         = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-sky-500 text-white uppercase'>VER: $ver</small>";
-	                $permissions['crear']       = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-blue-500 text-white uppercase'>CREAR: $crear</small>";
-	                $permissions['editar']      = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-amber-500 text-white uppercase'>EDITAR: $editar</small>";
-	                $permissions['eliminar']    = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-red-500 text-white uppercase'>ELIMINAR: $eliminar</small>";
+					$ver_opacity        = $ver == 0 ? 200 : 500;
+					$crear_opacity      = $crear == 0 ? 200 : 500;
+					$editar_opacity     = $editar == 0 ? 200 : 500;
+					$eliminar_opacity   = $eliminar == 0 ? 200 : 500;
+
+	                $permissions['ver']         = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-sky-{$ver_opacity} text-white uppercase'>VER: $ver</small>";
+	                $permissions['crear']       = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-blue-{$crear_opacity} text-white uppercase'>CREAR: $crear</small>";
+	                $permissions['editar']      = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-amber-{$editar_opacity} text-white uppercase'>EDITAR: $editar</small>";
+	                $permissions['eliminar']    = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-red-{$eliminar_opacity} text-white uppercase'>ELIMINAR: $eliminar</small>";
                 }
                 return implode(' ', $permissions);
             })
