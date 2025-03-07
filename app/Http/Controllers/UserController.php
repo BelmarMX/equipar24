@@ -101,7 +101,7 @@ class UserController extends Controller
                 $roles          = $record->getRoleNames()->toArray();
                 if( in_array('webmaster', $roles) || in_array('admin', $roles) )
                 {
-                    $permissions = ["<small class='px-2 py-1 inline-block rounded-xl bg-green-400 text-white uppercase'>Todos</small>"];
+                    $permissions = ["<small style='min-width: 74px; text-align: center;' class='px-2 py-1 inline-block rounded-xl bg-green-500 text-white uppercase'>Todos</small>"];
                 }
                 else
                 {
@@ -126,10 +126,10 @@ class UserController extends Controller
 					$editar_opacity     = $editar == 0 ? 200 : 500;
 					$eliminar_opacity   = $eliminar == 0 ? 200 : 500;
 
-	                $permissions['ver']         = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-sky-{$ver_opacity} text-white uppercase'>VER: $ver</small>";
-	                $permissions['crear']       = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-blue-{$crear_opacity} text-white uppercase'>CREAR: $crear</small>";
-	                $permissions['editar']      = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-amber-{$editar_opacity} text-white uppercase'>EDITAR: $editar</small>";
-	                $permissions['eliminar']    = "<small class='mt-1 px-2 py-1 inline-block rounded-xl bg-red-{$eliminar_opacity} text-white uppercase'>ELIMINAR: $eliminar</small>";
+	                $permissions['ver']         = "<small style='min-width: 74px; text-align: center;' class='mt-1 px-2 py-1 inline-block rounded-xl bg-sky-{$ver_opacity} text-white uppercase'>VER: $ver</small>";
+	                $permissions['crear']       = "<small style='min-width: 74px; text-align: center;' class='mt-1 px-2 py-1 inline-block rounded-xl bg-blue-{$crear_opacity} text-white uppercase'>CREAR: $crear</small>";
+	                $permissions['editar']      = "<small style='min-width: 74px; text-align: center;' class='mt-1 px-2 py-1 inline-block rounded-xl bg-amber-{$editar_opacity} text-white uppercase'>EDITAR: $editar</small>";
+	                $permissions['eliminar']    = "<small style='min-width: 74px; text-align: center;' class='mt-1 px-2 py-1 inline-block rounded-xl bg-red-{$eliminar_opacity} text-white uppercase'>ELIMINAR: $eliminar</small>";
                 }
                 return implode(' ', $permissions);
             })
