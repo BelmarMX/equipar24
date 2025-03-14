@@ -17,7 +17,7 @@ class FormContactRequest extends FormRequest
     public function attributes(): array
     {
         return [
-                'g-recaptcha-response'      => 'Captcha'
+                'cf-turnstile-response'     => 'Captcha'
             ,   "uuid"                      => "Usuario"
             ,   "state_id"                  => "ID Estado"
             ,   "city_id"                   => "ID Ciudad"
@@ -37,7 +37,7 @@ class FormContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'g-recaptcha-response'      => 'required'
+                'cf-turnstile-response'     => 'required'
             ,   "uuid"                      => 'nullable|uuid|exists:form_contacts,uuid'
             ,   "state_id"                  => "required|numeric|exists:states,id"
             ,   "city_id"                   => "required|numeric|exists:cities,id"

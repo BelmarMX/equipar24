@@ -381,7 +381,7 @@ class FormSubmitController extends Controller
     public function send_contact(FormContactRequest $request)
     {
         $validated              = $request->validated();
-        $verify                 = parent::verify_recaptcha($validated['g-recaptcha-response']);
+        $verify                 = parent::verify_turnstile($validated['cf-turnstile-response']);
         if( !$verify->success )
         {
             abort(500, 'Todo indica que eres un robot.');
@@ -422,7 +422,7 @@ class FormSubmitController extends Controller
     public function send_quotation(FormQuotationDetailRequest $request)
     {
         $validated              = $request->validated();
-        $verify                 = parent::verify_recaptcha($validated['g-recaptcha-response']);
+	    $verify                 = parent::verify_turnstile($validated['cf-turnstile-response']);
         if( !$verify->success )
         {
             abort(500, 'Todo indica que eres un robot.');

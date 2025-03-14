@@ -19,6 +19,7 @@
                 >
                     {!! csrf_field() !!}
                     <input id="uuid" name="uuid" type="hidden" value="">
+                    <x-honeypot />
                     @include('web._layout.alerts.alerts')
                     <div class="row">
                         <div class="col-md-12 mb-4">
@@ -100,7 +101,7 @@
                             ></textarea>
                         </div>
                         <div class="col-md-12 mb-4 d-flex justify-content-center">
-                            <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_PUBLIC') }}"></div>
+                            <div class="cf-turnstile" data-sitekey="{{ env('TURNSTILE_SITEKEY') }}" data-theme="light"></div>
                         </div>
                         <div class="col-md-12 text-center">
                             <input type="hidden" name="city" value="[not required]">
@@ -126,7 +127,7 @@
 @push('customJs')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/es.min.js" integrity="sha512-xntXNPHoIOoLxuqmYhDB6MA67yimB0HxKb20FTgBcAO7RUk2jwctNYIkencPjG4hdxde8ee6FHqACJqGYYSiSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
     <script>
         document.getElementById('quotasForm').addEventListener('submit', () => {
             localStorage.setItem('isFromQuota', true)

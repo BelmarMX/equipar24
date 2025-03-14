@@ -205,6 +205,7 @@ class FormSubmit extends Model
         $calculated->original   = 0;
         $calculated->discount   = 0;
         $calculated->unitary    = 0;
+		$calculated->total      = 0;
         $estimated              = 0;
         foreach($details AS $detail)
         {

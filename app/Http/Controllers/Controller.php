@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
@@ -235,4 +236,14 @@ abstract class Controller
         $verify          = file_get_contents($url, FALSE, stream_context_create($options));
         return json_decode($verify);
     }
+
+	public static function verify_turnstile($token)
+	{
+		$response = Http::post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+				'secret'    => env('TURNSTILE_SECRET')
+			,   'response'  => $token
+			,   'remoteip'  => request()->ip()
+		]);
+		return $response->object();
+	}
 }

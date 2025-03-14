@@ -10,6 +10,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\UnoxController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 /* --------------------------------------------------------------------------------------------------------------------
  * OPEN ROUTES
@@ -41,10 +42,6 @@ Route::get('aviso-de-privacidad'
 Route::get('gracias'
     ,   [NavigationController::class, 'gracias']
 )->name('gracias');
-
-Route::get('test_quota', function(){
-    return view('mail.quotation');
-});
 
 Route::group(['prefix' => 'portafolio', 'controller' => ProjectController::class], function () {
     Route::get('/', 'view')->name('portafolio');
@@ -96,7 +93,7 @@ Route::group(['prefix' => 'contacto', 'controller' => FormSubmitController::clas
     // * POST METHODS
     Route::post('find', 'find_contact')->name('contacto.find');
     Route::post('cities', 'get_cities')->name('contacto.get_cities');
-    Route::post('send', 'send_contact')->name('contacto-send');
+    Route::post('send', 'send_contact')->name('contacto-send')->middleware(ProtectAgainstSpam::class);
 });
 
 Route::group(['prefix' => 'cotizar', 'controller' => FormSubmitController::class], function () {
@@ -105,5 +102,5 @@ Route::group(['prefix' => 'cotizar', 'controller' => FormSubmitController::class
     Route::post('add', 'add_quotation')->name('cotizaciones.add');
     Route::post('update', 'update_quotation')->name('cotizaciones.remove');
     Route::post('clear', 'clear_quotation')->name('cotizaciones.update');
-    Route::post('send', 'send_quotation')->name('cotizaciones.send');
+    Route::post('send', 'send_quotation')->name('cotizaciones.send')->middleware(ProtectAgainstSpam::class);
 });
