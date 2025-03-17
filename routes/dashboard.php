@@ -19,6 +19,7 @@ use App\Http\Controllers\ProjectGalleryController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\PromotionProductController;
 use App\Http\Controllers\ReelController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Models\FormContact;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +45,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
 
     Route::post('/upload_file', [DashboardController::class, 'upload_file'])->name('dashboard.upload_file');
 
-    // * WITH RESOURCES
+	Route::get('quotation_report', [ReportController::class, 'quotation_report'])->name('dashboard.quotationReport');
+
+	// * WITH RESOURCES
 
     Route::resource('banners', BannerController::class);
     Route::group(['prefix' => 'banners', 'controller' => BannerController::class], function () {
