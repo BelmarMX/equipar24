@@ -1,6 +1,8 @@
 User-agent: *
-Disallow:   /storage/
-Disallow:   /?filter
-Disallow:   /?orderby
-Disallow:   /?brand
-Sitemap:    https://equi-par.com/sitemap.xml
+Disallow: /storage/
+Disallow: /*?filter=
+Disallow: /*?orderby=
+Disallow: /*?brand=
+Allow: /
+
+Sitemap: https://equi-par.com/sitemap.xml
