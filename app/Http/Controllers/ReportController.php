@@ -15,7 +15,7 @@ class ReportController extends Controller
 
     public function quotation_report()
     {
-		$xlsx                               = IOFactory::load(storage_path('app/public/reportes/layout_reporte_cotizaciones.xlsx'));
+		$xlsx                               = IOFactory::load(storage_path('app/private/reportes/layout_reporte_cotizaciones.xlsx'));
 		$sheet                              = $xlsx->getActiveSheet();
 		$dataset                            = self::quotation_report_get_dataset();
 
