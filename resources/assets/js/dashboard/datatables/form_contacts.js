@@ -43,8 +43,14 @@ $(document).ready(function() {
     ----------------------------------------------------------------------------------------------------------------- */
     $(document).on('click', '[data-no-stock]', function(e) {
         e.preventDefault()
-        const product_id    = $(this).attr('data-no-stock')
-        const this_btn      = $(this)
+        const product_id        = $(this).attr('data-no-stock')
+        const this_btn          = $(this)
+        const disabled          = $(document).find('tr[data-product_id]:not(.bg-red-50):not(.bg-red-100)').length
+
+        if( disabled <= 1 )
+        {
+            return Alerts.warning('La cotización debe tener por lo menos un producto activo', '¡Cuidado!')
+        }
 
         Alerts.confirm(`El producto ${product_id} será marcado sin existencias y no podrá ser restaurado en la cotización.`, O => {
             this_btn.remove()
