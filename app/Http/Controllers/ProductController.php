@@ -420,9 +420,25 @@ class ProductController extends Controller
             ->paginate(24)
             ->appends(request()->query());
 
+		$icon_map = [
+				'acero-inoxidable'                      => 'fa-scroll'
+			,   'coccion'                               => 'fa-fire-burner'
+			,   'refrigeracion'                         => 'fa-snowflake'
+			,   'utensilios'                            => 'fa-utensils'
+			,   'almacenaje'                            => 'fa-dolly'
+			,   'barras-de-servicio'                    => 'fa-kaaba'
+			,   'equipo-menor'                          => 'fa-blender'
+			,   'lavado-de-loza-y-cristaleria'          => 'fa-sink'
+			,   'complementos'                          => 'fa-kitchen-set'
+			,   'refacciones'                           => 'fa-screwdriver-wrench'
+
+		];
+	    $has_icon = isset($icon_map[$slug_category]) ? $icon_map[$slug_category] : NULL;
+
+
         return view('web.products.categoria-productos', array_merge(
                 Navigation::get_static_data(['reels', 'featured', 'articles'])
-            ,   compact('product_category', 'related_brands', 'entries')
+            ,   compact('product_category', 'related_brands', 'entries', 'has_icon')
         ));
     }
 

@@ -6,6 +6,7 @@ use App\Classes\ImagesSettings;
 use App\Http\Requests\ReelRequest;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductPackage;
 use App\Models\Promotion;
 use App\Models\Reel;
 use Carbon\Carbon;
@@ -123,6 +124,26 @@ class ReelController extends Controller
                 }
                 return $record->product->title ?? '🚫 Eliminado';
             })
+	        ->addColumn('paquete', function($record) {
+		        if( is_null($record->product_package_id) )
+		        {
+			        return 'Sin paquete';
+		        }
+		        if( !$package = $record -> package )
+		        {
+			        return '🚫 Eliminado';
+		        }
+		        $vigency    = $package -> get_vigency();
+		        $className  = $vigency->type == 'success'
+			        ? 'text-emerald-400'
+			        : ($vigency->type == 'danger'
+				        ? 'text-red-400'
+				        : 'text-indigo-400'
+			        );
+
+		        return "<span>{$package->title}<span>
+                    <span class='block text-right {$className}'>{$package->get_vigency()->html}</span>";
+	        })
             ->addColumn('preview', function($record) {
                 return view('dashboard.partials.preview', compact('record')) -> render();
             })
@@ -130,7 +151,7 @@ class ReelController extends Controller
                 $actions            = parent::set_actions('reels', 'title', FALSE, $restore, $this->can_edit, $this->can_delete);
                 return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
             })
-            ->rawColumns(['status','promocion', 'preview', 'action'])
+            ->rawColumns(['status','promocion', 'paquete', 'preview', 'action'])
             ->toJson();
     }
 
@@ -147,6 +168,7 @@ class ReelController extends Controller
             ,   'record'        => new Reel()
             ,   'promotions'    => Promotion::get_promotions()
             ,   'categories'    => ProductCategory::get_categories()
+            ,   'packages'      => ProductPackage::get_packages()
         ]);
     }
 
@@ -201,6 +223,7 @@ class ReelController extends Controller
             ,   'rcrd_products' => $reel->product_id ? Product::where('product_subcategory_id', $reel->product->product_subcategory_id)->get() : NULL
             ,   'promotions'    => Promotion::get_promotions()
             ,   'categories'    => ProductCategory::get_categories()
+	        ,   'packages'      => ProductPackage::get_packages()
         ]);
     }
 

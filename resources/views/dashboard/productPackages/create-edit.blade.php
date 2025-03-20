@@ -34,18 +34,23 @@
             <div class="bg-neutral-50 px-3 py-10">
                 <div class="flex flex-wrap">
                     <div class="md:w-6/12 w-full">
-                        <x-form.input-text name="title" placeholder="Título del producto" value="{{ old('title', $record->title) }}" with_slug="true" required class="mb-6"/>
+                        <x-form.input-text name="title" placeholder="Título del paquete" value="{{ old('title', $record->title) }}" with_slug="true" required class="mb-6"/>
                         <x-form.input-text name="summary" placeholder="Resumen" value="{{ old('summary', $record->summary) }}" class="mb-6"/>
-                        <div class="md:w-6/12">
-                            <x-form.date-range id="date_time_vigency"
-                                               start_name="starts_at"
-                                               end_name="ends_at"
-                                               placeholder="Vigencia"
-                                               start_value="{{ old('starts_at', $record->starts_at ?? date('Y-m-d')) }}"
-                                               end_value="{{ old('ends_at', $record->ends_at ?? date('Y-m-d')) }}"
-                                               required
-                                               class="mb-6"
-                            />
+                        <div class="flex flex-wrap">
+                            <div class="md:w-6/12">
+                                <x-form.input-number name="price" placeholder="Precio" value="{{ old('price', $record->price) }}" decimal="true" required class="ml-auto mb-6"/>
+                            </div>
+                            <div class="md:w-6/12">
+                                <x-form.date-range id="date_time_vigency"
+                                                   start_name="starts_at"
+                                                   end_name="ends_at"
+                                                   placeholder="Vigencia"
+                                                   start_value="{{ old('starts_at', $record->starts_at ?? date('Y-m-d')) }}"
+                                                   end_value="{{ old('ends_at', $record->ends_at ?? date('Y-m-d')) }}"
+                                                   required
+                                                   class="mb-6"
+                                />
+                            </div>
                         </div>
                     </div>
                     <div class="md:w-4/12 md:ms-[8.333%] w-full">
@@ -60,6 +65,12 @@
                     </div>
                     <div class="w-full">
                         <x-form.textarea-editor name="raw_editor" class="mb-6" placeholder="Contenido" value="{{ old('raw_editor', $record->raw_editor) }}" required/>
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full">
+                            <h2 class="text-md subpixel-antialiased font-bold uppercase text-violet-900 mb-4"><i class="fa-solid fa-barcode me-1"></i> Agregar productos</h2>
+                        </div>
+                        <x-form.dynamic-box class="mb-6"/>
                     </div>
                 </div>
             </div>
@@ -82,5 +93,50 @@
                 const editor_data_html = `{!! $record->content !!}`
             </script>
         @endif
+            @php
+                $obj        = [];
+                foreach($record->products AS $product)
+				{
+					$obj[]  = [
+						    'id'    => $product->id
+						,   'image' => $product->asset_url.$product->image_rx
+						,   'name'  => $product->title.' | '.$product->product_brand->title.' | '.$product->product_category->title.' | '.$product->product_subcategory->title
+                    ];
+				}
+            @endphp
+
+            <script>
+                function buscar_productos()
+                {
+                    return {
+                            query:                  ''
+                        ,   resultados:             []
+                        ,   seleccionados:          {!! !empty($record->id) ? json_encode($obj) : '[]' !!}
+                        ,   async buscar_productos()
+                            {
+                                if (this.query.length < 2)
+                                {
+                                    this.resultados = []
+                                    return;
+                                }
+                                const response      = await axios.post('/productos/autocomplete', { query: this.query })
+                                this.resultados     = response.data;
+                            }
+                        ,   agregar_producto(producto)
+                            {
+                                if( !this.seleccionados.some(p => p.id === producto.id) )
+                                {
+                                    this.seleccionados.push(producto);
+                                }
+                                this.query          = '';
+                                this.resultados     = [];
+                            }
+                        ,   eliminar_producto(index)
+                            {
+                                this.seleccionados.splice(index, 1)
+                            }
+                    }
+                }
+            </script>
     @endpush
 </x-app-layout>

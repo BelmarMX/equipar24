@@ -92,11 +92,24 @@
                                 @endforeach
                             @endif
                         </x-form.select>
+                        <x-form.select select2 name="product_package_id" placeholder="Paquete" value="{{ $record->product_package_id }}" class="mb-6">
+                            <option value="" selected>Ninguna</option>
+                            @foreach($packages AS $package)
+                                <option value="{{ $package->id }}" @if( old('product_package_id', $record->product_package_id) == $package->id) selected @endif
+                                        data-link-href="{{route('paquetes-productos', $package->slug)}}"
+                                        data-link-title="¡Ver paquete!"
+                                        data-link-description="{{ $package->title }}"
+                                >{{ $package->title }}</option>
+                            @endforeach
+                        </x-form.select>
                         <div class="flex flex-wrap mb-3">
-                            <div class="leading-relaxed text-end pr-1 w-full">
-                                Autocompletar con:
+                            <div class="leading-relaxed text-center pr-1 w-full">
+                                <div class="mb-2">
+                                    Autocompletar con:
+                                </div>
                                 <x-form.button form="button" class="me-2" type="info-outline" icon="fa-money-check-dollar" text="Promoción" onclick="update_with_promotion()"/>
                                 <x-form.button form="button" class="me-2" type="info-outline" icon="fa-barcode" text="Producto" onclick="update_with_product()"/>
+                                <x-form.button form="button" class="me-2" type="info-outline" icon="fa-box-open" text="Paquete" onclick="update_with_package()"/>
                             </div>
                         </div>
                         <x-form.input-text name="link" placeholder="Enlace (opcional)" value="{{ old('link', $record->link) }}" class="mb-6"/>
@@ -149,6 +162,9 @@
             }
             const update_with_product = O => {
                 update_link( $('#product_id').find('option:selected') )
+            }
+            const update_with_package = O => {
+                update_link( $('#product_package_id').find('option:selected') )
             }
         </script>
     @endpush

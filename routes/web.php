@@ -6,6 +6,7 @@ use App\Http\Controllers\FormSubmitController;
 use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\ProductBrandController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductPackageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\UnoxController;
@@ -69,6 +70,10 @@ Route::group(['prefix' => 'marcas', 'controller' => ProductBrandController::clas
 
 Route::group(['prefix' => 'promociones', 'controller' => PromotionController::class], function () {
     Route::get('/{slug_promotion}', 'show_promotion')->name('promociones-productos');
+});
+
+Route::group(['prefix' => 'paquetes', 'controller' => ProductPackageController::class], function () {
+	Route::get('/{slug_package}', 'show_package')->name('paquetes-productos');
 });
 
 Route::group(['prefix' => 'unox', 'controller' => UnoxController::class], function () {

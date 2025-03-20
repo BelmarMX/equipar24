@@ -21,6 +21,7 @@ class ReelRequest extends FormRequest
         return [
                 "promotion_id"              => "ID Promoción"
             ,   "product_id"                => "ID del producto"
+            ,   "product_package_id"        => "ID del paquete"
             ,   "title"                     => "Título"
             ,   'slug'                      => 'Slug (Identificador Único de URL)'
             ,   "video"                     => "Video"
@@ -51,6 +52,7 @@ class ReelRequest extends FormRequest
         $rules = [
                 "product_id"                => "nullable|numeric|exists:products,id"
             ,   "promotion_id"              => "nullable|numeric|exists:promotions,id"
+            ,   "product_package_id"        => "nullable|numeric|exists:product_packages,id"
             ,   "title"                     => "required|string"
             ,   "slug"                      => "required|string|unique:reels,slug"
             ,   "video"                     => "required|file|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4,video/ogg,video/webm|max:32768"

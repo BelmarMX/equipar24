@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Classes\EditorJS;
 use App\Classes\ImagesSettings;
 use Durlecode\EJSParser\Parser;
 use Illuminate\Foundation\Http\FormRequest;
@@ -41,9 +42,10 @@ class ProductRequest extends FormRequest
 
     public function prepareforValidation()
     {
+	    $json_editor = EditorJS::correct_images_src($this->raw_editor);
         $this -> merge([
                 'slug'          => Str::slug($this->title)
-            ,   'description'   => Parser::parse($this->raw_editor)->toHtml()
+            ,   'description'   => Parser::parse($json_editor)->toHtml()
             ,   'in_stock'      => isset($this->in_stock)
         ]);
     }

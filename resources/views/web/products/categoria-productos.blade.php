@@ -21,6 +21,11 @@
         @if( Route::currentRouteName() == 'productos-categories' && !is_null($product_category->description) )
             <div class="row align-items-center mb-5">
                 <div class="col-md-6">
+                    @if( !empty($has_icon) )
+                    <div class="text-center mb-2">
+                        <i class="fa-solid {{ $has_icon }}" style="font-size: 28px;"></i>
+                    </div>
+                    @endif
                     <h1 class="m-0" style="transform: scale(1.75)">{{ $product_subcategory->title ?? $product_category->title }}</h1>
                 </div>
                 <div class="col-md-6">

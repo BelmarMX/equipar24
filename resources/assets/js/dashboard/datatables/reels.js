@@ -27,6 +27,7 @@ $(document).ready(function() {
                 }
             ,   { data: 'promocion' }
             ,   { data: 'producto' }
+            ,   { data: 'paquete' }
             ,   {
                     data:                   null
                 ,   className:              'text-right'

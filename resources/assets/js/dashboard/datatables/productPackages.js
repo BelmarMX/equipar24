@@ -14,13 +14,22 @@ $(document).ready(function() {
         ,   columns:                [
                 ...DT_OPTIONS_SSR.columns
             ,   { data: 'title' }
+            ,   { data: 'url' }
             ,   {
                     data: null
-                ,   render: ({id, count_products}) => {
-                    return `<a href="/dashboard/products/index/category/${id}" class="font-semibold text-sky-600 hover:text-sky-900">${number_format(count_products, true)}</a>`
+                ,   render: ({id, product_count}) => {
+                    return `<span class="font-semibold text-sky-600 hover:text-sky-900">${number_format(product_count, true)}</span>`
                 }
             }
             ,   { data: 'preview', className: 'text-center' }
+            ,   {
+                    data:                   null
+                ,   className:              'text-right'
+                ,   render:                 data => {
+                    return `${moment(data.starts_at).format('DD/MM/YYYY')} <i class="fa-solid fa-play text-indigo-400" data-tooltip="Fecha de inicio"></i><br>
+                        ${moment(data.ends_at).format('DD/MM/YYYY')} <i class="fa-solid fa-stop text-red-400" data-tooltip="Fecha de finalización"></i> `
+                }
+            }
             ,   {
                         data:       null
                     ,   className:  'text-right'

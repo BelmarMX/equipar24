@@ -13,8 +13,10 @@
             <tr>
                 <th>ID</th>
                 <th style="min-width: 360px">Título</th>
+                <th style="min-width: 360px">URL</th>
                 <th data-orderable="false"><i class="fa-solid fa-barcode fa-lg" data-tooltip="Productos en el paquete"></i></th>
                 <th style="min-width: 120px">Vista Previa</th>
+                <th data-orderable="false" style="min-width: 100px">Vigencia</th>
                 <th data-orderable="false" style="min-width: 120px">Alta</th>
                 <th data-orderable="false" style="min-width: 120px" data-priority="1">Acciones</th>
             </tr>

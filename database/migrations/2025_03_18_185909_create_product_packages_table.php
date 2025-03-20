@@ -17,6 +17,7 @@ return new class extends Migration
 	        $table->string('slug', 512);
 	        $table->string('summary', 256);
 	        $table->text('content')->nullable();
+	        $table->decimal('price', 10, 2);
 	        $table->string('image', 2040);
 	        $table->string('image_rx', 2040)->nullable();
 	        $table->text('raw_editor')->nullable();

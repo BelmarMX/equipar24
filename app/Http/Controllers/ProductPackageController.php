@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\ImagesSettings;
+use App\Classes\Navigation;
 use App\Http\Requests\ProductPackageRequest;
 use App\Models\ProductPackage;
 use Illuminate\Http\Request;
@@ -69,11 +70,21 @@ class ProductPackageController extends Controller
 		}
 
 		return DataTables::of($dt_of)
+			->addColumn('url', function($record){
+				return route('paquetes-productos', $record->slug);
+			})
+			->addColumn('preview', function($record) {
+				$show_thumbnail  = false;
+				return view('dashboard.partials.preview', compact('record', 'show_thumbnail')) -> render();
+			})
+			->addColumn('product_count', function($record){
+				return $record->products->count();
+			})
 			->addColumn('action', function ($record) use ($restore) {
 				$actions            = parent::set_actions('productPackages', 'title', TRUE, $restore, $this->can_edit, $this->can_delete);
 				return view('dashboard.partials.actions', compact(['actions', 'record'])) -> render();
 			})
-			->rawColumns(['action'])
+			->rawColumns(['preview', 'action'])
 			->toJson();
 	}
 
@@ -114,6 +125,7 @@ class ProductPackageController extends Controller
 		$validated['image_rx']  = $stored -> full -> thumbnail  ?? NULL;
 
 		$created                = ProductPackage::create($validated);
+		$created->syncronize($validated['product_list']);
 		return redirect() -> route('productPackages.index', compact('created'));
 	}
 
@@ -164,7 +176,8 @@ class ProductPackageController extends Controller
 		$validated['image']     = $stored -> full -> original   ?? $productPackage->image;
 		$validated['image_rx']  = $stored -> full -> thumbnail  ?? $productPackage->image_rx;
 
-		$product -> update($validated);
+		$productPackage -> update($validated);
+		$productPackage->syncronize($validated['product_list']);
 		return redirect() -> route('productPackages.index', ['updated' => $productPackage->id]);
 	}
 
@@ -188,5 +201,15 @@ class ProductPackageController extends Controller
 		$productPackage = ProductPackage::onlyTrashed() -> find($productPackage_id);
 		$productPackage->restore();
 		return redirect() -> route('productPackages.index', ['restored' => $productPackage->id]);
+	}
+
+	public function show_package($slug_package)
+	{
+		$package  = ProductPackage::where('slug', $slug_package)->where('starts_at', '<=', now())->where('ends_at', '>=', now())->firstOrFail();
+		$entries    = $package->products()->paginate(24);
+		return view('web.products.paquete-productos', array_merge(
+				Navigation::get_static_data(['reels', 'featured', 'articles'])
+			,   compact('package', 'entries')
+		));
 	}
 }

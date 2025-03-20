@@ -17,6 +17,7 @@ class Reel extends Model
     protected $fillable = [
             'promotion_id'
         ,   'product_id'
+        ,   'product_package_id'
         ,   'title'
         ,   'slug'
         ,   'video'
@@ -48,6 +49,11 @@ class Reel extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+	public function package(): BelongsTo
+	{
+		return $this->belongsTo(ProductPackage::class, 'product_package_id');
+	}
 
     /* ----------------------------------------------------------------------------------------------------------------
      * MUTATORS AND ACCESSORS

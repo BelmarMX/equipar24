@@ -1,6 +1,6 @@
 @props(['name', 'placeholder', 'required', 'value', 'readonly', 'disabled'])
 
-<div {{ $attributes->merge(['class' => 'relative z-0 w-full px-2']) }}>
+<div {{ $attributes->merge(['class' => 'relative z-1 w-full px-2']) }}>
     <label for="{{$name}}" class="duration-300 top-3 pl-2 z-1 origin-0 text-gray-500">
         {{ $placeholder }} @isset($required) <span class="text-red-500"><i class="fa-solid fa-asterisk" style="font-size: 0.7rem"></i></span> @endisset
     </label>

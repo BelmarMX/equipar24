@@ -326,28 +326,6 @@ $(document).ready(function() {
             ,   autofocus:      false
             ,   inlineToolbar:  ['link', 'bold', 'italic']
             ,   tools:          {
-                    /*attaches:       {
-                            class:          AttachesTool
-                        ,   config:         {
-                                buttonText:             'Selecciona un archivo'
-                            ,   uploader:               {
-                                uploadByFile(file)
-                                {
-                                    let form_data           = new FormData();
-                                    form_data.append('archivo', file)
-                                    return axios.post('/dashboard/upload_file', form_data, {
-                                        headers: {
-                                            'Content-Type': 'multipart/form-data'
-                                        }
-                                    })
-                                        .then(({status, data}) => {
-                                            console.log(data)
-                                            return data
-                                        })
-                                }
-                            }
-                        }
-                    }*/
                     image:      {
                             class:          ImageTool
                         ,   config:         {
