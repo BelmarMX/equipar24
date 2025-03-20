@@ -72,6 +72,11 @@ class Product extends Model
         return $this->belongsToMany(Promotion::class, PromotionProduct::class, 'product_id', 'promotion_id', 'id', 'id');
     }
 
+	public function packages(): BelongsToMany
+	{
+		return $this->belongsToMany(ProductPackage::class, ProductPackageProduct::class, 'product_id', 'product_package_id', 'id', 'id');
+	}
+
     public function reels(): HasMany
     {
         return $this->hasMany(Reel::class);

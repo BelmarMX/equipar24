@@ -105,7 +105,7 @@ class SetRolesAndPermissions extends Command
 		Permission::create(['name' => 'eliminar sucursales']);
 
 		$all_permisions = [
-			'ver usuarios'
+				'ver usuarios'
 			,   'ver estados'
 			,   'ver ciudades'
 			,   'ver contactos'
@@ -165,7 +165,7 @@ class SetRolesAndPermissions extends Command
 		];
 
 		$view_permissions = [
-			'ver usuarios'
+				'ver usuarios'
 			,   'ver estados'
 			,   'ver ciudades'
 			,   'ver contactos'
@@ -185,7 +185,7 @@ class SetRolesAndPermissions extends Command
 		$editor_pro         = [];
 
 		$editor_permissions = [
-			'ver estados'
+				'ver estados'
 			,   'ver ciudades'
 			,   'ver contactos'
 			,   'ver cotizaciones'
@@ -236,7 +236,7 @@ class SetRolesAndPermissions extends Command
 		];
 
 		$editor_limited_permissions = [
-			'ver banners'
+				'ver banners'
 			,   'ver reels'
 			,   'ver productos'
 			,   'ver proyectos'
@@ -257,7 +257,7 @@ class SetRolesAndPermissions extends Command
 		];
 
 		$soporte_permissions = [
-			'ver contactos'
+				'ver contactos'
 			,   'ver cotizaciones'
 			,   'ver productos'
 			,   'ver promociones'

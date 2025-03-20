@@ -52,11 +52,17 @@ class ImagesSettings
     const PRODUCT_SUBCAT_RX_WIDTH                       = 200;
     const PRODUCT_SUBCAT_RX_HEIGHT                      = 200;
 
-    const PRODUCT_BRAND_FOLDER                         = "productos-marcas/";
-    const PRODUCT_BRAND_WIDTH                          = 100;
-    const PRODUCT_BRAND_HEIGHT                         = 25;
-    const PRODUCT_BRAND_RX_WIDTH                       = 100;
-    const PRODUCT_BRAND_RX_HEIGHT                      = 25;
+    const PRODUCT_BRAND_FOLDER                          = "productos-marcas/";
+    const PRODUCT_BRAND_WIDTH                           = 100;
+    const PRODUCT_BRAND_HEIGHT                          = 25;
+    const PRODUCT_BRAND_RX_WIDTH                        = 100;
+    const PRODUCT_BRAND_RX_HEIGHT                       = 25;
+
+	const PRODUCT_PACKAGE_FOLDER                        = "productos-paquetes/";
+	const PRODUCT_PACKAGE_WIDTH                         = 1920;
+	const PRODUCT_PACKAGE_HEIGHT                        = 520;
+	const PRODUCT_PACKAGE_RX_WIDTH                      = 340;
+	const PRODUCT_PACKAGE_RX_HEIGHT                     = 220;
 
     const PRODUCT_FOLDER                                = "productos/";
     const PRODUCT_WIDTH                                 = 545;

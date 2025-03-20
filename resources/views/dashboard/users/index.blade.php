@@ -2,7 +2,9 @@
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center">
             @include('dashboard.partials.section-title', ['section_name'=>'Usuarios', 'fa_icon'=>'people-group', 'subtitle'=>$subtitle])
-            @include('dashboard.partials.submenu', ['resource' => 'users', 'permission' => 'usuarios'])
+            @include('dashboard.partials.submenu', ['resource' => 'users', 'push_buttons' => [
+                ['icon' => 'fa-shield-halved', 'text' => 'Roles', 'route_name' => 'roles.index']
+            ], 'permission' => 'usuarios'])
         </div>
     </x-slot>
 

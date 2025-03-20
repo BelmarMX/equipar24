@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductFreightController;
 use App\Http\Controllers\ProductGalleryController;
+use App\Http\Controllers\ProductPackageController;
 use App\Http\Controllers\ProductPriceController;
 use App\Http\Controllers\ProductSubcategoryController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\PromotionProductController;
 use App\Http\Controllers\ReelController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Models\FormContact;
 use Illuminate\Support\Facades\Route;
@@ -138,6 +140,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('restore/{product_freight_id}', 'restore')->name('productFreights.restore');
     });
 
+	Route::resource('productPackages', ProductPackageController::class);
+	Route::group(['prefix' => 'productPackages', 'controller' => ProductPackageController::class], function () {
+		Route::post('datatable', 'datatable')->name('dashboard.productPackages.datatable');
+		Route::get('archived/view', 'archived')->name('productPackages.archived');
+		Route::get('delete/{product_package}', 'destroy')->name('productPackages.delete');
+		Route::get('restore/{product_package_id}', 'restore')->name('productPackages.restore');
+	});
+
     Route::resource('promotions', PromotionController::class);
     Route::group(['prefix' => 'promotions', 'controller' => PromotionController::class], function () {
         Route::post('datatable', 'datatable')->name('dashboard.promotions.datatable');
@@ -211,12 +221,20 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('delete/{user}', 'destroy')->name('users.delete');
         Route::get('restore/{user_id}', 'restore')->name('users.restore');
     });
-});
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+	Route::resource('roles', RoleController::class);
+	Route::group(['prefix'=>'roles', 'controller'=>RoleController::class], function(){
+		Route::post('datatable', 'datatable')->name('dashboard.roles.datatable');
+		Route::get('archived/view', 'archived')->name('roles.archived');
+		Route::get('delete/{role}', 'destroy')->name('roles.delete');
+		Route::get('restore/{role_id}', 'restore')->name('roles.restore');
+	});
+
+	Route::middleware('auth')->group(function () {
+		Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+		Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+		Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+	});
 });
 
 require __DIR__.'/auth.php';

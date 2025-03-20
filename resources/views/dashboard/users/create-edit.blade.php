@@ -2,7 +2,9 @@
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center">
             @include('dashboard.partials.section-title', ['section_name'=>'Usuarios', 'fa_icon'=>'user', 'subtitle'=>$record->id ? 'Editar' : 'Nuevo'])
-            @include('dashboard.partials.submenu', ['resource' => $resource, 'permission' => 'usuarios'])
+            @include('dashboard.partials.submenu', ['resource' => $resource, 'push_buttons' => [
+                ['icon' => 'fa-shield-halved', 'text' => 'Roles', 'route_name' => 'roles.index']
+            ], 'permission' => 'usuarios'])
         </div>
     </x-slot>
 
@@ -41,19 +43,21 @@
                         @error('rol')
                         <x-form.error-field id="role" :error="$message" />
                         @enderror
-                        @foreach($roles AS $role)
-                            <div class="md:w-6/12">
-                                <x-form.radio name="role"
-                                              label="{{ ucfirst($role->name) }}"
-                                              fa_icon="fa-user-tag"
-                                              value="{{ $role->name }}"
-                                              checked="{{ !$record->id ? false : $record->hasRole($role->name) }}"
-                                              :width="100"
-                                              class="mb-6"
-                                              data-permissions="{{ implode('|', array_map(function($r){ return $r['name']; }, $role->permissions->toArray())) }}"
-                                />
-                            </div>
-                        @endforeach
+                        <div class="flex flex-wrap">
+                            @foreach($roles AS $role)
+                                <div class="inline-block md:w-6/12">
+                                    <x-form.radio name="role"
+                                                  label="{{ ucfirst($role->name) }}"
+                                                  fa_icon="fa-user-tag"
+                                                  value="{{ $role->name }}"
+                                                  checked="{{ !$record->id ? false : $record->hasRole($role->name) }}"
+                                                  :width="100"
+                                                  class="mb-6"
+                                                  data-permissions="{{ implode('|', array_map(function($r){ return $r['name']; }, $role->permissions->toArray())) }}"
+                                    />
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="md:w-6/12 w-full">
                         @php

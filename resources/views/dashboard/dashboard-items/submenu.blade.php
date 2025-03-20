@@ -10,8 +10,9 @@
     @endcan
     @can('ver usuarios')
         <x-nav-link class="min-w-32 justify-center" :href="route('users.index')" :active="request()->routeIs(['users.index'])"><i class="fa-solid fa-people-group me-1"></i> Usuarios</x-nav-link>
+        <x-nav-link class="min-w-32 justify-center" :href="route('roles.index')" :active="request()->routeIs(['roles.index'])"><i class="fa-solid fa-shield-halved me-1"></i> Roles y Permisos</x-nav-link>
     @endcan
     @can('ver reportes')
-        <x-nav-link class="min-w-32 justify-center" :href="route('dashboard.quotationReport')" :active="request()->routeIs(['dashboard.quotationReport'])"><i class="fa-solid fa-chart-line"></i> Reportes</x-nav-link>
+        <x-nav-link class="min-w-32 justify-center" :href="route('dashboard.quotationReport')" :active="request()->routeIs(['dashboard.quotationReport'])"><i class="fa-solid fa-chart-line me-1"></i> Reportes</x-nav-link>
     @endcan
 </div>

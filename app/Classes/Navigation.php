@@ -91,7 +91,7 @@ class Navigation
                 'dashboard'             => [
                     'route'         => route('dashboard')
                 ,   'route_is'      => 'dashboard'
-                ,   'link_text'     => '<i class="fa-solid fa-chart-line me-1"></i> '.__('Dashboard')
+                ,   'link_text'     => '<i class="fa-solid fa-cube me-1"></i> '.__('Dashboard')
                 ,   'permission'    => Permission::where('name', 'LIKE', 'ver%')->pluck('name')->toArray()
             ]
             ,   'banners'               => [
@@ -106,48 +106,54 @@ class Navigation
                 ,   'link_text'     => '<i class="fa-solid fa-clapperboard me-1"></i> Reels'
 		        ,   'permission'    => 'ver reels'
             ]
-            ,   'products'                  => [
-                    'dropdown'      => TRUE
-                ,   'route_is'      => ['products.*', 'productBrands.*', 'productCategories.*', 'productSubcategories.*', 'productPrices.*', 'productFreights.*']
-                ,   'link_text'     => '<i class="fa-solid fa-barcode me-1" style="vertical-align: middle;"></i> Productos'
-		        ,   'permission'    => ['ver productos', 'ver precios', 'ver fletes']
-                ,   'items'         => [
-                        'productos'      => [
-                            'route'         => route('products.index')
-                        ,   'route_is'      => 'products.*'
-                        ,   'link_text'     => '<i class="fa-solid fa-barcode me-1"></i> Productos'
-                        ,   'permission'    => 'ver productos'
+            ,   'products'              => [
+                    'dropdown'              => TRUE
+                ,   'route_is'              => ['products.*', 'productBrands.*', 'productCategories.*', 'productSubcategories.*', 'productPrices.*', 'productFreights.*']
+                ,   'link_text'             => '<i class="fa-solid fa-barcode me-1" style="vertical-align: middle;"></i> Productos'
+		        ,   'permission'            => ['ver productos', 'ver precios', 'ver fletes']
+                ,   'items'                 => [
+                        'productos'             => [
+                            'route'                 => route('products.index')
+                        ,   'route_is'              => 'products.*'
+                        ,   'link_text'             => '<i class="fa-solid fa-barcode me-1"></i> Productos'
+                        ,   'permission'            => 'ver productos'
                     ]
-                    ,   'brands'        => [
-                            'route'         => route('productBrands.index')
-                        ,   'route_is'      => 'productBrands.*'
-                        ,   'link_text'     => '<i class="fa-solid fa-registered me-1"></i> Marcas'
-				        ,   'permission'    => 'ver productos'
+                    ,   'brands'                => [
+                            'route'                 => route('productBrands.index')
+                        ,   'route_is'              => 'productBrands.*'
+                        ,   'link_text'             => '<i class="fa-solid fa-registered me-1"></i> Marcas'
+				        ,   'permission'            => 'ver productos'
                     ]
-                    ,   'categories'     => [
-                            'route'         => route('productCategories.index')
-                        ,   'route_is'      => 'productCategories.*'
-                        ,   'link_text'     => '<i class="fa-solid fa-tag me-1"></i> Categorías'
-				        ,   'permission'    => 'ver productos'
+                    ,   'categories'            => [
+                            'route'                 => route('productCategories.index')
+                        ,   'route_is'              => 'productCategories.*'
+                        ,   'link_text'             => '<i class="fa-solid fa-tag me-1"></i> Categorías'
+				        ,   'permission'            => 'ver productos'
                     ]
-                    ,   'subcategories' => [
-                            'route'         => route('productSubcategories.index')
-                        ,   'route_is'      => 'productSubcategories.*'
-                        ,   'link_text'     => '<i class="fa-solid fa-tags me-1"></i> Subcategorías'
-				        ,   'permission'    => 'ver productos'
+                    ,   'subcategories'         => [
+                            'route'                 => route('productSubcategories.index')
+                        ,   'route_is'              => 'productSubcategories.*'
+                        ,   'link_text'             => '<i class="fa-solid fa-tags me-1"></i> Subcategorías'
+				        ,   'permission'            => 'ver productos'
                     ]
-                    ,   'prices'        => [
-                            'route'         => route('productPrices.index')
-                        ,   'route_is'      => 'productPrices.*'
-                        ,   'link_text'     => '<i class="fa-solid fa-dollar-sign me-1"></i> Precios'
-				        ,   'permission'    => 'editar precios'
+                    ,   'prices'                => [
+                            'route'                 => route('productPrices.index')
+                        ,   'route_is'              => 'productPrices.*'
+                        ,   'link_text'             => '<i class="fa-solid fa-dollar-sign me-1"></i> Precios'
+				        ,   'permission'            => 'editar precios'
                     ]
-                    ,   'freight'        => [
-                            'route'         => route('productFreights.index')
-                        ,   'route_is'      => 'productFreights.*'
-                        ,   'link_text'     => '<i class="fa-solid fa-truck-fast me-1"></i> Flete'
-				        ,   'permission'    => 'editar fletes'
+                    ,   'freight'               => [
+                            'route'                 => route('productFreights.index')
+                        ,   'route_is'              => 'productFreights.*'
+                        ,   'link_text'             => '<i class="fa-solid fa-truck-fast me-1"></i> Flete'
+				        ,   'permission'            => 'editar fletes'
                     ]
+			        ,   'packages'              => [
+							'route'                 => route('productPackages.index')
+				        ,   'route_is'              => 'productPackages.*'
+				        ,   'link_text'             => '<i class="fa-solid fa-box-open me-1"></i> Paquetes'
+				        ,   'permission'            => 'editar paquetes'
+			        ]
                 ]
             ]
             ,   'promotions'            => [
