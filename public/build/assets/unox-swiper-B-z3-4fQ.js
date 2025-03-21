@@ -1,0 +1,1 @@
+import{S as e,P as i}from"./pagination-BS1GZn_V.js";new e(".swiper-categories",{modules:[i],slidesPerView:4,spaceBetween:30,centeredSlides:!0,loop:!0,pagination:{el:".swiper-pagination",clickable:!0},breakpoints:{390:{slidesPerView:1},1024:{slidesPerView:3},1360:{slidesPerView:4}}});

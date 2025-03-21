@@ -14,6 +14,7 @@ export default defineConfig({
                 'resources/assets/js/web/quotator.js',
                 'resources/assets/js/web/contactor.js',
                 'resources/assets/js/web/search.js',
+                'resources/assets/js/web/brands-swiper.js',
                 'resources/assets/js/web/unox-swiper.js',
                 // ? DASHBOARD
                 'resources/css/app.css',

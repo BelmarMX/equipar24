@@ -3,6 +3,17 @@
     "file": "assets/axios-CCb-kr4I.js",
     "name": "axios"
   },
+  "_pagination-!~{00K}~.js": {
+    "file": "assets/pagination-BswZJUt7.css",
+    "src": "_pagination-!~{00K}~.js"
+  },
+  "_pagination-BS1GZn_V.js": {
+    "file": "assets/pagination-BS1GZn_V.js",
+    "name": "pagination",
+    "css": [
+      "assets/pagination-BswZJUt7.css"
+    ]
+  },
   "_plyr.min-Bx69nal5.js": {
     "file": "assets/plyr.min-Bx69nal5.js",
     "name": "plyr.min"
@@ -338,6 +349,15 @@
       "_sweetalert2.esm.all-Br4OTrmy.js"
     ]
   },
+  "resources/assets/js/web/brands-swiper.js": {
+    "file": "assets/brands-swiper-CMmHem_t.js",
+    "name": "brands-swiper",
+    "src": "resources/assets/js/web/brands-swiper.js",
+    "isEntry": true,
+    "imports": [
+      "_pagination-BS1GZn_V.js"
+    ]
+  },
   "resources/assets/js/web/contactor.js": {
     "file": "assets/contactor-PEm0o__t.js",
     "name": "contactor",
@@ -374,12 +394,12 @@
     "isEntry": true
   },
   "resources/assets/js/web/unox-swiper.js": {
-    "file": "assets/unox-swiper-C0oe3oHK.js",
+    "file": "assets/unox-swiper-B-z3-4fQ.js",
     "name": "unox-swiper",
     "src": "resources/assets/js/web/unox-swiper.js",
     "isEntry": true,
-    "css": [
-      "assets/unox-swiper-BswZJUt7.css"
+    "imports": [
+      "_pagination-BS1GZn_V.js"
     ]
   },
   "resources/assets/scss/dashboard/app.scss": {
@@ -393,7 +413,7 @@
     "isEntry": true
   },
   "resources/assets/scss/web/app.scss": {
-    "file": "assets/app-DjyaLRce.css",
+    "file": "assets/app-CA55X69f.css",
     "src": "resources/assets/scss/web/app.scss",
     "isEntry": true
   },

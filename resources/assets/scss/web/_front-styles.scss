@@ -456,6 +456,21 @@ h1.undash, h2.undash, h3.undash, h4.undash, h5.undash, h6.undash{
     }
 }
 
+.marcas-wrap-grid{
+	.marcas-container-grid{
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+		grid-template-rows: auto;
+		gap: 24px 12px;
+	}
+	a{
+		text-align: center;
+		font-size: .80rem;
+		text-decoration: underline;
+		font-weight: 600;
+	}
+}
+
 .tooltip-inner {
 	max-width: 350px;
 }
