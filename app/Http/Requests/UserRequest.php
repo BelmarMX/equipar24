@@ -61,7 +61,13 @@ class UserRequest extends FormRequest
     public function validated($key = null, $default = null)
     {
         $data               = parent::validated($key, $default);
-        $data["password"]   = Hash::make($data["password"]);
+	    if( !empty($data['password']) )
+		{
+			$data["password"]   = Hash::make($data["password"]);
+		}
+		else{
+			unset($data["password"]);
+		}
         return $data;
     }
 }
