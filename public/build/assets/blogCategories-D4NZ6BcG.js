@@ -1,1 +1,0 @@
-import{D as t,n as e,s as r}from"./common-Bm_rDy6i.js";$(document).ready(function(){$("#blogCategories-table").DataTable({...t,ajax:{...t.ajax,url:url_route,data:{with_trashed}},columns:[...t.columns,{data:"title"},{data:"count_articles",render:a=>e(a,!0)},{data:null,className:"text-right",render:a=>r(a)},{data:"action",className:"text-center"}]})});

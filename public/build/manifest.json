@@ -65,7 +65,7 @@
     ]
   },
   "resources/assets/js/dashboard/behavior.js": {
-    "file": "assets/behavior-BEZwy4oZ.js",
+    "file": "assets/behavior-CFxqzBbM.js",
     "name": "behavior",
     "src": "resources/assets/js/dashboard/behavior.js",
     "isEntry": true,
@@ -78,7 +78,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/banners.js": {
-    "file": "assets/banners-DCb2WLBJ.js",
+    "file": "assets/banners-DgQMeqxZ.js",
     "name": "banners",
     "src": "resources/assets/js/dashboard/datatables/banners.js",
     "isEntry": true,
@@ -89,7 +89,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/blogArticles.js": {
-    "file": "assets/blogArticles-D5xUbElZ.js",
+    "file": "assets/blogArticles-WbNoK9Ri.js",
     "name": "blogArticles",
     "src": "resources/assets/js/dashboard/datatables/blogArticles.js",
     "isEntry": true,
@@ -98,7 +98,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/blogCategories.js": {
-    "file": "assets/blogCategories-D4NZ6BcG.js",
+    "file": "assets/blogCategories-C3-6KRC9.js",
     "name": "blogCategories",
     "src": "resources/assets/js/dashboard/datatables/blogCategories.js",
     "isEntry": true,
@@ -107,7 +107,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/branches.js": {
-    "file": "assets/branches-BYMynW_a.js",
+    "file": "assets/branches-BYL7cwYL.js",
     "name": "branches",
     "src": "resources/assets/js/dashboard/datatables/branches.js",
     "isEntry": true,
@@ -116,7 +116,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/cities.js": {
-    "file": "assets/cities-C10DU6NF.js",
+    "file": "assets/cities-B25x46-c.js",
     "name": "cities",
     "src": "resources/assets/js/dashboard/datatables/cities.js",
     "isEntry": true,
@@ -125,13 +125,13 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/common.js": {
-    "file": "assets/common-Bm_rDy6i.js",
+    "file": "assets/common-BtanXuX7.js",
     "name": "common",
     "src": "resources/assets/js/dashboard/datatables/common.js",
     "isEntry": true
   },
   "resources/assets/js/dashboard/datatables/contactList.js": {
-    "file": "assets/contactList-Cq1RYUYN.js",
+    "file": "assets/contactList-H8iH0fLq.js",
     "name": "contactList",
     "src": "resources/assets/js/dashboard/datatables/contactList.js",
     "isEntry": true,
@@ -140,7 +140,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/contacts.js": {
-    "file": "assets/contacts-C6j4o0Pd.js",
+    "file": "assets/contacts-ck52mkOq.js",
     "name": "contacts",
     "src": "resources/assets/js/dashboard/datatables/contacts.js",
     "isEntry": true,
@@ -159,7 +159,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/form_contacts.js": {
-    "file": "assets/form_contacts-zNml0F-K.js",
+    "file": "assets/form_contacts-5yi5jU9U.js",
     "name": "form_contacts",
     "src": "resources/assets/js/dashboard/datatables/form_contacts.js",
     "isEntry": true,
@@ -170,7 +170,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/productBrands.js": {
-    "file": "assets/productBrands-hWlSgtnp.js",
+    "file": "assets/productBrands-BzqbJT3G.js",
     "name": "productBrands",
     "src": "resources/assets/js/dashboard/datatables/productBrands.js",
     "isEntry": true,
@@ -181,7 +181,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/productCategories.js": {
-    "file": "assets/productCategories-BE1eAcaT.js",
+    "file": "assets/productCategories-W0k6H49I.js",
     "name": "productCategories",
     "src": "resources/assets/js/dashboard/datatables/productCategories.js",
     "isEntry": true,
@@ -192,7 +192,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/productFreights.js": {
-    "file": "assets/productFreights-B7IpGn51.js",
+    "file": "assets/productFreights-BZI07lIF.js",
     "name": "productFreights",
     "src": "resources/assets/js/dashboard/datatables/productFreights.js",
     "isEntry": true,
@@ -204,7 +204,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/productGalleries.js": {
-    "file": "assets/productGalleries-DXT-_Shw.js",
+    "file": "assets/productGalleries-Dp9FcUak.js",
     "name": "productGalleries",
     "src": "resources/assets/js/dashboard/datatables/productGalleries.js",
     "isEntry": true,
@@ -213,7 +213,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/productPackages.js": {
-    "file": "assets/productPackages-CbBCn6zb.js",
+    "file": "assets/productPackages-C3i871SW.js",
     "name": "productPackages",
     "src": "resources/assets/js/dashboard/datatables/productPackages.js",
     "isEntry": true,
@@ -223,7 +223,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/productPrices.js": {
-    "file": "assets/productPrices-BL2nx74x.js",
+    "file": "assets/productPrices-BovSaCPO.js",
     "name": "productPrices",
     "src": "resources/assets/js/dashboard/datatables/productPrices.js",
     "isEntry": true,
@@ -235,7 +235,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/productSubcategories.js": {
-    "file": "assets/productSubcategories-Do7-Ba2x.js",
+    "file": "assets/productSubcategories-uRJc-0d4.js",
     "name": "productSubcategories",
     "src": "resources/assets/js/dashboard/datatables/productSubcategories.js",
     "isEntry": true,
@@ -245,7 +245,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/products.js": {
-    "file": "assets/products-Vx6SewVm.js",
+    "file": "assets/products-eWJtN3Jq.js",
     "name": "products",
     "src": "resources/assets/js/dashboard/datatables/products.js",
     "isEntry": true,
@@ -254,7 +254,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/projectGalleries.js": {
-    "file": "assets/projectGalleries-BiJly3UG.js",
+    "file": "assets/projectGalleries-BWMU9h-7.js",
     "name": "projectGalleries",
     "src": "resources/assets/js/dashboard/datatables/projectGalleries.js",
     "isEntry": true,
@@ -263,7 +263,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/projects.js": {
-    "file": "assets/projects-D3ZPmsmc.js",
+    "file": "assets/projects-CErVeSXR.js",
     "name": "projects",
     "src": "resources/assets/js/dashboard/datatables/projects.js",
     "isEntry": true,
@@ -272,7 +272,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/promotionLinks.js": {
-    "file": "assets/promotionLinks-CntStvWQ.js",
+    "file": "assets/promotionLinks-C36vFSHv.js",
     "name": "promotionLinks",
     "src": "resources/assets/js/dashboard/datatables/promotionLinks.js",
     "isEntry": true,
@@ -284,7 +284,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/promotions.js": {
-    "file": "assets/promotions-Cx5hHlx-.js",
+    "file": "assets/promotions-CBsYQ-WI.js",
     "name": "promotions",
     "src": "resources/assets/js/dashboard/datatables/promotions.js",
     "isEntry": true,
@@ -293,7 +293,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/reels.js": {
-    "file": "assets/reels-C-Bbqd8G.js",
+    "file": "assets/reels-BkM7Bngt.js",
     "name": "reels",
     "src": "resources/assets/js/dashboard/datatables/reels.js",
     "isEntry": true,
@@ -301,8 +301,17 @@
       "resources/assets/js/dashboard/datatables/common.js"
     ]
   },
+  "resources/assets/js/dashboard/datatables/roles.js": {
+    "file": "assets/roles-Wk1KbMJG.js",
+    "name": "roles",
+    "src": "resources/assets/js/dashboard/datatables/roles.js",
+    "isEntry": true,
+    "imports": [
+      "resources/assets/js/dashboard/datatables/common.js"
+    ]
+  },
   "resources/assets/js/dashboard/datatables/states.js": {
-    "file": "assets/states-SmVxF6wI.js",
+    "file": "assets/states-DGUdQ2p0.js",
     "name": "states",
     "src": "resources/assets/js/dashboard/datatables/states.js",
     "isEntry": true,
@@ -311,7 +320,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/users.js": {
-    "file": "assets/users-DuxB-uXD.js",
+    "file": "assets/users-BDDymAIf.js",
     "name": "users",
     "src": "resources/assets/js/dashboard/datatables/users.js",
     "isEntry": true,

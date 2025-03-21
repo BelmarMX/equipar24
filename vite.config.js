@@ -47,6 +47,7 @@ export default defineConfig({
                 'resources/assets/js/dashboard/datatables/promotionLinks.js',
                 'resources/assets/js/dashboard/datatables/promotions.js',
                 'resources/assets/js/dashboard/datatables/reels.js',
+                'resources/assets/js/dashboard/datatables/roles.js',
                 'resources/assets/js/dashboard/datatables/users.js',
             ],
             refresh: true,

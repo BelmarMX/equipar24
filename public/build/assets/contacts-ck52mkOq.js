@@ -1,4 +1,4 @@
-import{D as o,s as d}from"./common-Bm_rDy6i.js";$(document).ready(function(){$("#promotions-table").DataTable({...o,ajax:{...o.ajax,url:url_route,data:{with_trashed}},columns:[...o.columns,{data:"status"},{data:"type",render:a=>a==="quotation"?"Cotización":"Contacto"},{data:null,render:({form_contact:a})=>`<strong>${a.name}</strong><br>
+import{D as o,s as d}from"./common-BtanXuX7.js";$(document).ready(function(){$("#promotions-table").DataTable({...o,ajax:{...o.ajax,url:url_route,data:{with_trashed}},columns:[...o.columns,{data:"status"},{data:"type",render:a=>a==="quotation"?"Cotización":"Contacto"},{data:null,render:({form_contact:a})=>`<strong>${a.name}</strong><br>
                             <span>${a.email}</span>
                             `},{data:"state"},{data:"city"},{data:"estimated_value"},{data:"assigned",render:a=>a?`<strong>${a.name}</strong><br>
                                     <span>${a.email}</span>
