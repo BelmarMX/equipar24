@@ -67,7 +67,7 @@ window.onload = event => {
             .remove('empty')
     }
 
-    // Scroll horizontal
+    /*// Scroll horizontal
     if( document.querySelector('.scroll_categories--list') )
     {
         const scroll_container = document.querySelectorAll('.scroll_categories--list')
@@ -87,7 +87,24 @@ window.onload = event => {
                 el.scrollLeft += e.deltaY
             })
         })
-    }
+    }*/
+    document.querySelectorAll('.scroll_categories--list, .responsive-horizontal').forEach(el => {
+        el.addEventListener('wheel', e => {
+            const canScrollHorizontally = el.scrollWidth > el.clientWidth; // Verifica si hay scroll horizontal
+
+            if (!canScrollHorizontally) return; // Si no hay más contenido, permite el scroll normal
+
+            // Detecta si el usuario está intentando desplazarse más en horizontal que en vertical
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                // Se mueve en horizontal, dejamos el scroll nativo del trackpad
+                return;
+            }
+
+            // Si el usuario hace scroll en vertical pero hay más contenido horizontal, lo convertimos
+            e.preventDefault();
+            el.scrollLeft += e.deltaY;
+        });
+    });
 
     // Video reels
     if( document.querySelector('.reels__item--video') )
