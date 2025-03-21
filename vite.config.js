@@ -38,6 +38,7 @@ export default defineConfig({
                 'resources/assets/js/dashboard/datatables/productCategories.js',
                 'resources/assets/js/dashboard/datatables/productFreights.js',
                 'resources/assets/js/dashboard/datatables/productGalleries.js',
+                'resources/assets/js/dashboard/datatables/productPackages.js',
                 'resources/assets/js/dashboard/datatables/productPrices.js',
                 'resources/assets/js/dashboard/datatables/products.js',
                 'resources/assets/js/dashboard/datatables/productSubcategories.js',

@@ -212,6 +212,16 @@
       "resources/assets/js/dashboard/datatables/common.js"
     ]
   },
+  "resources/assets/js/dashboard/datatables/productPackages.js": {
+    "file": "assets/productPackages-CbBCn6zb.js",
+    "name": "productPackages",
+    "src": "resources/assets/js/dashboard/datatables/productPackages.js",
+    "isEntry": true,
+    "imports": [
+      "resources/assets/js/dashboard/datatables/common.js",
+      "_sweetalert2.esm.all-Br4OTrmy.js"
+    ]
+  },
   "resources/assets/js/dashboard/datatables/productPrices.js": {
     "file": "assets/productPrices-BL2nx74x.js",
     "name": "productPrices",
