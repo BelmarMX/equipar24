@@ -40,7 +40,7 @@
                             </span>
                         </div>
                         <div>
-                            <a href="https://api.whatsapp.com/send?phone=523322876603&amp;text=%C2%A1Hola%21%20Estoy%20interesado%20en%20productos%20UNOX%2C%20quisiera%20saber%20m%C3%A1s%20acerca%20de%20ellos"
+                            <a href="https://api.whatsapp.com/send?phone=523322876603&amp;text={!! urlencode("¡Hola! acabo de ver el paquete *{$package->id}: {$package->title}* y estoy interesado en adquirirlo, por favor envienme más información.") !!}"
                                class="btn btn-success text-white"
                                data-bs-toggle="tooltip"
                                title="Contacta a un asesor por whatsapp"
