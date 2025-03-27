@@ -27,6 +27,7 @@
                             ,   'title'     => $category->title
                             ,   'route'     => route('productos-categories', $category->slug)
                             ,   'image'     => $category->asset_url.$category->image_rx
+                            ,   'has_icon'  => $icon_map[$category->slug] ?? NULL
                         ])
                     </div>
                 @endforeach

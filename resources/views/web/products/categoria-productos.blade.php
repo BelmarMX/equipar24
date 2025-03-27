@@ -1,5 +1,5 @@
 @section('title',           $product_subcategory->title ?? $product_category->title)
-@section('description',     'Todos los productos dentro de la categoria '.$product_category->title)
+@section('description',     'Todos los productos dentro de la categoría '.$product_category->title)
 @section('image',           $product_category->asset_url.$product_category->image)
 @extends('web._layout.master.app')
 

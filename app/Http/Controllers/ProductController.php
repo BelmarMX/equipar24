@@ -17,6 +17,19 @@ use Yajra\DataTables\DataTables;
 class ProductController extends Controller
 {
     const DEFAULT_RAW_DESCRIPTION       = '{"time":1730082850296,"blocks":[{"id":"VlWyjSXHxZ","type":"paragraph","data":{"text":"<b>Dimensiones</b><br><b>Frente:</b> 0.00 m<br><b>Alto:</b> 0.00 m<br><b>Fondo: </b>0.00 m","alignment":"left"}}],"version":"2.30.6"}';
+	const CATEGORIES_ICONS              = [
+			'acero-inoxidable'                      => 'fa-scroll'
+		,   'coccion'                               => 'fa-fire-burner'
+		,   'refrigeracion'                         => 'fa-snowflake'
+		,   'utensilios'                            => 'fa-utensils'
+		,   'almacenaje'                            => 'fa-dolly'
+		,   'barras-de-servicio'                    => 'fa-kaaba'
+		,   'equipo-menor'                          => 'fa-blender'
+		,   'lavado-de-loza-y-cristaleria'          => 'fa-sink'
+		,   'complementos'                          => 'fa-kitchen-set'
+		,   'refacciones'                           => 'fa-screwdriver-wrench'
+
+	];
 
 	private $can_view;
 	private $can_create;
@@ -384,7 +397,11 @@ class ProductController extends Controller
 
     public function show_categories()
     {
-        return view('web.products.categorias-todas', Navigation::get_static_data());
+	    $icon_map = self::CATEGORIES_ICONS;
+        return view('web.products.categorias-todas', array_merge(
+			Navigation::get_static_data()
+			, compact('icon_map')
+        ));
     }
 
     public function show_category($slug_category)
@@ -420,19 +437,7 @@ class ProductController extends Controller
             ->paginate(24)
             ->appends(request()->query());
 
-		$icon_map = [
-				'acero-inoxidable'                      => 'fa-scroll'
-			,   'coccion'                               => 'fa-fire-burner'
-			,   'refrigeracion'                         => 'fa-snowflake'
-			,   'utensilios'                            => 'fa-utensils'
-			,   'almacenaje'                            => 'fa-dolly'
-			,   'barras-de-servicio'                    => 'fa-kaaba'
-			,   'equipo-menor'                          => 'fa-blender'
-			,   'lavado-de-loza-y-cristaleria'          => 'fa-sink'
-			,   'complementos'                          => 'fa-kitchen-set'
-			,   'refacciones'                           => 'fa-screwdriver-wrench'
-
-		];
+		$icon_map = self::CATEGORIES_ICONS;
 	    $has_icon = isset($icon_map[$slug_category]) ? $icon_map[$slug_category] : NULL;
 
 

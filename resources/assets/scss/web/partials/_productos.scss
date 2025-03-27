@@ -48,6 +48,10 @@
 					background: $gray_light;
 				}
 
+				.product__card__front--image-round{
+					border-radius: 5px;
+				}
+
 				.product__card__front--number
 				{
 					display: flex;
@@ -171,7 +175,11 @@
 		text-align: center;
 		display: block;
 		width: 100%;
-		font-size: 14px
+		font-size: 14px;
+
+		&.short{
+			width: calc(100% - 44px);
+		}
 	}
 }
 

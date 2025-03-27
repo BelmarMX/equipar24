@@ -41,16 +41,16 @@ class ImagesSettings
     const ARTICLE_RX_HEIGHT                             = 274;
 
     const PRODUCT_CAT_FOLDER                            = "productos-categorias/";
-    const PRODUCT_CAT_WIDTH                             = 250;
-    const PRODUCT_CAT_HEIGHT                            = 250;
+    const PRODUCT_CAT_WIDTH                             = 400;
+    const PRODUCT_CAT_HEIGHT                            = 540;
     const PRODUCT_CAT_RX_WIDTH                          = 200;
-    const PRODUCT_CAT_RX_HEIGHT                         = 200;
+    const PRODUCT_CAT_RX_HEIGHT                         = 270;
 
     const PRODUCT_SUBCAT_FOLDER                         = "productos-subcategorias/";
-    const PRODUCT_SUBCAT_WIDTH                          = 250;
-    const PRODUCT_SUBCAT_HEIGHT                         = 250;
+    const PRODUCT_SUBCAT_WIDTH                          = 400;
+    const PRODUCT_SUBCAT_HEIGHT                         = 540;
     const PRODUCT_SUBCAT_RX_WIDTH                       = 200;
-    const PRODUCT_SUBCAT_RX_HEIGHT                      = 200;
+    const PRODUCT_SUBCAT_RX_HEIGHT                      = 270;
 
     const PRODUCT_BRAND_FOLDER                          = "productos-marcas/";
     const PRODUCT_BRAND_WIDTH                           = 100;
