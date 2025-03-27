@@ -9,7 +9,11 @@ class NavigationController extends Controller
 {
     public function home()
     {
-        return view('web.static.home', Navigation::get_static_data());
+	    $icon_map = ProductController::CATEGORIES_ICONS;
+        return view('web.static.home', array_merge(
+				Navigation::get_static_data()
+			,   compact('icon_map')
+        ));
     }
 
     public function servicios()

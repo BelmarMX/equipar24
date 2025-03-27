@@ -18,6 +18,7 @@
                             ,   'title'     => $category -> title
                             ,   'route'     => route('productos-categories', $category -> slug)
                             ,   'image'     => url("storage/productos-categorias/{$category -> image_rx}")
+                            ,   'has_icon'  => $icon_map[$category->slug] ?? NULL
                         ])
                     </div>
                 @endforeach
