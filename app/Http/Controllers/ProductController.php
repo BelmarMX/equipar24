@@ -19,7 +19,7 @@ class ProductController extends Controller
     const DEFAULT_RAW_DESCRIPTION       = '{"time":1730082850296,"blocks":[{"id":"VlWyjSXHxZ","type":"paragraph","data":{"text":"<b>Dimensiones</b><br><b>Frente:</b> 0.00 m<br><b>Alto:</b> 0.00 m<br><b>Fondo: </b>0.00 m","alignment":"left"}}],"version":"2.30.6"}';
 	const CATEGORIES_ICONS              = [
 			'acero-inoxidable'                      => 'fa-scroll'
-		,   'coccion'                               => 'fa-fire-burner'
+		,   'coccion'                               => 'fa-fire'
 		,   'refrigeracion'                         => 'fa-snowflake'
 		,   'utensilios'                            => 'fa-utensils'
 		,   'almacenaje'                            => 'fa-dolly'
