@@ -438,7 +438,7 @@ class ProductController extends Controller
             ->appends(request()->query());
 
 		$icon_map = self::CATEGORIES_ICONS;
-	    $has_icon = isset($icon_map[$slug_category]) ? $icon_map[$slug_category] : NULL;
+	    $has_icon = $icon_map[$slug_category] ?? NULL;
 
 
         return view('web.products.categoria-productos', array_merge(
