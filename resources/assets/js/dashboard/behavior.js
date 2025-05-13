@@ -302,7 +302,7 @@ $(document).ready(function() {
         let min_date = $(el).attr('data-range-min_date') || $(el).val().split(' - ')[0]
         $(el).daterangepicker({
                 locale:             { ...RANGE_LOCALE }
-            ,   minDate:            min_date ? new Date(min_date) : new Date()
+            ,   minDate:            min_date ? min_date : new Date()
         })
     })
     $('input[data-range]').on('apply.daterangepicker', function(ev, picker) {
@@ -372,7 +372,7 @@ $(document).ready(function() {
                 {
                     await editor.render(JSON.parse($('#raw_editor').val()))
                 }
-                else if (editor_data_html)
+                else if (typeof editor_data_html !== 'undefined')
                 {
                     await editor.blocks.renderFromHTML(editor_data_html);
                 }

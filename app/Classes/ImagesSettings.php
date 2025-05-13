@@ -81,4 +81,10 @@ class ImagesSettings
     const PORTFOLIO_IMG_HEIGHT                          = 800;
     const PORTFOLIO_IMG_RX_WIDTH                        = 380;
     const PORTFOLIO_IMG_RX_HEIGHT                       = 380;
+
+	const VACANCY_FOLDER                                = "vacantes/";
+	const VACANCY_WIDTH                                 = 844;
+	const VACANCY_HEIGHT                                = 274;
+	const VACANCY_RX_WIDTH                              = 420;
+	const VACANCY_RX_HEIGHT                             = 274;
 }

@@ -42,7 +42,7 @@ class FormContactRequest extends FormRequest
             ,   "state_id"                  => "required|numeric|exists:states,id"
             ,   "city_id"                   => "required|numeric|exists:cities,id"
             ,   "name"                      => "required|string"
-            ,   "email"                     => "required|string"
+            ,   "email"                     => "required|email"
             ,   "phone"                     => "required|digits:10"
             ,   "company"                   => "nullable|string"
             ,   "comments"                  => "required|string"

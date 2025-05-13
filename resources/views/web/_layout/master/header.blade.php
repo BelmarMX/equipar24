@@ -126,6 +126,11 @@
                     <li class="nav-item">
                         <a class="nav-link @if( Request::is('contacto') || Request::is('cotizar') ) active @endif" href="{{ route('contacto') }}">Contacto</a>
                     </li>
+                    @if($active_vacancies)
+                    <li class="nav-item">
+                        <a class="nav-link @if( Request::is('vacantes') || Request::is('vacantes/*') ) active @endif" href="{{ route('vacantes') }}">Vacantes</a>
+                    </li>
+                    @endif
                 </ul>
             </div>
 

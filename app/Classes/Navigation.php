@@ -12,6 +12,7 @@ use App\Models\ProductCategory;
 use App\Models\Promotion;
 use App\Models\Reel;
 use App\Models\State;
+use App\Models\Vacancy;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Permission;
@@ -63,17 +64,34 @@ class Navigation
         $slug_product       = Route::current()->parameter('slug_product');
 
         $data = [
-                'banners'   => !in_array('banners', $unset)     ? Banner::get_banners()                         : NULL
-            ,   'reels'     => !in_array('reels', $unset)       ? Reel::get_reels()                             : NULL
-            ,   'featured'  => !in_array('featured', $unset)    ? ProductCategory::get_categories_featured()    : NULL
-            ,   'related'   => !in_array('related', $unset)     ? Product::take_products(4, $slug_brand, $slug_category, $slug_subcategory, $slug_product) : NULL
-            ,   'promos'    => !in_array('promos', $unset)      ? Promotion::get_active_promotions()            : NULL
-            ,   'articles'  => !in_array('articles', $unset)    ? BlogArticle::get_latest(6)                : NULL
-            ,   'states'    => $states                                  ? State::get_states_alias()                     : NULL
-            ,   'menu_cat'  => ProductCategory::get_categories()
-            ,   'brands'    => ProductBrand::get_featured_brands()
-            ,   'branches'  => Branch::all()
-
+                'banners'               => !in_array('banners', $unset)
+                ? Banner::get_banners()
+                : NULL
+            ,   'reels'                 => !in_array('reels', $unset)
+		        ? Reel::get_reels()
+		        : NULL
+            ,   'featured'              => !in_array('featured', $unset)
+		        ? ProductCategory::get_categories_featured()
+		        : NULL
+            ,   'related'               => !in_array('related', $unset)
+		        ? Product::take_products(4, $slug_brand, $slug_category, $slug_subcategory, $slug_product)
+		        : NULL
+            ,   'promos'                => !in_array('promos', $unset)
+		        ? Promotion::get_active_promotions()
+		        : NULL
+            ,   'articles'              => !in_array('articles', $unset)
+		        ? BlogArticle::get_latest(6)
+		        : NULL
+            ,   'vacancies'             => !in_array('vacancies', $unset)
+		        ? Vacancy::get_latest(6)
+		        : NULL
+            ,   'states'                => $states
+		        ? State::get_states_alias()
+		        : NULL
+	        ,   'active_vacancies'      => Vacancy::has_active_vacancies()
+            ,   'menu_cat'              => ProductCategory::get_categories()
+            ,   'brands'                => ProductBrand::get_featured_brands()
+            ,   'branches'              => Branch::all()
         ];
 
         return $data;
@@ -180,12 +198,18 @@ class Navigation
                         ,   'link_text'     => '<i class="fa-solid fa-rss me-1"></i> Artículos'
                         ,   'permission'    => 'ver blog'
                     ]
-                    ,   'categories'     => [
+                    ,   'categories'    => [
                             'route'         => route('blogCategories.index')
                         ,   'route_is'      => 'blogCategories.*'
                         ,   'link_text'     => '<i class="fa-solid fa-tag me-1"></i> Categorías'
 				        ,   'permission'    => 'ver blog'
                     ]
+			        ,   'vacancies'     => [
+				            'route'         => route('vacancies.index')
+				        ,   'route_is'      => 'vacancies.*'
+				        ,   'link_text'     => '<i class="fa-solid fa-briefcase"></i> Vacantes'
+				        ,   'permission'    => 'ver blog'
+			        ]
                 ]
             ]
             ,   'contacts'              => [
@@ -200,12 +224,6 @@ class Navigation
                 ,   'link_text'     => '<i class="fa-solid fa-store me-1"></i> Sucursales'
 		        ,   'permission'    => 'ver sucursales'
             ]
-            /*,   'site'                  => [
-                    'route'         => route('index')
-                ,   'route_is'      => NULL
-                ,   'link_text'     => '<i class="fa-solid fa-earth-americas me-1"></i>'
-                ,   'tooltip'       => 'Ir al sitio web'
-            ]*/
         ];
     }
 

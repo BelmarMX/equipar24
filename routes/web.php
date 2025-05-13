@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductPackageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\UnoxController;
+use App\Http\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
@@ -91,6 +92,12 @@ Route::group(['prefix' => 'blog', 'controller' => BlogArticleController::class],
     Route::get('/', 'show_categories')->name('blog');
     Route::get('/{slug_blog_category}', 'show_category')->name('blog-categories');
     Route::get('/{slug_blog_category}/{slug_blog_article}', 'show_article')->name('blog-open');
+});
+
+Route::group(['prefix' => 'vacantes', 'controller' => VacancyController::class], function () {
+	Route::get('/', 'vacancies_list')->name('vacantes');
+	Route::get('/{slug_vacancy}', 'show_vacancy')->name('vacante-open');
+	Route::post('/{slug_vacancy}/send', 'send')->name('vacante.send')->middleware(ProtectAgainstSpam::class);
 });
 
 Route::group(['prefix' => 'contacto', 'controller' => FormSubmitController::class], function () {

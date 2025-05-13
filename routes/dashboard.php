@@ -23,6 +23,7 @@ use App\Http\Controllers\ReelController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VacancyController;
 use App\Models\FormContact;
 use Illuminate\Support\Facades\Route;
 
@@ -213,6 +214,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('delete/{branch}', 'destroy')->name('branches.delete');
         Route::get('restore/{branch_id}', 'restore')->name('branches.restore');
     });
+
+	Route::resource('vacancies', VacancyController::class);
+	Route::group(['prefix' => 'vacancies', 'controller' => VacancyController::class], function () {
+		Route::post('datatable', 'datatable')->name('dashboard.vacancies.datatable');
+		Route::get('archived/view', 'archived')->name('vacancies.archived');
+		Route::get('delete/{vacancy}', 'destroy')->name('vacancies.delete');
+		Route::get('restore/{vacancy_id}', 'restore')->name('vacancies.restore');
+	});
 
     Route::resource('users', UserController::class);
     Route::group(['prefix'=>'users', 'controller'=>UserController::class], function(){

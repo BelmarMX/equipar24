@@ -24,7 +24,7 @@ class BlogArticleRequest extends FormRequest
                 "blog_category_id"          => "ID Categoría"
             ,   "title"                     => "Título"
             ,   'slug'                      => 'Slug (Identificador Único de URL)'
-            ,   "summary"                   => "Enlace"
+            ,   "summary"                   => "Resumen"
             ,   "content"                   => "Contenido"
             ,   "image"                     => "Portada"
             ,   "image_rx"                  => "Recorte de portada"
