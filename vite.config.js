@@ -50,6 +50,7 @@ export default defineConfig({
                 'resources/assets/js/dashboard/datatables/reels.js',
                 'resources/assets/js/dashboard/datatables/roles.js',
                 'resources/assets/js/dashboard/datatables/users.js',
+                'resources/assets/js/dashboard/datatables/vacancies.js',
             ],
             refresh: true,
         }),

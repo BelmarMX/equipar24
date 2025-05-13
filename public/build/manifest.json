@@ -3,9 +3,9 @@
     "file": "assets/axios-CCb-kr4I.js",
     "name": "axios"
   },
-  "_pagination-!~{00K}~.js": {
+  "_pagination-!~{00L}~.js": {
     "file": "assets/pagination-BswZJUt7.css",
-    "src": "_pagination-!~{00K}~.js"
+    "src": "_pagination-!~{00L}~.js"
   },
   "_pagination-BS1GZn_V.js": {
     "file": "assets/pagination-BS1GZn_V.js",
@@ -334,6 +334,15 @@
     "file": "assets/users-BDDymAIf.js",
     "name": "users",
     "src": "resources/assets/js/dashboard/datatables/users.js",
+    "isEntry": true,
+    "imports": [
+      "resources/assets/js/dashboard/datatables/common.js"
+    ]
+  },
+  "resources/assets/js/dashboard/datatables/vacancies.js": {
+    "file": "assets/vacancies-DlGNtC3L.js",
+    "name": "vacancies",
+    "src": "resources/assets/js/dashboard/datatables/vacancies.js",
     "isEntry": true,
     "imports": [
       "resources/assets/js/dashboard/datatables/common.js"
