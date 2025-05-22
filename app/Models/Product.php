@@ -18,7 +18,8 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-            'product_category_id'
+	        'sku'
+		,   'product_category_id'
         ,   'product_subcategory_id'
         ,   'product_brand_id'
         ,   'title'
@@ -31,10 +32,23 @@ class Product extends Model
         ,   'in_stock'
         ,   'is_featured'
         ,   'with_freight'
+	    ,   'availability'
+	    ,   'quantity'
+	    ,   'purchase_limit'
+	    ,   'delivery_deadline'
         ,   'image'
         ,   'image_rx'
         ,   'data_sheet'
         ,   'raw_editor'
+		,   'weight'
+		,   'length'
+		,   'width'
+		,   'height'
+		,   'is_fragile'
+		,   'is_perishable'
+		,   'requires_signature'
+		,   'hazardous'
+		,   'shipping_class'
     ];
 
     protected $appends  = [
