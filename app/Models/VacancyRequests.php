@@ -34,7 +34,7 @@ class VacancyRequests extends Model
 	----------------------------------------------------------------------------------------------------------------- */
 	public function vacancy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
 	{
-		return $this->belongsTo(Vacancy::class);
+		return $this->belongsTo(Vacancy::class, 'id', 'vacancy_id');
 	}
 
 	/* ----------------------------------------------------------------------------------------------------------------

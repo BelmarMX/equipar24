@@ -37,7 +37,7 @@ class Vacancy extends Model
 	----------------------------------------------------------------------------------------------------------------- */
 	public function vacancy_requests(): \Illuminate\Database\Eloquent\Relations\HasMany
 	{
-		return $this->hasMany(VacancyRequest::class);
+		return $this->hasMany(VacancyRequests::class, 'vacancy_id', 'id');
 	}
 
 	/* ----------------------------------------------------------------------------------------------------------------
