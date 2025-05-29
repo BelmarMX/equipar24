@@ -458,7 +458,22 @@ class FormSubmitController extends Controller
             $product = Product::find($product_id);
             if( !$product )
             { continue; }
-            $has_promo  = $product->get_higer_active_promo();
+            $has_promo          = $product->get_higer_active_promo();
+
+	        $original_price     = $product->price;
+	        $discount           = 0;
+	        $total              = $product->price;
+	        if( $product->promotion_price > 0 )
+	        {
+		        $discount           = $product->price - $product->promotion_price;
+		        $total              = $product->promotion_price;
+	        }
+			elseif( !$has_promo )
+			{
+				$original_price     = $has_promo->original_price;
+				$discount           = $has_promo->discount;
+				$total              = $has_promo->total;
+			}
 
             FormQuotationDetail::create([
                     'form_submit_id'    => $submitted->id
@@ -470,9 +485,9 @@ class FormSubmitController extends Controller
                 ,   'product_model'     => $product->model
                 ,   'product_brand'     => $product->product_brand->title
                 ,   'product_image'     => $product->image_rx
-                ,   'original_price'    => !empty($has_promo) ? $has_promo->original_price  : $product->price
-                ,   'discount'          => !empty($has_promo) ? $has_promo->discount        : 0
-                ,   'total'             => !empty($has_promo) ? $has_promo->total           : $product->price
+                ,   'original_price'    => $original_price
+                ,   'discount'          => $discount
+                ,   'total'             => $total
             ]);
         }
 

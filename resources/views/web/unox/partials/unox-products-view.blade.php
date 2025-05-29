@@ -8,18 +8,19 @@
             @endif
             <div class="col-md-3 d-flex justify-content-center mb-4">
                 @include('web.products.partials.product-view', [
-                        'id'        => $product->id
-                    ,   'title'     => $product->title
-                    ,   'model'     => $product->model
-                    ,   'brand'     => $product->product_brand->title
-                    ,   'price'     => $product->price
-                    ,   'in_stock'  => $product->in_stock
-                    ,   'promo'     => $product->get_higer_active_promo()
-                    ,   'con_flete' => $product->with_freight
-                    ,   'tag'       => $product->product_subcategory->title
-                    ,   'tag_link'  => route('productos-subcategories', [$product->product_category->slug, $product->product_subcategory->slug])
-                    ,   'route'     => route('producto-open', [$product->product_category->slug, $product->product_subcategory->slug, $product->slug])
-                    ,   'image'     => $product->asset_url.$product->image_rx
+                        'id'                    => $product->id
+                    ,   'title'                 => $product->title
+                    ,   'model'                 => $product->model
+                    ,   'brand'                 => $product->product_brand->title
+                    ,   'price'                 => $product->price
+                    ,   'promotion_price'       => $product->promotion_price
+                    ,   'in_stock'              => $product->in_stock
+                    ,   'promo'                 => $product->get_higer_active_promo()
+                    ,   'con_flete'             => $product->with_freight
+                    ,   'tag'                   => $product->product_subcategory->title
+                    ,   'tag_link'              => route('productos-subcategories', [$product->product_category->slug, $product->product_subcategory->slug])
+                    ,   'route'                 => route('producto-open', [$product->product_category->slug, $product->product_subcategory->slug, $product->slug])
+                    ,   'image'                 => $product->asset_url.$product->image_rx
                 ])
             </div>
         @empty

@@ -166,10 +166,11 @@ $(document).ready(function() {
 
                 data.sort((a, b) => a.title.localeCompare(b.title))
                 data.forEach(item => {
+                    console.log(item, item.final_price - item.price)
                     $('#results').append(`<option value="${item.id}"
                                                     data-title="${item.title}"
                                                     data-original_price="${item.price}"
-                                                    data-discount="${item.discount}"
+                                                    data-discount="${item.price - item.final_price}"
                                                     data-total="${item.final_price}"
                                                     data-with_freight="${item.con_flete}"
                                                     data-title="${item.title}"
@@ -219,7 +220,7 @@ $(document).ready(function() {
                 <input data-table="quantity" type="number" min="1" name="quotation.quantity[${product_id}]" value="${quantity}" class="block pt-3 pb-2 p-2 mt-0 bg-white border-0 border-b-2 border-violet-100 rounded appearance-none focus:outline-none focus:ring-0 focus:border-violet-700 text-right" style="max-width: 80px;">
             </td>
             <td class="px-3 py-2 text-right" data-if-not-stock="${product_id}">$${number_format(selected.data('original_price'))}</td>
-            <td class="px-3 py-2 text-right" data-if-not-stock="${product_id}">$${number_format(selected.data('discount'))}</td>
+            <td class="px-3 py-2 text-right" data-if-not-stock="${product_id}">$${number_format(selected.data('discount'), true)}</td>
             <td class="px-3 py-2 text-right" data-if-not-stock="${product_id}">$${number_format(selected.data('total'))}</td>
             <td class="px-3 py-2 text-right" data-if-not-stock="${product_id}" data-update-amount="${product_id}">$${number_format(quantity * selected.data('total'))}</td>
             <td class="text-center">

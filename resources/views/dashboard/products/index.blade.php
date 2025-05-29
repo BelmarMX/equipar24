@@ -22,7 +22,7 @@
                 <th style="min-width: 120px">Marca</th>
                 <th style="min-width: 180px">Categoría</th>
                 <th style="min-width: 220px">Subcategoría</th>
-                <th>Precio</th>
+                <th data-orderable="false">Precio</th>
                 <th><i class="fa-solid fa-star fa-lg" data-tooltip="Producto destacado"></i></th>
                 <th><i class="fa-solid fa-truck-fast fa-lg" data-tooltip="Incluye flete"></i></th>
                 <th data-orderable="false"><i class="fa-solid fa-money-check-dollar fa-lg" data-tooltip="Promociones relacionadas"></i></th>

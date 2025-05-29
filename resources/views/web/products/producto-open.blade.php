@@ -85,7 +85,12 @@
                         </div>
                         <div class="row productos__main_product__price align-items-center">
                             <div class="col-md-6 mb-2">
-                                @if( $with_discount = $entry -> get_higer_active_promo() )
+                                @if($entry->promotion_price > 0)
+                                    <div class="productos__main_product__price--price mb-1">
+                                        <small>Antes:</small> <small style="text-decoration: line-through">${{ number_format($entry->price, 2, '.', ',') }}</small><br>
+                                        <strong>Ahorras: ${{ number_format($entry->price - $entry->promotion_price, 2, '.', ',') }}</strong>
+                                    </div>
+                                @elseif( $with_discount = $entry -> get_higer_active_promo() )
                                     <div class="productos__main_product__price--price mb-1">
                                         <small>Antes:</small> <small style="text-decoration: line-through">${{ number_format($with_discount->original_price, 2, '.', ',') }}</small><br>
                                         <strong>Ahorras: ${{ number_format($with_discount->discount, 2, '.', ',') }}</strong>
@@ -94,7 +99,9 @@
                             </div>
                             <div class="col-md-6 productos__main_product__price--quote">
                                 <div class="productos__main_product__price--price mb-3">
-                                    @if( $with_discount )
+                                    @if($entry->promotion_price > 0)
+                                        ${{ number_format($entry->promotion_price, 2, '.', ',') }} <span class="productos__main_product__price--currency">MXN</span>
+                                    @elseif( $with_discount )
                                         ${{ number_format($with_discount -> total, 2, '.', ',') }} <span class="productos__main_product__price--currency">MXN</span>
                                     @else
                                         ${{ number_format($entry -> price, 2, '.', ',') }} <span class="productos__main_product__price--currency">MXN</span>
@@ -125,8 +132,13 @@
                                 @endif
                             </div>
                         </div>
-                        @isset($entry -> final_price)
-                            * <small>Producto en promoción con descuento del {{ percent($entry->precio,$entry->final_price) }}%. Precio original: ${{ number_format($entry -> precio,2) }}</small>
+                        @if($entry->promotion_price > 0)
+                            <br><br>
+                            * <small>Producto con descuento del {{ $Navigation::percent($entry->price,$entry->promotion_price) }}%. Precio original: ${{ number_format($entry->price,2) }}</small>
+                        @endif
+                        @isset($entry->final_price)
+                            <br><br>
+                            * <small>Producto en promoción con descuento del {{ $Navigation::percent($entry->precio,$entry->final_price) }}%. Precio original: ${{ number_format($entry->precio,2) }}</small>
                         @endisset
                     </div>
                 </div>
@@ -169,18 +181,19 @@
                 @foreach($related AS $product)
                     <div class="col-md-3 d-flex justify-content-center mb-4">
                         @include('web.products.partials.product-view', [
-                                'id'        => $product->id
-                            ,   'title'     => $product->title
-                            ,   'model'     => $product->model
-                            ,   'brand'     => $product->product_brand->title
-                            ,   'price'     => $product->price
-                            ,   'in_stock'  => $product->in_stock
-                            ,   'promo'     => $product->get_higer_active_promo()
-                            ,   'con_flete' => $product->with_freight
-                            ,   'tag'       => $product->product_subcategory->title
-                            ,   'tag_link'  => route('productos-subcategories', [$product_category->slug, $product->product_subcategory->slug])
-                            ,   'route'     => route('producto-open', [$product_category->slug, $product->product_subcategory->slug, $product->slug])
-                            ,   'image'     => $product->asset_url.$product->image_rx
+                                'id'                    => $product->id
+                            ,   'title'                 => $product->title
+                            ,   'model'                 => $product->model
+                            ,   'brand'                 => $product->product_brand->title
+                            ,   'price'                 => $product->price
+                            ,   'promotion_price'       => $product->promotion_price
+                            ,   'in_stock'              => $product->in_stock
+                            ,   'promo'                 => $product->get_higer_active_promo()
+                            ,   'con_flete'             => $product->with_freight
+                            ,   'tag'                   => $product->product_subcategory->title
+                            ,   'tag_link'              => route('productos-subcategories', [$product_category->slug, $product->product_subcategory->slug])
+                            ,   'route'                 => route('producto-open', [$product_category->slug, $product->product_subcategory->slug, $product->slug])
+                            ,   'image'                 => $product->asset_url.$product->image_rx
                         ])
                     </div>
                 @endforeach

@@ -73,7 +73,14 @@
                             </div>
                         </div>
                         <x-form.input-text name="summary" placeholder="Resumen" value="{{ old('summary', $record->summary) }}" class="mb-6"/>
-                        <x-form.input-number name="price" placeholder="Precio" value="{{ old('price', $record->price) }}" decimal="true" required class="w-6/12 ml-auto mb-6"/>
+                        <div class="flex flex-wrap">
+                            <div class="md:w-6/12">
+                                <x-form.input-number name="price" placeholder="Precio" value="{{ old('price', $record->price) }}" decimal="true" required class="w-full mb-6"/>
+                            </div>
+                            <div class="md:w-6/12">
+                                <x-form.input-number name="promotion_price" placeholder="Precio promocional" value="{{ old('promotion_price', $record->promotion_price) }}" decimal="true" class="w-full mb-6"/>
+                            </div>
+                        </div>
                         <div class="flex flex-wrap">
                             <div class="md:w-6/12">
                                 <x-form.checkbox name="in_stock" label="En existencia" fa_icon="fa-cubes-stacked" value="1" checked="{{ $record->id ? old('in_stock', $record->in_stock) : true }}" :width="100" class="mb-6"/>

@@ -306,7 +306,12 @@ class ProductController extends Controller
             $price          = $product->price;
             $final_price    = $product->price;
             $discount       = 0;
-            if( $has_promo )
+            if($product->promotion_price > 0 )
+			{
+				$final_price    = $product->promotion_price;
+				$discount       = Navigation::percent($product->price, $product->promotion_price);
+			}
+			elseif( $has_promo )
             {
                 $price          = $has_promo->original_price;
                 $final_price    = $has_promo->total;

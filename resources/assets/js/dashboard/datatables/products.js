@@ -19,7 +19,13 @@ $(document).ready(function() {
             ,   { data: 'brand' }
             ,   { data: 'category' }
             ,   { data: 'subcategory' }
-            ,   { data: 'price', render: price => '$' + number_format(price, true) }
+            ,   { data: null, render: ({price, promotion_price}) => {
+                    if( promotion_price )
+                    {
+                        return `<small style="text-decoration: line-through">$${number_format(price, true)}</small><br>$${number_format(promotion_price, true)}`
+                    }
+                    return `$${number_format(price, true)}`
+                } }
             ,   { data: 'is_featured', className: 'text-center', render: data => data ? '⭐' : '' }
             ,   { data: 'with_freight', className: 'text-center', render: data => data ? '🚚' : '' }
             ,   { data: 'promotions_count', render: count => number_format(count) }

@@ -38,7 +38,15 @@
                          src="{{ $image }}"
                          alt="{{ $title }}"
                     >
-                    @if(isset($promo) && $promo->total>0)
+                    @if( isset($promotion_price) && $promotion_price > 0 )
+                        <span class="product__card__front--price">
+                            <span class="discount">
+                                <small class="old_price">${{ number_format($price, 2) }}</small>
+                                <small class="percent">{{ $Navigation::percent($price, $promotion_price) }}%</small>
+                            </span>
+                            ${{ number_format($promotion_price, 2) }} <small>MXN</small>
+                        </span>
+                    @elseif(isset($promo) && $promo->total>0)
                         <span class="product__card__front--price">
                             <span class="discount">
                                 <small class="old_price">${{ number_format($promo->original_price, 2) }}</small>
