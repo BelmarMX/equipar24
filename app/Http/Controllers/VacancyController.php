@@ -10,8 +10,8 @@ use App\Models\Vacancy;
 use App\Mail\VacancyMail;
 use App\Models\VacancyRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 class VacancyController extends Controller
@@ -142,9 +142,11 @@ class VacancyController extends Controller
 		if( !$this->can_edit )
 		{ abort(403); }
 
+		$requested  = DB::select("SELECT * FROM vacancies_request WHERE vacancy_id = :vacancy_id", ['vacancy_id' => $vacancy->id]);
 		return view('dashboard.vacancies.create-edit', [
 				'resource'      => 'vacancies'
 			,   'record'        => $vacancy
+			,   'requested'     => $requested
 		]);
 	}
 

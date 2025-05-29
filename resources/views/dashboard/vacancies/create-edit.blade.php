@@ -64,7 +64,44 @@
                         <x-form.textarea-editor name="raw_editor" class="mb-6" placeholder="Descripción de la oferta" value="{{ old('raw_editor', $record->raw_editor) }}" required/>
                     </div>
                 </div>
+
+                @if( $requested )
+                    <h3 class="text-2xl subpixel-antialiased font-bold uppercase text-slate-800 mb-4">Solicitudes Recibidas:</h3>
+                    <table class="w-full border-">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">ID</th>
+                                <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Nombre</th>
+                                <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Email</th>
+                                <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Teléfono</th>
+                                <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Currículum</th>
+                                <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Recibido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($requested AS $rr)
+                                <tr>
+                                    <td class="px-3 py-2 whitespace-no-wrap border-b border-gray-500">{{$rr->id}}</td>
+                                    <td class="px-3 py-2 whitespace-no-wrap border-b border-gray-500">{{$rr->name}}</td>
+                                    <td class="px-3 py-2 whitespace-no-wrap border-b border-gray-500">{{$rr->email}}</td>
+                                    <td class="px-3 py-2 whitespace-no-wrap border-b border-gray-500">{{$rr->phone}}</td>
+                                    <td class="px-3 py-2 whitespace-no-wrap border-b border-gray-500 text-center">
+                                        <a target="_blank" href="{{ url('storage/vacantes/curriculum/'.$rr->file) }}" data-toggle="tooltip" title="Currículum de {{ $rr->name }}">
+                                            <i class="fa-solid fa-file"></i>
+                                        </a>
+                                    </td>
+                                    <td class="px-3 py-2 whitespace-no-wrap border-b border-gray-500">{{$rr->created_at}}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-center">Sin solicitudes</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                @endif
             </div>
+
             <!-- * -------------------------------------------------------------- *
             ? FORM FIELDS
             * -------------------------------------------------------------- * -->
