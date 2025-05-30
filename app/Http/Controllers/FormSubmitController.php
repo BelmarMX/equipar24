@@ -468,7 +468,7 @@ class FormSubmitController extends Controller
 		        $discount           = $product->price - $product->promotion_price;
 		        $total              = $product->promotion_price;
 	        }
-			elseif( !$has_promo )
+			elseif( $has_promo )
 			{
 				$original_price     = $has_promo->original_price;
 				$discount           = $has_promo->discount;
