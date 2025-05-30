@@ -1,1 +1,0 @@
-import{D as a}from"./common-BtanXuX7.js";$(document).ready(function(){$("#cities-table").DataTable({...a,ajax:{...a.ajax,url:route},columns:[...a.columns,{data:"state_name"},{data:"name"},{data:null,className:"text-right",render:({human_created_at:t,created_dmy:e})=>`<small class="human-date" data-tooltip="Creado ${e}">${t}</small>`},{data:"action",className:"text-center"}]})});

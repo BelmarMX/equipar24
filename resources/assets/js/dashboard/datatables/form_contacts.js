@@ -1,4 +1,4 @@
-import { number_format } from './common.js'
+import { number_format, esc_html } from './common.js'
 import Alerts from "../alerts.js";
 
 $(document).ready(function() {
@@ -166,9 +166,9 @@ $(document).ready(function() {
 
                 data.sort((a, b) => a.title.localeCompare(b.title))
                 data.forEach(item => {
-                    console.log(item, item.final_price - item.price)
+                    console.log(item.promotion)
                     $('#results').append(`<option value="${item.id}"
-                                                    data-title="${item.title}"
+                                                    data-title="${esc_html(item.title)}"
                                                     data-original_price="${item.price}"
                                                     data-discount="${item.price - item.final_price}"
                                                     data-total="${item.final_price}"
@@ -177,6 +177,7 @@ $(document).ready(function() {
                                                     data-model="${item.model}"
                                                     data-brand="${item.brand}"
                                                     data-image="${item.image_path}"
+                                                    data-promotion="${item.promotion}"
                     >(${item.id}) ${item.brand} :: ${item.title} | $${number_format(item.final_price)}<option>`)
                 })
             })
@@ -214,7 +215,7 @@ $(document).ready(function() {
                 <small data-table="title">${selected.data('title')}</small>
             </td>
             <td class="px-3 py-2" data-if-not-stock="${product_id}">
-                <small>No disponible</small>
+                ${selected.data('promotion')}
             </td>
             <td class="px-3 py-2 text-right" data-if-not-stock="${product_id}">
                 <input data-table="quantity" type="number" min="1" name="quotation.quantity[${product_id}]" value="${quantity}" class="block pt-3 pb-2 p-2 mt-0 bg-white border-0 border-b-2 border-violet-100 rounded appearance-none focus:outline-none focus:ring-0 focus:border-violet-700 text-right" style="max-width: 80px;">

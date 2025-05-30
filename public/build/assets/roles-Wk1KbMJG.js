@@ -1,1 +1,0 @@
-import{D as e,d as t}from"./common-BtanXuX7.js";$(document).ready(function(){$("#roles-table").DataTable({...e,ajax:{...e.ajax,url:url_route},columns:[...e.columns,{data:"name",render:a=>a.toUpperCase()},{data:"permissions"},{data:"created_at",render:a=>t(a),className:"text-right"},{data:"action",className:"text-center"}]})});

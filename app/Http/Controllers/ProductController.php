@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductBrand;
 use App\Models\ProductCategory;
 use App\Models\ProductSubcategory;
+use App\Models\Promotion;
 use App\Models\PromotionProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -306,16 +307,21 @@ class ProductController extends Controller
             $price          = $product->price;
             $final_price    = $product->price;
             $discount       = 0;
+	        $promotion      = "<small>Sin promoción</small>";
             if($product->promotion_price > 0 )
 			{
 				$final_price    = $product->promotion_price;
 				$discount       = Navigation::percent($product->price, $product->promotion_price);
+				$promotion      = "<small>Aplicación directa</small>";
 			}
 			elseif( $has_promo )
             {
                 $price          = $has_promo->original_price;
                 $final_price    = $has_promo->total;
                 $discount       = Navigation::percent($has_promo->original_price, $has_promo->total);
+				$promo          = Promotion::find($has_promo->promotion_id);
+				$promo_discount = $promo->discount_type == 'percentage' ? "- {$promo->amount} %" : "-$ {$promo->amount}";
+				$promotion      = "<small>{$promo->title}</small><br><small>ID {$promo->id}: $promo_discount</small>";
             }
             $full_search    = "{$product->title} | {$product->product_brand->title} | {$product->product_category->title} | {$product->product_subcategory->title}";
 
@@ -336,6 +342,7 @@ class ProductController extends Controller
                 ,   'image'         => $product->asset_url.$product -> image_rx
                 ,   'image_path'    => $product -> image_rx
                 ,   'route'         => route('producto-open', [$product->product_category->slug, $product->product_subcategory->slug, $product->slug])
+	            ,   'promotion'     => $promotion
             ];
         }
 

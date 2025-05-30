@@ -145,4 +145,13 @@ const number_format         = (number, allow_zero = false) => {
     return new Intl.NumberFormat('es-MX').format(number)
 }
 
-export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime, RANGE_LOCALE, number_format, date_time_format}
+const esc_html              = string => {
+        return string
+            .replace(/&/g, '&amp;')   // ¡Este debe ir primero!
+            .replace(/"/g, '&quot;')  // Escapa comillas dobles
+            .replace(/'/g, '&#39;')   // Escapa comillas simples (por si acaso)
+            .replace(/</g, '&lt;')    // Escapa menor que
+            .replace(/>/g, '&gt;');   // Escapa mayor que
+}
+
+export { DT_OPTIONS, DT_OPTIONS_SSR, URL_PARAMS, set_human_datetime, RANGE_LOCALE, number_format, date_time_format, esc_html}
