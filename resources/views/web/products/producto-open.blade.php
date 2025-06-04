@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row productos__main_product__price align-items-center">
+                        <div class="row productos__main_product__price align-items-start">
                             <div class="col-md-6 mb-2">
                                 @if($entry->promotion_price > 0)
                                     <div class="productos__main_product__price--price mb-1">

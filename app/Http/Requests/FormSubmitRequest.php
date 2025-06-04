@@ -27,6 +27,7 @@ class FormSubmitRequest extends FormRequest
             ,   "rejected_by_user_id"       => "Rechazado por"
             ,   "approved_at"               => "Fecha de aprobación"
             ,   "rejected_at"               => "Fecha de rechazo"
+	        ,   "is_bought"                 => "Vendido"
         ];
     }
 

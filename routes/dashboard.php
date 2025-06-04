@@ -205,6 +205,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('archived/view', 'archived')->name('contacts.archived');
         Route::get('delete/{contact}', 'destroy')->name('contacts.delete');
         Route::get('restore/{contact_id}', 'restore')->name('contacts.restore');
+		Route::post('sold/{contact}/update', 'change_sold_status')->name('contacts.is_sold');
     });
 
     Route::resource('branches', BranchController::class);

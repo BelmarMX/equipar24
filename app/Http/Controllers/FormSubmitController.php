@@ -497,4 +497,19 @@ class FormSubmitController extends Controller
 
         return redirect() -> route('gracias');
     }
+
+	public function change_sold_status(Request $request, FormSubmit $contact)
+	{
+		$is_sold                    = $request->is_sold === 'true';
+		$contact->is_sold           = $is_sold;
+		$contact->marked_sold_by    = null;
+		$contact->marked_sold_at    = null;
+		if( $is_sold )
+		{
+			$contact->marked_sold_by    = Auth::id();
+			$contact->marked_sold_at    = now();
+		}
+		$contact->save();
+		return $request;
+	}
 }

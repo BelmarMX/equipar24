@@ -29,7 +29,14 @@
                 <div class="md:w-2/12">
                     @include('dashboard.contacts.status', ['record' => $contact])
                 </div>
-                <div class="md:w-6/12 md:ms-[33.33%] text-right">
+                @if( $contact->type == 'quotation' )
+                    <div class="md:w-2/12">
+                        <div class="text-white py-px px-1 ms-2 rounded-full text-center text-xs uppercase font-semibold {{ $contact->is_sold ? "bg-emerald-400" : "bg-red-400" }}">
+                            {!! $contact->is_sold ? '<i class="fa-solid fa-money-bill-1-wave me-1"></i>' : '<i class="fa-solid fa-comments-dollar me-1"></i>' !!} {{ $contact->is_sold ? "Venta cerrada" : "Venta incompleta" }}
+                        </div>
+                    </div>
+                @endif
+                <div class="md:w-6/12 md:ms-[16.5%] text-right">
                     <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">Fecha de solicitud {{ \Carbon\Carbon::parse($contact->created_at)->format('d/m/Y H:i') }}</span>
                 </div>
             </div>
@@ -244,12 +251,23 @@
                     $default_text = "¡Hola! Es un gusto saludarte desde Equi-par.com.\nAgradecemos que te hayas comunicado con nosotros.\n\nLos productos que haz solicitado se encuentran disponibles bajo pedido.\nQuedamos atentos a tus comentarios"
                     @endphp
                     <x-form.textarea name="notes" placeholder="Notas del agente" value="{{$contact->notes ?? $default_text}}" class="mb-6 md:w-8/12" required :readonly="$contact->status!='pending' || !Auth()->user()->canany(['editar contactos','editar cotizaciones'])"/>
-                    @if( $contact->status == 'pending' && ( ($contact->type=='quotation' && Auth()->user()->can('editar cotizaciones')) || ($contact->type=='contact' && Auth()->user()->can('editar contactos')) ))
-                        <x-form.select select2 name="status" placeholder="Cambiar estatus del formulario" class="mb-6 md:w-4/12">
-                            <option value="approved" selected>Aprobado</option>
-                            <option value="rejected">Rechazado</option>
-                        </x-form.select>
-                    @endif
+                    <div class="flex flex-wrap md:w-4/12">
+                        @if( $contact->status == 'pending' && ( ($contact->type=='quotation' && Auth()->user()->can('editar cotizaciones')) || ($contact->type=='contact' && Auth()->user()->can('editar contactos')) ))
+                            <x-form.select select2 name="status" placeholder="Cambiar estatus del formulario" class="mb-3 md:w-full">
+                                <option value="approved" selected>Aprobado</option>
+                                <option value="rejected">Rechazado</option>
+                            </x-form.select>
+                        @endif
+                        @if( $contact->type == 'quotation' && Auth()->user()->can('editar cotizaciones') && $contact->status == 'approved' )
+                            <div class="md:w-full text-center">
+                                <x-form.select select2 name="is_sold" placeholder="¿Se completó la venta?" class="mb-3 md:w-full text-left">
+                                    <option value="false" @if($contact->is_sold == 0) selected @endif>No</option>
+                                    <option value="true" @if($contact->is_sold == 1) selected @endif>Sí</option>
+                                </x-form.select>
+                                <x-form.button id="update_sold_status" class="ms-1 w-100" type="success" icon="fa-pencil" text="Actualizar" form="button" data-form-id="{{ $contact->id }}"/>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
             <!-- * -------------------------------------------------------------- *

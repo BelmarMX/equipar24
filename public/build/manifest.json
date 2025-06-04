@@ -151,7 +151,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/contacts.js": {
-    "file": "assets/contacts-Dm0Uq6X5.js",
+    "file": "assets/contacts-2orBXZxg.js",
     "name": "contacts",
     "src": "resources/assets/js/dashboard/datatables/contacts.js",
     "isEntry": true,
@@ -170,7 +170,7 @@
     ]
   },
   "resources/assets/js/dashboard/datatables/form_contacts.js": {
-    "file": "assets/form_contacts-Yyfek1AJ.js",
+    "file": "assets/form_contacts-CHkB-UR1.js",
     "name": "form_contacts",
     "src": "resources/assets/js/dashboard/datatables/form_contacts.js",
     "isEntry": true,
@@ -422,7 +422,7 @@
     "isEntry": true
   },
   "resources/assets/scss/web/app.scss": {
-    "file": "assets/app-BMLRe7g7.css",
+    "file": "assets/app-RBTnLRqg.css",
     "src": "resources/assets/scss/web/app.scss",
     "isEntry": true
   },
@@ -437,7 +437,7 @@
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-CdunNg5x.css",
+    "file": "assets/app-p4AuIH6c.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },

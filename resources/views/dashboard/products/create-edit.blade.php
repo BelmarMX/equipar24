@@ -38,7 +38,7 @@
             <div class="bg-neutral-50 px-3 py-10">
                 <div class="flex flex-wrap">
                     <div class="md:w-6/12 w-full">
-                        <x-form.input-text name="title" placeholder="Título del producto" value="{{ old('title', $record->title) }}" with_slug="true" required class="mb-6"/>
+                        <x-form.input-text name="title" placeholder="Título del producto" value="{!! old('title', $record->title) !!}" with_slug="true" required class="mb-6"/>
                         <div class="flex flex-wrap">
                             <div class="md:w-6/12">
                                 <x-form.input-text name="model" placeholder="Modelo" value="{{ old('model', $record->model) }}" required class="mb-6"/>

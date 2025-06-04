@@ -24,7 +24,6 @@ $(document).ready(function() {
                 }
             ,   { data: 'state' }
             ,   { data: 'city' }
-            ,   { data: 'estimated_value' }
             ,   {
                         data: 'assigned'
                     ,   render: assigned => {
@@ -35,8 +34,20 @@ $(document).ready(function() {
                                     `
                         }
                 }
+            ,   { data: 'estimated_value' }
             ,   {
-                    data:       null
+                    data: null
+                ,   className:  'text-center'
+                ,   render: ({type, is_sold}) => {
+                    return type === 'quotation'
+                        ? (is_sold === 1
+                            ? 'SÍ'
+                            : 'NO')
+                        : '-'
+                }
+            }
+            ,   {
+                data:       null
                 ,   className:  'text-right'
                 ,   render:     data => set_human_datetime(data)
             }

@@ -16,8 +16,9 @@
                 <th data-orderable="false">Contacto</th>
                 <th data-orderable="false">Estado</th>
                 <th data-orderable="false">Ciudad</th>
-                <th data-orderable="false">Estimado</th>
                 <th data-orderable="false">Atendido</th>
+                <th data-orderable="false">Estimado</th>
+                <th data-orderable="false">Vendido</th>
                 <th data-orderable="false">Recibido</th>
                 <th data-orderable="false">Acciones</th>
             </tr>

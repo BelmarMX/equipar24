@@ -1,6 +1,5 @@
 import { number_format, esc_html } from './common.js'
-import Alerts from "../alerts.js";
-
+import Alerts from "../alerts.js"
 $(document).ready(function() {
     /* -----------------------------------------------------------------------------------------------------------------
      * Recalcular precios de la cotización.
@@ -239,5 +238,23 @@ $(document).ready(function() {
         $('#new_quantity').val(1)
 
         recalculate()
+    })
+
+    /* -----------------------------------------------------------------------------------------------------------------
+     * Completar venta
+    ----------------------------------------------------------------------------------------------------------------- */
+    $(document).on('click', '#update_sold_status', function(e){
+        $('[data-loader]').removeClass('hidden')
+
+        axios.post('sold/'+$(this).attr('data-form-id')+'/update', {
+            is_sold: $('#is_sold').val()
+        })
+            .then(({data}) => {
+                console.log('finished change', data)
+            })
+            .catch(error => console.error(error))
+            .finally(O => {
+                $('[data-loader]').addClass('hidden')
+            })
     })
 })

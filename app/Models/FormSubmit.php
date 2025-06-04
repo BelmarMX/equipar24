@@ -25,6 +25,9 @@ class FormSubmit extends Model
         ,   'rejected_by_user_id'
         ,   'approved_at'
         ,   'rejected_at'
+	    ,   'is_bought'
+	    ,   'marked_bought_by'
+	    ,   'marked_bought_at'
     ];
 
     protected $appends  = [
@@ -49,15 +52,20 @@ class FormSubmit extends Model
         return NULL;
     }
 
-    public function approved_by()
+    public function approved_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by_user_id');
     }
 
-    public function rejected_by()
+    public function rejected_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'rejected_by_user_id');
     }
+
+	public function marked_sold_by(): BelongsTo
+	{
+		return $this->belongsTo(User::class, 'marked_sold_by');
+	}
 
     /* ----------------------------------------------------------------------------------------------------------------
      * MUTATORS AND ACCESSORS
@@ -197,9 +205,8 @@ class FormSubmit extends Model
     public function calculate_value_quotation($only_estimated = TRUE)
     {
         if( $this->type == 'contact' )
-        {
-            return NULL;
-        }
+        { return NULL; }
+
         $details                = $this->form_quotation_details()->get();
         $calculated             = new \stdClass();
         $calculated->original   = 0;
